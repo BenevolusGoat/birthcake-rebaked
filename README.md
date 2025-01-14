@@ -1,1 +1,2 @@
-# Birthcake
+# Birthcake: Rebaked
+Birthcake: Rebaked is a simple endevour: Fix the code, because it half-baked! I (Benny) personally found the idea of the mod nice, but failed to be executed properly, as it causes unwanted bugs to users and is a terrible experience making compatibility for. This rewrite of the mod aims to fix up any bugs, allow for much better co-op and modded compatibility, expand EID support via translations, and even make some gameplay adjustments to vanilla characters and add some support for modded characters
