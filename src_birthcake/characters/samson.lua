@@ -1,20 +1,12 @@
 local Mod = BirthcakeRebaked
 local game = Mod.Game
-local SamsonCake = {}
 
--- functions
-
-function SamsonCake:CheckSamson(player)
-	return player:GetPlayerType() == PlayerType.PLAYER_SAMSON
-end
-
-function SamsonCake:CheckSamsonB(player)
-	return player:GetPlayerType() == PlayerType.PLAYER_SAMSON_B
-end
+local SAMSON_CAKE = {}
+BirthcakeRebaked.Trinkets.BIRTHCAKE.SAMSON = SAMSON_CAKE
 
 -- Samson Birthcake
 
-function SamsonCake:BloodLust(ent, amount, flags, source, dmg)
+function SAMSON_CAKE:BloodLust(ent, amount, flags, source, dmg)
 	local player = ent:ToPlayer() ---@cast player EntityPlayer
 	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_SAMSON) then
 		local bloodyLustStack = player:GetEffects():GetCollectibleEffectNum(CollectibleType.COLLECTIBLE_BLOODY_LUST)
@@ -35,23 +27,13 @@ function SamsonCake:BloodLust(ent, amount, flags, source, dmg)
 			end
 		end
 	end
-
 end
 
-Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, SamsonCake.BloodLust, EntityType.ENTITY_PLAYER)
+Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, SAMSON_CAKE.BloodLust, EntityType.ENTITY_PLAYER)
 
 -- Tainted Samson Birthcake
 
-function SamsonCake:NewRoom()
-	local room = game:GetRoom()
-	if room:IsFirstVisit() then
-		gotReward = false
-	end
-end
-
-Mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, SamsonCake.NewRoom)
-
-function SamsonCake:BerserkRoomClear()
+function SAMSON_CAKE:BerserkRoomClear()
 	Mod:ForEachPlayer(function(player)
 		if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_SAMSON_B)
 			and player:GetEffects():HasCollectibleEffect(CollectibleType.COLLECTIBLE_BERSERK)
@@ -69,7 +51,6 @@ function SamsonCake:BerserkRoomClear()
 			end
 		end
 	end)
-
 end
 
-Mod:AddPriorityCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, CallbackPriority.EARLY, SamsonCake.BerserkRoomClear)
+Mod:AddPriorityCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, CallbackPriority.EARLY, SAMSON_CAKE.BerserkRoomClear)

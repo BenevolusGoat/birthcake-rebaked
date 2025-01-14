@@ -51,7 +51,7 @@ BIRTHDAY_PARTY.CharacterRewards = {
 	end,
 	[PlayerType.PLAYER_KEEPER_B] = function(player)
 		player:AddHearts(2)
-		Mod.Characters.KEEPER:SpawnMiniShop()
+		Mod.Trinkets.BIRTHCAKE.KEEPER:SpawnMiniShop()
 	end
 }
 

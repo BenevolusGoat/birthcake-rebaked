@@ -3,11 +3,11 @@ local game = Mod.Game
 
 local JUDAS_CAKE = {}
 
-BirthcakeRebaked.Characters.JUDAS = JUDAS_CAKE
+BirthcakeRebaked.Trinkets.BIRTHCAKE.JUDAS = JUDAS_CAKE
 
 function JUDAS_CAKE:JudasHasBirthcake(player)
 	return (player:GetPlayerType() == PlayerType.PLAYER_JUDAS or player:GetPlayerType() == PlayerType.PLAYER_BLACKJUDAS)
-	and player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID)
+		and player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID)
 end
 
 -- Judas Birthcake

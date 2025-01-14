@@ -1,92 +1,59 @@
 local Mod = BirthcakeRebaked
 local game = Mod.Game
-local AzazelCake = {}
+
+local AZAZEL_CAKE = {}
+BirthcakeRebaked.Trinkets.BIRTHCAKE.AZAZEL = AZAZEL_CAKE
+
 local charge = 0
-local charge2 = 0
 local frameCounter = 0
-local frequency = 10
-
--- functions
-
-function AzazelCake:CheckAzazel(player)
-	return player:GetPlayerType() == PlayerType.PLAYER_AZAZEL
-end
-
-function AzazelCake:CheckAzazelB(player)
-	return player:GetPlayerType() == PlayerType.PLAYER_AZAZEL_B
-end
 
 -- Azazel Birthcake
 
-function AzazelCake:ShootTears()
-	local player = Isaac.GetPlayer(0)
+--TODO: This is kinda lame honestly and doesn't fit with Azazel
 
-	if not AzazelCake:CheckAzazel(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-		return
-	end
-
-	if tostring(player:GetShootingInput()) ~= "0 0" or player:AreOpposingShootDirectionsPressed() then
-		charge = charge + 1
-		if charge >= player.MaxFireDelay then
-			frameCounter = frameCounter + 1
-			if frameCounter % math.floor(player.MaxFireDelay / 2) == 0 then
-				player:FireTear(player.Position, player:GetAimDirection() * 10, false, false, false, player, 0.5)
+function AZAZEL_CAKE:ShootTears(player)
+	if player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
+		if tostring(player:GetShootingInput()) ~= "0 0" or player:AreOpposingShootDirectionsPressed() then
+			charge = charge + 1
+			if charge >= player.MaxFireDelay then
+				frameCounter = frameCounter + 1
+				if frameCounter % math.floor(player.MaxFireDelay / 2) == 0 then
+					player:FireTear(player.Position, player:GetAimDirection() * 10, false, false, false, player, 0.5)
+				end
 			end
+		else
+			charge = 0
 		end
-	else
-		charge = 0
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, AzazelCake.ShootTears)
+Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, AZAZEL_CAKE.ShootTears, PlayerType.PLAYER_AZAZEL)
 
 -- Tainted Azazel Birthcake
 
-function AzazelCake:GetInvertedDirection(vector)
-	return Vector(-vector.X, -vector.Y)
-end
-
-function AzazelCake:Sneeze()
-	local player = Isaac.GetPlayer(0)
-
-	if not AzazelCake:CheckAzazelB(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-		return
-	end
-
-	if tostring(player:GetShootingInput()) ~= "0 0" or player:AreOpposingShootDirectionsPressed() or player.FireDelay > 0 then
-		if charge == 0 then
-			if tostring(player:GetMovementInput()) ~= "0 0" then
-				if tostring(player:GetMovementInput()) == tostring(player:GetShootingInput()) then
-					player:AddVelocity(AzazelCake:GetInvertedDirection(player:GetShootingInput()) * 15)
-				else
-					player:AddVelocity(AzazelCake:GetInvertedDirection(player:GetShootingInput()) * 10)
-				end
-			else
-				player:AddVelocity(AzazelCake:GetInvertedDirection(player:GetShootingInput()) * 8)
-			end
-			charge = charge + 1
-		end
-	else
-		charge = 0
+---@param effect EntityEffect
+function AZAZEL_CAKE:Sneeze(effect)
+	local player = effect.SpawnerEntity and effect.SpawnerEntity:ToPlayer()
+	if player
+		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_AZAZEL_B)
+	then
+		player:AddVelocity(player:GetShootingInput():Rotated(180):Resized(3))
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, AzazelCake.Sneeze)
+Mod:AddCallback(ModCallbacks.MC_POST_EFFECT_INIT, AZAZEL_CAKE.Sneeze, EffectVariant.HAEMO_TRAIL)
 
-function AzazelCake:AzazelSickness(entity, dmg, dmgFlag, dmgSource, dmgCountdownFrames)
-	local player = Isaac.GetPlayer(0)
 
-	if not AzazelCake:CheckAzazelB(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-		return
-	end
+---@param entity Entity
+---@param source EntityRef
+function AZAZEL_CAKE:AzazelSickness(entity, _, flags, source, _)
+	local player = source and source.Entity and source.Entity:ToPlayer()
 
-	Isaac.ConsoleOutput(tostring(dmgFlag))
-
-	if entity:IsEnemy() and dmgSource.Type == EntityType.ENTITY_PLAYER and dmgFlag == 0 then
+	if entity:IsActiveEnemy(false) and player and flags == 0 then
 		if player.FireDelay == -1 then
 			entity:AddPoison(EntityRef(player), 23 * 10, player.Damage)
 		end
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, AzazelCake.AzazelSickness)
+Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, AZAZEL_CAKE.AzazelSickness)

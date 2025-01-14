@@ -2,7 +2,7 @@ local Mod = BirthcakeRebaked
 local game = Mod.Game
 
 local BLUEBABY_CAKE = {}
-BirthcakeRebaked.Characters.BLUEBABY = BLUEBABY_CAKE
+BirthcakeRebaked.Trinkets.BIRTHCAKE.BLUEBABY = BLUEBABY_CAKE
 
 -- Functions
 
@@ -35,7 +35,7 @@ function BLUEBABY_CAKE:SpawnPoop(_, rng, player, _, _, _)
 		if chargeUsed > 12 then
 			chargeUsed = 1
 		end
-		if chargeUsed  == 0 then return end
+		if chargeUsed == 0 then return end
 		for _ = 1, chargeUsed - 1 do
 			local variant = POOP
 			local roll = rng:RandomFloat()
@@ -51,7 +51,6 @@ function BLUEBABY_CAKE:SpawnPoop(_, rng, player, _, _, _)
 			Isaac.Spawn(EntityType.ENTITY_POOP, variant, 0, player.Position, RandomVector():Resized(5), player)
 		end
 	end
-
 end
 
 Mod:AddCallback(ModCallbacks.MC_USE_ITEM, BLUEBABY_CAKE.SpawnPoop)

@@ -2,7 +2,7 @@ local Mod = BirthcakeRebaked
 local game = Mod.Game
 
 local KEEPER_CAKE = {}
-BirthcakeRebaked.Characters.KEEPER = KEEPER_CAKE
+BirthcakeRebaked.Trinkets.BIRTHCAKE.KEEPER = KEEPER_CAKE
 
 -- functions
 

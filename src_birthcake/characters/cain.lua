@@ -2,7 +2,7 @@ local Mod = BirthcakeRebaked
 local game = Mod.Game
 
 local CAIN_BIRTHCAKE = {}
-BirthcakeRebaked.Characters.CAIN = CAIN_BIRTHCAKE
+BirthcakeRebaked.Trinkets.BIRTHCAKE.CAIN = CAIN_BIRTHCAKE
 
 -- Cain Birthcake
 
@@ -40,7 +40,8 @@ function CAIN_BIRTHCAKE:MachineInteraction(player, ent, low)
 	end
 end
 
-Mod:AddPriorityCallback(ModCallbacks.MC_PRE_PLAYER_COLLISION, CallbackPriority.EARLY, CAIN_BIRTHCAKE.MachineInteraction, 0)
+Mod:AddPriorityCallback(ModCallbacks.MC_PRE_PLAYER_COLLISION, CallbackPriority.EARLY, CAIN_BIRTHCAKE.MachineInteraction,
+	0)
 
 function CAIN_BIRTHCAKE:OnSlotInitiate(slot)
 	local data = Mod:GetData(slot)
@@ -107,12 +108,14 @@ function CAIN_BIRTHCAKE:SplitPickup(entType, variant, subType, position, velocit
 	if Mod:AnyPlayerTypeHasBirthcake(PlayerType.PLAYER_CAIN_B)
 		and entType == EntityType.ENTITY_PICKUP
 	then
-		local splitSubType = CAIN_BIRTHCAKE.DoublePickupToSingle[variant] and CAIN_BIRTHCAKE.DoublePickupToSingle[variant][subType]
+		local splitSubType = CAIN_BIRTHCAKE.DoublePickupToSingle[variant] and
+		CAIN_BIRTHCAKE.DoublePickupToSingle[variant][subType]
 		if splitSubType then
-			Isaac.Spawn(entType, variant, splitSubType, Isaac.GetFreeNearPosition(position + Vector(15, 0), 0), velocity, spawner )
+			Isaac.Spawn(entType, variant, splitSubType, Isaac.GetFreeNearPosition(position + Vector(15, 0), 0), velocity,
+				spawner)
 			Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.CLEAVER_SLASH, 0, position, Vector.Zero, nil)
 			Mod.SFXManager:Play(SoundEffect.SOUND_KNIFE_PULL)
-			return { entType, variant, splitSubType, Isaac.GetFreeNearPosition(position - Vector(15, 0), 0), seed}
+			return { entType, variant, splitSubType, Isaac.GetFreeNearPosition(position - Vector(15, 0), 0), seed }
 		end
 	end
 end
@@ -138,7 +141,8 @@ function CAIN_BIRTHCAKE:AddPickup(knife, collider)
 		---@cast pickup EntityPickup
 
 		if roll <= 0.05 then
-			local dupePickup = Isaac.Spawn(pickup.Type, pickup.Variant, pickup.SubType, player.Position, Vector.Zero, pickup.SpawnerEntity):ToPickup()
+			local dupePickup = Isaac.Spawn(pickup.Type, pickup.Variant, pickup.SubType, player.Position, Vector.Zero,
+				pickup.SpawnerEntity):ToPickup()
 			---@cast dupePickup EntityPickup
 			dupePickup:GetSprite():Play("Idle", true)
 			dupePickup.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYERONLY

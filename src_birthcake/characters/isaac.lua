@@ -3,7 +3,7 @@ local game = Mod.Game
 
 local ISAAC_CAKE = {}
 
-BirthcakeRebaked.Characters.ISAAC = ISAAC_CAKE
+BirthcakeRebaked.Trinkets.BIRTHCAKE.ISAAC = ISAAC_CAKE
 
 local frameCounter = 0
 local frequency = 60

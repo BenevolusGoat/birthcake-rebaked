@@ -1,78 +1,46 @@
 local Mod = BirthcakeRebaked
 local game = Mod.Game
-local LazarusCake = {}
-local LazarusItem = {}
-local DeadLazarusItem = {}
-local SharedItem = -1
-local dead = false
-local lazarusRisen = false
-local upgraded = false
 
-
--- functions
-
-function LazarusCake:CheckLazarus(player)
-	return player:GetPlayerType() == PlayerType.PLAYER_LAZARUS or player:GetPlayerType() == PlayerType.PLAYER_LAZARUS2
-end
-
-function LazarusCake:CheckLazarusB(player)
-	return player:GetPlayerType() == PlayerType.PLAYER_LAZARUS_B or
-		player:GetPlayerType() == PlayerType.PLAYER_LAZARUS2_B
-end
+local LAZARUS_CAKE = {}
+BirthcakeRebaked.Trinkets.BIRTHCAKE.LAZARUS = LAZARUS_CAKE
 
 -- Lazarus Birthcake
 
-function LazarusCake:DeathBringer(player, dmg)
-	player = player:ToPlayer()
+---@param ent Entity
+---@param amount integer
+function LAZARUS_CAKE:DeathBringer(ent, amount)
+	local player = ent:ToPlayer()
+	---@cast player EntityPlayer
 
-	if not LazarusCake:CheckLazarus(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-		return nil
-	end
-
-	local health = player:GetHearts() - dmg
-	if health <= 0 and player:WillPlayerRevive() then
-		dead = true
+	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_LAZARUS)
+		and Mod:IsPlayerTakingMortalDamage(player, amount)
+		and player:WillPlayerRevive()
+	then
+		Mod:GetData(player).CheckLazarusRisen = true
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, LazarusCake.DeathBringer, EntityType.ENTITY_PLAYER)
+Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, LAZARUS_CAKE.DeathBringer, EntityType.ENTITY_PLAYER)
 
-function LazarusCake:AliveMonger()
-	local player = game:GetPlayer(0)
-
-	if not LazarusCake:CheckLazarus(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-		return nil
-	end
-
-	local health = player:GetHearts()
-
-	if health > 0 and dead then
-		if player:GetPlayerType() == PlayerType.PLAYER_LAZARUS2 then
-			lazarusRisen = true
-		end
-		dead = false
-		local entites = Isaac.GetRoomEntities()
-		for i = 1, #entites do
-			local entity = entites[i]
-			if entity.Type ~= EntityType.ENTITY_PLAYER and entity.Type ~= EntityType.ENTITY_PICKUP and entity.Type ~= EntityType.ENTITY_POOP and entity.Type ~= EntityType.ENTITY_BOMBDROP and entity.Type ~= EntityType.ENTITY_EFFECT then
-				local damage = 40 * player:GetTrinketMultiplier(Mod.Trinkets.BIRTHCAKE.ID)
-				entity:TakeDamage(damage, 0, EntityRef(player), 0)
-				Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 2, entity.Position, Vector(0, 0), entity)
-					:SetColor(Color(1, 1, 1), 5, 5, false, false)
-				Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, entity.Position, Vector(0, 0), entity)
-					:SetColor(Color(1, 1, 1), 5, 5, false, false)
-				SFXManager():Play(SoundEffect.SOUND_DEATH_CARD)
-			end
+---@param player EntityPlayer
+function LAZARUS_CAKE:AliveMonger(player)
+	if player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID)
+		and Mod:GetAllHearts(player) > 0
+		and Mod:GetData(player).CheckLazarusRisen
+		and player:GetPlayerType() == PlayerType.PLAYER_LAZARUS2
+	then
+		for _ = 1, player:GetTrinketMultiplier(Mod.Trinkets.BIRTHCAKE.ID) do
+			player:UseActiveItem(CollectibleType.COLLECTIBLE_NECRONOMICON, UseFlag.USE_NOANIM)
 		end
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, LazarusCake.AliveMonger)
+Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, LAZARUS_CAKE.AliveMonger, PlayerType.PLAYER_LAZARUS2)
 
-function LazarusCake:NoPenalty()
+function LAZARUS_CAKE:NoPenalty()
 	local player = game:GetPlayer(0)
 
-	if not LazarusCake:CheckLazarus(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
+	if not LAZARUS_CAKE:CheckLazarus(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
 		return nil
 	end
 
@@ -82,25 +50,25 @@ function LazarusCake:NoPenalty()
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, LazarusCake.NoPenalty)
+Mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, LAZARUS_CAKE.NoPenalty)
 
 -- Tainted Lazarus Birthcake
 
-function LazarusCake:NewGame()
-	LazarusItem = {}
+function LAZARUS_CAKE:NewGame()
+	--[[ LazarusItem = {}
 	DeadLazarusItem = {}
 	SharedItem = -1
 	dead = false
 	lazarusRisen = false
-	upgraded = false
+	upgraded = false ]]
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, LazarusCake.NewGame)
+Mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, LAZARUS_CAKE.NewGame)
 
-function LazarusCake:UpdateItems()
-	local player = game:GetPlayer(0)
+function LAZARUS_CAKE:UpdateItems()
+	--[[ local player = game:GetPlayer(0)
 
-	if not LazarusCake:CheckLazarusB(player) then
+	if not LAZARUS_CAKE:CheckLazarusB(player) then
 		return
 	end
 
@@ -153,14 +121,14 @@ function LazarusCake:UpdateItems()
 		if upgraded and itemConfig.Quality == 0 then
 			table.remove(DeadLazarusItem, i)
 		end
-	end
+	end ]]
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, LazarusCake.UpdateItems)
+Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, LAZARUS_CAKE.UpdateItems)
 
-function LazarusCake:Gift()
-	local player = game:GetPlayer(0)
-	if not LazarusCake:CheckLazarusB(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
+function LAZARUS_CAKE:Gift()
+	--[[ local player = game:GetPlayer(0)
+	if not LAZARUS_CAKE:CheckLazarusB(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
 		return nil
 	end
 
@@ -184,7 +152,7 @@ function LazarusCake:Gift()
 	Isaac.ConsoleOutput("Shared Item: " .. tostring(SharedItem) .. "\n")
 	if SharedItem ~= -1 then
 		player:GetEffects():AddCollectibleEffect(SharedItem)
-	end
+	end ]]
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, LazarusCake.Gift)
+Mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, LAZARUS_CAKE.Gift)
