@@ -10,6 +10,7 @@ BirthcakeRebaked.SFX = {
 }
 BirthcakeRebaked.Trinkets = {}
 BirthcakeRebaked.Challenges = {}
+BirthcakeRebaked.HiddenItemManager = include("src_birthcake.utility.vendor.hidden_item_manager")
 
 local trinketPath = "gfx/items/trinkets/"
 
@@ -185,7 +186,9 @@ BirthcakeRebaked.Config = {
 BirthcakeRebaked.Callbacks = {
 	GET_BIRTHCAKE_NAME = "BIRTHCAKE_GET_BIRTHCAKE_NAME",
 	GET_BIRTHCAKE_DESCRIPTION = "BIRTHCAKE_GET_BIRTHCAKE_DESCRIPTION",
-	LOAD_BIRTHCAKE_SPRITE = "BIRTHCAKE_LOAD_BIRTHCAKE_SPRITE"
+	LOAD_BIRTHCAKE_SPRITE = "BIRTHCAKE_LOAD_BIRTHCAKE_SPRITE",
+	PRE_BIRTHCAKE_RENDER = "BIRTHCAKE_PRE_BIRTHCAKE_RENDER",
+	POST_BIRTHCAKE_RENDER = "BIRTHCAKE_POST_BIRTHCAKE_RENDER"
 }
 
 --[[ Mod.TrinketDesc = {
@@ -363,7 +366,7 @@ BirthcakeRebaked.Callbacks = {
 	[36] =
 	{
 		["Normal"] = "The next use of lemegeton will consume this trinket and spawn 2 lemegeton wisps that draw from the current room's item pool";
-		["Golden"] = "{{ColorGold}}Allow lemegeton to spawn 2 lemegeton wisps that draw from the current room's item pool # {{ColorText}}Chance to turn into a regular {{Trinket"..Mod.Trinkets.BIRTHCAKE.ID.."}}Birthcake after this occurs";
+		["Golden"] = "{{ColorGold}}Allow lemegeton to spawn 2 lemegeton wisps that draw from the current room's item pool # {{ColorText}}Chance to turn into a regular {{Trinket"..Mod.Birthcake.ID.."}}Birthcake after this occurs";
 	};
 	---- Jacob & Esau -----
 	[19] =
@@ -377,12 +380,12 @@ BirthcakeRebaked.Callbacks = {
 	[37] =
 	{
 		["Normal"] = "Dark Esau consumes the cake upon damaging Jacob, preventing him from turning into The Lost # After this occurs, Dark Esau and Anima Sola will target enemies for the rest of the floor";
-		["Golden"] = "{{ColorGold}}Allow Jacob to get a free hit from Dark Esau, preventing him from turning into The Lost # {{ColorText}}After this occurs, Dark Esau and Anima Sola will target enemies for the rest of the floor #Chance to turn into a regular {{Trinket"..Mod.Trinkets.BIRTHCAKE.ID.."}}Birthcake after being hit";
+		["Golden"] = "{{ColorGold}}Allow Jacob to get a free hit from Dark Esau, preventing him from turning into The Lost # {{ColorText}}After this occurs, Dark Esau and Anima Sola will target enemies for the rest of the floor #Chance to turn into a regular {{Trinket"..Mod.Birthcake.ID.."}}Birthcake after being hit";
 	};
 	[39] =
 	{
 		["Normal"] = "Dark Esau consumes the cake upon damaging Jacob, preventing him from turning into The Lost # After this occurs, Dark Esau and Anima Sola will target enemies for the rest of the floor";
-		["Golden"] = "{{ColorGold}}Allow Jacob to get a free hit from Dark Esau, preventing him from turning into The Lost # {{ColorText}}After this occurs, Dark Esau and Anima Sola will target enemies for the rest of the floor #Chance to turn into a regular {{Trinket"..Mod.Trinkets.BIRTHCAKE.ID.."}}Birthcake after being hit";
+		["Golden"] = "{{ColorGold}}Allow Jacob to get a free hit from Dark Esau, preventing him from turning into The Lost # {{ColorText}}After this occurs, Dark Esau and Anima Sola will target enemies for the rest of the floor #Chance to turn into a regular {{Trinket"..Mod.Birthcake.ID.."}}Birthcake after being hit";
 	};
 } ]]
 
@@ -395,8 +398,9 @@ BirthcakeRebaked.Callbacks = {
 } ]]
 
 include("src_birthcake.utility.hud_helper")
+include("src_birthcake.utility.rgon_enums")
 include("src_birthcake.utility.misc_util")
-include("src_birthcake.mcm")
+--include("src_birthcake.mcm")
 include("src_birthcake.trinket_birthcake")
 include("src_birthcake.challenge_birthday_party")
 
@@ -409,7 +413,7 @@ function BirthcakeRebaked:ItemDesc(player)
 	if not data.HoldingBirthcake
 		and queuedItem
 		and queuedItem.Type == ItemType.ITEM_TRINKET
-		and queuedItem.ID == Mod.Trinkets.BIRTHCAKE.ID
+		and queuedItem.ID == Mod.Birthcake.ID
 	then
 		data.HoldingBirthcake = true
 		local config = Mod.Config[playerType]
@@ -470,7 +474,7 @@ local function round(number, precision)
 end
  function BirthcakeLocals:ChangeDesc()
 	local player = Isaac.GetPlayer(0)
-	if EID and player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
+	if EID and player:HasTrinket(Mod.Birthcake.ID) then
 		local name = ""
 		local ptype = player:GetPlayerType()
 		local entity = player:GetTrinket(0)
@@ -490,13 +494,13 @@ end
 			local dmg = round(player.Damage * 0.2, 2)
 			local desc = "↑ +" ..
 				tostring(dmg) .. " damage #Grants +1 black heart when selling all of your red health to a devil deal"
-			EID:addTrinket(Mod.Trinkets.BIRTHCAKE.ID, desc, name)
+			EID:addTrinket(Mod.Birthcake.ID, desc, name)
 		elseif ptype == PlayerType.PLAYER_EDEN then
 			if ImitedItem ~= 0 then
 				local desc =
 					"Imitates a random passive item # Is guaranteed to imitate a Q4 item if eden started with a Q0 or Q1 item # Imited item: {{Collectible" ..
 					tostring(ImitedItem) .. "}}"
-				EID:addTrinket(Mod.Trinkets.BIRTHCAKE.ID, desc, name)
+				EID:addTrinket(Mod.Birthcake.ID, desc, name)
 			end
 		else
 			local desc = ""
@@ -506,13 +510,13 @@ end
 				desc = Mod.TrinketDesc[ptype]["Upgraded"]
 			elseif player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_BOX) and Mod.TrinketDesc[ptype]["Mom's Box"] ~= nil then
 				desc = Mod.TrinketDesc[ptype]["Mom's Box"]
-			elseif player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID + TrinketType.TRINKET_GOLDEN_FLAG) and Mod.TrinketDesc[ptype]["Golden"] then
+			elseif player:HasTrinket(Mod.Birthcake.ID + TrinketType.TRINKET_GOLDEN_FLAG) and Mod.TrinketDesc[ptype]["Golden"] then
 				desc = Mod.TrinketDesc[ptype]["Golden"]
 			else
 				desc = Mod.TrinketDesc[ptype]["Normal"]
 			end
 
-			if player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID + TrinketType.TRINKET_GOLDEN_FLAG) and Mod.TrinketDesc[ptype]["+Golden"] then
+			if player:HasTrinket(Mod.Birthcake.ID + TrinketType.TRINKET_GOLDEN_FLAG) and Mod.TrinketDesc[ptype]["+Golden"] then
 				desc = desc .. Mod.TrinketDesc[ptype]["+Golden"]
 			end
 
@@ -535,7 +539,7 @@ end
 				end
 			end
 
-			EID:addTrinket(Mod.Trinkets.BIRTHCAKE.ID, desc, name)
+			EID:addTrinket(Mod.Birthcake.ID, desc, name)
 		end
 	end
 end

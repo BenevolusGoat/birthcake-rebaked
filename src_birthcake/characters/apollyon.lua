@@ -1,118 +1,126 @@
 local Mod = BirthcakeRebaked
 local game = Mod.Game
-local ApollyonCake = {}
-local VoidConsumedTrinkets = {}
-local hasVoid = true
 
--- functions
+local APOLLYON_CAKE = {}
+BirthcakeRebaked.Birthcake.APOLLYON = APOLLYON_CAKE
 
-function ApollyonCake:CheckApollyon(player)
-	return player:GetPlayerType() == PlayerType.PLAYER_APOLLYON
-end
-
-function ApollyonCake:CheckApollyonB(player)
-	return player:GetPlayerType() == PlayerType.PLAYER_APOLLYON_B
-end
-
--- Apollyon Birthcake
-
-function ApollyonCake:NewGame()
-	VoidConsumedTrinkets = {}
-	hasVoid = true
-end
-
-Mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, ApollyonCake.NewGame)
-
-function ApollyonCake:TrinketConsumer(collectible, rng, player, useFlags, activeSlot, vardata)
-	if not ApollyonCake:CheckApollyon(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-		return nil
+---@param player EntityPlayer
+---@param trinketList {TrinketType: TrinketType, FirstTime: boolean}[] | TrinketType[]
+function APOLLYON_CAKE:AddVoidedTrinkets(player, trinketList)
+	local trinket0 = player:GetTrinket(0)
+	local trinket1 = player:GetTrinket(1)
+	if not REPENTOGON then
+		player:TryRemoveTrinket(trinket0)
+		player:TryRemoveTrinket(trinket1)
 	end
+	for _, trinketData in ipairs(trinketList) do
+		local trinketID = type(trinketData) == "table" and trinketData.TrinketType or trinketData
+		local firstPickup = type(trinketData) == "table" and trinketData.FirstTime or false
+		---@cast trinketID TrinketType
+		---@cast firstPickup boolean
 
-	local room = game:GetRoom()
-	local entities = room:GetEntities()
-	player:TryRemoveTrinket(Mod.Trinkets.BIRTHCAKE.ID)
-	for i = 0, #entities - 1 do
-		local entity = entities:Get(i)
-		if entity then
-			if entity.Type == EntityType.ENTITY_PICKUP and entity.Variant == PickupVariant.PICKUP_TRINKET then
-				local trinket = entity.SubType
-				table.insert(VoidConsumedTrinkets, trinket)
-				entity:Remove()
-				player:AddTrinket(trinket)
-				player:UseActiveItem(CollectibleType.COLLECTIBLE_SMELTER, false, false, false, false)
-				if player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-					player:TryRemoveTrinket(Mod.Trinkets.BIRTHCAKE.ID)
-				end
+		if REPENTOGON then
+			player:AddSmeltedTrinket(trinketID)
+		else
+			player:AddTrinket(trinketID, firstPickup)
+			player:UseActiveItem(CollectibleType.COLLECTIBLE_SMELTER, UseFlag.USE_NOANIM)
+		end
+	end
+	if not REPENTOGON then
+		player:AddTrinket(trinket0)
+		player:AddTrinket(trinket1)
+	end
+end
+
+---@param player EntityPlayer
+function APOLLYON_CAKE:OnPlayerInit(player)
+	local player_run_save = Mod.SaveManager.GetRunSave(player)
+	player_run_save.ApollyonBirthcakeHasVoid = player:HasCollectible(CollectibleType.COLLECTIBLE_VOID)
+end
+
+Mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, APOLLYON_CAKE.OnPlayerInit)
+
+---@param player EntityPlayer
+function APOLLYON_CAKE:OnVoidUse(itemID, player, rng, flags, slot, varData)
+	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_APOLLYON) then
+		local player_run_save = Mod.SaveManager.GetRunSave(player)
+		local trinketList = {}
+		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET)) do
+			local pickup = ent:ToPickup()
+			---@cast pickup EntityPickup
+			table.insert(trinketList, {TrinketType = pickup.SubType, FirstTime = pickup.Touched})
+			local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, pickup.Position, Vector.Zero, nil)
+			poof.SpriteScale = Vector(0.5, 0.5)
+			poof.Color = Color(1, 0, 0.65)
+			pickup.Timeout = 4
+
+			player_run_save.ApollyonBirthcakeTrinkets = player_run_save.ApollyonBirthcakeTrinkets or {}
+			player_run_save.ApollyonBirthcakeTrinkets[tostring(pickup.SubType)] = (player_run_save.ApollyonBirthcakeTrinkets[tostring(pickup.SubType)] or 0) + 1
+		end
+		if #trinketList > 0 then
+			APOLLYON_CAKE:AddVoidedTrinkets(player, trinketList)
+		end
+	end
+end
+
+---@param player EntityPlayer
+---@param trinketList {[string]: integer}[]
+function APOLLYON_CAKE:RemoveVoidedTrinkets(player, trinketList)
+	for trinketIDStr, trinketNum in pairs(trinketList) do
+		local trinketID = tonumber(trinketIDStr)
+		---@cast trinketID TrinketType
+
+		for _ = 1, trinketNum do
+			if REPENTOGON then
+				player:TryRemoveSmeltedTrinket(trinketID)
+			else
+				player:TryRemoveTrinket(trinketID)
 			end
 		end
 	end
-	player:AddTrinket(Mod.Trinkets.BIRTHCAKE.ID)
 end
 
-Mod:AddCallback(ModCallbacks.MC_USE_ITEM, ApollyonCake.TrinketConsumer, CollectibleType.COLLECTIBLE_VOID)
-
-function ApollyonCake:TrinketUpdate()
-	local player = game:GetPlayer(0)
-	if not player:HasCollectible(CollectibleType.COLLECTIBLE_VOID) then
-		for i = 1, #VoidConsumedTrinkets do
-			player:TryRemoveTrinket(VoidConsumedTrinkets[i])
+---@param player EntityPlayer
+function APOLLYON_CAKE:ManageVoidedTrinkets(player)
+	if not player:HasTrinket(Mod.Birthcake.ID) then return end
+	local player_run_save = Mod.SaveManager.GetRunSave(player)
+	if player_run_save.ApollyonBirthcakeHasVoid and not player:HasCollectible(CollectibleType.COLLECTIBLE_VOID) then
+		player_run_save.ApollyonBirthcakeHasVoid = false
+		local trinketList = player_run_save.ApollyonBirthcakeTrinkets
+		if trinketList then
+			APOLLYON_CAKE:RemoveVoidedTrinkets(player, trinketList)
 		end
-		hasVoid = false
-	end
-	if not ApollyonCake:CheckApollyon(player) then
-		return
-	end
-	if player:HasCollectible(CollectibleType.COLLECTIBLE_VOID) and not hasVoid then
-		hasVoid = true
-		local hadCake = player:TryRemoveTrinket(Mod.Trinkets.BIRTHCAKE.ID)
-		for i = 1, #VoidConsumedTrinkets do
-			player:AddTrinket(VoidConsumedTrinkets[i])
-			player:UseActiveItem(CollectibleType.COLLECTIBLE_SMELTER, false, false, false, false)
-			if player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-				hadCake = player:TryRemoveTrinket(Mod.Trinkets.BIRTHCAKE.ID)
-			end
-		end
-		if hadCake then
-			player:AddTrinket(Mod.Trinkets.BIRTHCAKE.ID)
+	elseif not player_run_save.ApollyonBirthcakeHasVoid and player:HasCollectible(CollectibleType.COLLECTIBLE_VOID) then
+		local trinketList = player_run_save.ApollyonBirthcakeTrinkets
+		if trinketList then
+			APOLLYON_CAKE:AddVoidedTrinkets(player, trinketList)
 		end
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, ApollyonCake.TrinketUpdate)
+Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, APOLLYON_CAKE.ManageVoidedTrinkets, PlayerType.PLAYER_APOLLYON)
 
 -- Apollyon B Birthcake
 
-function ApollyonCake:TaintedTrinketConsumer(collectible, rng, player, useFlags, activeSlot, vardata)
-	if not ApollyonCake:CheckApollyonB(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-		return nil
-	end
+function APOLLYON_CAKE:TaintedTrinketConsumer(_, _, player, _, _, _)
+	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_APOLLYON_B) then
+		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET)) do
+			local pickup = ent:ToPickup()
+			---@cast pickup EntityPickup
 
-	local room = game:GetRoom()
-	local entities = room:GetEntities()
-	for i = 0, #entities - 1 do
-		local entity = entities:Get(i)
-		if entity then
-			if entity.Type == EntityType.ENTITY_PICKUP and entity.Variant == PickupVariant.PICKUP_TRINKET then
-				local trinket = entity.SubType
-				entity:Remove()
-				local locust = Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ABYSS_LOCUST, 10, entity.Position,
-					Vector(0, 0), player)
-				Isaac.ConsoleOutput(tostring(locust.CollisionDamage))
+			local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, pickup.Position, Vector.Zero, nil)
+			poof.SpriteScale = Vector(0.5, 0.5)
+			poof.Color = Color(1, 0, 0)
+			pickup.Timeout = 4
+
+			if REPENTOGON then
+				player:AddLocust(CollectibleType.COLLECTIBLE_HALO_OF_FLIES, pickup.Position)
+			else
+				Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ABYSS_LOCUST, CollectibleType.COLLECTIBLE_HALO_OF_FLIES,
+				pickup.Position, Vector.Zero, player)
 			end
 		end
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_USE_ITEM, ApollyonCake.TaintedTrinketConsumer, CollectibleType.COLLECTIBLE_ABYSS)
-
-function ApollyonCake:Test()
-	local room = game:GetRoom()
-	local entities = room:GetEntities()
-	for i = 0, #entities - 1 do
-		if entities:Get(i).Type == EntityType.ENTITY_FAMILIAR and entities:Get(i).Variant == FamiliarVariant.ABYSS_LOCUST then
-			Isaac.ConsoleOutput("Familiar: " .. tostring(entities:Get(i).CollisionDamage) .. "\n")
-		end
-	end
-end
-
-Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, ApollyonCake.Test)
+Mod:AddCallback(ModCallbacks.MC_USE_ITEM, APOLLYON_CAKE.TaintedTrinketConsumer, CollectibleType.COLLECTIBLE_ABYSS)

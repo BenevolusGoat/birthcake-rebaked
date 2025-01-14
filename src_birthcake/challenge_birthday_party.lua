@@ -1,7 +1,7 @@
 local Mod = BirthcakeRebaked
 
 local BIRTHDAY_PARTY = {}
-BirthcakeRebaked.Challenges.BIRTHDAY_PARTY = BIRTHDAY_PARTY
+BirthcakeRebaked.CHALLENGE_BIRTHDAY_PARTY = BIRTHDAY_PARTY
 
 BIRTHDAY_PARTY.ID = Isaac.GetChallengeIdByName("Isaac's Birthday Party")
 
@@ -51,14 +51,14 @@ BIRTHDAY_PARTY.CharacterRewards = {
 	end,
 	[PlayerType.PLAYER_KEEPER_B] = function(player)
 		player:AddHearts(2)
-		Mod.Trinkets.BIRTHCAKE.KEEPER:SpawnMiniShop()
+		Mod.Birthcake.KEEPER:SpawnMiniShop()
 	end
 }
 
 function BIRTHDAY_PARTY:OnChallengeStart()
 	if Isaac.GetChallenge() == BIRTHDAY_PARTY.ID then
 		local room = Mod.Game:GetRoom()
-		Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, Mod.Trinkets.BIRTHCAKE.ID,
+		Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, Mod.Birthcake.ID,
 			room:GetCenterPos(), Vector.Zero, nil)
 	end
 end
@@ -72,8 +72,8 @@ function BIRTHDAY_PARTY:SwitchCharacter()
 		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PLAYER)) do
 			local player = ent:ToPlayer() ---@cast player EntityPlayer
 			local playerType = player:GetPlayerType()
-			if player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-				player:TryRemoveTrinket(Mod.Trinkets.BIRTHCAKE.ID)
+			if player:HasTrinket(Mod.Birthcake.ID) then
+				player:TryRemoveTrinket(Mod.Birthcake.ID)
 			end
 
 			player:ChangePlayerType(BIRTHDAY_PARTY.CharacterLineSkip[playerType] or playerType)
@@ -87,7 +87,7 @@ function BIRTHDAY_PARTY:SwitchCharacter()
 			end
 
 			BIRTHDAY_PARTY.CharacterRewards[playerType](player)
-			player:QueueItem(Isaac.GetItemConfig():GetTrinket(Mod.Trinkets.BIRTHCAKE.ID))
+			player:QueueItem(Isaac.GetItemConfig():GetTrinket(Mod.Birthcake.ID))
 		end
 	end
 end

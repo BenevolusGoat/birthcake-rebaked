@@ -1,16 +1,21 @@
 local Mod = BirthcakeRebaked
 local game = Mod.Game
-local JacobCake = {}
-local BirthcakeUsed = false
+
+local JACOB_ESAU_CAKE = {}
+BirthcakeRebaked.Birthcake.JACOB_AND_ESAU = JACOB_ESAU_CAKE
+
+JACOB_ESAU_CAKE.STAT_SHARE_MULT = 0.1
 
 -- functions
 
-function JacobCake:CheckJacob(player)
-	return player:GetPlayerType() == PlayerType.PLAYER_JACOB or player:GetPlayerType() == PlayerType.PLAYER_ESAU
+function JACOB_ESAU_CAKE:CheckJacobEsau(player)
+	return (player:GetPlayerType() == PlayerType.PLAYER_JACOB or player:GetPlayerType() == PlayerType.PLAYER_ESAU)
+	and player:HasTrinket(Mod.Birthcake.ID)
 end
 
-function JacobCake:CheckJacobB(player)
-	return player:GetPlayerType() == PlayerType.PLAYER_JACOB_B
+function JACOB_ESAU_CAKE:CheckTaintedJacob(player)
+	return (player:GetPlayerType() == PlayerType.PLAYER_JACOB_B or player:GetPlayerType() == PlayerType.PLAYER_JACOB2_B)
+	and player:HasTrinket(Mod.Birthcake.ID)
 end
 
 -- Jacob Birthcake
@@ -21,153 +26,61 @@ local function tearsUpAdd(firedelay, val)
 	return math.max((30 / newTears) - 1, -0.99)
 end
 
-
-function JacobCake:Share(player, flag)
-	if not JacobCake:CheckJacob(player) then
-		return
-	end
-
-	local otherTwin = player:GetOtherTwin()
-	local playerType = player:GetPlayerType()
-
-	if player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-		if flag == CacheFlag.CACHE_DAMAGE then
-			player.Damage = player.Damage + (otherTwin.Damage) * 0.25
+---@param player EntityPlayer
+---@param flag CacheFlag
+function JACOB_ESAU_CAKE:ShareTwinStats(player, flag)
+	if JACOB_ESAU_CAKE:CheckJacobEsau(player)
+		and player:GetOtherTwin()
+	then
+		local otherTwin = player:GetOtherTwin()
+		if Mod:HasBitFlags(flag, CacheFlag.CACHE_DAMAGE) then
+			player.Damage = player.Damage + (otherTwin.Damage) * JACOB_ESAU_CAKE.STAT_SHARE_MULT
 		end
-		if flag == CacheFlag.CACHE_SHOTSPEED then
-			player.ShotSpeed = player.ShotSpeed + (otherTwin.ShotSpeed) * 0.25
+		if Mod:HasBitFlags(flag, CacheFlag.CACHE_SHOTSPEED) then
+			player.ShotSpeed = player.ShotSpeed + (otherTwin.ShotSpeed) * JACOB_ESAU_CAKE.STAT_SHARE_MULT
 		end
-		if flag == CacheFlag.CACHE_SPEED then
-			player.MoveSpeed = player.MoveSpeed + (otherTwin.MoveSpeed) * 0.25
+		if Mod:HasBitFlags(flag, CacheFlag.CACHE_SPEED) then
+			player.MoveSpeed = player.MoveSpeed + (otherTwin.MoveSpeed) * JACOB_ESAU_CAKE.STAT_SHARE_MULT
 		end
-		if flag == CacheFlag.CACHE_RANGE then
-			player.TearRange = player.TearRange + (otherTwin.TearRange) * 0.25
+		if Mod:HasBitFlags(flag, CacheFlag.CACHE_RANGE) then
+			player.TearRange = player.TearRange + (otherTwin.TearRange) * JACOB_ESAU_CAKE.STAT_SHARE_MULT
 		end
-		if flag == CacheFlag.CACHE_FIREDELAY then
-			local value = (30 / otherTwin.MaxFireDelay) * 0.25
+		if Mod:HasBitFlags(flag, CacheFlag.CACHE_FIREDELAY) then
+			local value = (30 / otherTwin.MaxFireDelay) * JACOB_ESAU_CAKE.STAT_SHARE_MULT
 			player.MaxFireDelay = tearsUpAdd(player.MaxFireDelay, value)
 		end
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, JacobCake.Share)
+Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, JACOB_ESAU_CAKE.ShareTwinStats)
 
 -- Tainted Jacob
 
-function JacobCake:NewFloor()
-	BirthcakeUsed = false
-end
-
-Mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, JacobCake.NewFloor)
-
-function JacobCake:Live(player, dmg, flag, source, cdframes)
-	player = player:ToPlayer()
-	if not JacobCake:CheckJacobB(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-		return nil
-	end
-
-	if source.Type == EntityType.ENTITY_DARK_ESAU then
-		if Mod:GetTrinketMult(player) > 1 then
-			local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
-			local roll = rng:RandomFloat()
-			if roll < 0.5 then
-				player:TryRemoveTrinket(Mod.Trinkets.BIRTHCAKE.ID)
-				player:AddTrinket(Mod.Trinkets.BIRTHCAKE.ID)
-			end
-		else
-			player:TryRemoveTrinket(Mod.Trinkets.BIRTHCAKE.ID)
+---@param ent Entity
+---@param amount integer
+---@param flags DamageFlag
+---@param source EntityRef
+---@param countdownFrames integer
+function JACOB_ESAU_CAKE:ConsumeJacobCake(ent, amount, flags, source, countdownFrames)
+	if ent:ToPlayer()
+		and JACOB_ESAU_CAKE:CheckTaintedJacob(ent:ToPlayer())
+		and source
+		and source.Entity
+		and source.Entity.Type == EntityType.ENTITY_DARK_ESAU
+		and not Mod:HasBitFlags(flags, DamageFlag.DAMAGE_FAKE)
+	then
+		local player = ent:ToPlayer()
+		---@cast player EntityPlayer
+		local npc = source.Entity
+		local floor_save = Mod.SaveManager.GetFloorSave()
+		if not floor_save.DarkEsauBirthcake or not floor_save.DarkEsauBirthcake[tostring(npc.InitSeed)] then
+			floor_save.DarkEsauBirthcake = floor_save.DarkEsauBirthcake or {}
+			floor_save.DarkEsauBirthcake[tostring(npc.InitSeed)] = true
 		end
-		BirthcakeUsed = true
-		player:SetMinDamageCooldown(cdframes)
+		player:TryRemoveTrinket(Mod.Birthcake.ID)
+		player:TakeDamage(0, flags | DamageFlag.DAMAGE_FAKE, source, countdownFrames)
 		return false
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, JacobCake.Live, EntityType.ENTITY_PLAYER)
-
-function JacobCake:EsauTarget()
-	local entities = Isaac.GetRoomEntities()
-
-	if not BirthcakeUsed then
-		return
-	end
-
-	for i = 1, #entities do
-		local entity = entities[i]
-		if entity.Type == EntityType.ENTITY_DARK_ESAU and entity.Target and entity.Target.Type == EntityType.ENTITY_PLAYER then
-			for j = 1, #entities do
-				local entity2 = entities[j]
-				if entity2.Type ~= EntityType.ENTITY_PLAYER and entity2:IsEnemy() and entity2.Type ~= EntityType.ENTITY_DARK_ESAU then
-					entity.Target = entity2
-				end
-			end
-		elseif entity.Type == EntityType.ENTITY_DARK_ESAU and not entity.Target then
-			for j = 1, #entities do
-				local entity2 = entities[j]
-				if entity2.Type ~= EntityType.ENTITY_PLAYER and entity2:IsEnemy() and entity2.Type ~= EntityType.ENTITY_DARK_ESAU then
-					entity.Target = entity2
-				end
-			end
-		end
-	end
-end
-
-Mod:AddCallback(ModCallbacks.MC_POST_RENDER, JacobCake.EsauTarget)
-
-function JacobCake:AnimaSolaTarget(collectibleID, rngObj, player, useFlags, activeSlot, varData)
-	local entities = Isaac.GetRoomEntities()
-	local nearest = nil
-
-	if not BirthcakeUsed then
-		return nil
-	end
-
-	for i = 1, #entities do
-		local entity = entities[i]
-		if entity.Type ~= EntityType.ENTITY_DARK_ESAU and entity.Type ~= EntityType.ENTITY_PLAYER and entity:IsEnemy() then
-			if nearest == nil then
-				nearest = entity
-			else
-				if entity.Position:DistanceSquared(player.Position) < nearest.Position:DistanceSquared(player.Position) then
-					nearest = entity
-				end
-			end
-		end
-	end
-	player:AnimateCollectible(CollectibleType.COLLECTIBLE_ANIMA_SOLA, "UseItem", "PlayerPickupSparkle")
-	local chain = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.ANIMA_CHAIN, 0, nearest.Position, Vector(0, 0),
-		player)
-	chain.Target = nearest
-	chain = chain:ToEffect()
-	chain.Timeout = 146
-	return true
-end
-
-Mod:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, JacobCake.AnimaSolaTarget, CollectibleType.COLLECTIBLE_ANIMA_SOLA)
-
--- function JacobCake:Test()
---     local player = Isaac.GetPlayer(0)
---     local roomCenter = game:GetRoom():GetCenterPos()
-
---     local entities = Isaac.GetRoomEntities()
---     for i = 1, #entities do
---         local entity = entities[i]
---         if entity.Type == EntityType.ENTITY_EFFECT and entity.Variant == EffectVariant.ANIMA_CHAIN then
---             entity = entity:ToEffect()
---             Isaac.ConsoleOutput(entity.Timeout .. "\n")
---         end
---     end
-
---     if BirthcakeUsed then
---         return
---     end
-
---     BirthcakeUsed = true
-
---     local chain = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.ANIMA_CHAIN, 0,player.Position , Vector(0,0), player)
---     chain.Target = player
---     chain = chain:ToEffect()
---     chain.Timeout = 146
--- end
-
--- Mod:AddCallback(ModCallbacks.MC_POST_RENDER, JacobCake.Test)
+Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, JACOB_ESAU_CAKE.ConsumeJacobCake, EntityType.ENTITY_PLAYER)

@@ -1,24 +1,5 @@
 local Mod = BirthcakeRebaked
 
---This method is faster than :GetData()
-local birthcakeData = {}
-
----@param entity Entity
-function BirthcakeRebaked:GetData(entity)
-	local ptrHash = GetPtrHash(entity)
-	local data = birthcakeData[ptrHash]
-	if not data then
-		local newData = {}
-		birthcakeData[ptrHash] = newData
-		data = newData
-	end
-	return data
-end
-
-Mod:AddPriorityCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, CallbackPriority.LATE, function(_, ent)
-	birthcakeData[GetPtrHash(ent)] = nil
-end)
-
 function BirthcakeRebaked:IsInList(item, table)
 	for _, v in pairs(table) do
 		if v == item then
@@ -26,25 +7,6 @@ function BirthcakeRebaked:IsInList(item, table)
 		end
 	end
 	return false
-end
-
----@param trinketID TrinketType
----@param isGolden boolean?
-function BirthcakeRebaked:IsBirthcake(trinketID, isGolden)
-	if trinketID == Mod.Trinkets.BIRTHCAKE.ID then
-		local golden = Mod.Trinkets.BIRTHCAKE.ID + TrinketType.TRINKET_GOLDEN_FLAG
-		if isGolden ~= nil then
-			return (not isGolden and not golden) or (isGolden and golden)
-		else
-			return true
-		end
-	end
-	return false
-end
-
----@param player EntityPlayer
-function BirthcakeRebaked:GetTrinketMult(player)
-	return player:GetTrinketMultiplier(Mod.Trinkets.BIRTHCAKE.ID)
 end
 
 ---Executes given function for every player
@@ -64,42 +26,6 @@ function BirthcakeRebaked:ForEachPlayer(func)
 			end
 		end
 	end
-end
-
----@param player EntityPlayer
----@param playerType PlayerType
-function BirthcakeRebaked:PlayerTypeHasBirthcake(player, playerType)
-	return player:GetPlayerType() == playerType and player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID)
-end
-
---- Returns true if any players have given trinket
----@param playerType PlayerType
----@function
-function BirthcakeRebaked:AnyPlayerTypeHasBirthcake(playerType)
-	local hasTrinket = false
-	Mod:ForEachPlayer(function(player)
-		if player:GetPlayerType() == playerType and player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-			hasTrinket = true
-			return true
-		end
-	end)
-
-	return hasTrinket
-end
-
---- Returns true if any players have given trinket
----@param playerType PlayerType
----@function
-function BirthcakeRebaked:FirstPlayerTypeBirthcakeOwner(playerType)
-	local birthcakePlayer
-	Mod:ForEachPlayer(function(player)
-		if player:GetPlayerType() == playerType and player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-			birthcakePlayer = player
-			return true
-		end
-	end)
-
-	return birthcakePlayer
 end
 
 ---@param pool ItemPoolType
@@ -144,7 +70,7 @@ BirthcakeRebaked.PickupPool = {
 ---@param pos Vector
 function BirthcakeRebaked:SpawnRandomPickup(pos, price)
 	local player = Mod.Game:GetPlayer(0)
-	local rng = player:GetTrinketRNG(Mod.Trinkets.BIRTHCAKE.ID)
+	local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
 	local pickupVarSub = BirthcakeRebaked.PickupPool[rng:RandomInt(#BirthcakeRebaked.PickupPool) + 1]
 	local variant = pickupVarSub.Variant
 	local subType = type(pickupVarSub.SubType) == "function" and pickupVarSub.SubType(rng) or pickupVarSub.SubType
@@ -169,6 +95,17 @@ end
 
 function BirthcakeRebaked:IsPlayerTakingMortalDamage(player, amount)
 	return BirthcakeRebaked:GetAllHearts(player) - amount <= 0
-	and not ((player:GetSoulHearts() > 0 or player:GetBoneHearts() > 0)
-		and player:GetHearts() > 0) --Soul/Bone Hearts will protect your red health, no matter how much damage you take
+		and not ((player:GetSoulHearts() > 0 or player:GetBoneHearts() > 0)
+			and player:GetHearts() > 0) --Soul/Bone Hearts will protect your red health, no matter how much damage you take
+end
+
+---Returns true if the first agument contains the second argument
+---@generic flag : BitSet128 | integer | TearFlags
+---@param flags flag
+---@param checkFlag flag
+function BirthcakeRebaked:HasBitFlags(flags, checkFlag)
+	if not checkFlag then
+		error("BitMaskHelper: checkFlag is nil", 2)
+	end
+	return flags & checkFlag == checkFlag
 end

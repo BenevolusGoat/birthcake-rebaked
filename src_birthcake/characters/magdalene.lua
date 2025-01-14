@@ -2,7 +2,7 @@ local Mod = BirthcakeRebaked
 local game = Mod.Game
 
 local MAGDALENE_CAKE = {}
-BirthcakeRebaked.Trinkets.BIRTHCAKE.MAGDALENE = MAGDALENE_CAKE
+BirthcakeRebaked.Birthcake.MAGDALENE = MAGDALENE_CAKE
 
 MAGDALENE_CAKE.HEART_REPLACE_CHANCE = 0.50
 MAGDALENE_CAKE.MAX_SOUL_HEART_BONUS = 3
@@ -45,18 +45,12 @@ function MAGDALENE_CAKE:HeartExplode(pickup)
 		data.OhMyGodJCABomb = true
 	end
 
-	local damageMult = 0
-
-	Mod:ForEachPlayer(function(player)
-		if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_MAGDALENE_B) then
-			damageMult = damageMult + (Mod:GetTrinketMult(player))
-		end
-	end)
+	local damageMult = Mod:GetCombinedTrinketMult(PlayerType.PLAYER_MAGDALENE_B)
 
 	if pickup.Variant == PickupVariant.PICKUP_HEART and pickup.Timeout ~= -1 and not pickup.Touched and damageMult > 0 then
 		pickup:BloodExplode()
 		game:BombExplosionEffects(pickup.Position, 5.25 * damageMult, TearFlags.TEAR_BLOOD_BOMB, nil, nil, 0.5, true,
-		false, DamageFlag.DAMAGE_EXPLOSION)
+			false, DamageFlag.DAMAGE_EXPLOSION)
 		for _ = 1, 10 do
 			local position = Vector(math.random(-25, 25), math.random(-25, 25))
 			position = position + pickup.Position

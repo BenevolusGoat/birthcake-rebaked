@@ -2,36 +2,22 @@ local Mod = BirthcakeRebaked
 local game = Mod.Game
 
 local KEEPER_CAKE = {}
-BirthcakeRebaked.Trinkets.BIRTHCAKE.KEEPER = KEEPER_CAKE
-
--- functions
-
-function KEEPER_CAKE:CheckKeeper(player)
-	return player:GetPlayerType() == PlayerType.PLAYER_KEEPER
-end
-
-function KEEPER_CAKE:CheckKeeperB(player)
-	return player:GetPlayerType() == PlayerType.PLAYER_KEEPER_B
-end
+BirthcakeRebaked.Birthcake.KEEPER = KEEPER_CAKE
 
 -- Keeper Birthcake
 
 function KEEPER_CAKE:Nickel()
-	local player = game:GetPlayer(0)
 	local room = game:GetRoom()
 	local roomType = room:GetType()
+	local player = Mod:FirstPlayerTypeBirthcakeOwner(PlayerType.PLAYER_KEEPER)
 
-	if player:GetPlayerType() == PlayerType.PLAYER_KEEPER
-		and player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID)
+	if player
 		and room:IsFirstVisit()
 		and (roomType == RoomType.ROOM_SHOP or roomType == RoomType.ROOM_DEVIL or roomType == RoomType.ROOM_BLACK_MARKET)
 	then
-		if Mod:GetTrinketMult(player) > 1 then
-			Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, CoinSubType.COIN_GOLDEN,
-				Isaac.GetFreeNearPosition(player.Position, 10), Vector(0, 0), player)
-		else
+		for _ = 1, Mod:GetCombinedTrinketMult(PlayerType.PLAYER_KEEPER) do
 			Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, CoinSubType.COIN_NICKEL,
-				Isaac.GetFreeNearPosition(player.Position, 10), Vector(0, 0), player)
+				room:FindFreePickupSpawnPosition(room:GetCenterPos(), 0), Vector.Zero, player)
 		end
 	end
 end

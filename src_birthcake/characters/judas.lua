@@ -3,11 +3,11 @@ local game = Mod.Game
 
 local JUDAS_CAKE = {}
 
-BirthcakeRebaked.Trinkets.BIRTHCAKE.JUDAS = JUDAS_CAKE
+BirthcakeRebaked.Birthcake.JUDAS = JUDAS_CAKE
 
 function JUDAS_CAKE:JudasHasBirthcake(player)
 	return (player:GetPlayerType() == PlayerType.PLAYER_JUDAS or player:GetPlayerType() == PlayerType.PLAYER_BLACKJUDAS)
-		and player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID)
+		and player:HasTrinket(Mod.Birthcake.ID)
 end
 
 -- Judas Birthcake
@@ -28,7 +28,7 @@ function JUDAS_CAKE:ExchangeBirthcake(player)
 	if trinketMult > 1 then
 		player:AddBlackHearts(2)
 	end
-	player:TryRemoveTrinket(Mod.Trinkets.BIRTHCAKE.ID)
+	player:TryRemoveTrinket(Mod.Birthcake.ID)
 	Mod.SFXManager:Play(SoundEffect.SOUND_SATAN_GROW)
 end
 
@@ -49,7 +49,7 @@ end
 Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, JUDAS_CAKE.PreTakeDamage, EntityType.ENTITY_PLAYER)
 
 function JUDAS_CAKE:CheckHealthOnUpdate(player)
-	if player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID)
+	if player:HasTrinket(Mod.Birthcake.ID)
 		and BirthcakeRebaked:GetAllHearts(player) == 0
 	then
 		JUDAS_CAKE:ExchangeBirthcake(player)
@@ -62,7 +62,7 @@ Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, JUDAS_CAKE.CheckHealthOnUpd
 -- Tainted Judas Birthcake
 
 function JUDAS_CAKE:Slow(player)
-	if player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID)
+	if player:HasTrinket(Mod.Birthcake.ID)
 		and player:GetEffects():HasCollectibleEffect(CollectibleType.COLLECTIBLE_DARK_ARTS)
 	then
 		for _, ent in ipairs(Isaac.GetRoomEntities()) do

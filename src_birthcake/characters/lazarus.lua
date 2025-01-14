@@ -2,7 +2,7 @@ local Mod = BirthcakeRebaked
 local game = Mod.Game
 
 local LAZARUS_CAKE = {}
-BirthcakeRebaked.Trinkets.BIRTHCAKE.LAZARUS = LAZARUS_CAKE
+BirthcakeRebaked.Birthcake.LAZARUS = LAZARUS_CAKE
 
 -- Lazarus Birthcake
 
@@ -24,33 +24,19 @@ Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, LAZARUS_CAKE.DeathBringer, Enti
 
 ---@param player EntityPlayer
 function LAZARUS_CAKE:AliveMonger(player)
-	if player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID)
+	if player:HasTrinket(Mod.Birthcake.ID)
 		and Mod:GetAllHearts(player) > 0
 		and Mod:GetData(player).CheckLazarusRisen
 		and player:GetPlayerType() == PlayerType.PLAYER_LAZARUS2
 	then
-		for _ = 1, player:GetTrinketMultiplier(Mod.Trinkets.BIRTHCAKE.ID) do
+		for _ = 1, player:GetTrinketMultiplier(Mod.Birthcake.ID) do
 			player:UseActiveItem(CollectibleType.COLLECTIBLE_NECRONOMICON, UseFlag.USE_NOANIM)
 		end
+		player:AddSoulHearts(1)
 	end
 end
 
 Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, LAZARUS_CAKE.AliveMonger, PlayerType.PLAYER_LAZARUS2)
-
-function LAZARUS_CAKE:NoPenalty()
-	local player = game:GetPlayer(0)
-
-	if not LAZARUS_CAKE:CheckLazarus(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-		return nil
-	end
-
-	if lazarusRisen then
-		lazarusRisen = false
-		player:AddMaxHearts(2)
-	end
-end
-
-Mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, LAZARUS_CAKE.NoPenalty)
 
 -- Tainted Lazarus Birthcake
 
@@ -72,14 +58,14 @@ function LAZARUS_CAKE:UpdateItems()
 		return
 	end
 
-	if not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
+	if not player:HasTrinket(Mod.Birthcake.ID) then
 		if SharedItem ~= -1 then
 			player:GetEffects():RemoveCollectibleEffect(SharedItem)
 			SharedItem = -1
 		end
 	end
 
-	if player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
+	if player:HasTrinket(Mod.Birthcake.ID) then
 		if Mod:GetTrinketMult(player, true) > 1 then
 			upgraded = true
 		else
@@ -128,7 +114,7 @@ Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, LAZARUS_CAKE.UpdateItems)
 
 function LAZARUS_CAKE:Gift()
 	--[[ local player = game:GetPlayer(0)
-	if not LAZARUS_CAKE:CheckLazarusB(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
+	if not LAZARUS_CAKE:CheckLazarusB(player) or not player:HasTrinket(Mod.Birthcake.ID) then
 		return nil
 	end
 

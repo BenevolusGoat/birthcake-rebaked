@@ -2,7 +2,7 @@ local Mod = BirthcakeRebaked
 local game = Mod.Game
 
 local SAMSON_CAKE = {}
-BirthcakeRebaked.Trinkets.BIRTHCAKE.SAMSON = SAMSON_CAKE
+BirthcakeRebaked.Birthcake.SAMSON = SAMSON_CAKE
 
 -- Samson Birthcake
 

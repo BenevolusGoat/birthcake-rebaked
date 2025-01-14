@@ -1,118 +1,82 @@
 local Mod = BirthcakeRebaked
 local game = Mod.Game
-local TheLostCake = {}
-local FreeRoll = 2
 
--- functions
-
-function TheLostCake:CheckLost(player)
-	return player:GetPlayerType() == PlayerType.PLAYER_THELOST
-end
-
-function TheLostCake:CheckLostB(player)
-	return player:GetPlayerType() == PlayerType.PLAYER_THELOST_B
-end
+local THELOST_CAKE = {}
+BirthcakeRebaked.Birthcake.THELOST = THELOST_CAKE
 
 -- The Lost Birthcake
 
-function TheLostCake:NewFloor()
-	FreeRoll = 2
+---@param player EntityPlayer
+function THELOST_CAKE:FreeEternalD6(itemID, rng, player, flags, slot, varData)
+	local player_floor_save = Mod.SaveManager.GetFloorSave(player)
+	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_THELOST)
+		and Mod:HasBitFlags(flags, UseFlag.USE_OWNED)
+		and (player_floor_save.LostBirthcakeFreeEternalD6Use or 0) < 2
+	then
+		player:UseActiveItem(CollectibleType.COLLECTIBLE_D6, UseFlag.USE_NOANIM, slot)
+		player:FullCharge(slot)
+		player_floor_save.LostBirthcakeFreeEternalD6Use = (player_floor_save.LostBirthcakeFreeEternalD6Use or 0) + 1
+		player:AnimateCollectible(CollectibleType.COLLECTIBLE_ETERNAL_D6, "UseItem", "PlayerPickupSparkle")
+		Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
+		return true
+	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, TheLostCake.NewFloor)
+Mod:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, THELOST_CAKE.FreeEternalD6, CollectibleType.COLLECTIBLE_ETERNAL_D6)
 
-function TheLostCake:FreeUse(collectibleID, rngObj, player, useFlags, activeSlot, varData)
-	if not TheLostCake:CheckLost(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-		return nil
+---@param player EntityPlayer
+function THELOST_CAKE:FreeActiveUse(itemID, rng, player, flags, slot, varData)
+	if itemID == CollectibleType.COLLECTIBLE_ETERNAL_D6 then return end
+	local player_floor_save = Mod.SaveManager.GetFloorSave(player)
+
+	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_THELOST)
+		and Mod:HasBitFlags(flags, UseFlag.USE_OWNED)
+		and not player_floor_save.LostBirthcakeFreeActiveUse
+	then
+		player_floor_save.LostBirthcakeFreeActiveUse = true
+		player:FullCharge()
+		Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
 	end
+end
 
-	if collectibleID == CollectibleType.COLLECTIBLE_ETERNAL_D6 then
-		if FreeRoll > 0 then
-			FreeRoll = FreeRoll - 1
-			local entites = Isaac.GetRoomEntities()
-			for i = 1, #entites do
-				local entity = entites[i]
-				if entity.Type == EntityType.ENTITY_PICKUP and entity.Variant == PickupVariant.PICKUP_COLLECTIBLE then
-					local collectible = entity:ToPickup()
-					collectible:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -1, true)
-				end
+Mod:AddCallback(ModCallbacks.MC_USE_ITEM, THELOST_CAKE.FreeActiveUse)
+
+local font = Font()
+font:Load("font/pftempestasevencondensed.fnt")
+
+HudHelper.RegisterHUDElement({
+	Name = "Lost Birthcake Rerolls",
+	Priority = HudHelper.Priority.HIGH,
+	Condition = function(player, playerHUDIndex, hudLayout, slot)
+		if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_THELOST)
+			and HudHelper.ShouldActiveBeDisplayed(player, player:GetActiveItem(slot), slot)
+		then
+			local itemID = player:GetActiveItem(slot)
+			local player_floor_save = Mod.SaveManager.GetFloorSave(player)
+
+			if itemID == CollectibleType.COLLECTIBLE_ETERNAL_D6 then
+				return player_floor_save.LostBirthcakeFreeEternalD6Use < 2
+			else
+				return player_floor_save.LostBirthcakeFreeActiveUse
 			end
-			player:AnimateCollectible(CollectibleType.COLLECTIBLE_ETERNAL_D6, "Pickup", "PlayerPickupSparkle")
-			player:SetActiveCharge(player:GetActiveCharge(ActiveSlot.SLOT_PRIMARY) + 2)
-			return true
+		end
+		return false
+	end,
+	OnRender = function(player, playerHUDIndex, hudLayout, position, alpha, scale, slot)
+		local itemID = player:GetActiveItem(slot)
+		local player_floor_save = Mod.SaveManager.GetFloorSave(player)
+		position = position + Vector(28 * scale, 28 * scale)
+
+		if itemID == CollectibleType.COLLECTIBLE_ETERNAL_D6 then
+			local numUses = 2 - (player_floor_save.LostBirthcakeFreeEternalD6Use or 0)
+			font:DrawStringScaled("x" .. numUses, position.X, position.Y, scale, scale, KColor(1, 1, 1, alpha))
 		else
-			return nil
-		end
-	else
-		if FreeRoll > 0 then
-			FreeRoll = 0
-			local itemConfig = Isaac.GetItemConfig():GetCollectible(collectibleID)
-			player:SetActiveCharge(player:GetActiveCharge(ActiveSlot.SLOT_PRIMARY) + itemConfig.MaxCharges)
-			return nil
+			local numUses = player_floor_save.LostBirthcakeFreeActiveUse and 1 or 0
+			font:DrawStringScaled("x" .. numUses, position.X, position.Y, scale, scale, KColor(1, 1, 1, alpha))
 		end
 	end
-end
-
-Mod:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, TheLostCake.FreeUse)
-
-function TheLostCake:DrawText()
-	local player = Isaac.GetPlayer(0)
-	if not TheLostCake:CheckLost(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-		Isaac.RenderText("", 45, 40, 255, 255, 255, 255)
-		return
-	end
-	if FreeRoll > 0 then
-		if player:HasCollectible(CollectibleType.COLLECTIBLE_ETERNAL_D6) then
-			Isaac.RenderText("x" .. FreeRoll, 42, 35, 255, 255, 255, 255)
-		else
-			Isaac.RenderScaledText("x1", 44, 38, 0.75, 0.75, 255, 255, 255, 255)
-		end
-	else
-		Isaac.RenderText("", 45, 30, 255, 255, 255, 255)
-	end
-end
-
-Mod:AddCallback(ModCallbacks.MC_POST_RENDER, TheLostCake.DrawText)
+})
 
 -- Tainted Lost Birthcake
 
-function TheLostCake:Fortune()
-	local player = Isaac.GetPlayer(0)
-
-	if not TheLostCake:CheckLostB(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-		return
-	end
-
-	local entites = Isaac.GetRoomEntities()
-	for i = 1, #entites do
-		local entity = entites[i]
-		if entity.Type == EntityType.ENTITY_PICKUP and entity.Variant == PickupVariant.PICKUP_COLLECTIBLE and entity.SpawnerType ~= EntityType.ENTITY_PLAYER then
-			local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
-			local float = rng:RandomFloat()
-			if float < 0.5 then
-				SFXManager():Play(SoundEffect.SOUND_PARTY_HORN, 1, 0, false, 1)
-				Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -1,
-					Isaac.GetFreeNearPosition(entity.Position, 10), Vector(0, 0), player)
-				local float = rng:RandomFloat()
-				if float < 0.25 then
-					Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BOMB_EXPLOSION, 0,
-						Isaac.GetFreeNearPosition(player.Position, 10), Vector(0, 0), player)
-					for j = 1, #entites do
-						local entity2 = entites[j]
-						if entity2:IsEnemy() then
-							entity2:TakeDamage(100, 0, EntityRef(player), 0)
-						end
-					end
-					local playerEffects = player:GetEffects()
-					if playerEffects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_HOLY_MANTLE) then
-						player:TakeDamage(1, 0, EntityRef(player), 0)
-					end
-					player:TryRemoveTrinket(Mod.Trinkets.BIRTHCAKE.ID)
-				end
-			end
-			entity.SpawnerType = EntityType.ENTITY_PLAYER
-		end
-	end
-end
-
-Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, TheLostCake.Fortune)
+--TODO: Revisit

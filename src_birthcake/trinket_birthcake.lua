@@ -1,5 +1,5 @@
 local BIRTHCAKE_TRINKET = {}
-BirthcakeRebaked.Trinkets.BIRTHCAKE = BIRTHCAKE_TRINKET
+BirthcakeRebaked.Birthcake = BIRTHCAKE_TRINKET
 BIRTHCAKE_TRINKET.ID = Isaac.GetTrinketIdByName("Birthcake")
 
 local characters = {
@@ -21,9 +21,7 @@ local characters = {
 	"forgotten",
 	"lillith"
 }
-local characterScriptPath = "scripts.Trinkets.BIRTHCAKE."
-
-BirthcakeRebaked.Characters = {}
+local characterScriptPath = "scripts.trinkets.birthcake."
 
 for _, name in ipairs(characters) do
 	include(characterScriptPath .. name)

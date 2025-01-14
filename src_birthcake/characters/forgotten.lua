@@ -1,155 +1,120 @@
 local Mod = BirthcakeRebaked
 local game = Mod.Game
-local TheForgottenCake = {}
-local tempDmg = 0
-local frameCounter = 0
-local frequency = 20
-local fly = nil
 
--- functions
+local THEFORGOTTEN_CAKE = {}
+BirthcakeRebaked.Birthcake.THEFORGOTTEN = THEFORGOTTEN_CAKE
 
-function TheForgottenCake:CheckForgotten(player)
-	return player:GetPlayerType() == PlayerType.PLAYER_THEFORGOTTEN or
-		player:GetPlayerType() == PlayerType.PLAYER_THESOUL
-end
+-- The Forgotten and Tainted Forgotten's Birthcakes
 
-function TheForgottenCake:CheckForgottenB(player)
-	return player:GetPlayerType() == PlayerType.PLAYER_THEFORGOTTEN_B or
-		player:GetPlayerType() == PlayerType.PLAYER_THESOUL_B
-end
-
--- The Forgotten Birthcake
-
-function TheForgottenCake:Attack(entity, dmg, dmgFlag, dmgSource, dmgCountdownFrames)
-	local player = Isaac.GetPlayer(0)
-
-	if not TheForgottenCake:CheckForgotten(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-		return
-	end
-
-	if player:GetPlayerType() ~= PlayerType.PLAYER_THEFORGOTTEN then
-		return
-	end
-
-	if entity:IsEnemy() and dmgSource.Type == EntityType.ENTITY_PLAYER then
-		local wisp = player:AddWisp(609, entity.Position)
-		wisp = wisp:ToFamiliar()
-		wisp.FireCooldown = 9999999999
-		wisp.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE
-		wisp.Target = player
+---@param ent Entity
+---@param source EntityRef
+function THEFORGOTTEN_CAKE:EntityTakeDamage(ent, _, _, source)
+	if source
+		and source.Entity
+		and source.Entity:ToPlayer()
+		and ent:IsActiveEnemy(false)
+		and ent:IsVulnerableEnemy()
+	then
+		--Last hit gets credit for the kill
+		local player = source.Entity:ToPlayer()
+		Mod:GetData(ent).ForgottenBirthcakeCheckDeath = player
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, TheForgottenCake.Attack)
+Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, THEFORGOTTEN_CAKE.EntityTakeDamage)
 
-function TheForgottenCake:Harmony()
-	local player = Isaac.GetPlayer(0)
-
-	if not TheForgottenCake:CheckForgotten(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-		return
-	end
-
-	if player:GetPlayerType() ~= PlayerType.PLAYER_THESOUL then
-		tempDmg = 0
-		return
-	end
-
-	local entities = Isaac.GetRoomEntities()
-
-	local count = 0
-
-	for i = 1, #entities do
-		local entity = entities[i]
-		if entity.Type == EntityType.ENTITY_FAMILIAR and entity.Variant == FamiliarVariant.WISP and entity.SubType == 609 and entity.Target.Type == EntityType.ENTITY_PLAYER then
-			entity:Remove()
-			count = count + 1
-		end
-	end
-
-	for i = 1, count do
-		Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PURGATORY, 1, player.Position, Vector(0, 0), player)
-		tempDmg = tempDmg + 1.5
-		player.Damage = player.Damage + 1.5
-	end
-
-	if tempDmg > 0 then
-		frameCounter = frameCounter + 1
-		if frameCounter % frequency == 0 then
-			tempDmg = tempDmg - .5
-			player.Damage = player.Damage - .5
-		end
-	end
-end
-
-Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, TheForgottenCake.Harmony)
-
--- Tainted Forgotten Birthcake
-
-function TheForgottenCake:TheSoul()
-	local player = Isaac.GetPlayer(0)
-	local soul = player:GetOtherTwin()
-	local entities = Isaac.GetRoomEntities()
-
-	if not TheForgottenCake:CheckForgottenB(player) then
-		return
-	end
-
-	local count = 0
-
-	if not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) and not soul:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-		for i = 1, #entities do
-			local entity = entities[i]
-			if entity.Type == EntityType.ENTITY_FAMILIAR and entity.Variant == FamiliarVariant.FLY_ORBITAL then
-				entity:Remove()
-			end
-		end
-		fly = nil
-		return
-	else
-		for i = 1, #entities do
-			local entity = entities[i]
-			if entity.Type == EntityType.ENTITY_FAMILIAR and entity.Variant == FamiliarVariant.FLY_ORBITAL then
-				count = count + 1
-			end
-		end
-		if count < 3 then
-			fly = nil
-		end
-	end
-
-	if fly == nil then
-		if count == 2 then
-			fly = Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.FLY_ORBITAL, 0, player.Position, Vector(0, 0),
-				player)
-			fly.Target = player
-		end
-		if count == 0 then
-			for i = 1, 2 do
-				local ent = Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.FLY_ORBITAL, 0, soul.Position,
-					Vector(0, 0), soul)
-				ent.Target = soul
-			end
-		end
-	end
-
-	for i = 1, #entities do
-		local entity = entities[i]
-		if entity.Type ~= EntityType.ENTITY_PLAYER and entity:IsEnemy() then
-			if entity.Target then
-				local distance = entity.Position:Distance(soul.Position)
-				if distance <= 150 and entity.Target.Type == fly.Type and entity.Target.Variant == fly.Variant then
-					Isaac.ConsoleOutput(tostring(distance) .. " ")
-					entity.Target = soul
-				elseif entity.Target.Type == soul.Type and distance > 150 then
-					entity.Target = fly
-				end
+---@param npc EntityNPC
+function THEFORGOTTEN_CAKE:OnNPCDeath(npc)
+	if npc:HasEntityFlags(EntityFlag.FLAG_ICE) then return end
+	local data = Mod:GetData(npc)
+	if data.ForgottenBirthcakeCheckDeath then
+		---@type EntityPlayer
+		local player = data.ForgottenBirthcakeCheckDeath
+		if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_THEFORGOTTEN) then
+			THEFORGOTTEN_CAKE:SpawnPurgatoryWisp(player, npc.Position)
+		elseif Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_THEFORGOTTEN_B) then
+			if REPENTOGON then
+				player:AddBoneOrbital(npc.Position)
 			else
-				entity.Target = fly
+				local bone = Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BONE_ORBITAL, 0,
+				npc.Position, Vector.Zero, player):ToFamiliar()
+				---@cast bone EntityFamiliar
+				bone:AddToOrbit(0)
 			end
 		end
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, TheForgottenCake.TheSoul)
+Mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, THEFORGOTTEN_CAKE.OnNPCDeath)
 
--- Cannot be implemtend
+-- Forgotten's Birthcake
+
+---@param wisp EntityFamiliar
+function THEFORGOTTEN_CAKE:IsPurgatoryWisp(wisp)
+	local familiar_run_save = Mod.SaveManager.TryGetRunSave(wisp)
+	return familiar_run_save
+	and familiar_run_save.ForgottenBirthcakePurgatoryWisp
+end
+
+---@param player EntityPlayer
+---@param pos Vector
+function THEFORGOTTEN_CAKE:SpawnPurgatoryWisp(player, pos)
+	local wisp = player:AddWisp(CollectibleType.COLLECTIBLE_PURGATORY, pos)
+	wisp.FireCooldown = 9999999999
+	wisp.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE
+	Mod.SaveManager.GetRunSave(wisp).ForgottenBirthcakePurgatoryWisp = true
+	wisp:AddToOrbit(0)
+	return wisp
+end
+
+THEFORGOTTEN_CAKE.WISP_DAMAGE_BONUS = 1.5
+THEFORGOTTEN_CAKE.WISP_DAMAGE_DIMINISH_RATE = 0.025
+
+---@param player EntityPlayer
+function THEFORGOTTEN_CAKE:ConvertPurgatoryWisps(player)
+	if player:HasTrinket(Mod.Birthcake.ID) then
+		local player_run_save = Mod.SaveManager.GetRunSave(player)
+		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.WISP, CollectibleType.COLLECTIBLE_PURGATORY)) do
+			local wisp = ent:ToFamiliar() ---@cast wisp EntityFamiliar
+
+			if THEFORGOTTEN_CAKE:IsPurgatoryWisp(wisp) then
+				--TODO: Variant?? Collision Damage?? Balls?? Boobs??
+				local ghost = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PURGATORY, 1, player.Position, Vector.Zero, player)
+				ghost:SetColor(Color(0.7, 1, 1), -1, 1, false, true)
+				print(ghost.CollisionDamage)
+				player_run_save.SoulCakeDiminishingDamage = (player_run_save.SoulCakeDiminishingDamage or 0) + (THEFORGOTTEN_CAKE.WISP_DAMAGE_BONUS * Mod:GetTrinketMult(player))
+				wisp:Remove()
+			end
+		end
+		if (player_run_save.SoulCakeDiminishingDamage or 0) > 0 then
+			player_run_save.SoulCakeDiminishingDamage = player_run_save.SoulCakeDiminishingDamage - THEFORGOTTEN_CAKE.WISP_DAMAGE_DIMINISH_RATE
+			player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
+			player:EvaluateItems()
+		elseif player_run_save.SoulCakeDiminishingDamage then
+			player_run_save.SoulCakeDiminishingDamage = nil
+			player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
+			player:EvaluateItems()
+		end
+	else
+		local player_run_save = Mod.SaveManager.TryGetRunSave(player)
+		if player_run_save and player_run_save.SoulCakeDiminishingDamage then
+			player_run_save.SoulCakeDiminishingDamage = nil
+			player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
+			player:EvaluateItems()
+		end
+	end
+end
+
+Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, THEFORGOTTEN_CAKE.ConvertPurgatoryWisps, PlayerType.PLAYER_THESOUL)
+
+---@param player EntityPlayer
+function THEFORGOTTEN_CAKE:WispDamageBonus(player)
+	local player_run_save = Mod.SaveManager.TryGetRunSave(player)
+	if player_run_save
+		and player_run_save.SoulCakeDiminishingDamage
+	then
+		player.Damage = player.Damage + player_run_save.SoulCakeDiminishingDamage
+	end
+end
+
+Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, THEFORGOTTEN_CAKE.WispDamageBonus, CacheFlag.CACHE_DAMAGE)

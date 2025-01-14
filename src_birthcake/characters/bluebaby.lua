@@ -2,7 +2,7 @@ local Mod = BirthcakeRebaked
 local game = Mod.Game
 
 local BLUEBABY_CAKE = {}
-BirthcakeRebaked.Trinkets.BIRTHCAKE.BLUEBABY = BLUEBABY_CAKE
+BirthcakeRebaked.Birthcake.BLUEBABY = BLUEBABY_CAKE
 
 -- Functions
 
@@ -16,15 +16,10 @@ end
 
 -- Blue Baby Birthcake
 
-local POOP = 10
-local CORNY = EntityPoopVariant and EntityPoopVariant.CORN or 12
-local GOLDEN = EntityPoopVariant and EntityPoopVariant.GOLDEN or 1
-local BLACK = EntityPoopVariant and EntityPoopVariant.BLACK or 15
-
 BLUEBABY_CAKE.PoopVariantChance = {
-	[GOLDEN] = 0.01,
-	[CORNY] = 0.2,
-	[BLACK] = 0.33
+	[Mod.EntityPoopVariant.GOLDEN] = 0.01,
+	[Mod.EntityPoopVariant.CORN] = 0.2,
+	[Mod.EntityPoopVariant.BLACK] = 0.33
 }
 
 ---@param rng RNG
@@ -37,7 +32,7 @@ function BLUEBABY_CAKE:SpawnPoop(_, rng, player, _, _, _)
 		end
 		if chargeUsed == 0 then return end
 		for _ = 1, chargeUsed - 1 do
-			local variant = POOP
+			local variant = Mod.EntityPoopVariant.NORMAL
 			local roll = rng:RandomFloat()
 			local chanceMult = Mod:GetTrinketMult(player)
 

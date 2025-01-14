@@ -2,7 +2,7 @@ local Mod = BirthcakeRebaked
 local game = Mod.Game
 
 local CAIN_BIRTHCAKE = {}
-BirthcakeRebaked.Trinkets.BIRTHCAKE.CAIN = CAIN_BIRTHCAKE
+BirthcakeRebaked.Birthcake.CAIN = CAIN_BIRTHCAKE
 
 -- Cain Birthcake
 
@@ -15,20 +15,16 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, CAIN_BIRTHCAKE.CainPickup, CacheFlag.CACHE_LUCK)
 
-local SLOT_MACHINE = SlotVariant and SlotVariant.SLOT_MACHINE or 1
-local FORTUNE_TELLER = SlotVariant and SlotVariant.FORTUNE_TELLING_MACHINE or 3
-local CRANE_GAME = SlotVariant and SlotVariant.CRANE_GAME or 16
-
 CAIN_BIRTHCAKE.RefundChance = {
-	[SLOT_MACHINE] = 0.33,
-	[FORTUNE_TELLER] = 0.33,
-	[CRANE_GAME] = 0.25,
+	[Mod.SlotVariant.SLOT_MACHINE] = 0.33,
+	[Mod.SlotVariant.FORTUNE_TELLING_MACHINE] = 0.33,
+	[Mod.SlotVariant.CRANE_GAME] = 0.25,
 }
 
 CAIN_BIRTHCAKE.RefundReward = {
-	[SLOT_MACHINE] = 1,
-	[FORTUNE_TELLER] = 1,
-	[CRANE_GAME] = 5
+	[Mod.SlotVariant.SLOT_MACHINE] = 1,
+	[Mod.SlotVariant.FORTUNE_TELLING_MACHINE] = 1,
+	[Mod.SlotVariant.CRANE_GAME] = 5
 }
 
 function CAIN_BIRTHCAKE:MachineInteraction(player, ent, low)
@@ -109,7 +105,7 @@ function CAIN_BIRTHCAKE:SplitPickup(entType, variant, subType, position, velocit
 		and entType == EntityType.ENTITY_PICKUP
 	then
 		local splitSubType = CAIN_BIRTHCAKE.DoublePickupToSingle[variant] and
-		CAIN_BIRTHCAKE.DoublePickupToSingle[variant][subType]
+			CAIN_BIRTHCAKE.DoublePickupToSingle[variant][subType]
 		if splitSubType then
 			Isaac.Spawn(entType, variant, splitSubType, Isaac.GetFreeNearPosition(position + Vector(15, 0), 0), velocity,
 				spawner)

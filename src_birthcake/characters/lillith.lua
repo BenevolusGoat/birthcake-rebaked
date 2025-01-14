@@ -1,110 +1,42 @@
 local Mod = BirthcakeRebaked
-local game = Mod.Game
-local LillithCake = {}
-local isIncubus = true
-local replaceChance = 0
-local familiarId = { 278, 113, 360, 270, 275, 417, 679, 698 }
+
+local LILITH_CAKE = {}
+BirthcakeRebaked.Birthcake.LILITH = LILITH_CAKE
 
 -- Functions
 
-function LillithCake:CheckLillith(player)
+function LILITH_CAKE:CheckLillith(player)
 	return player:GetPlayerType() == PlayerType.PLAYER_LILITH
 end
 
-function LillithCake:CheckLillithB(player)
+function LILITH_CAKE:CheckLillithB(player)
 	return player:GetPlayerType() == PlayerType.PLAYER_LILITH_B
 end
 
 -- Lillith Birthcake
 
-function LillithCake:EffectShare(Tear)
-	local player = game:GetPlayer(0)
+---@param tearOrLaser EntityTear | EntityLaser
+function LILITH_CAKE:EffectShare(tearOrLaser)
+	if tearOrLaser.FrameCount == 1
+		and tearOrLaser.SpawnerEntity
+		and tearOrLaser.SpawnerEntity:ToFamiliar()
+		and tearOrLaser.SpawnerEntity:ToFamiliar().Player
+		and Mod:PlayerTypeHasBirthcake(tearOrLaser.SpawnerEntity:ToFamiliar().Player, PlayerType.PLAYER_LILITH)
+	then
+		local player = tearOrLaser.SpawnerEntity:ToFamiliar().Player
+		local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
+		local trinketMult = Mod:GetTrinketMult(player)
 
-	if not LillithCake:CheckLillith(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-		return
-	end
-
-	if Tear.FrameCount ~= 1 then
-		return
-	end
-
-	if Tear.SpawnerType and Tear.SpawnerType == EntityType.ENTITY_FAMILIAR then
-		local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
-		local roll = rng:RandomFloat()
-
-		if roll < 0.25 then
-			Tear:AddTearFlags(player.TearFlags)
-			Tear:SetColor(player.TearColor, -1, 1, false, false)
+		if rng:RandomFloat() < 0.25 * trinketMult then
+			tearOrLaser:AddTearFlags(player.TearFlags)
+			tearOrLaser:SetColor(player.TearColor, -1, 1, false, false)
 		end
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, LillithCake.EffectShare)
-Mod:AddCallback(ModCallbacks.MC_POST_LASER_UPDATE, LillithCake.EffectShare)
-
-function LillithCake:Give()
-	local player = game:GetPlayer(0)
-
-	if not LillithCake:CheckLillith(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-		return
-	end
-
-	local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
-	local roll = rng:RandomFloat()
-
-	if roll < 0.1 then
-		player:AddCollectible(familiarId[rng:RandomInt(#familiarId) + 1], 0, false)
-		player:AnimateHappy()
-		player:TryRemoveTrinket(Mod.Trinkets.BIRTHCAKE.ID)
-		replaceChance = 0.25
-	end
-end
-
-Mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, LillithCake.Give)
-
-function LillithCake:Take(trinket, rng)
-	local roll = rng:RandomFloat()
-	if roll < replaceChance then
-		replaceChance = 0
-		return Mod.Trinkets.BIRTHCAKE.ID
-	end
-	return nil
-end
-
-Mod:AddCallback(ModCallbacks.MC_GET_TRINKET, LillithCake.Take)
+Mod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, LILITH_CAKE.EffectShare)
+Mod:AddCallback(ModCallbacks.MC_POST_LASER_UPDATE, LILITH_CAKE.EffectShare)
 
 -- Tainted Lillith Birthcake
 
-function LillithCake:NewGame()
-	isIncubus = true
-	replaceChance = 0
-end
-
-Mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, LillithCake.NewGame)
-
-function LillithCake:SpawnCubus()
-	local player = game:GetPlayer(0)
-
-	if not LillithCake:CheckLillithB(player) or not player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
-		return
-	end
-
-	local effects = player:GetEffects()
-
-	local roomType = game:GetRoom():GetType()
-
-	if roomType == RoomType.ROOM_BOSS then
-		effects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_SUCCUBUS, false)
-		effects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_INCUBUS, false)
-	else
-		if isIncubus then
-			effects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_INCUBUS, false)
-			isIncubus = false
-		else
-			effects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_SUCCUBUS, false)
-			isIncubus = true
-		end
-	end
-end
-
-Mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, LillithCake.SpawnCubus)
+--TODO: Consider a second Gello that has a chance to spawn

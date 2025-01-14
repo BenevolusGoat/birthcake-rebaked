@@ -3,7 +3,7 @@ local game = Mod.Game
 
 local ISAAC_CAKE = {}
 
-BirthcakeRebaked.Trinkets.BIRTHCAKE.ISAAC = ISAAC_CAKE
+BirthcakeRebaked.Birthcake.ISAAC = ISAAC_CAKE
 
 local frameCounter = 0
 local frequency = 60
@@ -193,7 +193,7 @@ function ISAAC_CAKE:Test(player, damage, flags, source, cdframes)
 		player:AddCollectible(itemID, 0, true)
 		roll = rng:RandomFloat()
 		if roll < 0.50 then
-			player:TryRemoveTrinket(Mod.Trinkets.BIRTHCAKE.ID)
+			player:TryRemoveTrinket(Mod.Birthcake.ID)
 		end
 	end
 end

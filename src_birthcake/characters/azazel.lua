@@ -2,7 +2,7 @@ local Mod = BirthcakeRebaked
 local game = Mod.Game
 
 local AZAZEL_CAKE = {}
-BirthcakeRebaked.Trinkets.BIRTHCAKE.AZAZEL = AZAZEL_CAKE
+BirthcakeRebaked.Birthcake.AZAZEL = AZAZEL_CAKE
 
 local charge = 0
 local frameCounter = 0
@@ -12,7 +12,7 @@ local frameCounter = 0
 --TODO: This is kinda lame honestly and doesn't fit with Azazel
 
 function AZAZEL_CAKE:ShootTears(player)
-	if player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID) then
+	if player:HasTrinket(Mod.Birthcake.ID) then
 		if tostring(player:GetShootingInput()) ~= "0 0" or player:AreOpposingShootDirectionsPressed() then
 			charge = charge + 1
 			if charge >= player.MaxFireDelay then
