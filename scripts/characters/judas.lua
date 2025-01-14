@@ -1,90 +1,81 @@
-local mod = Birthcake
-local game = Game()
-local JudasCake = {}
+local Mod = BirthcakeRebaked
+local game = Mod.Game
 
--- functions
+local JUDAS_CAKE = {}
 
-function JudasCake:CheckJudas(player)
-    return player:GetPlayerType() == PlayerType.PLAYER_JUDAS or player:GetPlayerType() == PlayerType.PLAYER_BLACKJUDAS
-end
+BirthcakeRebaked.Characters.JUDAS = JUDAS_CAKE
 
-function JudasCake:CheckJudasB(player)
-    return player:GetPlayerType() == PlayerType.PLAYER_JUDAS_B
+function JUDAS_CAKE:JudasHasBirthcake(player)
+	return (player:GetPlayerType() == PlayerType.PLAYER_JUDAS or player:GetPlayerType() == PlayerType.PLAYER_BLACKJUDAS)
+	and player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID)
 end
 
 -- Judas Birthcake
 
-function JudasCake:JudasPickup(player,flag)
-    if not JudasCake:CheckJudas(player) or not player:HasTrinket(TrinketType.TRINKET_BIRTHCAKE) then
-        return
-    end
-
-    if flag == CacheFlag.CACHE_DAMAGE then
-        player.Damage = player.Damage + (player.Damage * 0.2) * player:GetTrinketMultiplier(TrinketType.TRINKET_BIRTHCAKE)
-    end
+function JUDAS_CAKE:JudasPickup(player)
+	if JUDAS_CAKE:JudasHasBirthcake(player) then
+		player.Damage = player.Damage + (player.Damage * 0.2) * Mod:GetTrinketMult(player)
+	end
 end
 
-mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, JudasCake.JudasPickup, CacheFlag.CACHE_DAMAGE)
+Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, JUDAS_CAKE.JudasPickup, CacheFlag.CACHE_DAMAGE)
 
-function JudasCake:Exchange(player,flag)
-    if not JudasCake:CheckJudas(player) or not player:HasTrinket(TrinketType.TRINKET_BIRTHCAKE) then
-        return
-    end
-
-    local room = game:GetRoom()
-    if room:GetType() ~= RoomType.ROOM_DEVIL then
-        mod:GetData(player).items = {}
-        mod:GetData(player).health = player:GetEffectiveMaxHearts()
-        return
-    end
-
-    local item = player.QueuedItem.Item
-    if not mod:GetData(player).isItemOverHead and item then
-        if item:IsCollectible() and not mod:IsInList(item.ID,mod:GetData(player).items) then
-            mod:GetData(player).isItemOverHead = true
-            local devilPrice = item.DevilPrice
-            local health = mod:GetData(player).health
-            if devilPrice * 2 >= health and health > 0 then
-                player:AddBlackHearts(2)
-            end
-            table.insert(mod:GetData(player).items,item.ID)
-            mod:GetData(player).health = health - devilPrice * 2
-        end
-    end
-    if mod:GetData(player).isItemOverHead and not item then
-        mod:GetData(player).isItemOverHead = false
-    end
+---@param player EntityPlayer
+function JUDAS_CAKE:ExchangeBirthcake(player)
+	player:AddBlackHearts(2)
+	player:UseActiveItem(CollectibleType.COLLECTIBLE_NECRONOMICON, UseFlag.USE_NOANIM)
+	local trinketMult = Mod:GetTrinketMult(player)
+	if trinketMult > 1 then
+		player:AddBlackHearts(2)
+	end
+	player:TryRemoveTrinket(Mod.Trinkets.BIRTHCAKE.ID)
+	Mod.SFXManager:Play(SoundEffect.SOUND_SATAN_GROW)
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, JudasCake.Exchange)
+---@param ent Entity
+---@param amount integer
+---@param flags DamageFlag
+---@param source EntityRef
+---@param frames integer
+function JUDAS_CAKE:PreTakeDamage(ent, amount, flags, source, frames)
+	local player = ent:ToPlayer() ---@cast player EntityPlayer
+	if JUDAS_CAKE:JudasHasBirthcake(player)
+		and BirthcakeRebaked:IsPlayerTakingMortalDamage(player, amount)
+	then
+		JUDAS_CAKE:ExchangeBirthcake(player)
+	end
+end
+
+Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, JUDAS_CAKE.PreTakeDamage, EntityType.ENTITY_PLAYER)
+
+function JUDAS_CAKE:CheckHealthOnUpdate(player)
+	if player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID)
+		and BirthcakeRebaked:GetAllHearts(player) == 0
+	then
+		JUDAS_CAKE:ExchangeBirthcake(player)
+	end
+end
+
+Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, JUDAS_CAKE.CheckHealthOnUpdate, PlayerType.PLAYER_JUDAS)
+Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, JUDAS_CAKE.CheckHealthOnUpdate, PlayerType.PLAYER_BLACKJUDAS)
 
 -- Tainted Judas Birthcake
 
-function JudasCake:Slow(player)
-    if not JudasCake:CheckJudasB(player) or not player:HasTrinket(TrinketType.TRINKET_BIRTHCAKE) then
-        return
-    end
-
-    local playerEffets = player:GetEffects()
-
-    if playerEffets:HasCollectibleEffect(CollectibleType.COLLECTIBLE_DARK_ARTS) then
-        local playerPos = player.Position
-        local entities = Isaac.GetRoomEntities()
-        for i = 1, #entities do
-            local entity = entities[i]
-            if entity:IsVulnerableEnemy() then
-                local entityPos = entity.Position
-                local distance = (playerPos - entityPos):Length()
-                local entityColor = entity:GetColor()
-                local slowColor = Color(entityColor.R,entityColor.G,entityColor.B,0.8,entityColor.RO,entityColor.GO,entityColor.BO)
-                if distance < 30 then
-                    entity:AddSlowing(EntityRef(player), 100, 0.5, slowColor)
-                end
-            end
-        end
-    end
-
-
+function JUDAS_CAKE:Slow(player)
+	if player:HasTrinket(Mod.Trinkets.BIRTHCAKE.ID)
+		and player:GetEffects():HasCollectibleEffect(CollectibleType.COLLECTIBLE_DARK_ARTS)
+	then
+		for _, ent in ipairs(Isaac.GetRoomEntities()) do
+			if ent:IsActiveEnemy(false) then
+				local entityColor = ent:GetColor()
+				local slowColor = Color(entityColor.R, entityColor.G, entityColor.B, 0.8, entityColor.RO, entityColor.GO,
+					entityColor.BO)
+				if ent.Position:DistanceSquared(player.Position) < 30 ^ 2 then
+					ent:AddSlowing(EntityRef(player), 100, 0.5, slowColor)
+				end
+			end
+		end
+	end
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, JudasCake.Slow)
+Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, JUDAS_CAKE.Slow, PlayerType.PLAYER_JUDAS_B)

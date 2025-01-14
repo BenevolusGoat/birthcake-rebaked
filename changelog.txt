@@ -1,0 +1,12 @@
+- Code completely rewritten to be better compatible with mods, better optimized, and be compatible with co-op
+
+Gameplay changes:
+- Magdalene's Birthcake now has Yum Heart give Soul Hearts directly from your trinket modifier instead of just Mom's Box, up to 1 and 1/2 soul hearts
+- Tainted Magdalene's Birthcake has hearts explode with a base damage value of 5.25 (2x T. Maggy's base damage) that increases based on trinket mulitplier and the number of T. Maggies with Birthcakes
+- Removed devil deal interaction with Judas/Dark Judas' Birthcake. Instead, if Judas would die, they will gain a black heart, damage all enemies in the room, and have Birthcake removed from their inventory. Any trinket multipliers will add an additional black heart
+- Adjusted ???'s poop spawning chances. Golden Poops can spawn with or without a trinket multiplier, but is much rarer at a 1% chance. Trinket multipliers as a whole contribute to the poop chance. Only one roll will be made and the rarest type will always be selected if the roll meets the chance requirements.
+- Removed Tainted Eve spawning clots twice as fast with Birthcake. Instead, something else here.
+
+Modding API:
+- Has both BirthcakeRebaked and Birthcake globals, the latter for backwards compatibility
+- Nearly everything in the mod is exposed under the BirthcakeRebaked global, following Epiphany codebase style of formatting

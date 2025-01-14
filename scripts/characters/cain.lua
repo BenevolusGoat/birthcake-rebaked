@@ -1,279 +1,151 @@
-local mod = Birthcake
-local game = Game()
-local CainBirthcake = {}
+local Mod = BirthcakeRebaked
+local game = Mod.Game
 
--- Functions
-
-function CainBirthcake:CheckCain(player)
-    return player:GetPlayerType() == PlayerType.PLAYER_CAIN
-end
-
-function CainBirthcake:CheckCainB(player)
-    return player:GetPlayerType() == PlayerType.PLAYER_CAIN_B
-end
+local CAIN_BIRTHCAKE = {}
+BirthcakeRebaked.Characters.CAIN = CAIN_BIRTHCAKE
 
 -- Cain Birthcake
 
-function CainBirthcake:CainPickup(player,flag)
-    if not CainBirthcake:CheckCain(player) or not player:HasTrinket(TrinketType.TRINKET_BIRTHCAKE) then
-        return
-    end
-
-    if flag == CacheFlag.CACHE_LUCK then
-        player.Luck = player.Luck + 1
-    end
+---@param player EntityPlayer
+function CAIN_BIRTHCAKE:CainPickup(player)
+	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_CAIN) then
+		player.Luck = player.Luck + 1
+	end
 end
 
-mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, CainBirthcake.CainPickup, CacheFlag.CACHE_LUCK)
+Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, CAIN_BIRTHCAKE.CainPickup, CacheFlag.CACHE_LUCK)
 
-function CainBirthcake:MachineInteraction(player,entity,low)
-    if not CainBirthcake:CheckCain(player) or not player:HasTrinket(TrinketType.TRINKET_BIRTHCAKE) then
-        return nil
-    end
+local SLOT_MACHINE = SlotVariant and SlotVariant.SLOT_MACHINE or 1
+local FORTUNE_TELLER = SlotVariant and SlotVariant.FORTUNE_TELLING_MACHINE or 3
+local CRANE_GAME = SlotVariant and SlotVariant.CRANE_GAME or 16
 
-    if entity.Type == EntityType.ENTITY_SLOT then
-        local sprite = entity:GetSprite()
-        Isaac.ConsoleOutput(sprite:GetAnimation().."\n")
-        if sprite:GetAnimation() == "Idle" or sprite:GetAnimation() == "Prize" then
-            mod:GetData(entity).isIdle = true
-        end
-        if sprite:GetAnimation() == "Initiate" and mod:GetData(entity).isIdle then
-            mod:GetData(entity).isIdle = false
-            local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
-            local roll = rng:RandomFloat()
-            if entity.Variant == 16 then
-                local chance = 0.25
-                if mod:GetTrinketMul(player,true) > 1  then
-                    chance = 0.33
-                end
-                if roll < chance then
-                    player:AddCoins(5)
-                    player:AnimateHappy()
-                end
-            elseif entity.Variant == 1 or entity.Variant == 3 then
-                local chance = 0.33
-                if mod:GetTrinketMul(player,true) > 1  then
-                    chance = 0.5
-                end
-                if roll < chance then
-                    player:AddCoins(1)
-                    player:AnimateHappy()
-                end
-            end
-        end
-    end
+CAIN_BIRTHCAKE.RefundChance = {
+	[SLOT_MACHINE] = 0.33,
+	[FORTUNE_TELLER] = 0.33,
+	[CRANE_GAME] = 0.25,
+}
+
+CAIN_BIRTHCAKE.RefundReward = {
+	[SLOT_MACHINE] = 1,
+	[FORTUNE_TELLER] = 1,
+	[CRANE_GAME] = 5
+}
+
+function CAIN_BIRTHCAKE:MachineInteraction(player, ent, low)
+	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_CAIN)
+		and ent.Type == EntityType.ENTITY_SLOT
+	then
+		local data = Mod:GetData(ent)
+		data.TouchedPlayer = player
+	end
 end
 
-mod:AddCallback(ModCallbacks.MC_PRE_PLAYER_COLLISION, CainBirthcake.MachineInteraction)
+Mod:AddPriorityCallback(ModCallbacks.MC_PRE_PLAYER_COLLISION, CallbackPriority.EARLY, CAIN_BIRTHCAKE.MachineInteraction, 0)
+
+function CAIN_BIRTHCAKE:OnSlotInitiate(slot)
+	local data = Mod:GetData(slot)
+	local sprite = slot:GetSprite()
+
+	if data.TouchedPlayer and not data.WaitAfterInitiate then
+		if slot:IsPlaying("Initiate") then
+			local player = data.TouchedPlayer
+			local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
+			local roll = rng:RandomFloat()
+			local baseChance = CAIN_BIRTHCAKE.RefundChance[slot.Variant]
+			local trinketMult = 0.3 * (Mod:GetTrinketMult(player) - 1)
+			local chance = baseChance * (1.3 + trinketMult)
+
+			if roll < chance then
+				player:AddCoins(CAIN_BIRTHCAKE.RefundReward[slot.Variant])
+				player:AnimateHappy()
+			end
+			data.WaitAfterInitiate = true
+		end
+		data.TouchedPlayer = nil
+	end
+	if data.WaitAfterInitiate and not sprite:IsPlaying("Initiate") then
+		data.WaitAfterInitiate = nil
+	end
+end
+
+if REPENTOGON then
+	Mod:AddCallback(ModCallbacks.MC_POST_SLOT_UPDATE, CAIN_BIRTHCAKE.OnSlotInitiate)
+else
+	Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
+		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_SLOT)) do
+			CAIN_BIRTHCAKE:OnSlotInitiate(ent)
+		end
+	end)
+end
+
 
 -- Tainted Cain Birthcake
 
-function CainBirthcake:SplitPickup(Entity,Variant,Subtype,position,velocity,spawner,seed)
-    local player = game:GetPlayer(0)
-    if not CainBirthcake:CheckCainB(player) or not player:HasTrinket(TrinketType.TRINKET_BIRTHCAKE) then
-        return nil
-    end
+CAIN_BIRTHCAKE.DoublePickupToSingle = {
+	[PickupVariant.PICKUP_BOMB] = {
+		[BombSubType.BOMB_DOUBLEPACK] = BombSubType.BOMB_NORMAL
+	},
+	[PickupVariant.PICKUP_KEY] = {
+		[KeySubType.KEY_DOUBLEPACK] = KeySubType.KEY_NORMAL
+	},
+	[PickupVariant.PICKUP_COIN] = {
+		[CoinSubType.COIN_DOUBLEPACK] = CoinSubType.COIN_PENNY
+	},
+	[PickupVariant.PICKUP_HEART] = {
+		[HeartSubType.HEART_DOUBLEPACK] = HeartSubType.HEART_FULL
+	},
+}
 
-    if Entity == EntityType.ENTITY_PICKUP then
-        if Variant == PickupVariant.PICKUP_BOMB and Subtype == BombSubType.BOMB_DOUBLEPACK then
-            Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, BombSubType.BOMB_NORMAL, Isaac.GetFreeNearPosition(position, 1), Vector(0,0), spawner)
-            return {EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, BombSubType.BOMB_NORMAL, seed}
-        end
-
-        if Variant == PickupVariant.PICKUP_COIN and Subtype == CoinSubType.COIN_DOUBLEPACK then
-            Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, CoinSubType.COIN_PENNY, Isaac.GetFreeNearPosition(position, 1), Vector(0,0), spawner)
-            return {EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, CoinSubType.COIN_PENNY, seed}
-        end
-
-        if Variant == PickupVariant.PICKUP_KEY and Subtype == KeySubType.KEY_DOUBLEPACK then
-            Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_KEY, KeySubType.KEY_NORMAL, Isaac.GetFreeNearPosition(position, 1), Vector(0,0), spawner)
-            return {EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_KEY, KeySubType.KEY_NORMAL, seed}
-        end
-
-        if Variant == PickupVariant.PICKUP_HEART and Subtype == HeartSubType.HEART_DOUBLEPACK then
-            Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_FULL, Isaac.GetFreeNearPosition(position, 1), Vector(0,0), spawner)
-            return {EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_FULL, seed}
-        end
-    end
+---@param entType EntityType
+---@param variant integer
+---@param subType integer
+---@param position Vector
+---@param velocity Vector
+---@param spawner Entity?
+---@param seed integer
+function CAIN_BIRTHCAKE:SplitPickup(entType, variant, subType, position, velocity, spawner, seed)
+	if Mod:AnyPlayerTypeHasBirthcake(PlayerType.PLAYER_CAIN_B)
+		and entType == EntityType.ENTITY_PICKUP
+	then
+		local splitSubType = CAIN_BIRTHCAKE.DoublePickupToSingle[variant] and CAIN_BIRTHCAKE.DoublePickupToSingle[variant][subType]
+		if splitSubType then
+			Isaac.Spawn(entType, variant, splitSubType, Isaac.GetFreeNearPosition(position + Vector(15, 0), 0), velocity, spawner )
+			Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.CLEAVER_SLASH, 0, position, Vector.Zero, nil)
+			Mod.SFXManager:Play(SoundEffect.SOUND_KNIFE_PULL)
+			return { entType, variant, splitSubType, Isaac.GetFreeNearPosition(position - Vector(15, 0), 0), seed}
+		end
+	end
 end
 
-mod:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, CainBirthcake.SplitPickup)
+Mod:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, CAIN_BIRTHCAKE.SplitPickup)
 
-function CainBirthcake:UsingBag(entity)
-    local entitySprite = entity:GetSprite()
-    local player = game:GetPlayer(0)
+local BAG_OF_CRAFTING = KnifeVariant and KnifeVariant.BAG_OF_CRAFTING or 4
+local CLUB_HITBOX = KnifeSubType and KnifeSubType.CLUB_HITBOX or 4
 
-    if entitySprite:GetAnimation() == "Swing" then
-        mod:GetData(player).isBagOfCraftingActive = true
-    elseif entitySprite:GetAnimation() == "Idle" then
-        mod:GetData(player).isBagOfCraftingActive = false
-    end
+---@param knife EntityKnife
+---@param collider Entity
+function CAIN_BIRTHCAKE:AddPickup(knife, collider)
+	local player = knife.SpawnerEntity and knife.SpawnerEntity:ToPlayer()
+	if player
+		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_CAIN_B)
+		and knife.Variant == BAG_OF_CRAFTING
+		and knife.SubType == CLUB_HITBOX
+		and collider:ToPickup()
+	then
+		local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BAG_OF_CRAFTING)
+		local roll = rng:RandomFloat()
+		local pickup = collider:ToPickup()
+		---@cast pickup EntityPickup
+
+		if roll <= 0.05 then
+			local dupePickup = Isaac.Spawn(pickup.Type, pickup.Variant, pickup.SubType, player.Position, Vector.Zero, pickup.SpawnerEntity):ToPickup()
+			---@cast dupePickup EntityPickup
+			dupePickup:GetSprite():Play("Idle", true)
+			dupePickup.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYERONLY
+			dupePickup.Timeout = 1
+			dupePickup.Visible = false
+		end
+	end
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, CainBirthcake.UsingBag)
-
-function CainBirthcake:AddPickup(entity)
-    local player = game:GetPlayer(0)
-    if not CainBirthcake:CheckCainB(player) or not player:HasTrinket(TrinketType.TRINKET_BIRTHCAKE) then
-        return
-    end
-
-    local entitySprite = entity:GetSprite()
-
-    if entitySprite:GetAnimation() ~= "Collect" then
-        return
-    end
-
-    if entity.Type == EntityType.ENTITY_PICKUP and mod:GetData(player).isBagOfCraftingActive then
-        local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BAG_OF_CRAFTING)
-        local roll = rng:RandomFloat()
-
-        if roll >= 0.05 then
-            return
-        end
-
-        if entity.Variant == PickupVariant.PICKUP_BOMB then
-            local count = 0
-            if entity.SubType == BombSubType.BOMB_NORMAL then
-                count = 1
-            elseif entity.SubType == BombSubType.BOMB_DOUBLEPACK then
-                count = 2
-            elseif entity.SubType == BombSubType.BOMB_GOLDEN then
-                player:AddGoldenBomb()
-                count = -1
-            elseif entity.SubType == BombSubType.BOMB_GIGA then
-                player:AddGigaBombs(1)
-                count = -1
-            end
-            
-            if count > 0 then
-                player:AddBombs(count)
-            end
-        end
-
-        if entity.Variant == PickupVariant.PICKUP_COIN then
-            local count = 0
-            if entity.SubType == CoinSubType.COIN_PENNY then
-                count = 1
-            elseif entity.SubType == CoinSubType.COIN_LUCKYPENNY then
-                count = 1
-                player.Luck = player.Luck + 1
-            elseif entity.SubType == CoinSubType.COIN_DOUBLEPACK then
-                count = 2
-            elseif entity.SubType == CoinSubType.COIN_NICKEL then
-                count = 5
-            elseif entity.SubType == CoinSubType.COIN_STICKYNICKEL then
-                count = 5
-            elseif entity.SubType == CoinSubType.COIN_DIME then
-                count = 10
-            elseif entity.SubType == CoinSubType.COIN_GOLDEN then
-                count = 1
-                local room = game:GetRoom()
-                Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, CoinSubType.COIN_GOLDEN, room:GetRandomPosition(0), Vector(0,0), entity)
-            end
-
-            if count > 0 then
-                player:AddCoins(count)
-            end
-        end
-
-        if entity.Variant == PickupVariant.PICKUP_KEY then
-            local count = 0
-            if entity.SubType == KeySubType.KEY_NORMAL then
-                count = 1
-            elseif entity.SubType == KeySubType.KEY_DOUBLEPACK then
-                count = 2
-            elseif entity.SubType == KeySubType.KEY_GOLDEN then
-                count = -1
-                player:AddGoldenKey()
-            elseif entity.SubType == KeySubType.KEY_CHARGED then
-                count = 1
-                player:FullCharge()
-            end
-
-            if count > 0 then
-                player:AddKeys(count)
-            end
-        end
-
-        if entity.Variant == PickupVariant.PICKUP_HEART then
-            local count = 0
-            if entity.SubType == HeartSubType.HEART_FULL then
-                count = 2
-            elseif entity.SubType == HeartSubType.HEART_DOUBLEPACK then
-                count = 4
-            elseif entity.SubType == HeartSubType.HEART_HALF then
-                count = 1
-            elseif entity.SubType == HeartSubType.HEART_SOUL then
-                count = -1
-                player:AddSoulHearts(2)
-            elseif entity.SubType == HeartSubType.HEART_HALF_SOUL then
-                count = -1
-                player:AddSoulHearts(1)
-            elseif entity.SubType == HeartSubType.HEART_BLACK then
-                count = -1
-                player:AddBlackHearts(2)
-            elseif entity.SubType == HeartSubType.HEART_SCARED then
-                count = 2
-            elseif entity.SubType == HeartSubType.HEART_BLENDED then
-                if player:GetHearts() == player:GetEffectiveMaxHearts() - 1 then
-                    count = 1
-                    player:AddSoulHearts(1)
-                elseif player:GetHearts() < player:GetEffectiveMaxHearts() then
-                    count = 2
-                else
-                    count = -1
-                    player:AddSoulHearts(2)
-                end
-            elseif entity.SubType == HeartSubType.HEART_ETERNAL then
-                count = -1
-                player:AddEternalHearts(1)
-            elseif entity.SubType == HeartSubType.HEART_ROTTEN then
-                count = -1
-                player:AddRottenHearts(2)
-            elseif entity.SubType == HeartSubType.HEART_BONE then
-                count = -1
-                player:AddBoneHearts(1)
-            elseif entity.SubType == HeartSubType.HEART_GOLDEN then
-                count = -1
-                player:AddGoldenHearts(1)
-            end
-
-            if count > 0 then
-                player:AddHearts(count)
-            end
-        end
-
-        if entity.Variant == PickupVariant.PICKUP_LIL_BATTERY then
-            local count = 0
-            if entity.SubType == BatterySubType.BATTERY_NORMAL then
-                count = 6
-            elseif entity.SubType == BatterySubType.BATTERY_MICRO then
-                count = 2
-            elseif entity.SubType == BatterySubType.BATTERY_MEGA then
-                count = -1
-                player:FullCharge()
-                player:FullCharge()
-            elseif entity.SubType == BatterySubType.BATTERY_GOLDEN then
-                player:TakeDamage(2, DamageFlag.DAMAGE_CURSED_DOOR, EntityRef(player), 0)
-                player:FullCharge()
-            end
-
-            if count > 0 then
-                player:SetActiveCharge(player:GetActiveCharge() + count)
-            end
-        end
-
-        if entity.Variant == PickupVariant.PICKUP_PILL then
-            player:AddPill(entity.SubType)
-        end
-
-        if entity.Variant == PickupVariant.PICKUP_TAROTCARD then
-            player:AddCard(entity.SubType)
-        end
-
-        mod:GetData(player).isBagOfCraftingActive = false
-    end
-end
-
-mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, CainBirthcake.AddPickup)
+Mod:AddCallback(ModCallbacks.MC_PRE_KNIFE_COLLISION, CAIN_BIRTHCAKE.AddPickup)

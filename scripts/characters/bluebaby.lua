@@ -1,103 +1,80 @@
-local mod = Birthcake
-local game = Game()
-local BlueBabyCake = {}
-local count = 0
+local Mod = BirthcakeRebaked
+local game = Mod.Game
+
+local BLUEBABY_CAKE = {}
+BirthcakeRebaked.Characters.BLUEBABY = BLUEBABY_CAKE
 
 -- Functions
 
-function BlueBabyCake:CheckBlueBaby(player)
-    return player:GetPlayerType() == PlayerType.PLAYER_BLUEBABY
+function BLUEBABY_CAKE:CheckBlueBaby(player)
+	return player:GetPlayerType() == PlayerType.PLAYER_BLUEBABY
 end
 
-function BlueBabyCake:CheckBlueBabyB(player)
-    return player:GetPlayerType() == PlayerType.PLAYER_BLUEBABY_B
+function BLUEBABY_CAKE:CheckBlueBabyB(player)
+	return player:GetPlayerType() == PlayerType.PLAYER_BLUEBABY_B
 end
 
 -- Blue Baby Birthcake
 
-function BlueBabyCake:SpawnPoop(collectible,rng,player,useFlags,activeSlot,vardata)
-    if not BlueBabyCake:CheckBlueBaby(player) or not player:HasTrinket(TrinketType.TRINKET_BIRTHCAKE) then
-        return nil
-    end
+local POOP = 10
+local CORNY = EntityPoopVariant and EntityPoopVariant.CORN or 12
+local GOLDEN = EntityPoopVariant and EntityPoopVariant.GOLDEN or 1
+local BLACK = EntityPoopVariant and EntityPoopVariant.BLACK or 15
 
-    local chargeUsed = player:GetActiveCharge()
-    if collectible == CollectibleType.COLLECTIBLE_NOTCHED_AXE then
-        chargeUsed = 1
-    end
-    for i = 1, chargeUsed - 1 do
-        local position = Vector(math.random(-25,25),math.random(-25,25))
-        position = position + player.Position
-        local variant = 10
-        if player:HasTrinket(TrinketType.TRINKET_MECONIUM) then
-            local roll = rng:RandomFloat()
-            if roll < 0.33 then
-                variant = 15
-            end
-        end
-        if mod:GetTrinketMul(player) > 1 then
-            local roll = rng:RandomFloat()
-            if roll < 0.5 then
-                variant = 1
-            end
-        end
-        local roll = rng:RandomFloat()
-        local chance = 0.1
-        if mod:HasMomBox(player) then
-            chance = 0.2
-        end
-        if roll < chance then
-            variant = 12
-        end
-        Isaac.Spawn(EntityType.ENTITY_POOP, variant, 0, position, Vector(10, 10), player)
-    end
+BLUEBABY_CAKE.PoopVariantChance = {
+	[GOLDEN] = 0.01,
+	[CORNY] = 0.2,
+	[BLACK] = 0.33
+}
+
+---@param rng RNG
+---@param player EntityPlayer
+function BLUEBABY_CAKE:SpawnPoop(_, rng, player, _, _, _)
+	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_BLUEBABY) then
+		local chargeUsed = player:GetActiveCharge()
+		if chargeUsed > 12 then
+			chargeUsed = 1
+		end
+		if chargeUsed  == 0 then return end
+		for _ = 1, chargeUsed - 1 do
+			local variant = POOP
+			local roll = rng:RandomFloat()
+			local chanceMult = Mod:GetTrinketMult(player)
+
+			--Loops through all poop variants and selects the rarest
+			for poopVariant, chance in pairs(BLUEBABY_CAKE.PoopVariantChance) do
+				if roll <= chance * chanceMult then
+					poopVariant = poopVariant
+				end
+			end
+
+			Isaac.Spawn(EntityType.ENTITY_POOP, variant, 0, player.Position, RandomVector():Resized(5), player)
+		end
+	end
+
 end
 
-mod:AddCallback(ModCallbacks.MC_USE_ITEM, BlueBabyCake.SpawnPoop)
+Mod:AddCallback(ModCallbacks.MC_USE_ITEM, BLUEBABY_CAKE.SpawnPoop)
 
 -- Blue Baby B Birthcake
 
-function BlueBabyCake:Poop()
-    local player = game:GetPlayer(0)
-
-    if not BlueBabyCake:CheckBlueBabyB(player) or not player:HasTrinket(TrinketType.TRINKET_BIRTHCAKE) then
-        return nil
-    end
-
-    local entities = Isaac.GetRoomEntities()
-    for i = 1, #entities do
-        local entity = entities[i]
-        if entity.Type == EntityType.ENTITY_POOP and entity.SpawnerType == EntityType.ENTITY_PLAYER then
-            if entity.EntityCollisionClass == EntityCollisionClass.ENTCOLL_ALL then
-                entity.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYEROBJECTS
-            end
-        elseif entity.Type == EntityType.ENTITY_PROJECTILE then
-            for i = 1, #entities do
-                local entity2 = entities[i]
-                if entity == entity2 then
-                    goto continue
-                end
-                if entity2.Type == EntityType.ENTITY_POOP and entity2.SpawnerType == EntityType.ENTITY_PLAYER then
-                    if entity.Position:Distance(entity2.Position) < 30 and entity2:GetSprite():GetAnimation() ~= "State5" then
-                        entity:Remove()
-                    end
-                end
-                ::continue::
-            end
-        elseif entity:IsEnemy() then
-            for i = 1, #entities do
-                local entity2 = entities[i]
-                if entity == entity2 then
-                    goto continue
-                end
-                if entity2.Type == EntityType.ENTITY_POOP and entity2.SpawnerType == EntityType.ENTITY_PLAYER then
-                    if entity.Position:Distance(entity2.Position) <= 30 and entity2:GetSprite():GetAnimation() ~= "State5" then
-                        entity:AddSlowing(EntityRef(player), 1, 0.5, entity:GetColor())
-                    end
-                end
-                ::continue::
-            end
-        end
-    end
+function BLUEBABY_CAKE:Poop()
+	for _, poop in ipairs(Isaac.FindByType(EntityType.ENTITY_POOP)) do
+		local player = poop.SpawnerEntity and poop.SpawnerEntity:ToPlayer()
+		if player and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_BLUEBABY_B) then
+			if poop.EntityCollisionClass == EntityCollisionClass.ENTCOLL_ALL then
+				poop.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYEROBJECTS
+			end
+			if poop:GetSprite():GetAnimation() ~= "State5" then
+				for _, projEnt in ipairs(Isaac.FindInRadius(poop.Position, poop.Size, EntityPartition.BULLET)) do
+					projEnt:Remove()
+				end
+				for _, enemy in ipairs(Isaac.FindInRadius(poop.Position, poop.Size, EntityPartition.ENEMY)) do
+					enemy:AddSlowing(EntityRef(player), 1, 0.5, enemy:GetColor())
+				end
+			end
+		end
+	end
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_UPDATE, BlueBabyCake.Poop)
+Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, BLUEBABY_CAKE.Poop)
