@@ -157,6 +157,7 @@ Mod:AddCallback(ModCallbacks.MC_USE_ITEM, ISAAC_CAKE.IsaacReroll, CollectibleTyp
 
 -- Isaac B Birthcake
 
+---@param player EntityPlayer
 function ISAAC_CAKE:Test(player, damage, flags, source, cdframes)
 	if player.Type ~= EntityType.ENTITY_PLAYER then
 		return

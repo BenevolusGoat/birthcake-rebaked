@@ -400,6 +400,7 @@ BirthcakeRebaked.Callbacks = {
 include("src_birthcake.utility.hud_helper")
 include("src_birthcake.utility.rgon_enums")
 include("src_birthcake.utility.misc_util")
+include("src_birthcake.utility.birthcake_util")
 --include("src_birthcake.mcm")
 include("src_birthcake.trinket_birthcake")
 include("src_birthcake.challenge_birthday_party")
