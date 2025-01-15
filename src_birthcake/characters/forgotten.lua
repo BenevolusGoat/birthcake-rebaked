@@ -4,6 +4,15 @@ local game = Mod.Game
 local THEFORGOTTEN_CAKE = {}
 BirthcakeRebaked.Birthcake.THEFORGOTTEN = THEFORGOTTEN_CAKE
 
+THEFORGOTTEN_CAKE.SOUL_CHARGE_EFFECT_CAP = 10
+THEFORGOTTEN_CAKE.SOUL_CHARGE_DURATION_MULT = 30
+THEFORGOTTEN_CAKE.SOUL_CHARGE_COLLECT_COOLDOWN = 10
+THEFORGOTTEN_CAKE.SOUL_CHARGE_DECAY_COOLDOWN = 30
+THEFORGOTTEN_CAKE.SOUL_CHARGE_FIREDELAY_MULT = 0.2
+
+local SOUL_COLOR_OFFSET = Color(0.5, 0.7, 1, 1, 0.05, 0.12, 0.2)
+local SOUL_COLOR = Color(1.5, 1.7, 2, 1, 0.05, 0.12, 0.2)
+
 -- "The Forgotten's" Birthcake and by that I mean The Soul
 
 ---@param familiar EntityFamiliar
@@ -11,34 +20,116 @@ function THEFORGOTTEN_CAKE:OnForgottenBodyCollision(familiar)
 	local player = familiar.Player
 
 	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_THESOUL) then
+		local effects = player:GetEffects()
+		local pData = Mod:GetData(player)
+		if pData.IsForgotten then
+			effects:RemoveTrinketEffect(Mod.Birthcake.ID, -1)
+			pData.IsForgotten = false
+			pData.IsSoul = true
+		end
+		local numSoulCharge = effects:GetTrinketEffectNum(Mod.Birthcake.ID)
+		local fData = Mod:GetData(familiar)
 		for _, ent in ipairs(Isaac.FindInRadius(familiar.Position, familiar.Size)) do
 			if (ent:ToTear()
 					or ent:ToLaser() --Doesn't work (womp)
 					or (ent:ToKnife() and ent:ToKnife():IsFlying())
 					or ent:ToBomb()
-				)
+				) and not fData.SoulChargeCooldown
 			then
-				local data = Mod:GetData(ent)
-				if not data.ForgottenCakeBodyCollision then
-					if not ent:ToKnife() then
-						data.ForgottenCakeBodyCollision = true
-					end
-					for _ = 1, player:GetTrinketRNG(Mod.Birthcake.ID):RandomInt(3) + Mod:GetTrinketMult(player) do
-						local tear = player:FireTear(familiar.Position, RandomVector():Resized(player.ShotSpeed * 10),
-							false, true, false, player, 0.5)
-						tear:ChangeVariant(TearVariant.BONE)
-						Mod:GetData(tear).ForgottenCakeBodyCollision = true
-						local sprite = tear:GetSprite()
-						sprite:ReplaceSpritesheet(0, "gfx/tears_brokenbone.png")
-						sprite:LoadGraphics()
-					end
+				fData.SoulChargeCooldown = THEFORGOTTEN_CAKE.SOUL_CHARGE_COLLECT_COOLDOWN
+				fData.SoulChargeDecay = THEFORGOTTEN_CAKE.SOUL_CHARGE_DECAY_COOLDOWN
+
+				Mod.SFXManager:Play(SoundEffect.SOUND_BONE_BREAK, 0.5, 0, false)
+
+				if numSoulCharge < THEFORGOTTEN_CAKE.SOUL_CHARGE_EFFECT_CAP then
+					effects:AddTrinketEffect(Mod.Birthcake.ID, false)
+				end
+
+				for _ = 1, player:GetTrinketRNG(Mod.Birthcake.ID):RandomInt(3) + Mod:GetTrinketMult(player) do
+					local tear = player:FireTear(familiar.Position, RandomVector():Resized(player.ShotSpeed * 10),
+						false, true, false, player, 0.5)
+					tear:ChangeVariant(TearVariant.BONE)
+					Mod:GetData(tear).ForgottenCakeBodyCollision = true
+					local sprite = tear:GetSprite()
+					sprite:ReplaceSpritesheet(0, "gfx/tears_brokenbone.png")
+					sprite:LoadGraphics()
 				end
 			end
+		end
+		if fData.SoulChargeCooldown then
+			if fData.SoulChargeCooldown > 0 then
+				fData.SoulChargeCooldown = fData.SoulChargeCooldown - 1
+			else
+				fData.SoulChargeCooldown = nil
+			end
+		end
+		if fData.SoulChargeDecay then
+			if fData.SoulChargeDecay > 0 then
+				fData.SoulChargeDecay = fData.SoulChargeDecay - 1
+			elseif numSoulCharge > 0 then
+				effects:RemoveTrinketEffect(Mod.Birthcake.ID)
+				fData.SoulChargeDecay = THEFORGOTTEN_CAKE.SOUL_CHARGE_DECAY_COOLDOWN
+			else
+				fData.SoulChargeDecay = nil
+			end
+			local s = SOUL_COLOR_OFFSET
+			local p = (numSoulCharge / THEFORGOTTEN_CAKE.SOUL_CHARGE_EFFECT_CAP)
+			local newColor = Color(1 + (s.R * p), 1 + (s.G * p), 1 + (s.B * p), 1, (s.RO * p), (s.GO * p), (s.BO * p))
+			familiar:SetColor(newColor, 2, 5, true, true)
 		end
 	end
 end
 
 Mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, THEFORGOTTEN_CAKE.OnForgottenBodyCollision, FamiliarVariant.FORGOTTEN_BODY)
+
+---@param player EntityPlayer
+function THEFORGOTTEN_CAKE:CashInSoulCharge(player)
+	local data = Mod:GetData(player)
+	local effects = player:GetEffects()
+
+	data.IsForgotten = true
+
+	if player:HasTrinket(Mod.Birthcake.ID) then
+		if data.IsSoul then
+			data.IsSoul = false
+			if effects:GetTrinketEffectNum(Mod.Birthcake.ID) > 0 then
+				local numSoulCharge = effects:GetTrinketEffectNum(Mod.Birthcake.ID)
+				effects:RemoveTrinketEffect(Mod.Birthcake.ID, -1)
+				local duration = numSoulCharge * THEFORGOTTEN_CAKE.SOUL_CHARGE_DURATION_MULT
+				effects:AddTrinketEffect(Mod.Birthcake.ID, false, duration)
+				player:SetColor(SOUL_COLOR, duration, 5, true, false)
+			end
+		end
+	end
+	if effects:GetTrinketEffectNum(Mod.Birthcake.ID) > 0 then
+		effects:RemoveTrinketEffect(Mod.Birthcake.ID)
+		player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY)
+		player:EvaluateItems()
+	end
+end
+
+Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, THEFORGOTTEN_CAKE.CashInSoulCharge, PlayerType.PLAYER_THEFORGOTTEN)
+
+local function Delay2Tears(delay)
+	return 30 / (delay + 1)
+  end
+
+local function Tears2Delay(tears)
+	return (30 / tears) - 1
+  end
+
+---@param player EntityPlayer
+function THEFORGOTTEN_CAKE:SoulChargeFireDelayCache(player)
+	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_THEFORGOTTEN) then
+		local tears = Delay2Tears(player.MaxFireDelay)
+		local effectCountdown = player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID)
+		local fireDelayMult = THEFORGOTTEN_CAKE.SOUL_CHARGE_FIREDELAY_MULT * (effectCountdown / THEFORGOTTEN_CAKE.SOUL_CHARGE_DURATION_MULT)
+		tears = tears + fireDelayMult
+		player.MaxFireDelay = Tears2Delay(tears)
+	end
+end
+
+Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, THEFORGOTTEN_CAKE.SoulChargeFireDelayCache, CacheFlag.CACHE_FIREDELAY)
 
 -- Tainted Forgotten's Birthcake
 

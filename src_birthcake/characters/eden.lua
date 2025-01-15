@@ -7,15 +7,37 @@ EDEN_CAKE.HiddenItemGroup = "Eden Birthcake"
 
 -- Eden Birthcake
 
---TODO: Revisit
+---@param player EntityPlayer
+---@param num integer
+function EDEN_CAKE:AddBirthcakeTrinkets(player, num)
+	local itemPool = Mod.Game:GetItemPool()
+	local trinketList = {}
+	for _ = 1, num do
+		local trinketID = itemPool:GetTrinket()
+		table.insert(trinketList, { TrinketType = trinketID, FirstTime = true })
+	end
+	Mod:AddSmeltedTrinkets(player, trinketList)
+	Mod.SFXManager:Play(SoundEffect.SOUND_VAMP_GULP)
+end
 
-function EDEN_CAKE:TrySpawnBirthcakeWisp(player)
-	if player:HasTrinket(Mod.Birthcake.ID) then
-		local hidden_item_manager = Mod.HiddenItemManager
+---@param player EntityPlayer
+---@param trinketID TrinketType
+---@param firstTime boolean
+function EDEN_CAKE:OnAddBirthcake(player, trinketID, firstTime)
+	if firstTime then
+		local count = 3
+		if player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_BOX) then
+			count = count + 1
+		end
+		if Mod:IsBirthcake(trinketID, true) then
+			count = count + 1
+		end
+		EDEN_CAKE:AddBirthcakeTrinkets(player, count)
+		player:TryRemoveTrinket(trinketID)
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, EDEN_CAKE.TrySpawnBirthcakeWisp, PlayerType.PLAYER_EDEN)
+Mod:AddCallback(Mod.Callbacks.POST_BIRTHCAKE_COLLECT, EDEN_CAKE.OnAddBirthcake, PlayerType.PLAYER_EDEN)
 
 -- Tainted Eden birthcake
 
@@ -32,8 +54,8 @@ function EDEN_CAKE:Undecided(pickup)
 					pickup:AddEntityFlags(EntityFlag.FLAG_GLITCH)
 				else
 					local itemID = Mod.Game:GetItemPool():GetCollectible(
-					rng:RandomInt(ItemPoolType.NUM_ITEMPOOLS - 1) + 1, false, pickup.InitSeed,
-					CollectibleType.COLLECTIBLE_GB_BUG)
+						rng:RandomInt(ItemPoolType.NUM_ITEMPOOLS - 1) + 1, false, pickup.InitSeed,
+						CollectibleType.COLLECTIBLE_GB_BUG)
 					pickup:Morph(pickup.Type, pickup.Variant, itemID, true, true)
 				end
 			end

@@ -40,6 +40,8 @@ HudHelper.RegisterHUDElement({
 			data.BirthcakeSprite = Mod:GetBirthcakeSprite(player)
 			data.BirthcakeSprite:Play("Idle")
 		end
+		Isaac.RunCallbackWithParam(Mod.Callbacks.PRE_BIRTHCAKE_RENDER, player:GetPlayerType(), player, data.BirthcakeSprite, pos)
 		data.BirthcakeSprite:Render(pos)
+		Isaac.RunCallbackWithParam(Mod.Callbacks.POST_BIRTHCAKE_RENDER, player:GetPlayerType(), player, data.BirthcakeSprite, pos)
 	end
 }, HudHelper.HUDType.TRINKET)

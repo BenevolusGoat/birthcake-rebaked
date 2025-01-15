@@ -5,12 +5,11 @@ BirthcakeRebaked.SaveManager = include("src_birthcake.utility.save_manager")
 BirthcakeRebaked.SaveManager.Init(BirthcakeRebaked)
 BirthcakeRebaked.Game = Game()
 BirthcakeRebaked.SFXManager = SFXManager()
+BirthcakeRebaked.ItemConfig = Isaac.GetItemConfig()
 BirthcakeRebaked.SFX = {
 	PARTY_HORN = Isaac.GetSoundIdByName("Party Horn")
 }
-BirthcakeRebaked.Trinkets = {}
 BirthcakeRebaked.Challenges = {}
-BirthcakeRebaked.HiddenItemManager = include("src_birthcake.utility.vendor.hidden_item_manager")
 
 local trinketPath = "gfx/items/trinkets/"
 
@@ -184,11 +183,18 @@ BirthcakeRebaked.Config = {
 	},
 }
 BirthcakeRebaked.Callbacks = {
-	GET_BIRTHCAKE_NAME = "BIRTHCAKE_GET_BIRTHCAKE_NAME",
-	GET_BIRTHCAKE_DESCRIPTION = "BIRTHCAKE_GET_BIRTHCAKE_DESCRIPTION",
+	---(player: EntityPlayer): string, Optional Arg: PlayerType - Called when getting the player-specific name of Birthcake before displayed as item text. Return a string to override it
+	PRE_BIRTHCAKE_ITEMTEXT_NAME = "BIRTHCAKE_PRE_BIRTHCAKE_ITEMTEXT_NAME",
+	---(player: EntityPlayer): string, Optional Arg: PlayerType - Called when getting the player-specific description of Birthcake before displayed as item text. Return a string to override it
+	PRE_BIRTHCAKE_ITEMTEXT_DESCRIPTION = "BIRTHCAKE_PRE_BIRTHCAKE_ITEMTEXT_DESCRIPTION",
+	---(player: EntityPlayer, sprite: Sprite), Optional Arg: Player Type - Called when loading the player-specific Birthcake sprite. Return a sprite object to override it
 	LOAD_BIRTHCAKE_SPRITE = "BIRTHCAKE_LOAD_BIRTHCAKE_SPRITE",
 	PRE_BIRTHCAKE_RENDER = "BIRTHCAKE_PRE_BIRTHCAKE_RENDER",
-	POST_BIRTHCAKE_RENDER = "BIRTHCAKE_POST_BIRTHCAKE_RENDER"
+	POST_BIRTHCAKE_RENDER = "BIRTHCAKE_POST_BIRTHCAKE_RENDER",
+	---(player: EntityPlayer, firstTimePickup: boolean, isGolden: boolean), Optional Arg: PlayerType - Called when picking up the Birthcake trinket
+	POST_BIRTHCAKE_PICKUP = "BIRTHCAKE_POST_BIRTHCAKE_PICKUP",
+	---(player: EntityPlayer, firstTimePickup: boolean, isGolden: boolean), Optional Arg: PlayerType - Called when collecting the Birthcake trinket. REPENTOGON will trigger this any time the item is added to the player's inventory. Otherwise, it triggers only when picked up as a trinket
+	POST_BIRTHCAKE_COLLECT = "BIRTHCAKE_POST_BIRTHCAKE_COLLECT"
 }
 
 --[[ Mod.TrinketDesc = {
@@ -402,7 +408,6 @@ function BirthcakeRebaked:GetBirthcakeSprite(player)
 	return sprite
 end
 
-
 include("src_birthcake.utility.hud_helper")
 include("src_birthcake.utility.rgon_enums")
 include("src_birthcake.utility.misc_util")
@@ -420,14 +425,15 @@ function BirthcakeRebaked:ItemDesc(player)
 	if not data.HoldingBirthcake
 		and queuedItem
 		and queuedItem.Type == ItemType.ITEM_TRINKET
-		and queuedItem.ID == Mod.Birthcake.ID
+		and Mod:IsBirthcake(queuedItem.ID)
 	then
-		data.HoldingBirthcake = true
+		data.HoldingBirthcake = queuedItem.ID
+		data.BirthcakeFirstPickup = player.QueuedItem.Touched
 		local config = Mod.Config[playerType]
 		local name = config.Name or player:GetName() .. "'s Cake"
 		local description = config.Description or "but its not your birthday..."
-		local nameResult = Isaac.RunCallbackWithParam(Mod.Callbacks.GET_BIRTHCAKE_NAME, playerType, player)
-		local descriptionResult = Isaac.RunCallbackWithParam(Mod.Callbacks.GET_BIRTHCAKE_DESCRIPTION, playerType, player)
+		local nameResult = Isaac.RunCallbackWithParam(Mod.Callbacks.PRE_BIRTHCAKE_ITEMTEXT_NAME, playerType, player)
+		local descriptionResult = Isaac.RunCallbackWithParam(Mod.Callbacks.PRE_BIRTHCAKE_ITEMTEXT_DESCRIPTION, playerType, player)
 		name = (nameResult ~= nil and tostring(nameResult)) or name
 		description = (descriptionResult ~= nil and tostring(descriptionResult)) or description
 		Mod.Game:GetHUD():ShowItemText(name, description, false)
@@ -435,12 +441,25 @@ function BirthcakeRebaked:ItemDesc(player)
 		local sprite = BirthcakeRebaked:GetBirthcakeSprite(player)
 		sprite:Play("PlayerPickupSparkle")
 		player:AnimatePickup(sprite, false, "Pickup")
-	elseif not queuedItem then
+		Isaac.RunCallbackWithParam(Mod.Callbacks.POST_BIRTHCAKE_PICKUP, playerType, player, data.BirthcakeFirstPickup, Mod:IsBirthcake(queuedItem.ID, true))
+	elseif not queuedItem and data.HoldingBirthcake then
+		if not REPENTOGON then
+			Isaac.RunCallbackWithParam(Mod.Callbacks.POST_BIRTHCAKE_COLLECT, playerType, player, data.BirthcakeFirstPickup, Mod:IsBirthcake(data.HoldingBirthcake, true))
+		end
 		data.HoldingBirthcake = nil
 	end
 end
 
 Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, BirthcakeRebaked.ItemDesc)
+
+if REPENTOGON then
+	function BirthcakeRebaked:OnTrinketAdd(player, trinketID, firstTime)
+		Isaac.RunCallbackWithParam(Mod.Callbacks.POST_BIRTHCAKE_COLLECT, player:GetPlayerType(), player, firstTime, Mod:IsBirthcake(trinketID, true))
+	end
+
+	Mod:AddCallback(ModCallbacks.MC_POST_TRIGGER_TRINKET_ADDED,  BirthcakeRebaked.OnTrinketAdd, Mod.Birthcake.ID)
+	Mod:AddCallback(ModCallbacks.MC_POST_TRIGGER_TRINKET_ADDED,  BirthcakeRebaked.OnTrinketAdd, Mod.Birthcake.ID + TrinketType.TRINKET_GOLDEN_FLAG)
+end
 
 
 ---@param pickup EntityPickup

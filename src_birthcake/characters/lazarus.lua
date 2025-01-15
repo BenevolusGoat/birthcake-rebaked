@@ -75,7 +75,7 @@ function LAZARUS_CAKE:UpdateItems()
 
 	local ItemCount = Isaac:GetItemConfig():GetCollectibles().Size - 1
 	for i = 1, ItemCount do
-		local itemConfig = Isaac.GetItemConfig():GetCollectible(i)
+		local itemConfig = Mod.ItemConfig:GetCollectible(i)
 		if player:HasCollectible(i, true) and (itemConfig.Type == ItemType.ITEM_PASSIVE or itemConfig.Type == ItemType.ITEM_FAMILIAR) and not itemConfig:HasTags(ItemConfig.TAG_LAZ_SHARED) and not itemConfig:HasTags(ItemConfig.TAG_LAZ_SHARED_GLOBAL) then
 			if upgraded and itemConfig.Quality == 0 then
 				goto continue
@@ -94,7 +94,7 @@ function LAZARUS_CAKE:UpdateItems()
 		if not player:HasCollectible(LazarusItem[i], true) and playerType == PlayerType.PLAYER_LAZARUS_B then
 			table.remove(LazarusItem, i)
 		end
-		local itemConfig = Isaac.GetItemConfig():GetCollectible(LazarusItem[i])
+		local itemConfig = Mod.ItemConfig:GetCollectible(LazarusItem[i])
 		if upgraded and itemConfig.Quality == 0 then
 			table.remove(LazarusItem, i)
 		end
@@ -103,7 +103,7 @@ function LAZARUS_CAKE:UpdateItems()
 		if not player:HasCollectible(DeadLazarusItem[i], true) and playerType == PlayerType.PLAYER_LAZARUS2_B then
 			table.remove(DeadLazarusItem, i)
 		end
-		local itemConfig = Isaac.GetItemConfig():GetCollectible(DeadLazarusItem[i])
+		local itemConfig = Mod.ItemConfig:GetCollectible(DeadLazarusItem[i])
 		if upgraded and itemConfig.Quality == 0 then
 			table.remove(DeadLazarusItem, i)
 		end

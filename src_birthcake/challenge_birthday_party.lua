@@ -87,7 +87,7 @@ function BIRTHDAY_PARTY:SwitchCharacter()
 			end
 
 			BIRTHDAY_PARTY.CharacterRewards[playerType](player)
-			player:QueueItem(Isaac.GetItemConfig():GetTrinket(Mod.Birthcake.ID))
+			player:QueueItem(Mod.ItemConfig:GetTrinket(Mod.Birthcake.ID))
 		end
 	end
 end

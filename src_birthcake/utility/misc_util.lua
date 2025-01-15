@@ -34,7 +34,7 @@ function BirthcakeRebaked:SpawnFromPool(pool, pos, price)
 	local collectible = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE,
 		Mod.Game:GetItemPool():GetCollectible(pool, false), pos, Vector(0, 0), nil):ToPickup()
 	---@cast collectible EntityPickup
-	local itemConfig = Isaac.GetItemConfig():GetCollectible(collectible.SubType)
+	local itemConfig = Mod.ItemConfig:GetCollectible(collectible.SubType)
 
 	if price == -1 then
 		price = math.floor(itemConfig.ShopPrice / 2)
@@ -108,4 +108,90 @@ function BirthcakeRebaked:HasBitFlags(flags, checkFlag)
 		error("BitMaskHelper: checkFlag is nil", 2)
 	end
 	return flags & checkFlag == checkFlag
+end
+
+---Credit to Epiphany
+---Grants the player an item from a pedestal
+---@param pickup EntityPickup
+---@param player EntityPlayer
+---@function
+function BirthcakeRebaked:AwardPedestalItem(pickup, player)
+	local itemId = pickup.SubType
+	if itemId ~= CollectibleType.COLLECTIBLE_NULL then
+		local configitem = Mod.ItemConfig:GetCollectible(itemId)
+		player:AnimateCollectible(itemId)
+		player:QueueItem(configitem, pickup.Charge, pickup.Touched)
+		player.QueuedItem.Item = configitem
+		Mod.SFXManager:Play(SoundEffect.SOUND_CHOIR_UNLOCK, 0.5)
+		pickup.Touched = true
+		pickup.SubType = 0
+		pickup:GetSprite():Play("Empty", true)
+		pickup:GetSprite():ReplaceSpritesheet(4, "blank", true)
+		Mod.Game:GetHUD():ShowItemText(player, Isaac:GetItemConfig():GetCollectible(itemId))
+		Mod:KillChoice(pickup)
+	end
+end
+
+---Credit to Epiphany
+---@param pickup EntityPickup
+---Options? compatibility and Choice pedestals in general.
+---Kills choices connected to the pickup passed.
+---@function
+function BirthcakeRebaked:KillChoice(pickup)
+	if pickup.OptionsPickupIndex ~= 0 then
+		local pickups =Isaac.FindByType(EntityType.ENTITY_PICKUP)
+		for i = #pickups, 1, -1 do
+			local ent = pickups[i]
+			if pickup.OptionsPickupIndex == ent:ToPickup().OptionsPickupIndex and GetPtrHash(pickup) ~= GetPtrHash(ent) then
+				Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, ent.Position, Vector.Zero, nil)
+				ent:Remove()
+			end
+		end
+	end
+end
+
+---@param player EntityPlayer
+---@param trinketList {TrinketType: TrinketType, FirstTime: boolean}[] | TrinketType[]
+function BirthcakeRebaked:AddSmeltedTrinkets(player, trinketList)
+	local trinket0 = player:GetTrinket(0)
+	local trinket1 = player:GetTrinket(1)
+	if not REPENTOGON then
+		player:TryRemoveTrinket(trinket0)
+		player:TryRemoveTrinket(trinket1)
+	end
+	for _, trinketData in ipairs(trinketList) do
+		local trinketID = type(trinketData) == "table" and trinketData.TrinketType or trinketData
+		local firstPickup = type(trinketData) == "table" and trinketData.FirstTime or false
+		---@cast trinketID TrinketType
+		---@cast firstPickup boolean
+
+		if REPENTOGON then
+			player:AddSmeltedTrinket(trinketID)
+		else
+			player:AddTrinket(trinketID, firstPickup)
+			player:UseActiveItem(CollectibleType.COLLECTIBLE_SMELTER, UseFlag.USE_NOANIM)
+		end
+	end
+	if not REPENTOGON then
+		player:AddTrinket(trinket0)
+		player:AddTrinket(trinket1)
+	end
+end
+
+
+---@param player EntityPlayer
+---@param trinketList {[string]: integer}[]
+function BirthcakeRebaked:RemoveSmeltedTrinkets(player, trinketList)
+	for trinketIDStr, trinketNum in pairs(trinketList) do
+		local trinketID = tonumber(trinketIDStr)
+		---@cast trinketID TrinketType
+
+		for _ = 1, trinketNum do
+			if REPENTOGON then
+				player:TryRemoveSmeltedTrinket(trinketID)
+			else
+				player:TryRemoveTrinket(trinketID)
+			end
+		end
+	end
 end

@@ -574,7 +574,7 @@ local function InitFunctions()
 	---@param itemID CollectibleType
 	---@param slot ActiveSlot
 	function HudHelper.ShouldActiveBeDisplayed(player, itemID, slot)
-		local config = Isaac.GetItemConfig()
+		local config = Mod.ItemConfig
 
 		return not HudHelper.ShouldHideHUD()
 			and not player:IsCoopGhost()
@@ -1372,7 +1372,6 @@ local function InitFunctions()
 				end
 			}, HudHelper.HUDType.EXTRA)
 		end
-
 	end
 
 	local function AddPriorityCallback(callback, priority, func, arg)

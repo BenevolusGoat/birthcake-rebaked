@@ -3,34 +3,28 @@
 Birthcake Changes:
 - Magdalene granting soul hearts with Yum Heart use now scales with your trinket modifier instead of just Mom's Box, up to one and a half soul hearts
 - Tainted Magdalene has hearts explode with a base damage value of 5.25 (2x T. Maggy's base damage, instead of half the player's damage) that increases based on the combined number of and total trinket multipliers of all Tainted Magdelenes with
-- Removed devil deal interaction with Judas/Dark Judas. Instead, if Judas would die, they will gain a black heart, damage all enemies in the room, and have  removed from their inventory. Any trinket multipliers will add an additional black heart
+- Removed devil deal interaction with Judas/Dark Judas. Instead, if Judas would die, they will gain a black heart, damage all enemies in the room, and have Birthcake removed from their inventory. Any trinket multipliers will add an additional black heart
 - Adjusted ???'s poop spawning chances. Golden Poops can spawn with or without a trinket multiplier, but is much rarer at a 1% chance. Trinket multipliers as a whole contribute to the poop chance. Only one roll will be made and the rarest type will always be selected if the roll meets the chance requirements
 - Removed Tainted Eve spawning clots twice as fast
 - Lazarus will receive a soul heart upon reviving as Lazarus Risen instead of an extra heart container on a new floor
-- Removed Lilith's secondary effect of consuming the trinket on a new floor
-- Chance of Lilith's familiars obtaining their tear effects from  increases with your trinket multiplier, +25% for each additional mulitplier
+- Removed Lilith's secondary effect of consuming the trinket on a new floor and gaining a familiar
+- Chance of Lilith's familiars obtaining their tear effects increases with your trinket multiplier, +25% for each additional mulitplier
 - Keeper spawns more nickels depending on your multiplier instead of spawning a Golden Penny when entering shops or devil rooms
-- Fixed Apollyon smelting your current trinkets and un-smelting if smelted
-- Both normal and tainted Forgotten's Birthcakes spawn an orbital when killing an enemy, so long as they had the last hit from a player, instead of when damaging an enemy
-- Both normal and tainted Forgotten's Birthcakes have a cap of 6 orbitals at a time
-- Damage of Forgotten's Purgatory Wisps and damage bonus given to The Soul scales based on trinket multiplier
-- Tainted Forgotten spawns bone orbitals instead of fly orbitals, and only around The Soul
-- Removed enemies targeting Tainted Forgotten with
 - J&E now only takes 10% of the other brother's stats instead of 25%
 
 Birthcake Reworks:
 - Isaac spawns a Dice Shard when entering a Treasure Room and when clearing a Boss Room. Spawned amount scales with trinket multipliers
+- Tainted Isaac gains an extra inventory slot that's tied to the Birthcake. Your number of extra inventory slots scales with your trinket multiplier
 - Azazel has the duration of their beam extended so long as it damages enemies, for a maximum time of 3x the typical duration. Trinket multipliers will each add +50% of this duration
-- Forgotten does nothing on their own. When The Soul shoots through Forgotten's Body, it creates a Compound Fracture effect of 1-3 half-damage tears. This works with tears, lasers, and bombs, and adds an additional bone scaling with trinket multipliers
-- Bethany will spawn a wisp 25% of the time they use an active that would also spawn a wisp. Chance scales with trinket multipliers
+- When The Soul shoots through Forgotten's Body, it creates a Compound Fracture effect of 1-3 half-damage tears, adding an additional bone scaling with trinket multipliers. Doing this charges The Forgotten's body with "soul charges". When swapping back to The Forgotten, the stored charges convert to a diminishing tears up. This tears up instantly goes away when swapping back to The Soul
+- Tainted Forgotten will spawn bone orbitals when killing enemies, which will orbit around Tainted Soul. When picking up T. Forgotten and throwing them, the bone orbitals are shot forward like tears
+- Bethany will spawn a duplicate wisp of the same type 25% of the time when using an active item. Chance scales with trinket multipliers
 - Tainted Bethany's wisps now have double health when being spawned. This does not affect the Birthright-spawned wisps. They spawn with an additional +2 HP with trinket multipliers
+- Eden's Birthcake is removed and they instantly gain 3 random gulped trinkets. Having Mom's Box and the trinket being golden each add an additional trinket
 - Tainted Jacob
-- T. Azazel
-- Eden
-- Isaac
-- T. Isaac
-- T. Eve
+- Tainted Azazel
+- Tainted Eve
 
 Modding API:
 - Has both BirthcakeRebaked and Birthcake globals, the latter for backwards compatibility
-- Nearly everything in the mod is exposed under the BirthcakeRebaked global, following Epiphany codebase style of formatting
+- Nearly everything in the mod is exposed under the BirthcakeRebaked global, following Epiphany's codebase style

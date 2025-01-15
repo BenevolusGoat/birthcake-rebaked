@@ -23,7 +23,7 @@ end)
 ---@param isGolden boolean?
 function BirthcakeRebaked:IsBirthcake(trinketID, isGolden)
 	if trinketID == Mod.Birthcake.ID then
-		local golden = Mod.Birthcake.ID + TrinketType.TRINKET_GOLDEN_FLAG
+		local golden = trinketID == (Mod.Birthcake.ID + TrinketType.TRINKET_GOLDEN_FLAG)
 		if isGolden ~= nil then
 			return (not isGolden and not golden) or (isGolden and golden)
 		else
@@ -34,8 +34,13 @@ function BirthcakeRebaked:IsBirthcake(trinketID, isGolden)
 end
 
 ---@param player EntityPlayer
-function BirthcakeRebaked:GetTrinketMult(player)
-	return player:GetTrinketMultiplier(Mod.Birthcake.ID)
+---@param ignoreBox? boolean
+function BirthcakeRebaked:GetTrinketMult(player, ignoreBox)
+	local mult = player:GetTrinketMultiplier(Mod.Birthcake.ID)
+	if ignoreBox and player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_BOX) then
+		mult = mult - 1
+	end
+	return mult
 end
 
 ---@param playerType PlayerType
