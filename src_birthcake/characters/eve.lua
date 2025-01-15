@@ -25,9 +25,9 @@ function EVE_CAKE:ClotDeath(ent, dmg, flag, source, cdframe)
 		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_EVE_B)
 		and ent.Variant == FamiliarVariant.BLOOD_BABY and ent:IsDead()
 	then
-		Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 0,
-			Isaac.GetFreeNearPosition(ent.Position, 10), Vector(0, 0), ent)
+		Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 0, ent.Position, Vector.Zero, ent)
 	end
 end
 
 Mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, EVE_CAKE.ClotDeath, EntityType.ENTITY_FAMILIAR)
+

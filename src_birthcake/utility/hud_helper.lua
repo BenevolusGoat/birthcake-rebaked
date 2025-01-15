@@ -31,6 +31,10 @@ local function InitMod()
 	---@class HUDInfo_PocketItem: HUDInfo
 	---@field OnRender fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout, position: Vector, alpha: integer, scale: integer) @Runs for each player, if the condition is true.
 
+	---@class HUDInfo_Trinket: HUDInfo
+	---@field Condition fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout, slot: integer): boolean @A function that returns true if the HUD element should be drawn.
+	---@field OnRender fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout, position: Vector, scale: integer, slot: integer) @Runs for each player, if the condition is true.
+
 	---@class HUDInfo_Extra: HUDInfo
 	---@field YPadding integer | fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout): integer @The height of the HUD element. This is used to calculate the padding between HUD elements.
 	---@field XPadding integer | table<integer, integer> @The padding between the HUD element and vanilla ui, by player index.
@@ -46,9 +50,8 @@ local function InitMod()
 		Actives = CACHED_ELEMENTS and CACHED_ELEMENTS.Actives or {}, ---@type HUDInfo_Active[]
 		Health = CACHED_ELEMENTS and CACHED_ELEMENTS.Health or {}, ---@type HUDInfo_Health[]
 		PocketItems = CACHED_ELEMENTS and CACHED_ELEMENTS.PocketItems or {}, ---@type HUDInfo_PocketItem[]
+		Trinkets = CACHED_ELEMENTS and CACHED_ELEMENTS.Trinkets or {}, ---@type HUDInfo_Trinket[]
 		Extra = CACHED_ELEMENTS and CACHED_ELEMENTS.Extra or {}, ---@type HUDInfo_Extra[]
-		--maybe?
-		--Trinkets = {}
 	}
 	HudHelper.Version = VERSION
 	HudHelper.ItemSpecificOffset = {
@@ -60,14 +63,17 @@ local function InitMod()
 		ACTIVE = 1, --Renders on every active item
 		HEALTH = 2, --Location of the first heart of each HUD
 		POCKET = 3, --Renders on the primary pocket item slot of each HUD
-		EXTRA = 4 --For any miscellaneous HUD elements per-player. Renders below/above the player's health
+		TRINKET = 4, --Renders on every trinket
+		EXTRA = 5 --For any miscellaneous HUD elements per-player. Renders below/above the player's health
+
 	}
 	HudHelper.HUDTypeToTable = {
 		[0] = HudHelper.HUD_ELEMENTS.Base,
 		[1] = HudHelper.HUD_ELEMENTS.Actives,
 		[2] = HudHelper.HUD_ELEMENTS.Health,
 		[3] = HudHelper.HUD_ELEMENTS.PocketItems,
-		[4] = HudHelper.HUD_ELEMENTS.Extra,
+		[4] = HudHelper.HUD_ELEMENTS.Trinkets,
+		[5] = HudHelper.HUD_ELEMENTS.Extra,
 	}
 	---@enum HUDLayout
 	HudHelper.HUDLayout = {
@@ -696,7 +702,7 @@ local function InitFunctions()
 			else
 				pocketPosOffset = pocketPosOffset + (REPENTANCE_PLUS and Vector(138, 33) or Vector(160, -5))
 			end
-		elseif playerHUDIndex == 1 and hudLayout == HudHelper.HUDLayout.P1 then
+		elseif hudLayout == HudHelper.HUDLayout.P1 then
 			---Should be mindful that this is relative to bottom right HUD and should be combined with that HUD's position
 			pocketPosOffset = pocketPosOffset + (REPENTANCE_PLUS and Vector(171, 27) or Vector(155, 27))
 		elseif hudLayout == HudHelper.HUDLayout.TWIN_COOP then
@@ -717,6 +723,17 @@ local function InitFunctions()
 			end
 		end
 		return pocketPosOffset
+	end
+
+	---@param player EntityPlayer
+	---@param slot integer
+	function HudHelper.GetTrinketHUDOffset(player, slot)
+		local playerHUDIndex = HudHelper.Utils.GetHUDPlayerNumberIndex(player)
+		local hudLayout = HudHelper.Utils.GetHUDLayout(playerHUDIndex)
+		playerHUDIndex = math.min(4, playerHUDIndex)
+		if hudLayout == HudHelper.HUDLayout.P1 then
+			return slot == 0 and Vector(28, 26) or Vector(4, 2)
+		end
 	end
 
 	---@param HUDSprite Sprite
@@ -831,6 +848,7 @@ local function InitFunctions()
 		Actives = {}, ---@type table<integer, HUDInfo_Active>
 		Health = {}, ---@type table<integer, HUDInfo_Health>
 		PocketItems = {}, ---@type table<integer, HUDInfo_PocketItem>
+		Trinkets = {}, ---@type table<integer, HUDInfo_Trinket>
 		Extra = {}, ---@type table<integer, HUDInfo_Extra>
 	}
 
@@ -1092,6 +1110,29 @@ local function InitFunctions()
 		HudHelper.LastAppliedHUD.PocketItems[playerHUDIndex] = hud
 	end
 
+	---@param player EntityPlayer
+	---@param playerHUDIndex integer
+	---@param hudLayout HUDLayout
+	---@param pos Vector
+	---@param hud HUDInfo_Trinket
+	local function renderTrinketHUDs(player, playerHUDIndex, hudLayout, pos, hud, i)
+		local cornerHUD = math.min(4, playerHUDIndex)
+		if hudLayout == HudHelper.HUDLayout.P1 then
+			cornerHUD = 3
+		end
+		local scale = 1
+		for slot = 0, 1 do
+			pos = HudHelper.GetHUDPosition(cornerHUD) + HudHelper.GetTrinketHUDOffset(player, slot)
+			if i == 2 then
+				pos = pos + TWIN_COOP_OFFSET
+			end
+			if not hud.Condition(player, playerHUDIndex, hudLayout, slot) then goto continue end
+			hud.OnRender(player, playerHUDIndex, hudLayout, pos, scale, slot)
+			HudHelper.LastAppliedHUD.Trinkets[playerHUDIndex] = hud
+			::continue::
+		end
+	end
+
 	local extraYPadding = 0
 
 	---@param player EntityPlayer
@@ -1161,11 +1202,12 @@ local function InitFunctions()
 					extraYPadding = 0
 					for _, hud in ipairs(hudTable) do
 						if not ((not player:IsCoopGhost() or hud.BypassGhostBaby)
-								and (hudName ~= "Actives" and hud.Condition(player, playerHUDIndex, hudLayout))
+								and (hudName == "Actives" or hudName == "Trinkets" or hud.Condition(player, playerHUDIndex, hudLayout))
 								and ((not hud.PreRenderCallback and not isPreCallback) or (hud.PreRenderCallback and isPreCallback))
 							) then
 							goto continue2
 						end
+
 						local pos = HudHelper.GetHUDPosition(playerHUDIndex)
 						if i == 2 then
 							pos = pos + TWIN_COOP_OFFSET
@@ -1176,16 +1218,6 @@ local function InitFunctions()
 						elseif hudName == "Actives" then
 							---@cast hud HUDInfo_Active
 							renderActiveHUDs(player, playerHUDIndex, hudLayout, pos, hud, i)
-						elseif hudName == "PocketItems" then
-							---@cast hud HUDInfo_PocketItem
-							if hudLayout == HudHelper.HUDLayout.P1 and not condensedCoopHUD then
-								pos = HudHelper.GetHUDPosition(4)
-								if i == 2 then
-									pos = pos + TWIN_COOP_OFFSET
-								end
-							end
-							pos = pos + HudHelper.GetPocketHUDOffset(player)
-							renderPocketItemHUDs(player, playerHUDIndex, hudLayout, pos, hud, i)
 						elseif hudName == "Health" then
 							---@cast hud HUDInfo_Health
 							pos = pos + HudHelper.GetHealthHUDOffset(playerHUDIndex)
@@ -1194,6 +1226,19 @@ local function InitFunctions()
 								pos = pos + Vector(0, 2)
 							end
 							renderHeartHUDs(player, playerHUDIndex, hudLayout, pos, hud)
+						elseif hudName == "PocketItems" then
+							---@cast hud HUDInfo_PocketItem
+							if hudLayout == HudHelper.HUDLayout.P1 and not condensedCoopHUD then
+								pos = HudHelper.GetHUDPosition(4)
+							end
+							if i == 2 then
+								pos = pos + TWIN_COOP_OFFSET
+							end
+							pos = pos + HudHelper.GetPocketHUDOffset(player)
+							renderPocketItemHUDs(player, playerHUDIndex, hudLayout, pos, hud, i)
+						elseif hudName == "Trinkets" then
+							---@cast hud HUDInfo_Trinket
+							renderTrinketHUDs(player, playerHUDIndex, hudLayout, pos, hud, i)
 						elseif hudName == "Extra" then
 							pos = pos + HudHelper.GetExtraHUDOffset(playerHUDIndex)
 							---@cast hud HUDInfo_Extra

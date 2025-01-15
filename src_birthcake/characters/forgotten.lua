@@ -4,7 +4,43 @@ local game = Mod.Game
 local THEFORGOTTEN_CAKE = {}
 BirthcakeRebaked.Birthcake.THEFORGOTTEN = THEFORGOTTEN_CAKE
 
--- The Forgotten and Tainted Forgotten's Birthcakes
+-- "The Forgotten's" Birthcake and by that I mean The Soul
+
+---@param familiar EntityFamiliar
+function THEFORGOTTEN_CAKE:OnForgottenBodyCollision(familiar)
+	local player = familiar.Player
+
+	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_THESOUL) then
+		for _, ent in ipairs(Isaac.FindInRadius(familiar.Position, familiar.Size)) do
+			if (ent:ToTear()
+					or ent:ToLaser() --Doesn't work (womp)
+					or (ent:ToKnife() and ent:ToKnife():IsFlying())
+					or ent:ToBomb()
+				)
+			then
+				local data = Mod:GetData(ent)
+				if not data.ForgottenCakeBodyCollision then
+					if not ent:ToKnife() then
+						data.ForgottenCakeBodyCollision = true
+					end
+					for _ = 1, player:GetTrinketRNG(Mod.Birthcake.ID):RandomInt(3) + Mod:GetTrinketMult(player) do
+						local tear = player:FireTear(familiar.Position, RandomVector():Resized(player.ShotSpeed * 10),
+							false, true, false, player, 0.5)
+						tear:ChangeVariant(TearVariant.BONE)
+						Mod:GetData(tear).ForgottenCakeBodyCollision = true
+						local sprite = tear:GetSprite()
+						sprite:ReplaceSpritesheet(0, "gfx/tears_brokenbone.png")
+						sprite:LoadGraphics()
+					end
+				end
+			end
+		end
+	end
+end
+
+Mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, THEFORGOTTEN_CAKE.OnForgottenBodyCollision, FamiliarVariant.FORGOTTEN_BODY)
+
+-- Tainted Forgotten's Birthcake
 
 ---@param ent Entity
 ---@param source EntityRef
@@ -27,17 +63,17 @@ Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, THEFORGOTTEN_CAKE.EntityTakeDam
 function THEFORGOTTEN_CAKE:OnNPCDeath(npc)
 	if npc:HasEntityFlags(EntityFlag.FLAG_ICE) then return end
 	local data = Mod:GetData(npc)
+
 	if data.ForgottenBirthcakeCheckDeath then
 		---@type EntityPlayer
 		local player = data.ForgottenBirthcakeCheckDeath
-		if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_THEFORGOTTEN) then
-			THEFORGOTTEN_CAKE:SpawnPurgatoryWisp(player, npc.Position)
-		elseif Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_THEFORGOTTEN_B) then
+		if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_THEFORGOTTEN_B) then
+			local theSoul = player:GetOtherTwin()
 			if REPENTOGON then
-				player:AddBoneOrbital(npc.Position)
+				theSoul:AddBoneOrbital(npc.Position)
 			else
 				local bone = Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BONE_ORBITAL, 0,
-				npc.Position, Vector.Zero, player):ToFamiliar()
+					npc.Position, Vector.Zero, theSoul):ToFamiliar()
 				---@cast bone EntityFamiliar
 				bone:AddToOrbit(0)
 			end
@@ -45,10 +81,68 @@ function THEFORGOTTEN_CAKE:OnNPCDeath(npc)
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, THEFORGOTTEN_CAKE.OnNPCDeath)
+Mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, THEFORGOTTEN_CAKE.OnNPCDeath)
 
--- Forgotten's Birthcake
+---@param player EntityPlayer
+---@param vel Vector
+function THEFORGOTTEN_CAKE:OnThrow(player, vel)
+	local familiars = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BONE_ORBITAL)
+	for i = #familiars, 1, -1 do
+		local familiar = familiars[i]:ToFamiliar() ---@cast familiar EntityFamiliar
+		if GetPtrHash(familiar.Player) == GetPtrHash(player) then
+			local anim = familiar:GetSprite():GetAnimation()
+			local filePath = familiar:GetSprite():GetFilename()
+			local tear = player:FireTear(familiar.Position, vel, false, true, false, player)
+			tear:ChangeVariant(TearVariant.BONE)
+			tear:GetSprite():Load(filePath, true)
+			tear:GetSprite():Play(anim, true)
+			tear:AddTearFlags(TearFlags.TEAR_BONE)
+			familiar:Remove()
+		end
+	end
+end
 
+if REPENTOGON then
+	---@param player EntityPlayer
+	---@param entity Entity
+	---@param vel Vector
+	function THEFORGOTTEN_CAKE:DetectThrow(player, entity, vel)
+		if player:GetPlayerType() == PlayerType.PLAYER_THESOUL_B
+			and player:GetOtherTwin()
+			and Mod:PlayerTypeHasBirthcake(player:GetOtherTwin(), PlayerType.PLAYER_THEFORGOTTEN_B)
+			and entity:ToPlayer()
+			and GetPtrHash(entity:ToPlayer()) == GetPtrHash(player:GetOtherTwin())
+		then
+			THEFORGOTTEN_CAKE:OnThrow(player, vel)
+		end
+	end
+
+	Mod:AddCallback(ModCallbacks.MC_POST_ENTITY_THROW, THEFORGOTTEN_CAKE.DetectThrow)
+else
+	---@param player EntityPlayer
+	function THEFORGOTTEN_CAKE:DetectThrow(player)
+		local data = Mod:GetData(player)
+		if Mod:PlayerTypeHasBirthcake(player:GetOtherTwin(), PlayerType.PLAYER_THEFORGOTTEN_B)
+			and player:GetOtherTwin().Position:DistanceSquared(player.Position) <= 5
+			and not player:IsExtraAnimationFinished()
+			and string.find(player:GetSprite():GetAnimation(), "PickupWalk")
+		then
+			data.SoulBirthcakeHoldingForgottenB = true
+		end
+
+		if data.SoulBirthcakeHoldingForgottenB
+			and player:GetFireDirection() ~= Direction.NO_DIRECTION
+		then
+			THEFORGOTTEN_CAKE:OnThrow(player, player:GetTearMovementInheritance(player:GetShootingInput()) * 12)
+			data.SoulBirthcakeHoldingForgottenB = nil
+		end
+	end
+	Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, THEFORGOTTEN_CAKE.DetectThrow, PlayerType.PLAYER_THESOUL_B)
+end
+
+
+--Me when I upgraded the code of the original idea and realized its way too much *sobs*
+--[[
 ---@param wisp EntityFamiliar
 function THEFORGOTTEN_CAKE:IsPurgatoryWisp(wisp)
 	local familiar_run_save = Mod.SaveManager.TryGetRunSave(wisp)
@@ -78,7 +172,6 @@ function THEFORGOTTEN_CAKE:ConvertPurgatoryWisps(player)
 			local wisp = ent:ToFamiliar() ---@cast wisp EntityFamiliar
 
 			if THEFORGOTTEN_CAKE:IsPurgatoryWisp(wisp) then
-				--TODO: Variant?? Collision Damage?? Balls?? Boobs??
 				local ghost = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PURGATORY, 1, player.Position, Vector.Zero, player)
 				ghost:SetColor(Color(0.7, 1, 1), -1, 1, false, true)
 				print(ghost.CollisionDamage)
@@ -117,4 +210,4 @@ function THEFORGOTTEN_CAKE:WispDamageBonus(player)
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, THEFORGOTTEN_CAKE.WispDamageBonus, CacheFlag.CACHE_DAMAGE)
+Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, THEFORGOTTEN_CAKE.WispDamageBonus, CacheFlag.CACHE_DAMAGE) ]]

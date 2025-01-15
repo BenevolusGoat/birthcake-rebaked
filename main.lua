@@ -17,170 +17,170 @@ local trinketPath = "gfx/items/trinkets/"
 BirthcakeRebaked.Config = {
 	[PlayerType.PLAYER_ISAAC] = {
 		Description = "Better rolls",
-		SpritePath = trinketPath .. "_isaac.png",
+		SpritePath = trinketPath .. "0_isaac_birthcake.png",
 	},
 	[PlayerType.PLAYER_MAGDALENE] = {
 		Description = "Healing power",
-		SpritePath = trinketPath .. "_magdalene.png",
+		SpritePath = trinketPath .. "1_magdalene_birthcake.png",
 	},
 	[PlayerType.PLAYER_CAIN] = {
 		Description = "Sleight of hand",
-		SpritePath = trinketPath .. "_cain.png",
+		SpritePath = trinketPath .. "2_cain_birthcake.png",
 	},
 	[PlayerType.PLAYER_JUDAS] = {
 		Description = "Sinner's guard",
-		SpritePath = trinketPath .. "_judas.png",
+		SpritePath = trinketPath .. "3_judas_birthcake.png",
 	},
 	[PlayerType.PLAYER_BLUEBABY] = {
 		Description = "Loose bowels",
-		SpritePath = trinketPath .. "_bluebaby.png",
+		SpritePath = trinketPath .. "4_bluebaby_birthcake.png",
 	},
 	[PlayerType.PLAYER_EVE] = {
 		Description = "Pain for pleasure",
-		SpritePath = trinketPath .. "_eve.png",
+		SpritePath = trinketPath .. "5_eve_birthcake.png",
 	},
 	[PlayerType.PLAYER_SAMSON] = {
 		Description = "Healing rage",
-		SpritePath = trinketPath .. "_samson.png",
+		SpritePath = trinketPath .. "6_samson_birthcake.png",
 	},
 	[PlayerType.PLAYER_AZAZEL] = {
 		Description = "Alternative attack",
-		SpritePath = trinketPath .. "_azazel.png",
+		SpritePath = trinketPath .. "7_azazel_birthcake.png",
 	},
 	[PlayerType.PLAYER_LAZARUS] = {
 		Description = "Come down with me",
-		SpritePath = trinketPath .. "_lazarus.png",
+		SpritePath = trinketPath .. "8_lazarus_birthcake.png",
 	},
 	[PlayerType.PLAYER_EDEN] = {
 		Description = "Mystery flavor",
-		SpritePath = trinketPath .. "_eden.png",
+		SpritePath = trinketPath .. "9_eden_birthcake.png",
 	},
 	[PlayerType.PLAYER_THELOST] = {
 		Description = "Regained power",
-		SpritePath = trinketPath .. "_thelost.png",
+		SpritePath = trinketPath .. "10_thelost_birthcake.png",
 	},
 	[PlayerType.PLAYER_LAZARUS2] = {
 		Name = "Lazarus' Cake",
 		Description = "Come down with me",
-		SpritePath = trinketPath .. "_lazarus2.png",
+		SpritePath = trinketPath .. "11_lazarus2_birthcake.png",
 	},
 	[PlayerType.PLAYER_BLACKJUDAS] = {
 		Name = "Judas' Cake",
 		Description = "Sinner's guard",
-		SpritePath = trinketPath .. "_darkjudas.png",
+		SpritePath = trinketPath .. "12_darkjudas_birthcake.png",
 	},
 	[PlayerType.PLAYER_LILITH] = {
 		Description = "Remember to share",
-		SpritePath = trinketPath .. "_lilith.png",
+		SpritePath = trinketPath .. "13_lilith_birthcake.png",
 	},
 	[PlayerType.PLAYER_KEEPER] = {
 		Description = "Spare change",
-		SpritePath = trinketPath .. "_keeper.png",
+		SpritePath = trinketPath .. "14_keeper_birthcake.png",
 	},
 	[PlayerType.PLAYER_APOLLYON] = {
 		Description = "Snack time",
-		SpritePath = trinketPath .. "_apollyon.png",
+		SpritePath = trinketPath .. "15_apollyon_birthcake.png",
 	},
 	[PlayerType.PLAYER_THEFORGOTTEN] = {
 		Description = "Harmony of body and soul",
-		SpritePath = trinketPath .. "_forgotten.png",
+		SpritePath = trinketPath .. "16_forgotten_birthcake.png",
 	},
 	[PlayerType.PLAYER_THESOUL] = {
 		Description = "Harmony of body and soul",
-		SpritePath = trinketPath .. "_forgottensoul.png",
+		SpritePath = trinketPath .. "17_forgottensoul_birthcake.png",
 	},
 	[PlayerType.PLAYER_BETHANY] = {
 		Description = "Virtuous Guidance",
-		SpritePath = trinketPath .. "_bethany.png",
+		SpritePath = trinketPath .. "18_bethany_birthcake.png",
 	},
 	[PlayerType.PLAYER_JACOB] = {
 		Description = "Stronger than you",
-		SpritePath = trinketPath .. "_jacob.png",
+		SpritePath = trinketPath .. "19_jacob_birthcake.png",
 	},
 	[PlayerType.PLAYER_ESAU] = {
 		Description = "Stronger than you",
-		SpritePath = trinketPath .. "_esau.png",
+		SpritePath = trinketPath .. "20_esau_birthcake.png",
 	},
 	[PlayerType.PLAYER_ISAAC_B] = {
 		Description = "Danger = Space",
-		SpritePath = trinketPath .. "_isaacb.png",
+		SpritePath = trinketPath .. "21_isaacb_birthcake.png",
 	},
 	[PlayerType.PLAYER_MAGDALENE_B] = {
 		Description = "Heart attack",
-		SpritePath = trinketPath .. "_magdaleneb.png",
+		SpritePath = trinketPath .. "22_magdaleneb_birthcake.png",
 	},
 	[PlayerType.PLAYER_CAIN_B] = {
 		Description = "Repurpose",
-		SpritePath = trinketPath .. "_cainb.png",
+		SpritePath = trinketPath .. "23_cainb_birthcake.png",
 	},
 	[PlayerType.PLAYER_JUDAS_B] = {
 		Description = "Sinner's guard",
-		SpritePath = trinketPath .. "_judasb.png",
+		SpritePath = trinketPath .. "24_judasb_birthcake.png",
 	},
 	[PlayerType.PLAYER_BLUEBABY_B] = {
 		Description = "Sturdy turds",
-		SpritePath = trinketPath .. "_bluebabyb.png",
+		SpritePath = trinketPath .. "25_bluebabyb_birthcake.png",
 	},
 	[PlayerType.PLAYER_EVE_B] = {
 		Description = "Saignant",
-		SpritePath = trinketPath .. "_eveb.png",
+		SpritePath = trinketPath .. "26_eveb_birthcake.png",
 	},
 	[PlayerType.PLAYER_SAMSON_B] = {
 		Description = "Unending rampage",
-		SpritePath = trinketPath .. "_samsonb.png",
+		SpritePath = trinketPath .. "27_samsonb_birthcake.png",
 	},
 	[PlayerType.PLAYER_AZAZEL_B] = {
 		Description = "Allergy up",
-		SpritePath = trinketPath .. "_azazelb.png",
+		SpritePath = trinketPath .. "28_azazelb_birthcake.png",
 	},
 	[PlayerType.PLAYER_LAZARUS_B] = {
 		Description = "A gift from the other side",
-		SpritePath = trinketPath .. "_lazarusb.png",
+		SpritePath = trinketPath .. "29_lazarusb_birthcake.png",
 	},
 	[PlayerType.PLAYER_EDEN_B] = {
 		Description = "Undecided",
-		SpritePath = trinketPath .. "_edenb.png",
+		SpritePath = trinketPath .. "30_edenb_birthcake.png",
 	},
 	[PlayerType.PLAYER_THELOST_B] = {
 		Description = "Small fortune at cost",
 		Anm2 = trinketPath .. "thelost_birthcake.anm2",
-		SpritePath = trinketPath .. "_thelostb.png",
+		SpritePath = trinketPath .. "31_thelostb_birthcake.png",
 	},
 	[PlayerType.PLAYER_LILITH_B] = {
 		Description = "I ask for your help",
-		SpritePath = trinketPath .. "_lilithb.png",
+		SpritePath = trinketPath .. "32_lilithb_birthcake.png",
 	},
 	[PlayerType.PLAYER_KEEPER_B] = {
 		Description = "Local business",
-		SpritePath = trinketPath .. "_keeperb.png",
+		SpritePath = trinketPath .. "33_keeperb_birthcake.png",
 	},
 	[PlayerType.PLAYER_APOLLYON_B] = {
 		Description = "Harvest",
-		SpritePath = trinketPath .. "_apollyonb.png",
+		SpritePath = trinketPath .. "34_apollyonb_birthcake.png",
 	},
 	[PlayerType.PLAYER_THEFORGOTTEN_B] = {
 		Description = "Spectral protection",
-		SpritePath = trinketPath .. "_forgottenb.png",
+		SpritePath = trinketPath .. "35_forgottenb_birthcake.png",
 	},
 	[PlayerType.PLAYER_BETHANY_B] = {
 		Description = "Desire fullfilled",
-		SpritePath = trinketPath .. "_bethanyb.png",
+		SpritePath = trinketPath .. "36_bethanyb_birthcake.png",
 	},
 	[PlayerType.PLAYER_JACOB_B] = {
 		Description = "Uneasy truce",
-		SpritePath = trinketPath .. "_jacobb.png",
+		SpritePath = trinketPath .. "37_jacobb_birthcake.png",
 	},
 	[PlayerType.PLAYER_LAZARUS2_B] = {
 		Description = "A gift from the other side",
-		SpritePath = trinketPath .. "_lazarus2b.png",
+		SpritePath = trinketPath .. "38_lazarus2b_birthcake.png",
 	},
 	[PlayerType.PLAYER_JACOB2_B] = {
 		Description = "Uneasy truce",
-		SpritePath = trinketPath .. "_jacobghostb.png",
+		SpritePath = trinketPath .. "39_jacobghostb_birthcake.png",
 	},
 	[PlayerType.PLAYER_THESOUL_B] = {
 		Description = "Spectral protection",
-		SpritePath = trinketPath .. "_forgottensoulb.png",
+		SpritePath = trinketPath .. "40_forgottensoulb_birthcake.png",
 	},
 }
 BirthcakeRebaked.Callbacks = {
@@ -389,13 +389,19 @@ BirthcakeRebaked.Callbacks = {
 	};
 } ]]
 
---[[ SaveData = {
-	Eden = {
-		ImitedItem = 0,
-		FirstTime = false,
-		HasTrinket = false
-	}
-} ]]
+function BirthcakeRebaked:GetBirthcakeSprite(player)
+	local playerType = player:GetPlayerType()
+	local config = Mod.Config[playerType]
+	local sprite = Sprite()
+	sprite:Load("gfx/005.350_trinket.anm2", false)
+	sprite:ReplaceSpritesheet(0, config.SpritePath)
+	sprite:LoadGraphics()
+	local spriteResult = Isaac.RunCallbackWithParam(Mod.Callbacks.LOAD_BIRTHCAKE_SPRITE, playerType, player, sprite)
+	sprite = (spriteResult ~= nil and type(spriteResult) == "userdata" and getmetatable(spriteResult).__type == "Sprite" and spriteResult) or
+		sprite
+	return sprite
+end
+
 
 include("src_birthcake.utility.hud_helper")
 include("src_birthcake.utility.rgon_enums")
@@ -426,14 +432,8 @@ function BirthcakeRebaked:ItemDesc(player)
 		description = (descriptionResult ~= nil and tostring(descriptionResult)) or description
 		Mod.Game:GetHUD():ShowItemText(name, description, false)
 
-		local sprite = Sprite()
-		sprite:Load("gfx/005.350_trinket.anm2", false)
+		local sprite = BirthcakeRebaked:GetBirthcakeSprite(player)
 		sprite:Play("PlayerPickupSparkle")
-		sprite:ReplaceSpritesheet(0, config.SpritePath)
-		sprite:LoadGraphics()
-		local spriteResult = Isaac.RunCallbackWithParam(Mod.Callbacks.LOAD_BIRTHCAKE_SPRITE, playerType, player, sprite)
-		sprite = (spriteResult ~= nil and type(spriteResult) == "userdata" and getmetatable(spriteResult).__type == "Sprite" and spriteResult) or
-			sprite
 		player:AnimatePickup(sprite, false, "Pickup")
 	elseif not queuedItem then
 		data.HoldingBirthcake = nil
