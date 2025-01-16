@@ -47,11 +47,6 @@ MAGDALENE_CAKE.HeartSubtypeDamage = {
 
 ---@param pickup EntityPickup
 function MAGDALENE_CAKE:HeartExplode(pickup)
-	local data = Mod:GetData(pickup)
-	if pickup.Timeout ~= -1 then
-		data.OhMyGodJCABomb = true
-	end
-
 	local damageMult = Mod:GetCombinedTrinketMult(PlayerType.PLAYER_MAGDALENE_B)
 
 	if pickup.Variant == PickupVariant.PICKUP_HEART
@@ -62,7 +57,7 @@ function MAGDALENE_CAKE:HeartExplode(pickup)
 	then
 		pickup:BloodExplode()
 		local baseDamage = MAGDALENE_CAKE.HeartSubtypeDamage[pickup.SubType] + (0.5 * Mod.Game:GetLevel():GetStage())
-		game:BombExplosionEffects(pickup.Position, baseDamage * damageMult, TearFlags.TEAR_BLOOD_BOMB, nil, nil, 0.5, true,
+		game:BombExplosionEffects(pickup.Position, baseDamage * damageMult, TearFlags.TEAR_BLOOD_BOMB, nil, Mod:FirstPlayerTypeBirthcakeOwner(PlayerType.PLAYER_MAGDALENE_B), 0.5, true,
 			false, DamageFlag.DAMAGE_EXPLOSION)
 		for _ = 1, 10 do
 			local position = Vector(math.random(-25, 25), math.random(-25, 25))
