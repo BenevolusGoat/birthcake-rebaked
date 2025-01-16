@@ -462,14 +462,14 @@ local function InitFunctions()
 		local cornerOffsets = {
 			Vector((hudOffsetOption * 20), (hudOffsetOption * 12)),
 			Vector((-hudOffsetOption * 24) + width, (hudOffsetOption * 12)),
-			Vector((hudOffsetOption * 22), (-hudOffsetOption * 6) + height),
-			Vector((-hudOffsetOption * 16) + width, (-hudOffsetOption * 6) + height)
+			Vector((hudOffsetOption * 22), (-hudOffsetOption * 16) + height),
+			Vector((-hudOffsetOption * 16) + width, (-hudOffsetOption * 16) + height)
 		}
 		local REP_HUD_OFFSET = {
 			Vector.Zero,
 			Vector(-159, 0),
-			Vector(10, -39),
-			Vector(-167, -39)
+			Vector(10, -29),
+			Vector(-167, -29)
 		}
 		local REP_PLUS_OFFSET = {
 			Vector(0, 6),
