@@ -1479,7 +1479,7 @@ local function InitFunctions()
 end
 
 if HudHelper then
-	if HudHelper.VERSION > VERSION then
+	if HudHelper.Version > VERSION then
 		return
 	end
 
