@@ -37,7 +37,7 @@ function EDEN_CAKE:OnAddBirthcake(player, trinketID, firstTime)
 	end
 end
 
-Mod:AddCallback(Mod.Callbacks.POST_BIRTHCAKE_COLLECT, EDEN_CAKE.OnAddBirthcake, PlayerType.PLAYER_EDEN)
+Mod:AddCallback(Mod.ModCallbacks.POST_BIRTHCAKE_COLLECT, EDEN_CAKE.OnAddBirthcake, PlayerType.PLAYER_EDEN)
 
 -- Tainted Eden birthcake
 

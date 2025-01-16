@@ -82,7 +82,7 @@ function ISAAC_CAKE:OnIsaacBFirstPickup(player, _, _, isGolden)
 	end
 end
 
-Mod:AddCallback(Mod.Callbacks.POST_BIRTHCAKE_COLLECT, ISAAC_CAKE.OnIsaacBFirstPickup, PlayerType.PLAYER_ISAAC_B)
+Mod:AddCallback(Mod.ModCallbacks.POST_BIRTHCAKE_COLLECT, ISAAC_CAKE.OnIsaacBFirstPickup, PlayerType.PLAYER_ISAAC_B)
 
 ---@param player EntityPlayer
 function ISAAC_CAKE:OnIsaacBPickupRemove(player, trinketID)
@@ -95,4 +95,5 @@ function ISAAC_CAKE:OnIsaacBPickupRemove(player, trinketID)
 end
 
 Mod:AddCallback(ModCallbacks.MC_POST_TRIGGER_TRINKET_REMOVED, ISAAC_CAKE.OnIsaacBPickupRemove, Mod.Birthcake.ID)
-Mod:AddCallback(ModCallbacks.MC_POST_TRIGGER_TRINKET_REMOVED, ISAAC_CAKE.OnIsaacBPickupRemove, Mod.Birthcake.ID + TrinketType.TRINKET_GOLDEN_FLAG)
+Mod:AddCallback(ModCallbacks.MC_POST_TRIGGER_TRINKET_REMOVED, ISAAC_CAKE.OnIsaacBPickupRemove,
+Mod.Birthcake.ID + TrinketType.TRINKET_GOLDEN_FLAG)

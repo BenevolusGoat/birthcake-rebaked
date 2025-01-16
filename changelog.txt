@@ -3,10 +3,13 @@
 Birthcake Changes:
 - Magdalene granting soul hearts with Yum Heart use now scales with your trinket modifier instead of just Mom's Box, up to one and a half soul hearts
 - Tainted Magdalene has hearts explode with a base damage value of 5.25 (2x T. Maggy's base damage, instead of half the player's damage) that increases based on the combined number of and total trinket multipliers of all Tainted Magdelenes with
-- Removed devil deal interaction with Judas/Dark Judas. Instead, if Judas would die, they will gain a black heart, damage all enemies in the room, and have Birthcake removed from their inventory. Any trinket multipliers will add an additional black heart
-- Adjusted ???'s poop spawning chances. Golden Poops can spawn with or without a trinket multiplier, but is much rarer at a 1% chance. Trinket multipliers as a whole contribute to the poop chance. Only one roll will be made and the rarest type will always be selected if the roll meets the chance requirements
+- Removed Tainted Cain's effect of a 5% chance for giving you a pickup you bagged
+- Removed devil deal interaction with Judas/Dark Judas. Instead, if they would die, they will gain a black heart, damage all enemies in the room, and have Birthcake removed from their inventory. Any trinket multipliers will add an additional black heart
+- Judas'/Dark Judas' damage up has been changed from +20% to +2 flat damage and +10%
+- Adjusted ???'s poop spawning chances. Golden Poops can spawn with or without a trinket multiplier, but is much rarer at a 1% chance. Trinket multipliers as a whole contribute to the poop rarity chance. Only one roll will be made and the rarest type will always be selected if the roll meets the chance requirements
 - Removed Tainted Eve spawning clots twice as fast
 - Lazarus will receive a soul heart upon reviving as Lazarus Risen instead of an extra heart container on a new floor
+- Lost now gets two free charges that's shared between all actives (with a normal method of charging), additional charges granted scaling with trinket multipliers. Eternal D6, if used with these special charges, will reroll with the same effect as Lost's birthright
 - Removed Lilith's secondary effect of consuming the trinket on a new floor and gaining a familiar
 - Chance of Lilith's familiars obtaining their tear effects increases with your trinket multiplier, +25% for each additional mulitplier
 - Keeper spawns more nickels depending on your multiplier instead of spawning a Golden Penny when entering shops or devil rooms
@@ -28,3 +31,4 @@ Birthcake Reworks:
 Modding API:
 - Has both BirthcakeRebaked and Birthcake globals, the latter for backwards compatibility
 - Nearly everything in the mod is exposed under the BirthcakeRebaked global, following Epiphany's codebase style
+- Various callbacks have been added

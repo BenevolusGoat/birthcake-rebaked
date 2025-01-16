@@ -13,7 +13,7 @@ BirthcakeRebaked.Challenges = {}
 
 local trinketPath = "gfx/items/trinkets/"
 
-BirthcakeRebaked.Config = {
+BirthcakeRebaked.BirthcakeSprite = {
 	[PlayerType.PLAYER_ISAAC] = {
 		Description = "Better rolls",
 		SpritePath = trinketPath .. "0_isaac_birthcake.png",
@@ -142,7 +142,7 @@ BirthcakeRebaked.Config = {
 	},
 	[PlayerType.PLAYER_THELOST_B] = {
 		Description = "Small fortune at cost",
-		Anm2 = trinketPath .. "thelost_birthcake.anm2",
+		Anm2 = trinketPath .. "thelostb_birthcake.anm2",
 		SpritePath = trinketPath .. "31_thelostb_birthcake.png",
 	},
 	[PlayerType.PLAYER_LILITH_B] = {
@@ -182,7 +182,7 @@ BirthcakeRebaked.Config = {
 		SpritePath = trinketPath .. "40_forgottensoulb_birthcake.png",
 	},
 }
-BirthcakeRebaked.Callbacks = {
+BirthcakeRebaked.ModCallbacks = {
 	---(player: EntityPlayer): string, Optional Arg: PlayerType - Called when getting the player-specific name of Birthcake before displayed as item text. Return a string to override it
 	PRE_BIRTHCAKE_ITEMTEXT_NAME = "BIRTHCAKE_PRE_BIRTHCAKE_ITEMTEXT_NAME",
 	---(player: EntityPlayer): string, Optional Arg: PlayerType - Called when getting the player-specific description of Birthcake before displayed as item text. Return a string to override it
@@ -397,12 +397,12 @@ BirthcakeRebaked.Callbacks = {
 
 function BirthcakeRebaked:GetBirthcakeSprite(player)
 	local playerType = player:GetPlayerType()
-	local config = Mod.Config[playerType]
+	local config = Mod.BirthcakeSprite[playerType]
 	local sprite = Sprite()
 	sprite:Load("gfx/005.350_trinket.anm2", false)
 	sprite:ReplaceSpritesheet(0, config.SpritePath)
 	sprite:LoadGraphics()
-	local spriteResult = Isaac.RunCallbackWithParam(Mod.Callbacks.LOAD_BIRTHCAKE_SPRITE, playerType, player, sprite)
+	local spriteResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.LOAD_BIRTHCAKE_SPRITE, playerType, player, sprite)
 	sprite = (spriteResult ~= nil and type(spriteResult) == "userdata" and getmetatable(spriteResult).__type == "Sprite" and spriteResult) or
 		sprite
 	return sprite
@@ -429,11 +429,13 @@ function BirthcakeRebaked:ItemDesc(player)
 	then
 		data.HoldingBirthcake = queuedItem.ID
 		data.BirthcakeFirstPickup = player.QueuedItem.Touched
-		local config = Mod.Config[playerType]
+		local config = Mod.BirthcakeSprite[playerType]
 		local name = config.Name or player:GetName() .. "'s Cake"
 		local description = config.Description or "but its not your birthday..."
-		local nameResult = Isaac.RunCallbackWithParam(Mod.Callbacks.PRE_BIRTHCAKE_ITEMTEXT_NAME, playerType, player)
-		local descriptionResult = Isaac.RunCallbackWithParam(Mod.Callbacks.PRE_BIRTHCAKE_ITEMTEXT_DESCRIPTION, playerType, player)
+		local nameResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.PRE_BIRTHCAKE_ITEMTEXT_NAME, playerType, player)
+		local descriptionResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.PRE_BIRTHCAKE_ITEMTEXT_DESCRIPTION,
+			playerType,
+			player)
 		name = (nameResult ~= nil and tostring(nameResult)) or name
 		description = (descriptionResult ~= nil and tostring(descriptionResult)) or description
 		Mod.Game:GetHUD():ShowItemText(name, description, false)
@@ -441,10 +443,12 @@ function BirthcakeRebaked:ItemDesc(player)
 		local sprite = BirthcakeRebaked:GetBirthcakeSprite(player)
 		sprite:Play("PlayerPickupSparkle")
 		player:AnimatePickup(sprite, false, "Pickup")
-		Isaac.RunCallbackWithParam(Mod.Callbacks.POST_BIRTHCAKE_PICKUP, playerType, player, data.BirthcakeFirstPickup, Mod:IsBirthcake(queuedItem.ID, true))
+		Isaac.RunCallbackWithParam(Mod.ModCallbacks.POST_BIRTHCAKE_PICKUP, playerType, player, data.BirthcakeFirstPickup,
+			Mod:IsBirthcake(queuedItem.ID, true))
 	elseif not queuedItem and data.HoldingBirthcake then
 		if not REPENTOGON then
-			Isaac.RunCallbackWithParam(Mod.Callbacks.POST_BIRTHCAKE_COLLECT, playerType, player, data.BirthcakeFirstPickup, Mod:IsBirthcake(data.HoldingBirthcake, true))
+			Isaac.RunCallbackWithParam(Mod.ModCallbacks.POST_BIRTHCAKE_COLLECT, playerType, player,
+				data.BirthcakeFirstPickup, Mod:IsBirthcake(data.HoldingBirthcake, true))
 		end
 		data.HoldingBirthcake = nil
 	end
@@ -454,11 +458,13 @@ Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, BirthcakeRebaked.ItemDesc)
 
 if REPENTOGON then
 	function BirthcakeRebaked:OnTrinketAdd(player, trinketID, firstTime)
-		Isaac.RunCallbackWithParam(Mod.Callbacks.POST_BIRTHCAKE_COLLECT, player:GetPlayerType(), player, firstTime, Mod:IsBirthcake(trinketID, true))
+		Isaac.RunCallbackWithParam(Mod.ModCallbacks.POST_BIRTHCAKE_COLLECT, player:GetPlayerType(), player, firstTime,
+			Mod:IsBirthcake(trinketID, true))
 	end
 
-	Mod:AddCallback(ModCallbacks.MC_POST_TRIGGER_TRINKET_ADDED,  BirthcakeRebaked.OnTrinketAdd, Mod.Birthcake.ID)
-	Mod:AddCallback(ModCallbacks.MC_POST_TRIGGER_TRINKET_ADDED,  BirthcakeRebaked.OnTrinketAdd, Mod.Birthcake.ID + TrinketType.TRINKET_GOLDEN_FLAG)
+	Mod:AddCallback(ModCallbacks.MC_POST_TRIGGER_TRINKET_ADDED, BirthcakeRebaked.OnTrinketAdd, Mod.Birthcake.ID)
+	Mod:AddCallback(ModCallbacks.MC_POST_TRIGGER_TRINKET_ADDED, BirthcakeRebaked.OnTrinketAdd,
+		Mod.Birthcake.ID + TrinketType.TRINKET_GOLDEN_FLAG)
 end
 
 
@@ -469,7 +475,7 @@ function BirthcakeRebaked:ChangeSpritePickup(pickup)
 
 	if Mod:IsBirthcake(pickup.SubType) then
 		local sprite = pickup:GetSprite()
-		local config = Mod.Config[playerType]
+		local config = Mod.BirthcakeSprite[playerType]
 		local anim = sprite:GetAnimation()
 		if config.Anm2 then
 			sprite:Load(config.Anm2, true)
@@ -480,7 +486,7 @@ function BirthcakeRebaked:ChangeSpritePickup(pickup)
 		end
 		sprite:LoadGraphics()
 
-		Isaac.RunCallbackWithParam(Mod.Callbacks.LOAD_BIRTHCAKE_SPRITE, playerType, player, sprite)
+		Isaac.RunCallbackWithParam(Mod.ModCallbacks.LOAD_BIRTHCAKE_SPRITE, playerType, player, sprite)
 	end
 end
 

@@ -118,7 +118,7 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, CAIN_BIRTHCAKE.SplitPickup)
 
-local BAG_OF_CRAFTING = KnifeVariant and KnifeVariant.BAG_OF_CRAFTING or 4
+--[[ local BAG_OF_CRAFTING = KnifeVariant and KnifeVariant.BAG_OF_CRAFTING or 4
 local CLUB_HITBOX = KnifeSubType and KnifeSubType.CLUB_HITBOX or 4
 
 ---@param knife EntityKnife
@@ -148,4 +148,4 @@ function CAIN_BIRTHCAKE:AddPickup(knife, collider)
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_PRE_KNIFE_COLLISION, CAIN_BIRTHCAKE.AddPickup)
+Mod:AddCallback(ModCallbacks.MC_PRE_KNIFE_COLLISION, CAIN_BIRTHCAKE.AddPickup) ]]

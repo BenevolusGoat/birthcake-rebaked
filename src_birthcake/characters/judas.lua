@@ -14,7 +14,7 @@ end
 
 function JUDAS_CAKE:JudasPickup(player)
 	if JUDAS_CAKE:JudasHasBirthcake(player) then
-		player.Damage = player.Damage + (player.Damage * 0.2) * Mod:GetTrinketMult(player)
+		player.Damage = player.Damage + 2 + (player.Damage * 0.1) * Mod:GetTrinketMult(player)
 	end
 end
 
