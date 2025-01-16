@@ -45,15 +45,22 @@ local function InitMod()
 	---@field Args any[]
 
 	local HudHelper = RegisterMod(("[%s] HUD Helper"):format(Mod.Name), 1)
-	HudHelper.HUD_ELEMENTS = {
-		Base = CACHED_ELEMENTS and CACHED_ELEMENTS.Base or {}, ---@type HUDInfo[]
-		Actives = CACHED_ELEMENTS and CACHED_ELEMENTS.Actives or {}, ---@type HUDInfo_Active[]
-		Health = CACHED_ELEMENTS and CACHED_ELEMENTS.Health or {}, ---@type HUDInfo_Health[]
-		PocketItems = CACHED_ELEMENTS and CACHED_ELEMENTS.PocketItems or {}, ---@type HUDInfo_PocketItem[]
-		Trinkets = CACHED_ELEMENTS and CACHED_ELEMENTS.Trinkets or {}, ---@type HUDInfo_Trinket[]
-		Extra = CACHED_ELEMENTS and CACHED_ELEMENTS.Extra or {}, ---@type HUDInfo_Extra[]
-	}
 	HudHelper.Version = VERSION
+
+	HudHelper.HUD_ELEMENTS = {
+		Base = {}, ---@type HUDInfo[]
+		Actives = {}, ---@type HUDInfo_Active[]
+		Health = {}, ---@type HUDInfo_Health[]
+		PocketItems = {}, ---@type HUDInfo_PocketItem[]
+		Trinkets = {}, ---@type HUDInfo_Trinket[]
+		Extra = {}, ---@type HUDInfo_Extra[]
+	}
+
+	if CACHED_ELEMENTS then
+		for tableName, elements in pairs(CACHED_ELEMENTS) do
+			HudHelper.HUD_ELEMENTS[tableName] = elements
+		end
+	end
 	HudHelper.ItemSpecificOffset = {
 		[CollectibleType.COLLECTIBLE_JAR_OF_FLIES] = Vector(4, 2),
 	}
@@ -1471,15 +1478,15 @@ local function InitFunctions()
 	}, HudHelper.HUDType.EXTRA)
 end
 
-if HudHelper and (VERSION > HudHelper.Version or FORCE_VERSION_UPDATE) then
-	InitFunctions()
-	HudHelper.Version = VERSION
-else
-	if HudHelper then
-		CACHED_CALLBACKS = HudHelper.Callbacks.RegisteredCallbacks
-		CACHED_ELEMENTS = HudHelper.HUD_ELEMENTS
-		CACHED_MOD_CALLBACKS = HudHelper.AddedCallbacks
+if HudHelper then
+	if HudHelper.VERSION > VERSION then
+		return
 	end
-	HudHelper = InitMod()
-	InitFunctions()
+
+	CACHED_CALLBACKS = HudHelper.Callbacks.RegisteredCallbacks
+	CACHED_ELEMENTS = HudHelper.HUD_ELEMENTS
+	CACHED_MOD_CALLBACKS = HudHelper.AddedCallbacks
 end
+
+HudHelper = InitMod()
+InitFunctions()
