@@ -49,10 +49,9 @@ MAGDALENE_CAKE.HeartSubtypeDamage = {
 function MAGDALENE_CAKE:HeartExplode(pickup)
 	local damageMult = Mod:GetCombinedTrinketMult(PlayerType.PLAYER_MAGDALENE_B)
 
-	if pickup.Variant == PickupVariant.PICKUP_HEART
-		and MAGDALENE_CAKE.HeartSubtypeDamage[pickup.SubType]
-		and pickup.Timeout ~= -1
-		and not pickup.Touched
+	if MAGDALENE_CAKE.HeartSubtypeDamage[pickup.SubType]
+		and pickup.Timeout == 0
+		and pickup:GetSprite():GetAnimation() ~= "Collect"
 		and damageMult > 0
 	then
 		pickup:BloodExplode()
@@ -70,4 +69,4 @@ function MAGDALENE_CAKE:HeartExplode(pickup)
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, MAGDALENE_CAKE.HeartExplode, EntityType.ENTITY_PICKUP)
+Mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, MAGDALENE_CAKE.HeartExplode, PickupVariant.PICKUP_HEART)
