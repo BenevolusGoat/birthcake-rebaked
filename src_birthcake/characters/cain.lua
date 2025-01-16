@@ -44,11 +44,11 @@ function CAIN_BIRTHCAKE:OnSlotInitiate(slot)
 	local sprite = slot:GetSprite()
 
 	if data.TouchedPlayer and not data.WaitAfterInitiate then
-		if slot:IsPlaying("Initiate") then
+		if sprite:IsPlaying("Initiate") then
 			local player = data.TouchedPlayer
 			local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
 			local roll = rng:RandomFloat()
-			local baseChance = CAIN_BIRTHCAKE.RefundChance[slot.Variant]
+			local baseChance = CAIN_BIRTHCAKE.RefundChance[slot.Variant] or 0
 			local trinketMult = 0.3 * (Mod:GetTrinketMult(player) - 1)
 			local chance = baseChance * (1.3 + trinketMult)
 
