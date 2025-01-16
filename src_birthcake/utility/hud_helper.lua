@@ -2,7 +2,7 @@ local Mod = BirthcakeRebaked
 local emptyShaderName = "Birthcake-EmptyShader"
 
 local VERSION = 1.03 -- do not modify
-local game = Mod.Game
+local game = Game()
 
 -- debug
 local FORCE_VERSION_UPDATE = false
@@ -581,7 +581,7 @@ local function InitFunctions()
 	---@param itemID CollectibleType
 	---@param slot ActiveSlot
 	function HudHelper.ShouldActiveBeDisplayed(player, itemID, slot)
-		local config = Mod.ItemConfig
+		local config = Isaac.GetItemConfig()
 
 		return not HudHelper.ShouldHideHUD()
 			and not player:IsCoopGhost()
