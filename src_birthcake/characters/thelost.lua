@@ -41,7 +41,8 @@ Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, THELOST_CAKE.RechargeD6, Pl
 ---@param itemID CollectibleType
 function THELOST_CAKE:IsValidActiveItem(itemID)
 	local itemConfig = Mod.ItemConfig:GetCollectible(itemID)
-	return itemConfig.ChargeType == ItemConfig.CHARGE_NORMAL
+	return itemConfig
+	and itemConfig.ChargeType == ItemConfig.CHARGE_NORMAL
 	and itemConfig.MaxCharges > 0
 	and itemConfig.MaxCharges <= 12
 end
