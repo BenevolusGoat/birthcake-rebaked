@@ -102,11 +102,8 @@ HudHelper.RegisterHUDElement({
 		return desiredPadding
 	end,
 	Condition = function(player)
-		if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_ISAAC_B) then
-			local inventoryCap = player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID)
-			return inventoryCap > 0
-		end
-		return false
+		return Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_ISAAC_B)
+		and player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID) > 0
 	end,
 	OnRender = function(player, playerHUDIndex, _, position)
 		local inventoryCap = player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID)

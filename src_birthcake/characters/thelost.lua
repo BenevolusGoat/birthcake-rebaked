@@ -138,6 +138,7 @@ HudHelper.RegisterHUDElement({
 	YPadding = 10,
 	Condition = function(player, _, _)
 		return player:GetEffects():HasTrinketEffect(Mod.Birthcake.ID)
+		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_THELOST)
 	end,
 	OnRender = function(player, _, _, position)
 		local data = Mod:GetData(player)
