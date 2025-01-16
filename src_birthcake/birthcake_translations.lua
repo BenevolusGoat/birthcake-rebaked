@@ -218,7 +218,7 @@ for sharedName, copyName in pairs(NAME_SHARE) do
 	translations.BIRTHCAKE_NAME[sharedName] = translations.BIRTHCAKE_NAME[copyName]
 end
 
-for sharedDescription, copyDescription in pairs(NAME_SHARE) do
+for sharedDescription, copyDescription in pairs(DESCRIPTION_SHARE) do
 	translations.BIRTHCAKE_DESCRIPTION[sharedDescription] = translations.BIRTHCAKE_DESCRIPTION[copyDescription]
 end
 
