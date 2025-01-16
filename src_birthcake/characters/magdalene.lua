@@ -38,6 +38,13 @@ Mod:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, MAGDALENE_CAKE.HeartReplace)
 
 -- Tainted Magdalene Birthcake
 
+MAGDALENE_CAKE.HeartSubtypeDamage = {
+	[HeartSubType.HEART_HALF] = 3.5,
+	[HeartSubType.HEART_FULL] = 5.25,
+	[HeartSubType.HEART_DOUBLEPACK] = 10.5,
+	[HeartSubType.HEART_SCARED] = 5.25,
+}
+
 ---@param pickup EntityPickup
 function MAGDALENE_CAKE:HeartExplode(pickup)
 	local data = Mod:GetData(pickup)
@@ -47,9 +54,15 @@ function MAGDALENE_CAKE:HeartExplode(pickup)
 
 	local damageMult = Mod:GetCombinedTrinketMult(PlayerType.PLAYER_MAGDALENE_B)
 
-	if pickup.Variant == PickupVariant.PICKUP_HEART and pickup.Timeout ~= -1 and not pickup.Touched and damageMult > 0 then
+	if pickup.Variant == PickupVariant.PICKUP_HEART
+		and MAGDALENE_CAKE.HeartSubtypeDamage[pickup.SubType]
+		and pickup.Timeout ~= -1
+		and not pickup.Touched
+		and damageMult > 0
+	then
 		pickup:BloodExplode()
-		game:BombExplosionEffects(pickup.Position, 5.25 * damageMult, TearFlags.TEAR_BLOOD_BOMB, nil, nil, 0.5, true,
+		local baseDamage = MAGDALENE_CAKE.HeartSubtypeDamage[pickup.SubType] + (0.5 * Mod.Game:GetLevel():GetStage())
+		game:BombExplosionEffects(pickup.Position, baseDamage * damageMult, TearFlags.TEAR_BLOOD_BOMB, nil, nil, 0.5, true,
 			false, DamageFlag.DAMAGE_EXPLOSION)
 		for _ = 1, 10 do
 			local position = Vector(math.random(-25, 25), math.random(-25, 25))

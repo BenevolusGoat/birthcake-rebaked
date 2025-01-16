@@ -111,7 +111,7 @@ function CAIN_BIRTHCAKE:SplitPickup(entType, variant, subType, position, velocit
 				spawner)
 			Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.CLEAVER_SLASH, 0, position, Vector.Zero, nil)
 			Mod.SFXManager:Play(SoundEffect.SOUND_KNIFE_PULL)
-			return { entType, variant, splitSubType, Isaac.GetFreeNearPosition(position - Vector(15, 0), 0), seed }
+			return { entType, variant, splitSubType, seed }
 		end
 	end
 end
