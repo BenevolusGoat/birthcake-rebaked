@@ -131,6 +131,7 @@ local translations = {
 			ru = CAKE.ru .. " Потерянного",
 			spa = CAKE.spa .. " de El Perdido",
 			cs_cz = CAKE.cs_cz .. " Ztraceného",
+			pl = CAKE.pl .. " Zaginionego",	--kurde niektóre części EID po prostu go zostawiają jako Losta ale jak spolszczamy pełną gębą to idę z tym.
 		},
 		[PlayerType.PLAYER_LILITH] = {
 			en_us = "Lilith's " .. CAKE.en_us,
@@ -189,7 +190,7 @@ local translations = {
 			en_us = "Bonus roll",
 			ru = "Бонусный переброс",
 			cs_cz = "Bonusový hod",
-			pl = "Bonusowe przelosowanie", --szczerze, to brzmi badziewnie, chciałem dać "dodatkowy los" ale za bardzo kojarzy mi się z hazardem a za mało "rerollowaniem"
+			pl = "Bonusowa szansa", --Nie wiem, czy lepiej, ale próbowałem.
 		},
 		[PlayerType.PLAYER_MAGDALENE] = {
 			en_us = "Healing power",
@@ -219,13 +220,13 @@ local translations = {
 			en_us = "Safe bleeding",
 			ru = "",
 			cs_cz = "",
-			pl = "",
+			pl = "Bezpieczny ból",	--Niby ból i krwotok to różne słowa, ale to mi się bardziej kojarzyło z samym efektem.
 		},
 		[PlayerType.PLAYER_SAMSON] = {
 			en_us = "Healing rage",
 			ru = "",
 			cs_cz = "",
-			pl = "",
+			pl = "Leczący gniew",
 		},
 		[PlayerType.PLAYER_AZAZEL] = {
 			en_us = "Deeper breaths",
@@ -255,7 +256,7 @@ local translations = {
 			en_us = "Remember to share!",
 			ru = "Не забудь поделиться!",
 			cs_cz = "Nezapomeň se podělit!",
-			pl = "Pamiętaj, s się dzielić!",
+			pl = "Pamiętaj, by się dzielić!",
 		},
 		[PlayerType.PLAYER_KEEPER] = {
 			en_us = "Spare change",
@@ -309,13 +310,13 @@ local translations = {
 			en_us = "Shadow charge",
 			ru = "",
 			cs_cz = "",
-			pl = "",
+			pl = "Szarża cieni",
 		},
 		[PlayerType.PLAYER_BLUEBABY_B] = {
 			en_us = "Sturdy turdy",
 			ru = "Твердый кал",
 			cs_cz = "Tvrdé hovno",
-			pl = "Chlupie w dupie", --wymyśl coś lepszego, teraz mnie to bawi ale za 5 miesięcy będę z tego cringe'ował.
+			pl = "Zatwardzenie",
 		},
 		[PlayerType.PLAYER_EVE_B] = {
 			en_us = "",
@@ -345,7 +346,7 @@ local translations = {
 			en_us = "Eternal trinkets",
 			ru = "",
 			cs_cz = "",
-			pl = "",
+			pl = "Wieczne trynkiety", --EID tak trinkety tłumaczy
 		},
 		[PlayerType.PLAYER_THELOST_B] = {
 			en_us = "",
