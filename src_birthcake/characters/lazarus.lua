@@ -26,13 +26,14 @@ Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, LAZARUS_CAKE.DeathBringer, Enti
 function LAZARUS_CAKE:AliveMonger(player)
 	if player:HasTrinket(Mod.Birthcake.ID)
 		and Mod:GetAllHearts(player) > 0
-		and Mod:GetData(player).CheckLazarusRisen
+		and Mod:GetData(player).CheckLazarusRisen == true
 		and player:GetPlayerType() == PlayerType.PLAYER_LAZARUS2
 	then
 		for _ = 1, player:GetTrinketMultiplier(Mod.Birthcake.ID) do
 			player:UseActiveItem(CollectibleType.COLLECTIBLE_NECRONOMICON, UseFlag.USE_NOANIM)
 		end
-		player:AddSoulHearts(1)
+		player:AddSoulHearts(2)
+		Mod:GetData(player).CheckLazarusRisen = false
 	end
 end
 
