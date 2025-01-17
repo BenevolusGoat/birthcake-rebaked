@@ -23,7 +23,6 @@ Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, JUDAS_CAKE.JudasPickup, CacheFla
 ---@param player EntityPlayer
 function JUDAS_CAKE:ExchangeBirthcake(player)
 	player:AddBlackHearts(2)
-	player:UseActiveItem(CollectibleType.COLLECTIBLE_NECRONOMICON, UseFlag.USE_NOANIM)
 	local trinketMult = Mod:GetTrinketMult(player)
 	if trinketMult > 1 then
 		player:AddBlackHearts(2)
@@ -44,6 +43,7 @@ function JUDAS_CAKE:PreTakeDamage(ent, amount, flags, source, frames)
 	if JUDAS_CAKE:JudasHasBirthcake(player)
 		and BirthcakeRebaked:IsPlayerTakingMortalDamage(player, amount)
 	then
+		--Adding health to block damage instead of preventing it
 		player:AddBlackHearts(amount)
 		JUDAS_CAKE:ExchangeBirthcake(player)
 	end
@@ -51,6 +51,7 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, JUDAS_CAKE.PreTakeDamage, EntityType.ENTITY_PLAYER)
 
+---@param player EntityPlayer
 function JUDAS_CAKE:CheckHealthOnUpdate(player)
 	if player:HasTrinket(Mod.Birthcake.ID)
 		and BirthcakeRebaked:GetAllHearts(player) == 0
@@ -64,21 +65,36 @@ Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, JUDAS_CAKE.CheckHealthOnUpd
 
 -- Tainted Judas Birthcake
 
-function JUDAS_CAKE:Slow(player)
+JUDAS_CAKE.DARK_ARTS_CHARGE_BONUS = 20
+
+---@param player EntityPlayer
+function JUDAS_CAKE:ShadowCharge(player)
 	if player:HasTrinket(Mod.Birthcake.ID)
-		and player:GetEffects():HasCollectibleEffect(CollectibleType.COLLECTIBLE_DARK_ARTS)
+		and player:GetActiveItem(ActiveSlot.SLOT_POCKET) == CollectibleType.COLLECTIBLE_DARK_ARTS
 	then
-		for _, ent in ipairs(Isaac.GetRoomEntities()) do
-			if ent:IsActiveEnemy(false) then
-				local entityColor = ent:GetColor()
-				local slowColor = Color(entityColor.R, entityColor.G, entityColor.B, 0.8, entityColor.RO, entityColor.GO,
-					entityColor.BO)
-				if ent.Position:DistanceSquared(player.Position) < 30 ^ 2 then
-					ent:AddSlowing(EntityRef(player), 100, 0.5, slowColor)
+		local data = Mod:GetData(player)
+		local playerRadius = player.Size
+		local maxCharge = Mod.ItemConfig:GetCollectible(CollectibleType.COLLECTIBLE_DARK_ARTS).MaxCharges
+		if player:HasCollectible(CollectibleType.COLLECTIBLE_BATTERY) then
+			maxCharge = maxCharge * 2
+		end
+		playerRadius = playerRadius + (player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT) and 40 or 10)
+		if player:GetEffects():HasCollectibleEffect(CollectibleType.COLLECTIBLE_DARK_ARTS) then
+			for _, ent in ipairs(Isaac.GetRoomEntities()) do
+				if ent:IsActiveEnemy(false)
+					and ent.Position:DistanceSquared(player.Position) <= (playerRadius + ent.Size) ^ 2
+					and (not data.JudasCakeEnemyTouch
+					or not data.JudasCakeEnemyTouch[GetPtrHash(ent)])
+				then
+					player:SetActiveCharge(math.min(maxCharge, player:GetActiveCharge(ActiveSlot.SLOT_POCKET) + JUDAS_CAKE.DARK_ARTS_CHARGE_BONUS), ActiveSlot.SLOT_POCKET)
+					data.JudasCakeEnemyTouch = data.JudasCakeEnemyTouch or {}
+					data.JudasCakeEnemyTouch[GetPtrHash(ent)] = true
 				end
 			end
+		elseif data.JudasCakeEnemyTouch then
+			data.JudasCakeEnemyTouch = nil
 		end
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, JUDAS_CAKE.Slow, PlayerType.PLAYER_JUDAS_B)
+Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, JUDAS_CAKE.ShadowCharge, PlayerType.PLAYER_JUDAS_B)

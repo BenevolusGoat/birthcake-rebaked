@@ -97,7 +97,7 @@ local function accurateBlurbsPatch()
 			ru = "Двойные подбираемые предметы распадаются на два обычных",
 		},
 		[PlayerType.PLAYER_JUDAS_B] = {
-			en_us = "???",
+			en_us = "Passing through enemies with Dark Arts gives active charge",
 			ru = "???",
 		},
 		[PlayerType.PLAYER_BLUEBABY_B] = {
@@ -121,7 +121,7 @@ local function accurateBlurbsPatch()
 			ru = "???",
 		},
 		[PlayerType.PLAYER_EDEN_B] = {
-			en_us = "???",
+			en_us = "3 random gulped trinkets, but they reroll",
 			ru = "???",
 		},
 		[PlayerType.PLAYER_THELOST_B] = {

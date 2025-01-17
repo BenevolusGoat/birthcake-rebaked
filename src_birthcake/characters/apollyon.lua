@@ -13,7 +13,7 @@ end
 Mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, APOLLYON_CAKE.OnPlayerInit)
 
 ---@param player EntityPlayer
-function APOLLYON_CAKE:OnVoidUse(itemID, player, rng, flags, slot, varData)
+function APOLLYON_CAKE:OnVoidUse(itemID, rng, player, flags, slot, varData)
 	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_APOLLYON) then
 		local player_run_save = Mod.SaveManager.GetRunSave(player)
 		local trinketList = {}
@@ -23,11 +23,11 @@ function APOLLYON_CAKE:OnVoidUse(itemID, player, rng, flags, slot, varData)
 			table.insert(trinketList, {TrinketType = pickup.SubType, FirstTime = pickup.Touched})
 			local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, pickup.Position, Vector.Zero, nil)
 			poof.SpriteScale = Vector(0.5, 0.5)
-			poof.Color = Color(1, 0, 0.65)
+			poof.Color = Color(0.6, 0.35, 0.6)
 			pickup.Timeout = 4
 
 			player_run_save.ApollyonBirthcakeTrinkets = player_run_save.ApollyonBirthcakeTrinkets or {}
-			player_run_save.ApollyonBirthcakeTrinkets[tostring(pickup.SubType)] = (player_run_save.ApollyonBirthcakeTrinkets[tostring(pickup.SubType)] or 0) + 1
+			table.insert(player_run_save.ApollyonBirthcakeTrinkets, pickup.SubType)
 		end
 		if #trinketList > 0 then
 			Mod:AddSmeltedTrinkets(player, trinketList)
@@ -35,6 +35,7 @@ function APOLLYON_CAKE:OnVoidUse(itemID, player, rng, flags, slot, varData)
 	end
 end
 
+Mod:AddCallback(ModCallbacks.MC_USE_ITEM, APOLLYON_CAKE.OnVoidUse, CollectibleType.COLLECTIBLE_VOID)
 
 ---@param player EntityPlayer
 function APOLLYON_CAKE:ManageVoidedTrinkets(player)
@@ -47,6 +48,7 @@ function APOLLYON_CAKE:ManageVoidedTrinkets(player)
 			Mod:RemoveSmeltedTrinkets(player, trinketList)
 		end
 	elseif not player_run_save.ApollyonBirthcakeHasVoid and player:HasCollectible(CollectibleType.COLLECTIBLE_VOID) then
+		player_run_save.ApollyonBirthcakeHasVoid = true
 		local trinketList = player_run_save.ApollyonBirthcakeTrinkets
 		if trinketList then
 			Mod:AddSmeltedTrinkets(player, trinketList)
@@ -71,8 +73,9 @@ function APOLLYON_CAKE:TaintedTrinketConsumer(_, _, player, _, _, _)
 			poof.Color = Color(1, 0, 0)
 			pickup.Timeout = 4
 
-			Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ABYSS_LOCUST, CollectibleType.COLLECTIBLE_HALO_OF_FLIES,
+			local familiar = Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ABYSS_LOCUST, CollectibleType.COLLECTIBLE_HALO_OF_FLIES,
 			pickup.Position, Vector.Zero, player)
+			familiar:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
 		end
 	end
 end

@@ -93,6 +93,9 @@ function BirthcakeRebaked:GetAllHearts(player)
 		player:GetEternalHearts() + player:GetBoneHearts()
 end
 
+---Credit to Epiphany and me sorta because I did the bone heart and soul heart fix heheheheheheheheehe
+---@param player EntityPlayer
+---@param amount integer
 function BirthcakeRebaked:IsPlayerTakingMortalDamage(player, amount)
 	return BirthcakeRebaked:GetAllHearts(player) - amount <= 0
 		and not ((player:GetSoulHearts() > 0 or player:GetBoneHearts() > 0)
@@ -178,20 +181,14 @@ function BirthcakeRebaked:AddSmeltedTrinkets(player, trinketList)
 	end
 end
 
-
 ---@param player EntityPlayer
----@param trinketList {[string]: integer}[]
+---@param trinketList TrinketType[]
 function BirthcakeRebaked:RemoveSmeltedTrinkets(player, trinketList)
-	for trinketIDStr, trinketNum in pairs(trinketList) do
-		local trinketID = tonumber(trinketIDStr)
-		---@cast trinketID TrinketType
-
-		for _ = 1, trinketNum do
-			if REPENTOGON then
-				player:TryRemoveSmeltedTrinket(trinketID)
-			else
-				player:TryRemoveTrinket(trinketID)
-			end
+	for _, trinketID in pairs(trinketList) do
+		if REPENTOGON then
+			player:TryRemoveSmeltedTrinket(trinketID)
+		else
+			player:TryRemoveTrinket(trinketID)
 		end
 	end
 end
