@@ -50,6 +50,7 @@ local CAKE ={
 --is a LIE
 --ТОРТ ЭТО ЛОЖЬ
 --je LEŽ
+--es una MENTIRA
 
 ---This can be stolen from stringtable.sta as they define character names
 ---But I don't know if it'd be any different with the 's and s'
