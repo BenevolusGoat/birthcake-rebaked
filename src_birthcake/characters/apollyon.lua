@@ -71,12 +71,8 @@ function APOLLYON_CAKE:TaintedTrinketConsumer(_, _, player, _, _, _)
 			poof.Color = Color(1, 0, 0)
 			pickup.Timeout = 4
 
-			if REPENTOGON then
-				player:AddLocust(CollectibleType.COLLECTIBLE_HALO_OF_FLIES, pickup.Position)
-			else
-				Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ABYSS_LOCUST, CollectibleType.COLLECTIBLE_HALO_OF_FLIES,
-				pickup.Position, Vector.Zero, player)
-			end
+			Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ABYSS_LOCUST, CollectibleType.COLLECTIBLE_HALO_OF_FLIES,
+			pickup.Position, Vector.Zero, player)
 		end
 	end
 end
