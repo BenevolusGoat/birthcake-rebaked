@@ -23,17 +23,14 @@ end
 ---@param player EntityPlayer
 ---@param trinketID TrinketType
 ---@param firstTime boolean
-function EDEN_CAKE:OnAddBirthcake(player, trinketID, firstTime)
+function EDEN_CAKE:OnAddBirthcake(player, firstTime)
 	if firstTime then
 		local count = 3
 		if player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_BOX) then
 			count = count + 1
 		end
-		if Mod:IsBirthcake(trinketID, true) then
-			count = count + 1
-		end
 		EDEN_CAKE:AddBirthcakeTrinkets(player, count)
-		player:TryRemoveTrinket(trinketID)
+		player:TryRemoveTrinket(Mod.Birthcake.ID)
 	end
 end
 
