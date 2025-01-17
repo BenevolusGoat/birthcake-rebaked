@@ -51,7 +51,11 @@ end
 
 -- This has to be done after all mods are loaded
 -- Because otherwise mods that are loaded after Epiphany will not be detected
-Mod:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.LATE, loader.ApplyPatches)
+if REPENTOGON then
+	Mod:AddPriorityCallback(ModCallbacks.MC_POST_MODS_LOADED, CallbackPriority.LATE, loader.ApplyPatches)
+else
+	Mod:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.LATE, loader.ApplyPatches)
+end
 
 Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
 	if not loader.AppliedPatches then

@@ -223,7 +223,7 @@ local translations = {
 			ru = "Нескончаемая ярость"
 		},
 		[PlayerType.PLAYER_AZAZEL_B] = {
-			en_us = "",
+			en_us = "Allergy up",
 			ru = ""
 		},
 		[PlayerType.PLAYER_LAZARUS_B] = {

@@ -58,6 +58,8 @@ Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, APOLLYON_CAKE.ManageVoidedT
 
 -- Apollyon B Birthcake
 
+--TODO: Add trinket mult interaction
+
 function APOLLYON_CAKE:TaintedTrinketConsumer(_, _, player, _, _, _)
 	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_APOLLYON_B) then
 		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET)) do

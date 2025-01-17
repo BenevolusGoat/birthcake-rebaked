@@ -45,3 +45,49 @@ end
 
 -- Tainted Azazel Birthcake
 
+local function randomInt(lower, upper)
+	return Mod.GENERIC_RNG:RandomInt((upper - lower) + 1) + lower
+end
+
+---@param effect EntityEffect
+function AZAZEL_CAKE:OnSneeze(effect)
+	local player = effect.SpawnerEntity and effect.SpawnerEntity:ToPlayer()
+	if player
+		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_AZAZEL_B)
+		and player:GetFireDirection() ~= Direction.NO_DIRECTION
+		and player.FireDelay == -1
+	then
+		local fireDir = BirthcakeRebaked:DirectionToVector(player:GetFireDirection())
+		local randomVel = randomInt(-2, 2)
+		local randomAngle = randomInt(-20, 20)
+		local vel = (fireDir:Resized(10 + randomVel):Rotated(randomAngle) * player.ShotSpeed * 1.2) + player:GetTearMovementInheritance(fireDir)
+		local tear = player:FireTear(player.Position, vel, false, false, false, player, 0.5)
+		tear.FallingAcceleration = 0.25
+		tear:ChangeVariant(TearVariant.BOOGER)
+		if Mod.GENERIC_RNG:RandomFloat() < 0.11 then
+			tear:AddTearFlags(TearFlags.TEAR_BOOGER)
+		end
+		tear:SetColor(Color(1, 0, 0, 1, 0.5, 0, 0), -1, 10, false, true)
+		Mod:GetData(tear).AzazelCakeBoogerTear = true
+	end
+end
+
+Mod:AddCallback(ModCallbacks.MC_POST_EFFECT_INIT, AZAZEL_CAKE.OnSneeze, EffectVariant.HAEMO_TRAIL)
+
+---@param tear EntityTear
+---@param collider Entity
+function AZAZEL_CAKE:OnBoogerCollision(tear, collider)
+	if tear.SpawnerEntity
+		and tear.SpawnerEntity:ToPlayer()
+		and collider:IsActiveEnemy(false)
+		and Mod:GetData(tear).AzazelCakeBoogerTear
+	then
+		collider:AddEntityFlags(EntityFlag.FLAG_BRIMSTONE_MARKED)
+	end
+end
+
+if REPENTOGON then
+	Mod:AddCallback(ModCallbacks.MC_POST_TEAR_COLLISION, AZAZEL_CAKE.OnBoogerCollision)
+else
+	Mod:AddPriorityCallback(ModCallbacks.MC_PRE_TEAR_COLLISION, CallbackPriority.LATE, AZAZEL_CAKE.OnBoogerCollision)
+end

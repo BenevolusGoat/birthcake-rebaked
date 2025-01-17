@@ -6,14 +6,14 @@ BirthcakeRebaked.Birthcake.EVE = EVE_CAKE
 
 -- Eve Birthcake
 
-function EVE_CAKE:RemoveHeart(ent, damage, flag, source, cdframe)
+function EVE_CAKE:RedHeartDamage(ent, damage, flag, source, cdframe)
 	local player = ent:ToPlayer() ---@cast player EntityPlayer
 	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_EVE) then
 		return flag | DamageFlag.DAMAGE_RED_HEARTS | DamageFlag.DAMAGE_NO_PENALTIES
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, EVE_CAKE.RemoveHeart, EntityType.ENTITY_PLAYER)
+Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, EVE_CAKE.RedHeartDamage, EntityType.ENTITY_PLAYER)
 
 -- Tainted Eve Birthcake
 

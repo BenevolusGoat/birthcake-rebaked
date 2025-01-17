@@ -36,9 +36,10 @@ HudHelper.RegisterHUDElement({
 	end,
 	OnRender = function(player, _, _, pos)
 		local data = Mod:GetData(player)
-		if not data.BirthcakeSprite then
+		if not data.BirthcakePlayerType or data.BirthcakePlayerType ~= player:GetPlayerType() then
 			data.BirthcakeSprite = Mod:GetBirthcakeSprite(player)
 			data.BirthcakeSprite:Play("Idle")
+			data.BirthcakePlayerType = player:GetPlayerType()
 		end
 		Isaac.RunCallbackWithParam(Mod.ModCallbacks.PRE_BIRTHCAKE_RENDER, player:GetPlayerType(), player,
 			data.BirthcakeSprite, pos)

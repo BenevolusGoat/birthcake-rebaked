@@ -195,3 +195,8 @@ function BirthcakeRebaked:RemoveSmeltedTrinkets(player, trinketList)
 		end
 	end
 end
+
+---@param dir integer
+function BirthcakeRebaked:DirectionToVector(dir)
+	return Vector(-1, 0):Rotated(90 * dir)
+end
