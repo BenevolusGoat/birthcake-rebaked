@@ -216,13 +216,13 @@ local translations = {
 			pl = "Erupcja Wezuwiusza", --przepraszam. Nie mogłem się powstrzymać.
 		},
 		[PlayerType.PLAYER_EVE] = {
-			en_us = "",
+			en_us = "Safe bleeding",
 			ru = "",
 			cs_cz = "",
 			pl = "",
 		},
 		[PlayerType.PLAYER_SAMSON] = {
-			en_us = "",
+			en_us = "Healing rage",
 			ru = "",
 			cs_cz = "",
 			pl = "",
@@ -306,7 +306,7 @@ local translations = {
 			pl = "Recykling",
 		},
 		[PlayerType.PLAYER_JUDAS_B] = {
-			en_us = "",
+			en_us = "Shadow charge",
 			ru = "",
 			cs_cz = "",
 			pl = "",
@@ -342,7 +342,7 @@ local translations = {
 			pl = "Dar z nie tego świata"
 		},
 		[PlayerType.PLAYER_EDEN_B] = {
-			en_us = "",
+			en_us = "Eternal trinkets",
 			ru = "",
 			cs_cz = "",
 			pl = "",

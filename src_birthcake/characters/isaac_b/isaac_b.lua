@@ -4,14 +4,14 @@ local game = Mod.Game
 local ISAAC_CAKE = BirthcakeRebaked.Birthcake.ISAAC
 
 ---@param player EntityPlayer
-function ISAAC_CAKE:IsFullInventory(player)
+function ISAAC_CAKE:HasFullInventory(player)
 	local numPassives = 0
 	for itemID = 1, #Mod.ItemConfig:GetCollectibles() do
 		if ISAAC_CAKE:ItemWillFillInventory(itemID) then
 			numPassives = numPassives + 1
 		end
 	end
-	return numPassives >= (player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT) and 12 or 8)
+	return numPassives >= ISAAC_CAKE:GetMaxInventorySpace(player)
 end
 
 ---@param player EntityPlayer
@@ -26,6 +26,7 @@ function ISAAC_CAKE:TryRemoveBirthcakeItems(player)
 		local diff = numItems - expectedCap
 		for _ = 1, diff do
 			local itemID = inventory[numItems]
+			table.remove(inventory, numItems)
 			numItems = numItems - 1
 			player:RemoveCollectible(itemID, true)
 			local collectible = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID,
@@ -61,4 +62,4 @@ function ISAAC_CAKE:OnPeffectUpdate(player)
 	ISAAC_CAKE:ManageBirthcakeInventoryCap(player)
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, ISAAC_CAKE.OnIsaacBFirstPickup, PlayerType.PLAYER_ISAAC_B)
+Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, ISAAC_CAKE.OnPeffectUpdate, PlayerType.PLAYER_ISAAC_B)

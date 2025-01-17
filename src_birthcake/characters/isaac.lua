@@ -39,6 +39,11 @@ Mod:AddPriorityCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, CallbackPriority.
 
 -- Isaac B Birthcake
 
+---@param player EntityPlayer
+function ISAAC_CAKE:GetMaxInventorySpace(player)
+	return player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT) and 12 or 8
+end
+
 function ISAAC_CAKE:ItemWillFillInventory(itemID)
 	local itemConfig = Mod.ItemConfig:GetCollectible(itemID)
 	if (itemConfig.Type == ItemType.ITEM_PASSIVE or itemConfig.Type == ItemType.ITEM_FAMILIAR)
@@ -81,6 +86,30 @@ if REPENTOGON then
 else
 	include("src_birthcake.characters.isaac_b.isaac_b")
 end
+
+---@param player EntityPlayer
+function ISAAC_CAKE:ManageBirthrightInventoryCap(player)
+	local effects = player:GetEffects()
+	local cakeEffects = effects:GetTrinketEffectNum(Mod.Birthcake.ID)
+	if cakeEffects > 0 then
+		local player_run_save = Mod.SaveManager.GetRunSave(player)
+		if player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
+			and not player_run_save.IsaacCakeHasBirthright
+		then
+			player_run_save.IsaacCakeHasBirthright = true
+			local inventory = player_run_save.IsaacBBirthcakeInventory or {}
+			while not ISAAC_CAKE:HasFullInventory(player) and #inventory > 0 do
+				table.remove(inventory, #inventory)
+			end
+		elseif not player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
+			and player_run_save.IsaacCakeHasBirthright
+		then
+			player_run_save.IsaacCakeHasBirthright = false
+		end
+	end
+end
+
+Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, ISAAC_CAKE.ManageBirthrightInventoryCap, PlayerType.PLAYER_ISAAC_B)
 
 local inventorySprite = Sprite()
 inventorySprite:Load("gfx/ui/ui_inventory.anm2", false)

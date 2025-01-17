@@ -3,7 +3,7 @@ local Mod = BirthcakeRebaked
 local ISAAC_CAKE = BirthcakeRebaked.Birthcake.ISAAC
 
 ---@param player EntityPlayer
-function ISAAC_CAKE:IsFullInventory(player)
+function ISAAC_CAKE:HasFullInventory(player)
 	local numPassives = 0
 
 	for _, historyItem in ipairs(player:GetHistory():GetCollectiblesHistory()) do
@@ -35,7 +35,7 @@ end
 function ISAAC_CAKE:OnCollectibleAdd(itemID, charge, firstTime, slot, varData, player)
 	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_ISAAC_B)
 		and ISAAC_CAKE:ItemWillFillInventory(itemID)
-		and ISAAC_CAKE:IsFullInventory(player)
+		and ISAAC_CAKE:HasFullInventory(player)
 	then
 		local player_run_save = Mod.SaveManager.GetRunSave(player)
 		local inventory = player_run_save.IsaacBBirthcakeInventory
@@ -57,7 +57,7 @@ Mod:AddCallback(ModCallbacks.MC_PRE_ADD_COLLECTIBLE, ISAAC_CAKE.OnCollectibleAdd
 function ISAAC_CAKE:OnCollectibleRemove(player, itemID)
 	if player:GetPlayerType() == PlayerType.PLAYER_ISAAC_B
 		and ISAAC_CAKE:ItemWillFillInventory(itemID)
-		and ISAAC_CAKE:IsFullInventory(player)
+		and ISAAC_CAKE:HasFullInventory(player)
 	then
 		local player_run_save = Mod.SaveManager.TryGetRunSave(player)
 		local inventory = player_run_save and player_run_save.IsaacBBirthcakeInventory
