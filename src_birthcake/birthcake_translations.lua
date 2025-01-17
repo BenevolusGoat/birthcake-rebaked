@@ -43,6 +43,7 @@ local DESCRIPTION_SHARE  = {
 local CAKE ={
 	en_us = "Cake",
 	ru = "Пироженое",
+	spa = "Pastel",
 }
 --is a LIE
 --ТОРТ ЭТО ЛОЖЬ
@@ -54,74 +55,92 @@ local translations = {
 		[PlayerType.PLAYER_ISAAC] = {
 			en_us = "Isaac's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Исаака",
+			spa = CAKE.spa .. "de Isaac",
 		},
 		[PlayerType.PLAYER_MAGDALENE] = {
 			en_us = "Magdelene's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Магдалины",
+			spa = CAKE.spa .. "de Magdalena",
 		},
 		[PlayerType.PLAYER_CAIN] = {
 			en_us = "Cain's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Каина",
+			spa = CAKE.spa .. "de Caín",
 		},
 		[PlayerType.PLAYER_JUDAS] = {
 			en_us = "Judas '" .. CAKE.en_us,
 			ru = CAKE.ru .. " Иуды",
+			spa = CAKE.spa .. "de Judas",
 		},
 		[PlayerType.PLAYER_BLUEBABY] = {
 			en_us = "???'s " .. CAKE.en_us,
 			ru = CAKE.ru .. " ???",
+			spa = CAKE.spa .. "de ???",
 		},
 		[PlayerType.PLAYER_EVE] = {
 			en_us = "Eve's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Евы",
+			spa = CAKE.spa .. "de Eva",
 		},
 		[PlayerType.PLAYER_SAMSON] = {
 			en_us = "Samson's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Самсона",
+			spa = CAKE.spa .. "de Sansón",
 		},
 		[PlayerType.PLAYER_AZAZEL] = {
 			en_us = "Azazel's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Азазеля",
+			spa = CAKE.spa .. "de Azazel",
 		},
 		[PlayerType.PLAYER_LAZARUS] = {
 			en_us = "Lazarus '" .. CAKE.en_us,
 			ru = CAKE.ru .. " Лазаря",
+			spa = CAKE.spa .. "de Lázaro",
 		},
 		[PlayerType.PLAYER_EDEN] = {
 			en_us = "Eden's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Идена",
+			spa = CAKE.spa .. "de Edén",
 		},
 		[PlayerType.PLAYER_THELOST] = {
 			en_us = "The Lost's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Потерянного",
+			spa = CAKE.spa .. "de El Perdido",
 		},
 		[PlayerType.PLAYER_LILITH] = {
 			en_us = "Lilith's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Лилит",
+			spa = CAKE.spa .. "de Lilith",
 		},
 		[PlayerType.PLAYER_KEEPER] = {
 			en_us = "Keeper's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Хранителя",
+			spa = CAKE.spa .. "de Keeper",
 		},
 		[PlayerType.PLAYER_APOLLYON] = {
 			en_us = "Apollyon's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Апполиона"
+			ru = CAKE.ru .. " Апполиона",
+			spa = CAKE.spa .. "de Apolión",
 		},
 		[PlayerType.PLAYER_THEFORGOTTEN] = {
 			en_us = "The Forgotten's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Забытого",
+			spa = CAKE.spa .. "de El Olvidado",
 		},
 		[PlayerType.PLAYER_BETHANY] = {
 			en_us = "Bethany's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Вифании", --Бетани
+			spa = CAKE.spa .. "de Bethany",
 		},
 		[PlayerType.PLAYER_JACOB] = {
 			en_us = "Jacob's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Якова",
+			spa = CAKE.spa .. "de Jacob",
 		},
 		[PlayerType.PLAYER_ESAU] = {
 			en_us = "Esau's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Исава",
+			spa = CAKE.spa .. "de Esaú",
 		},
 	},
 

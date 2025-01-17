@@ -15,16 +15,19 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, CAIN_BIRTHCAKE.CainPickup, CacheFlag.CACHE_LUCK)
 
-CAIN_BIRTHCAKE.RefundChance = {
-	[Mod.SlotVariant.SLOT_MACHINE] = 0.33,
-	[Mod.SlotVariant.FORTUNE_TELLING_MACHINE] = 0.33,
-	[Mod.SlotVariant.CRANE_GAME] = 0.25,
-}
-
-CAIN_BIRTHCAKE.RefundReward = {
-	[Mod.SlotVariant.SLOT_MACHINE] = 1,
-	[Mod.SlotVariant.FORTUNE_TELLING_MACHINE] = 1,
-	[Mod.SlotVariant.CRANE_GAME] = 5
+CAIN_BIRTHCAKE.SlotsData = {
+	[Mod.SlotVariant.SLOT_MACHINE] = {
+		RefundChance = 0.33,
+		RefundReward = 1,
+	},
+	[Mod.SlotVariant.FORTUNE_TELLING_MACHINE] = {
+		RefundChance = 0.33,
+		RefundReward = 1,
+	},
+	[Mod.SlotVariant.CRANE_GAME] = {
+		RefundChance = 0.25,
+		RefundReward = 5,
+	},
 }
 
 function CAIN_BIRTHCAKE:MachineInteraction(player, ent, low)
@@ -45,18 +48,22 @@ function CAIN_BIRTHCAKE:OnSlotInitiate(slot)
 
 	if data.TouchedPlayer and not data.WaitAfterInitiate then
 		if sprite:IsPlaying("Initiate") then
-			local player = data.TouchedPlayer
-			local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
-			local roll = rng:RandomFloat()
-			local baseChance = CAIN_BIRTHCAKE.RefundChance[slot.Variant] or 0
-			local trinketMult = 0.3 * (Mod:GetTrinketMult(player) - 1)
-			local chance = baseChance * (1.3 + trinketMult)
+			local slotData = CAIN_BIRTHCAKE.SlotsData[slot.Variant]
 
-			if roll < chance then
-				player:AddCoins(CAIN_BIRTHCAKE.RefundReward[slot.Variant])
-				player:AnimateHappy()
+			if slotData then
+				local player = data.TouchedPlayer
+				local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
+				local roll = rng:RandomFloat()
+				local baseChance = slotData.RefundChance
+				local trinketMult = 0.3 * (Mod:GetTrinketMult(player) - 1)
+				local chance = baseChance * (1.3 + trinketMult)
+
+				if roll < chance then
+					player:AddCoins(slotData.RefundReward)
+					player:AnimateHappy()
+				end
+				data.WaitAfterInitiate = true
 			end
-			data.WaitAfterInitiate = true
 		end
 		data.TouchedPlayer = nil
 	end
