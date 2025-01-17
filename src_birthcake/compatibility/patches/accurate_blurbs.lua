@@ -61,7 +61,7 @@ local function accurateBlurbsPatch()
 		[PlayerType.PLAYER_LAZARUS2] = {
 			en_us = "Wait till next floor for effect",
 			ru = "Подожди следующего этажа для эффекта",
-			pl = "Pockekaj do następnego piętra",
+			pl = "Poczekaj do następnego piętra",
 		},
 		[PlayerType.PLAYER_EDEN] = {
 			en_us = "3 random gulped trinkets",
@@ -86,7 +86,7 @@ local function accurateBlurbsPatch()
 		[PlayerType.PLAYER_APOLLYON] = {
 			en_us = "Voidable trinkets",
 			ru = "Поглощаемые брелки",
-			pl = "Jadalne trynkiety", --Idk
+			pl = "Jadalne trynkiety",
 		},
 		[PlayerType.PLAYER_THEFORGOTTEN] = {
 			en_us = "Shoot Forgotten's Body to charge it, swap back for tears up",
