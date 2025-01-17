@@ -42,7 +42,7 @@ local DESCRIPTION_SHARE  = {
 --The
 local CAKE ={
 	en_us = "Cake",
-	ru = "Пироженое"
+	ru = "Пироженое",
 }
 --is a LIE
 --ТОРТ ЭТО ЛОЖЬ
@@ -53,55 +53,55 @@ local translations = {
 	BIRTHCAKE_NAME = {
 		[PlayerType.PLAYER_ISAAC] = {
 			en_us = "Isaac's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Исаака"
+			ru = CAKE.ru .. " Исаака",
 		},
 		[PlayerType.PLAYER_MAGDALENE] = {
 			en_us = "Magdelene's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Магдалины"
+			ru = CAKE.ru .. " Магдалины",
 		},
 		[PlayerType.PLAYER_CAIN] = {
 			en_us = "Cain's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Каина"
+			ru = CAKE.ru .. " Каина",
 		},
 		[PlayerType.PLAYER_JUDAS] = {
 			en_us = "Judas '" .. CAKE.en_us,
-			ru = CAKE.ru .. " Иуды"
+			ru = CAKE.ru .. " Иуды",
 		},
 		[PlayerType.PLAYER_BLUEBABY] = {
 			en_us = "???'s " .. CAKE.en_us,
-			ru = CAKE.ru .. " ???"
+			ru = CAKE.ru .. " ???",
 		},
 		[PlayerType.PLAYER_EVE] = {
 			en_us = "Eve's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Евы"
+			ru = CAKE.ru .. " Евы",
 		},
 		[PlayerType.PLAYER_SAMSON] = {
 			en_us = "Samson's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Самсона"
+			ru = CAKE.ru .. " Самсона",
 		},
 		[PlayerType.PLAYER_AZAZEL] = {
 			en_us = "Azazel's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Азазеля"
+			ru = CAKE.ru .. " Азазеля",
 		},
 		[PlayerType.PLAYER_LAZARUS] = {
 			en_us = "Lazarus '" .. CAKE.en_us,
-			ru = CAKE.ru .. " Лазаря"
+			ru = CAKE.ru .. " Лазаря",
 		},
 		[PlayerType.PLAYER_EDEN] = {
 			en_us = "Eden's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Идена"
+			ru = CAKE.ru .. " Идена",
 		},
 		[PlayerType.PLAYER_THELOST] = {
 			en_us = "The Lost's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Потерянного"
+			ru = CAKE.ru .. " Потерянного",
 		},
 		[PlayerType.PLAYER_LILITH] = {
 			en_us = "Lilith's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Лилит"
+			ru = CAKE.ru .. " Лилит",
 		},
 		[PlayerType.PLAYER_KEEPER] = {
 			en_us = "Keeper's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Хранителя"
+			ru = CAKE.ru .. " Хранителя",
 		},
 		[PlayerType.PLAYER_APOLLYON] = {
 			en_us = "Apollyon's " .. CAKE.en_us,
@@ -109,19 +109,19 @@ local translations = {
 		},
 		[PlayerType.PLAYER_THEFORGOTTEN] = {
 			en_us = "The Forgotten's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Забытого"
+			ru = CAKE.ru .. " Забытого",
 		},
 		[PlayerType.PLAYER_BETHANY] = {
 			en_us = "Bethany's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Вифании" --Бетани
+			ru = CAKE.ru .. " Вифании", --Бетани
 		},
 		[PlayerType.PLAYER_JACOB] = {
 			en_us = "Jacob's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Якова"
+			ru = CAKE.ru .. " Якова",
 		},
 		[PlayerType.PLAYER_ESAU] = {
 			en_us = "Esau's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Исава"
+			ru = CAKE.ru .. " Исава",
 		},
 	},
 
@@ -129,75 +129,75 @@ local translations = {
 	BIRTHCAKE_DESCRIPTION = {
 		[PlayerType.PLAYER_ISAAC] = {
 			en_us = "Bonus roll",
-			ru = "Бонусный переброс"
+			ru = "Бонусный переброс",
 		},
 		[PlayerType.PLAYER_MAGDALENE] = {
 			en_us = "Healing power",
-			ru = "Сила исцеления"
+			ru = "Сила исцеления",
 		},
 		[PlayerType.PLAYER_CAIN] = {
 			en_us = "Sleight of hand",
-			ru = "Ловкость рук"
+			ru = "Ловкость рук",
 		},
 		[PlayerType.PLAYER_JUDAS] = {
 			en_us = "Sinner's guard",
-			ru = "Страж грешника"
+			ru = "Страж грешника",
 		},
 		[PlayerType.PLAYER_BLUEBABY] = {
 			en_us = "Loose bowels",
-			ru = "Дряблый кишечник"
+			ru = "Дряблый кишечник",
 		},
 		[PlayerType.PLAYER_EVE] = {
 			en_us = "",
-			ru = ""
+			ru = "",
 		},
 		[PlayerType.PLAYER_SAMSON] = {
 			en_us = "",
-			ru = ""
+			ru = "",
 		},
 		[PlayerType.PLAYER_AZAZEL] = {
 			en_us = "Deeper breaths",
-			ru = "Дышите глубже..."
+			ru = "Дыши глубже...",
 		},
 		[PlayerType.PLAYER_LAZARUS] = {
 			en_us = "Come down with me",
-			ru = "Снизойди со мной"
+			ru = "Снизойди со мной",
 		},
 		[PlayerType.PLAYER_EDEN] = {
 			en_us = "Variety flavor",
-			ru = "Вкус разнообразия"
+			ru = "Вкус разнообразия",
 		},
 		[PlayerType.PLAYER_THELOST] = {
 			en_us = "Regained power",
-			ru = "Возвращенная сила"
+			ru = "Возвращенная сила",
 		},
 		[PlayerType.PLAYER_LILITH] = {
 			en_us = "Remember to share!",
-			ru = "Не забудь поделиться!"
+			ru = "Не забудь поделиться!",
 		},
 		[PlayerType.PLAYER_KEEPER] = {
 			en_us = "Spare change",
-			ru = "Лишняя мелочь"
+			ru = "Лишняя мелочь",
 		},
 		[PlayerType.PLAYER_APOLLYON] = {
 			en_us = "Snack time!",
-			ru = "Время перекуса!"
+			ru = "Время перекуса!",
 		},
 		[PlayerType.PLAYER_THEFORGOTTEN] = {
 			en_us = "Revitalize",
-			ru = "Оживление"
+			ru = "Оживление",
 		},
 		[PlayerType.PLAYER_BETHANY] = {
 			en_us = "Harmony of body and soul",
-			ru = "Гармония души и тела"
+			ru = "Гармония души и тела",
 		},
 		[PlayerType.PLAYER_JACOB] = {
 			en_us = "Stronger than you",
-			ru = "Сильнее, чем ты"
+			ru = "Сильнее, чем ты",
 		},
 		[PlayerType.PLAYER_ISAAC_B] = {
 			en_us = "Pocket item",
-			ru = "Карманный предмет"
+			ru = "Карманный предмет",
 		},
 		[PlayerType.PLAYER_MAGDALENE_B] = {
 			en_us = "Heart attack",
@@ -205,62 +205,63 @@ local translations = {
 		},
 		[PlayerType.PLAYER_CAIN_B] = {
 			en_us = "Repurpose",
-			ru = "Перераспределение"
+			ru = "Перераспределение",
 		},
 		[PlayerType.PLAYER_JUDAS_B] = {
-			en_us = ""
+			en_us = "",
+			ru = "",
 		},
 		[PlayerType.PLAYER_BLUEBABY_B] = {
 			en_us = "Sturdy turdy",
-			ru = "Твердый кал"
+			ru = "Твердый кал",
 		},
 		[PlayerType.PLAYER_EVE_B] = {
 			en_us = "",
-			ru = ""
+			ru = "",
 		},
 		[PlayerType.PLAYER_SAMSON_B] = {
 			en_us = "Unending rampage",
-			ru = "Нескончаемая ярость"
+			ru = "Нескончаемая ярость",
 		},
 		[PlayerType.PLAYER_AZAZEL_B] = {
 			en_us = "Allergy up",
-			ru = ""
+			ru = "Аллергия ↑",
 		},
 		[PlayerType.PLAYER_LAZARUS_B] = {
 			en_us = "A gift from beyond",
-			ru = "Дар с небес"
+			ru = "Дар с небес",
 		},
 		[PlayerType.PLAYER_EDEN_B] = {
 			en_us = "",
-			ru = ""
+			ru = "",
 		},
 		[PlayerType.PLAYER_THELOST_B] = {
 			en_us = "",
-			ru = ""
+			ru = "",
 		},
 		[PlayerType.PLAYER_LILITH_B] = {
 			en_us = "",
-			ru = ""
+			ru = "",
 		},
 		[PlayerType.PLAYER_KEEPER_B] = {
 			en_us = "Local business",
-			ru = "Местный бизнес"
+			ru = "Местный бизнес",
 		},
 		[PlayerType.PLAYER_APOLLYON_B] = {
 			en_us = "Harvest",
-			ru = "Сбор урожая"
+			ru = "Сбор урожая",
 		},
 		[PlayerType.PLAYER_THEFORGOTTEN_B] = {
 			en_us = "Fracture",
-			ru = "Перелом"
+			ru = "Перелом",
 		},
 		[PlayerType.PLAYER_BETHANY_B] = {
 			en_us = "Stronger summons",
-			ru = "Более сильные огни" --"Призывы" don't sound very good
+			ru = "Более сильные огоньки", --"Призывы" don't sound very good
 		},
 		[PlayerType.PLAYER_JACOB_B] = {
 			en_us = "",
-			ru = ""
+			ru = "",
 		}
 	},
 
