@@ -1,10 +1,11 @@
 - Code completely rewritten to be better compatible with mods, co-op, and overall way better optimized
 
 Birthcake Changes:
+- Magdalene's "doubling" effect now affects Scared Hearts
 - Magdalene granting soul hearts with Yum Heart use now scales with your trinket modifier instead of just Mom's Box, up to one and a half soul hearts
 - Tainted Magdalene has hearts explode with a base damage value of 5.25 (2x T. Maggy's base damage, instead of half the player's damage) that increases based on the combined number of and total trinket multipliers of all Tainted Magdelenes with
 - Removed Tainted Cain's effect of a 5% chance for giving you a pickup you bagged
-- Removed devil deal interaction with Judas/Dark Judas. Instead, if they would die, they will gain a black heart, damage all enemies in the room, and have Birthcake removed from their inventory. Any trinket multipliers will add an additional black heart
+- Removed devil deal interaction with Judas/Dark Judas. Instead, if they would take fatal damage, they will gain a black heart, damage all enemies in the room, and have Birthcake removed from their inventory. Any trinket multipliers will add an additional black heart
 - Judas'/Dark Judas' damage up has been changed from +20% to +2 flat damage and +10%
 - Removed Tainted Eve spawning clots twice as fast
 - Lazarus will receive a soul heart upon reviving as Lazarus Risen instead of an extra heart container on a new floor

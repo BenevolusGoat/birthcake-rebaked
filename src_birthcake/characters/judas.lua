@@ -29,6 +29,8 @@ function JUDAS_CAKE:ExchangeBirthcake(player)
 		player:AddBlackHearts(2)
 	end
 	player:TryRemoveTrinket(Mod.Birthcake.ID)
+	local cooldown = player:HasTrinket(TrinketType.TRINKET_BLIND_RAGE) and 60 or 20
+	player:SetMinDamageCooldown(cooldown * (2 * trinketMult))
 	Mod.SFXManager:Play(SoundEffect.SOUND_SATAN_GROW)
 end
 

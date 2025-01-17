@@ -17,18 +17,25 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, MAGDALENE_CAKE.SoulRefill, CollectibleType.COLLECTIBLE_YUM_HEART)
 
+MAGDALENE_CAKE.HeartSubTypeConversion = {
+	[HeartSubType.HEART_HALF] = HeartSubType.HEART_FULL,
+	[HeartSubType.HEART_FULL] = HeartSubType.HEART_DOUBLEPACK,
+	[HeartSubType.HEART_SCARED] = HeartSubType.HEART_DOUBLEPACK,
+}
+
 function MAGDALENE_CAKE:HeartReplace(entType, variant, subType, position, velocity, spawner, seed)
 	if entType == EntityType.ENTITY_PICKUP
 		and variant == PickupVariant.PICKUP_HEART
 	then
 		local player = BirthcakeRebaked:FirstPlayerTypeBirthcakeOwner(PlayerType.PLAYER_MAGDALENE)
 		if not player then return end
+		local newVariant = MAGDALENE_CAKE.HeartSubTypeConversion
 
-		if player and (subType == HeartSubType.HEART_HALF or subType == HeartSubType.HEART_FULL) then
+		if player and newVariant then
 			local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
 			local roll = rng:RandomFloat()
 			if roll < MAGDALENE_CAKE.HEART_REPLACE_CHANCE then
-				return { EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_DOUBLEPACK, seed }
+				return { EntityType.ENTITY_PICKUP, newVariant, HeartSubType.HEART_DOUBLEPACK, seed }
 			end
 		end
 	end

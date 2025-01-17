@@ -44,7 +44,7 @@ BLUEBABY_CAKE.PoopVariantChance = {
 	[Mod.EntityPoopVariant.GOLDEN] = function(player)
 		return BLUEBABY_CAKE:GetGoldenPoopChance(player)
 	end,
-	[Mod.EntityPoopVariant.CORN] = 0.2,
+	--[Mod.EntityPoopVariant.CORN] = 0.2,
 	[Mod.EntityPoopVariant.HOLY] = function(player) return player:HasCollectible(CollectibleType.COLLECTIBLE_HALLOWED_GROUND) and 0.05 or 0 end,
 	[Mod.EntityPoopVariant.BLACK] = function(player) return player:HasTrinket(TrinketType.TRINKET_MECONIUM) and 0.33 or 0 end
 }
