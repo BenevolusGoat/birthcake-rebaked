@@ -17,7 +17,7 @@ end
 ---@param player EntityPlayer
 function ISAAC_CAKE:TryRemoveBirthcakeItems(player)
 	local player_run_save = Mod.SaveManager.GetRunSave(player)
-	local inventory = player_run_save.IsaacBBirthcakeInventory
+	local inventory = player_run_save.IsaacBBirthcakeInventory or {}
 	local expectedCap = player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID)
 	local numItems = #inventory
 

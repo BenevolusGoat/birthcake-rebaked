@@ -42,7 +42,7 @@ local function accurateBlurbsPatch()
 		},
 		[PlayerType.PLAYER_AZAZEL] = {
 			en_us = "Longer brimstone from dealing damage",
-			ru = "Луч серы удлинняется при нанесении урона",
+			ru = "Длительность луча серы увеличивается по мере нанесения урона",
 		},
 		[PlayerType.PLAYER_LAZARUS] = {
 			en_us = "Room damage and soul heart on revival",
@@ -142,7 +142,7 @@ local function accurateBlurbsPatch()
 		},
 		[PlayerType.PLAYER_THEFORGOTTEN_B] = {
 			en_us = "Killing enemies spawns orbitals. Throw Forgotten to fire them",
-			ru = "Создает орбиталки при убийстве врагов. Бросок Забытого стреляет ими",
+			ru = "Создает орбитальные кости при убийстве врагов. Бросок Забытого стреляет ими",
 		},
 		[PlayerType.PLAYER_BETHANY_B] = {
 			en_us = "Double health wisps",

@@ -44,6 +44,7 @@ function JUDAS_CAKE:PreTakeDamage(ent, amount, flags, source, frames)
 	if JUDAS_CAKE:JudasHasBirthcake(player)
 		and BirthcakeRebaked:IsPlayerTakingMortalDamage(player, amount)
 	then
+		player:AddBlackHearts(amount)
 		JUDAS_CAKE:ExchangeBirthcake(player)
 	end
 end
