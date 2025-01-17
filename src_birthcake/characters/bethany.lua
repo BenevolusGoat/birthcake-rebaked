@@ -14,8 +14,8 @@ BETHANY_CAKE.WISP_CHANCE = 0.25
 ---@param flags UseFlag
 function BETHANY_CAKE:OnActiveUse(itemID, rng, player, flags)
 	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_BETHANY)
-		and Mod:HasBitFlags(flags, UseFlag.USE_ALLOWWISPSPAWN)
-		and player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES)
+		and (Mod:HasBitFlags(flags, UseFlag.USE_ALLOWWISPSPAWN)
+		or player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES))
 	then
 		local chanceMult = Mod:GetTrinketMult(player)
 		if rng:RandomFloat() < BETHANY_CAKE.WISP_CHANCE * chanceMult then
