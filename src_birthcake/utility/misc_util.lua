@@ -107,7 +107,7 @@ function BirthcakeRebaked:HasBitFlags(flags, checkFlag)
 	if not checkFlag then
 		error("BitMaskHelper: checkFlag is nil", 2)
 	end
-	return flags & checkFlag == checkFlag
+	return flags & checkFlag > 0
 end
 
 ---Credit to Epiphany

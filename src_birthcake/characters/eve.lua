@@ -4,12 +4,17 @@ local game = Mod.Game
 local EVE_CAKE = {}
 BirthcakeRebaked.Birthcake.EVE = EVE_CAKE
 
+EVE_CAKE.DAMAGE_FLAGS = DamageFlag.DAMAGE_RED_HEARTS | DamageFlag.DAMAGE_NO_PENALTIES
+
 -- Eve Birthcake
 
-function EVE_CAKE:RedHeartDamage(ent, damage, flag, source, cdframe)
+function EVE_CAKE:RedHeartDamage(ent, damage, flags, source, countdownFrames)
 	local player = ent:ToPlayer() ---@cast player EntityPlayer
-	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_EVE) then
-		return flag | DamageFlag.DAMAGE_RED_HEARTS | DamageFlag.DAMAGE_NO_PENALTIES
+	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_EVE)
+		and not Mod:HasBitFlags(flags, EVE_CAKE.DAMAGE_FLAGS)
+	then
+		player:TakeDamage(damage, flags | EVE_CAKE.DAMAGE_FLAGS, source, countdownFrames)
+		return false
 	end
 end
 
