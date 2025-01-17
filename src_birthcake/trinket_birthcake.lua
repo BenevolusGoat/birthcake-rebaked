@@ -34,13 +34,14 @@ HudHelper.RegisterHUDElement({
 	Condition = function(player, _, _, slot)
 		return player:GetTrinket(slot) == BIRTHCAKE_TRINKET.ID
 	end,
-	OnRender = function(player, _, _, pos)
+	OnRender = function(player, _, _, pos, scale)
 		local data = Mod:GetData(player)
 		if not data.BirthcakePlayerType or data.BirthcakePlayerType ~= player:GetPlayerType() then
 			data.BirthcakeSprite = Mod:GetBirthcakeSprite(player)
 			data.BirthcakeSprite:Play("Idle")
 			data.BirthcakePlayerType = player:GetPlayerType()
 		end
+		data.BirthcakeSprite.Scale = Vector(scale, scale)
 		Isaac.RunCallbackWithParam(Mod.ModCallbacks.PRE_BIRTHCAKE_RENDER, player:GetPlayerType(), player,
 			data.BirthcakeSprite, pos)
 		data.BirthcakeSprite:Render(pos)

@@ -43,7 +43,7 @@ function loader:ApplyPatches()
 end
 
 local patches = {
-	"eid_support",
+	"accurate_blurbs",
 }
 for _, fileName in ipairs(patches) do
 	include("src_birthcake.compatibility.patches." .. fileName)

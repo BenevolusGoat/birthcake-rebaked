@@ -1,7 +1,8 @@
+local Mod = BirthcakeRebaked
 local loader = BirthcakeRebaked.PatchesLoader
 
 local function accurateBlurbsPatch()
-	local DESCRIPTION_SHARE     = {
+	local DESCRIPTION_SHARE = {
 		[PlayerType.PLAYER_BLACKJUDAS] = PlayerType.PLAYER_JUDAS,
 		[PlayerType.PLAYER_ESAU] = PlayerType.PLAYER_JACOB,
 		[PlayerType.PLAYER_LAZARUS2_B] = PlayerType.PLAYER_LAZARUS2,
@@ -183,6 +184,17 @@ local function accurateBlurbsPatch()
 			ru = "???",
 		}
 	}
+
+	for sharedDescription, copyDescription in pairs(DESCRIPTION_SHARE) do
+		BIRTHCAKE_DESCRIPTION[sharedDescription] = BIRTHCAKE_DESCRIPTION[copyDescription]
+	end
+
+	Mod:AddCallback(Mod.ModCallbacks.GET_BIRTHCAKE_ITEMTEXT_DESCRIPTION, function(_, player)
+		local playerType = player:GetPlayerType()
+		if BIRTHCAKE_DESCRIPTION[playerType] and Mod:TryGetTranslation(BIRTHCAKE_DESCRIPTION[playerType]) then
+			return Mod:TryGetTranslation(BIRTHCAKE_DESCRIPTION[playerType])
+		end
+	end)
 end
 
 loader:RegisterPatch("AccurateBlurbs", accurateBlurbsPatch)
