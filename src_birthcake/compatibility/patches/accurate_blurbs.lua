@@ -1,7 +1,7 @@
 local loader = BirthcakeRebaked.PatchesLoader
 
 local function accurateBlurbsPatch()
-	local DESCRIPTION_SHARE  = {
+	local DESCRIPTION_SHARE     = {
 		[PlayerType.PLAYER_BLACKJUDAS] = PlayerType.PLAYER_JUDAS,
 		[PlayerType.PLAYER_ESAU] = PlayerType.PLAYER_JACOB,
 		[PlayerType.PLAYER_LAZARUS2_B] = PlayerType.PLAYER_LAZARUS2,
@@ -49,7 +49,7 @@ local function accurateBlurbsPatch()
 			en_us = "Two free active uses per floor. Eternal D6 does a D6 + Birthright reroll",
 		},
 		[PlayerType.PLAYER_LILITH] = {
-			en_us = "???",
+			en_us = "Familiars have a chance to copy your tear effects",
 		},
 		[PlayerType.PLAYER_KEEPER] = {
 			en_us = "Nickel in Shop and Devil rooms",
