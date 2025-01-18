@@ -22,14 +22,14 @@ Birthcake Reworks:
 - Tainted Isaac gains an extra inventory slot that's tied to the Birthcake. Your number of extra inventory slots scales with your trinket multiplier
 - Tainted Judas will gain active charge when passing through enemies instead of slowing them
 - ??? has different interactions between The Poop and other actives. With The Poop, it spawns 2 additional poops directly adjacent to the initial poop depending on the direction you're facing, creating a wall. With other actives, it shoots out mini poops in random directions based on the number of charges the active has, which has similar conditions to The Poop of being different variants
-- Eve triggers use of The Razor when taking damage from most sources, but will still get the Devil Deal red heart penalty
+- Eve ???
 - Tainted Eve ???
-- Azazel has the duration of their beam extended so long as it damages enemies, for a maximum time of 3x the typical duration. Trinket multipliers will each add +50% of this duration
+- Azazel has the duration of their beam extended so long as it damages enemies, for a maximum time of 3x the typical duration. Trinket multipliers will each add +50% of this duration. Also comes with a -10% damage reduction
 - Tainted Azazel shoots 6 booger tears in front of them upon sneezing that all inflict the Brimstone Curse on contact. 10% chance for them to stick to enemies
 - Eden's Birthcake grants 3 random gulped trinkets, additional trinkets based on multipliers. The trinkets are tied to Birthcake, meaning dropping it will remove the trinkets, picking it up will re-grant them
 - Tainted Eden has a chance to
 - Tainted Lazarus ???
-- Tainted Lilith ???
+- Tainted Lilith has a chance to shoot out a second, smaller Gello that deals 50% less damage. It does not shoot out of Lilith like a whip, unlike the main Gello
 - When The Soul shoots through Forgotten's Body, it creates a Compound Fracture effect of 1-3 half-damage tears, adding an additional bone scaling with trinket multipliers. Doing this charges The Forgotten's body with "soul charges". When swapping back to The Forgotten, the stored charges convert to a diminishing tears up. This tears up instantly goes away when swapping back to The Soul
 - Tainted Forgotten will spawn bone orbitals when killing enemies, which will orbit around Tainted Soul. When picking up T. Forgotten and throwing them, the bone orbitals are shot forward like tears
 - Bethany will spawn a duplicate wisp of the same type 25% of the time when using an active item. Chance scales with trinket multipliers

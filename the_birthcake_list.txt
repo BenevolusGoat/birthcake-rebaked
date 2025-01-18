@@ -1,6 +1,6 @@
 Normal:
 
-Isaac: Dice Shard spawns in starting room
+Isaac: Dice Shard spawns in starting room and on first pickup
 Maggy: Heart pickups chance to be double (Half red -> Full red, Full red -> Double red, Half soul -> Full soul)
 Cain: Slot Machines, Fortune Telling Machines, and Crane Games have a chance to refund
 Judas: Small damage multiplier up. If you were to die from a devil deal, it would consume the cake instead

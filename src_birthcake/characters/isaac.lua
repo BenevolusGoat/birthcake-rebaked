@@ -7,20 +7,29 @@ BirthcakeRebaked.Birthcake.ISAAC = ISAAC_CAKE
 
 -- Isaac Birthcake
 
-function ISAAC_CAKE:SpawnTreasureDiceShard()
+function ISAAC_CAKE:OnBirthcakeCollect(player, firstTime)
+	if firstTime then
+		local room = Mod.Game:GetRoom()
+		for _ = 1, Mod:GetTrinketMult(player) do
+			Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_DICE_SHARD,
+				room:FindFreePickupSpawnPosition(player.Position, 40), Vector.Zero, player)
+		end
+	end
+end
+
+Mod:AddCallback(Mod.ModCallbacks.POST_BIRTHCAKE_COLLECT, ISAAC_CAKE.OnBirthcakeCollect, PlayerType.PLAYER_ISAAC)
+
+function ISAAC_CAKE:SpawnStartingRoomDiceShard()
 	local room = Mod.Game:GetRoom()
 	local level = Mod.Game:GetLevel()
 	if room:GetType() ~= RoomType.ROOM_DEFAULT
 		or level:GetCurrentRoomIndex() ~= level:GetStartingRoomIndex()
+		or not room:IsFirstVisit()
 	then
 		return
 	end
 	Mod:ForEachPlayer(function(player)
-		local effects = player:GetEffects()
-		if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_ISAAC)
-			and not effects:HasTrinketEffect(Mod.Birthcake.ID)
-		then
-			effects:AddTrinketEffect(Mod.Birthcake.ID)
+		if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_ISAAC) then
 			for _ = 1, Mod:GetTrinketMult(player) do
 				Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_DICE_SHARD,
 					room:FindFreePickupSpawnPosition(room:GetCenterPos()), Vector.Zero, player)
@@ -30,7 +39,7 @@ function ISAAC_CAKE:SpawnTreasureDiceShard()
 	end)
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, ISAAC_CAKE.SpawnTreasureDiceShard)
+Mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, ISAAC_CAKE.SpawnStartingRoomDiceShard)
 
 ---@param player EntityPlayer
 function ISAAC_CAKE:ResetShardsOnNewFloor(player)

@@ -6,9 +6,16 @@ BirthcakeRebaked.Birthcake.AZAZEL = AZAZEL_CAKE
 
 -- Azazel Birthcake
 
+--API SSUUCCKKSS and I can't change the damage of the laser directly, trust me I tried for non-gon
+
 AZAZEL_CAKE.DEFAULT_MAX_DURATION = 7
 AZAZEL_CAKE.DEFAULT_BONUS_DURATION = 14
 
+---@param ent Entity
+---@param amount number
+---@param flags DamageFlag
+---@param source EntityRef
+---@param countdown integer
 function AZAZEL_CAKE:OnEntityTakeDamage(ent, amount, flags, source, countdown)
 	local player = source and source.Entity and source.Entity:ToPlayer()
 
@@ -42,6 +49,15 @@ if REPENTOGON then
 else
 	Mod:AddPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, CallbackPriority.LATE, AZAZEL_CAKE.OnEntityTakeDamage)
 end
+
+---@param player EntityPlayer
+function AZAZEL_CAKE:DamageDown(player)
+	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_AZAZEL) then
+		player.Damage = player.Damage * 0.9
+	end
+end
+
+Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, AZAZEL_CAKE.DamageDown, CacheFlag.CACHE_DAMAGE)
 
 -- Tainted Azazel Birthcake
 

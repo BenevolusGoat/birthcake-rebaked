@@ -15,7 +15,7 @@ local function accurateBlurbsPatch()
 	local BIRTHCAKE_DESCRIPTION = {
 		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_ISAAC] = {
-			en_us = "Dice Shards in Starting Room",
+			en_us = "Spawns Dice Shard + Dice Shards in starting room",
 			ru = "Осколки кости в Сокровищнице и комнате Босса",
 			pl = "Odłamki Kości w pokojach Skarbów i Bossa",
 		},
@@ -57,7 +57,7 @@ local function accurateBlurbsPatch()
 		},
 		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_AZAZEL] = {
-			en_us = "Longer Brimstone duration while damaging enemies",
+			en_us = "DMG down + longer Brimstone duration while damaging enemies",
 			ru = "Длительность луча серы увеличивается по мере нанесения урона",
 			pl = "Zadawanie obrażeń wydłuża laser",
 		},
