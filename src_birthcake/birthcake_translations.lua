@@ -57,8 +57,7 @@ local CAKE              = {
 ---But I don't know if it'd be any different with the 's and s'
 local translations      = {
 	BIRTHCAKE_NAME = {
-		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK]
-		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_ISAAC] = {
 			en_us = "Isaac's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Исаака",
@@ -67,7 +66,7 @@ local translations      = {
 			pl = CAKE.pl .. " Izaaka",
 			ko_kr = "아이작의 "..CAKE.ko_kr,
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_MAGDALENE] = {
 			en_us = "Magdelene's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Магдалины",
@@ -76,7 +75,7 @@ local translations      = {
 			pl = CAKE.pl .. " Magdaleny",
 			ko_kr = "막달레나의 "..CAKE.ko_kr,
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_CAIN] = {
 			en_us = "Cain's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Каина",
@@ -85,7 +84,7 @@ local translations      = {
 			pl = CAKE.pl .. " Kaina",
 			ko_kr = "카인의 "..CAKE.ko_kr,
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_JUDAS] = {
 			en_us = "Judas '" .. CAKE.en_us,
 			ru = CAKE.ru .. " Иуды",
@@ -94,7 +93,7 @@ local translations      = {
 			pl = CAKE.pl .. " Judasza",
 			ko_kr = "유다의 "..CAKE.ko_kr,
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_BLUEBABY] = {
 			en_us = "???'s " .. CAKE.en_us,
 			ru = CAKE.ru .. " ???",
@@ -103,7 +102,7 @@ local translations      = {
 			pl = CAKE.pl .. " ???",
 			ko_kr = "???의 "..CAKE.ko_kr,
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_EVE] = {
 			en_us = "Eve's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Евы",
@@ -112,7 +111,7 @@ local translations      = {
 			pl = CAKE.pl .. " Ewy",
 			ko_kr = "이브의 "..CAKE.ko_kr,
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_SAMSON] = {
 			en_us = "Samson's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Самсона",
@@ -121,7 +120,7 @@ local translations      = {
 			pl = CAKE.pl .. " Samsona",
 			ko_kr = "삼손의 "..CAKE.ko_kr,
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_AZAZEL] = {
 			en_us = "Azazel's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Азазеля",
@@ -130,7 +129,7 @@ local translations      = {
 			pl = CAKE.pl .. " Azazela",
 			ko_kr = "아자젤의 "..CAKE.ko_kr,
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_LAZARUS] = {
 			en_us = "Lazarus '" .. CAKE.en_us,
 			ru = CAKE.ru .. " Лазаря",
@@ -139,7 +138,7 @@ local translations      = {
 			pl = CAKE.pl .. " Łazarza",
 			ko_kr = "나사로의 "..CAKE.ko_kr,
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_EDEN] = {
 			en_us = "Eden's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Идена",
@@ -148,7 +147,7 @@ local translations      = {
 			pl = CAKE.pl .. " Edena",
 			ko_kr = "에덴의 "..CAKE.ko_kr,
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_THELOST] = {
 			en_us = "The Lost's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Потерянного",
@@ -157,7 +156,7 @@ local translations      = {
 			pl = CAKE.pl .. " Zaginionego",	--kurde niektóre części EID po prostu go zostawiają jako Losta ale jak spolszczamy pełną gębą to idę z tym.
 			ko_kr = "더 로스트의 "..CAKE.ko_kr,
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_LILITH] = {
 			en_us = "Lilith's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Лилит",
@@ -166,7 +165,7 @@ local translations      = {
 			pl = CAKE.pl .. " Lilit", --na polskiej wikipedii jest zapisywana jako "Lilith", ale polskie EID zapisuje jako "Lilit"
 			ko_kr = "릴리트의 "..CAKE.ko_kr,
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_KEEPER] = {
 			en_us = "Keeper's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Хранителя",
@@ -175,7 +174,7 @@ local translations      = {
 			pl = CAKE.pl .. " Dozorcy", --Polskie EID tak to tłumaczy
 			ko_kr = "키퍼의 "..CAKE.ko_kr,
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_APOLLYON] = {
 			en_us = "Apollyon's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Апполиона",
@@ -184,7 +183,7 @@ local translations      = {
 			pl = CAKE.pl .. " Apollyona", --EID nie zmienia mu nazwy. Polska wikipedia nazywa go "Abaddon"
 			ko_kr = "아폴리온의 "..CAKE.ko_kr,
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_THEFORGOTTEN] = {
 			en_us = "The Forgotten's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Забытого",
@@ -193,7 +192,7 @@ local translations      = {
 			pl = CAKE.pl .. " Zapomnianego",
 			ko_kr = "더 포가튼의 "..CAKE.ko_kr,
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_BETHANY] = {
 			en_us = "Bethany's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Вифании", --Бетани
@@ -202,7 +201,7 @@ local translations      = {
 			pl = CAKE.pl .. " Betanii",
 			ko_kr = "베타니의 "..CAKE.ko_kr,
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_JACOB] = {
 			en_us = "Jacob's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Якова",
@@ -211,7 +210,7 @@ local translations      = {
 			pl = CAKE.pl .. " Jakuba",
 			ko_kr = "야곱의 "..CAKE.ko_kr,
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_ESAU] = {
 			en_us = "Esau's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Исава",
@@ -224,7 +223,7 @@ local translations      = {
 
 	---Any empty descriptions are for characters that I may change the effect of, or ones I do want but haven't thought of an idea yet
 	BIRTHCAKE_DESCRIPTION = {
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_ISAAC] = {
 			en_us = "Bonus roll",
 			ru = "Бонусный переброс",
@@ -232,7 +231,7 @@ local translations      = {
 			pl = "Bonusowa szansa", --Nie wiem, czy lepiej, ale próbowałem.
 			ko_kr = "추가 리롤",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_MAGDALENE] = {
 			en_us = "Healing power",
 			ru = "Сила исцеления",
@@ -240,7 +239,7 @@ local translations      = {
 			pl = "Siła leczenia",
 			ko_kr = "회복력",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_CAIN] = {
 			en_us = "Sleight of hand",
 			ru = "Ловкость рук",
@@ -248,7 +247,7 @@ local translations      = {
 			pl = "Lepkie ręce", --dosłownie tłumaczenie brzmi badziewnie. "Lepkie ręcę" jest używane w języku
 			ko_kr = "손재주",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_JUDAS] = {
 			en_us = "Sinner's guard",
 			ru = "Страж грешника",
@@ -256,7 +255,7 @@ local translations      = {
 			pl = "Straż Grzesznika", --ej Monwil, sprawdź wymowę rosyjskiego tłumaczenia lub przeczytaj czeskie :trololed:
 			ko_kr = "죄인의 보호막",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_BLUEBABY] = {
 			en_us = "Loose bowels",
 			ru = "Дряблый кишечник",
@@ -264,7 +263,7 @@ local translations      = {
 			pl = "Erupcja Wezuwiusza", --przepraszam. Nie mogłem się powstrzymać.
 			ko_kr = "설사",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_EVE] = {
 			en_us = "Safe bleeding",
 			ru = "Безопасное кровотечение",
@@ -272,7 +271,7 @@ local translations      = {
 			pl = "Bezpieczny ból",	--Niby ból i krwotok to różne słowa, ale to mi się bardziej kojarzyło z samym efektem.
 			ko_kr = "안전한 출혈",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_SAMSON] = {
 			en_us = "Healing rage",
 			ru = "Исцеляющая ярость",
@@ -280,7 +279,7 @@ local translations      = {
 			pl = "Leczący gniew",
 			ko_kr = "치유의 분노",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_AZAZEL] = {
 			en_us = "Deeper breaths",
 			ru = "Дыши глубже...",
@@ -288,7 +287,7 @@ local translations      = {
 			pl = "Daleki wydech", --szczerze to jest takie pół śmiechem pisane
 			ko_kr = "깊어진 숨결",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_LAZARUS] = {
 			en_us = "Come down with me",
 			ru = "Снизойди со мной",
@@ -296,7 +295,7 @@ local translations      = {
 			pl = "Polegnijcie, ze mną", --idk mi się nie podoboa co ty myślisz?
 			ko_kr = "동귀어진",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_EDEN] = {
 			en_us = "Variety flavor",
 			ru = "Вкус разнообразия",
@@ -304,7 +303,7 @@ local translations      = {
 			pl = "Smak różnorodności",
 			ko_kr = "다양한 맛",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_THELOST] = {
 			en_us = "Regained power",
 			ru = "Возвращенная сила",
@@ -312,7 +311,7 @@ local translations      = {
 			pl = "Odnaleziona siła", --chciałem dać "odnaleziona" bo tłumaczą losta jako "zaginionego". Ale nie wiem :/
 			ko_kr = "되찾은 동력",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_LILITH] = {
 			en_us = "Remember to share!",
 			ru = "Не забудь поделиться!",
@@ -320,15 +319,15 @@ local translations      = {
 			pl = "Pamiętaj, by się dzielić!",
 			ko_kr = "좋은 건 나눠야지!",
 		},
-		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [!] | PL: [!]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_KEEPER] = {
-			en_us = "Spare change", --or Viva la revolution, funni
+			en_us = "Spare change",
 			ru = "Лишняя мелочь",
 			cs_cz = "Drobné",
 			pl = "Drobne",
 			ko_kr = "잔돈",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_APOLLYON] = {
 			en_us = "Snack time!",
 			ru = "Время перекуса!",
@@ -336,7 +335,7 @@ local translations      = {
 			pl = "Smakołyki!",
 			ko_kr = "간식 시간이다!",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_THEFORGOTTEN] = {
 			en_us = "Revitalize",
 			ru = "Оживление",
@@ -344,7 +343,7 @@ local translations      = {
 			pl = "Ożywiony",
 			ko_kr = "재활",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_BETHANY] = {
 			en_us = "Harmony of body and soul",
 			ru = "Гармония души и тела",
@@ -352,7 +351,7 @@ local translations      = {
 			pl = "Harmonia ciała i duszy",
 			ko_kr = "육신과 영혼의 조화",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_JACOB] = {
 			en_us = "Stronger than you",
 			ru = "Сильнее, чем ты",
@@ -360,7 +359,7 @@ local translations      = {
 			pl = "Silniejszy od ciebie",
 			ko_kr = "너보다 강해",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_ISAAC_B] = {
 			en_us = "Pocket item",
 			ru = "Карманный предмет",
@@ -368,7 +367,7 @@ local translations      = {
 			pl = "Podręczny przedmiot",
 			ko_kr = "주머니 아이템",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_MAGDALENE_B] = {
 			en_us = "Heart attack",
 			ru = "Сердечный приступ",
@@ -376,7 +375,7 @@ local translations      = {
 			pl = "Zawał",
 			ko_kr = "심장이 터질 것만 같아!", --진짜 터짐 ㅋㅋ
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_CAIN_B] = {
 			en_us = "Repurpose",
 			ru = "Переработка",
@@ -384,7 +383,7 @@ local translations      = {
 			pl = "Recykling",
 			ko_kr = "재활용",
 		},
-		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_JUDAS_B] = {
 			en_us = "Shadow charge",
 			ru = "Теневой заряд",
@@ -392,7 +391,7 @@ local translations      = {
 			pl = "Szarża cieni",
 			ko_kr = "그림자 충전",
 		},
-		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [!] | PL: [!]
+		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [!] | PL: [!] | KO_KR [!]
 		[PlayerType.PLAYER_BLUEBABY_B] = {
 			en_us = "Sturdy turds",
 			ru = "Твердый кал",
@@ -400,7 +399,7 @@ local translations      = {
 			pl = "Zatwardzenie",
 			ko_kr = "거 똥 한 번 더럽게 단단하네!",
 		},
-		-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
 		[PlayerType.PLAYER_EVE_B] = {
 			en_us = "",
 			ru = "",
@@ -408,7 +407,7 @@ local translations      = {
 			pl = "",
 			ko_kr = "",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_SAMSON_B] = {
 			en_us = "Unending rampage",
 			ru = "Нескончаемая ярость",
@@ -416,7 +415,7 @@ local translations      = {
 			pl = "Nieskończony gniew",
 			ko_kr = "끝없는 폭주",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_AZAZEL_B] = {
 			en_us = "Allergy up",
 			ru = "Аллергия ↑",
@@ -424,14 +423,14 @@ local translations      = {
 			pl = "Alergie ↑",
 			ko_kr = "알레르기 증가",
 		},
-		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_LAZARUS_B] = {
 			en_us = "Rise again",
 			ru = "Дар с небес",
 			cs_cz = "Dar z neznáma",
 			pl = "Dar z nie tego świata"
 		},
-		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [OK]
+		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [!] | PL: [!] | KO_KR [!]
 		[PlayerType.PLAYER_EDEN_B] = {
 			en_us = "Anti-Virus, results may vary",
 			ru = "",
@@ -439,7 +438,7 @@ local translations      = {
 			pl = "Wieczne trynkiety", --EID tak trinkety tłumaczy
 			ko_kr = "영원한 장신구",
 		},
-		-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
 		[PlayerType.PLAYER_THELOST_B] = {
 			en_us = "Blessed deck",
 			ru = "",
@@ -447,7 +446,7 @@ local translations      = {
 			pl = "",
 			ko_kr = "",
 		},
-		-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
 		[PlayerType.PLAYER_LILITH_B] = {
 			en_us = "Missing twin",
 			ru = "",
@@ -455,7 +454,7 @@ local translations      = {
 			pl = "",
 			ko_kr = "",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_KEEPER_B] = {
 			en_us = "Local business",
 			ru = "Местный бизнес",
@@ -463,7 +462,7 @@ local translations      = {
 			pl = "Lokalny biznes",
 			ko_kr = "소상공인",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_APOLLYON_B] = {
 			en_us = "Harvest",
 			ru = "Сбор урожая",
@@ -471,7 +470,7 @@ local translations      = {
 			pl = "Żniwa",
 			ko_kr = "수확",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_THEFORGOTTEN_B] = {
 			en_us = "Fracture",
 			ru = "Перелом",
@@ -479,7 +478,7 @@ local translations      = {
 			pl = "Rozpad",
 			ko_kr = "골절",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_BETHANY_B] = {
 			en_us = "Stronger summons",
 			ru = "Более сильные огоньки", --"Призывы" don't sound very good
@@ -487,7 +486,7 @@ local translations      = {
 			pl = "Silniejsze ogniki",
 			ko_kr = "강해진 소환물",
 		},
-		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
 		[PlayerType.PLAYER_JACOB_B] = {
 			en_us = "Blazing trail",
 			ru = "",
