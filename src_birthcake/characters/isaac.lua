@@ -48,6 +48,7 @@ function ISAAC_CAKE:ItemWillFillInventory(itemID)
 	local itemConfig = Mod.ItemConfig:GetCollectible(itemID)
 	if (itemConfig.Type == ItemType.ITEM_PASSIVE or itemConfig.Type == ItemType.ITEM_FAMILIAR)
 		and not itemConfig:HasTags(ItemConfig.TAG_QUEST)
+		and itemID ~= CollectibleType.COLLECTIBLE_BIRTHRIGHT
 	then
 		return true
 	end
@@ -62,7 +63,7 @@ function ISAAC_CAKE:PrePickupCollision(pickup, collider)
 		and pickup.SubType ~= CollectibleType.COLLECTIBLE_NULL
 		and player:IsExtraAnimationFinished()
 		and ISAAC_CAKE:ItemWillFillInventory(pickup.SubType)
-		and ISAAC_CAKE:IsFullInventory(player)
+		and ISAAC_CAKE:HasFullInventory(player)
 	then
 		local player_run_save = Mod.SaveManager.GetRunSave(player)
 		local inventory = player_run_save.IsaacBBirthcakeInventory
