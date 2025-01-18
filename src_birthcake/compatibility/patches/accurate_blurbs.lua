@@ -65,7 +65,7 @@ local function accurateBlurbsPatch()
 		},
 		[PlayerType.PLAYER_EDEN] = {
 			en_us = "3 random gulped trinkets",
-			ru = "Приваривает 3 случайных брелока",
+			ru = "Проглатывает 3 случайных брелока",
 			pl = "3 losowe połknięte trynkiety",
 		},
 		[PlayerType.PLAYER_THELOST] = {
@@ -120,7 +120,7 @@ local function accurateBlurbsPatch()
 		},
 		[PlayerType.PLAYER_JUDAS_B] = {
 			en_us = "Passing through enemies with Dark Arts gives active charge",
-			ru = "???",
+			ru = "Прохождение сквозь врагов под действием Темных Искусств заряжает активный предмет",
 			pl = "Mroczne Techniki ładują się szybciej, gdy trafiają przeciwników",
 		},
 		[PlayerType.PLAYER_BLUEBABY_B] = {
@@ -148,7 +148,7 @@ local function accurateBlurbsPatch()
 		},
 		[PlayerType.PLAYER_EDEN_B] = {
 			en_us = "3 random gulped trinkets, but they reroll",
-			ru = "???",
+			ru = "Проглатывает 3 случайных брелока, но они меняются",
 			pl = "3 losowe połknięte trynkiety, ciągle zmienne",
 		},
 		[PlayerType.PLAYER_THELOST_B] = {

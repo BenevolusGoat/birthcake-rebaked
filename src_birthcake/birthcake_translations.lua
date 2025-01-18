@@ -49,7 +49,7 @@ local CAKE ={
 	ko_kr = "케이크",
 }
 --is a LIE
---ТОРТ ЭТО ЛОЖЬ
+--ТОРТ ЭТО ЛОЖЬ --It's funny that I typed "THE CAKE IS A LIE" but everyone just typed "IS A LIE"
 --je LEŽ
 --es una MENTIRA
 
@@ -242,14 +242,14 @@ local translations = {
 		},
 		[PlayerType.PLAYER_EVE] = {
 			en_us = "Safe bleeding",
-			ru = "",
+			ru = "Безопасное кровотечение",
 			cs_cz = "",
 			pl = "Bezpieczny ból",	--Niby ból i krwotok to różne słowa, ale to mi się bardziej kojarzyło z samym efektem.
 			ko_kr = "안전한 출혈",
 		},
 		[PlayerType.PLAYER_SAMSON] = {
 			en_us = "Healing rage",
-			ru = "",
+			ru = "Исцеляющая ярость",
 			cs_cz = "",
 			pl = "Leczący gniew",
 			ko_kr = "치유의 분노",
@@ -340,14 +340,14 @@ local translations = {
 		},
 		[PlayerType.PLAYER_CAIN_B] = {
 			en_us = "Repurpose",
-			ru = "Перераспределение",
+			ru = "Переработка",
 			cs_cz = "Opětovné použití",
 			pl = "Recykling",
 			ko_kr = "재활용",
 		},
 		[PlayerType.PLAYER_JUDAS_B] = {
 			en_us = "Shadow charge",
-			ru = "",
+			ru = "Теневой заряд",
 			cs_cz = "",
 			pl = "Szarża cieni",
 			ko_kr = "그림자 충전",
