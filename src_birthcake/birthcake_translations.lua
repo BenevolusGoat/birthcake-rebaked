@@ -301,6 +301,7 @@ local translations = {
 			ru = "Время перекуса!",
 			cs_cz = "Sváča!",
 			pl = "Smakołyki!",
+			ko_kr = "간식 시간이다!",
 		},
 		[PlayerType.PLAYER_THEFORGOTTEN] = {
 			en_us = "Revitalize",
