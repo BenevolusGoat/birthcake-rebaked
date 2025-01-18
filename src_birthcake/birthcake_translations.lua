@@ -149,7 +149,7 @@ local translations = {
 			en_us = "Lilith's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Лилит",
 			spa = CAKE.spa .. " de Lilith",
-			cs_cz = "Lilithin " .. CAKE.cs_cz,
+			cs_cz = "Lilithin " .. CAKE.cs_cz, -- Couldn't find a better translation, seems to be called like that in czech anyways tho
 			pl = CAKE.pl .. " Lilit", --na polskiej wikipedii jest zapisywana jako "Lilith", ale polskie EID zapisuje jako "Lilit"
 			ko_kr = "릴리트의 "..CAKE.ko_kr,
 		},
@@ -157,7 +157,7 @@ local translations = {
 			en_us = "Keeper's " .. CAKE.en_us,
 			ru = CAKE.ru .. " Хранителя",
 			spa = CAKE.spa .. " de Keeper",
-			cs_cz = "Držitelův " .. CAKE.cs_cz,
+			cs_cz = "Držitelův " .. CAKE.cs_cz, -- In EID he's just called "Keeper", which I just had to czech-ify
 			pl = CAKE.pl .. " Dozorcy", --Polskie EID tak to tłumaczy
 			ko_kr = "키퍼의 "..CAKE.ko_kr,
 		},
@@ -208,7 +208,7 @@ local translations = {
 		[PlayerType.PLAYER_ISAAC] = {
 			en_us = "Bonus roll",
 			ru = "Бонусный переброс",
-			cs_cz = "Bonusový hod",
+			cs_cz = "Bonusový hod", -- Or "Bonusová šance", not sure what fits more
 			pl = "Bonusowa szansa", --Nie wiem, czy lepiej, ale próbowałem.
 			ko_kr = "추가 리롤",
 		},
@@ -222,7 +222,7 @@ local translations = {
 		[PlayerType.PLAYER_CAIN] = {
 			en_us = "Sleight of hand",
 			ru = "Ловкость рук",
-			cs_cz = "Fígl",
+			cs_cz = "Fígl", -- The direct translation sounds really weird, I think this one is fitting tho hehe
 			pl = "Lepkie ręce", --dosłownie tłumaczenie brzmi badziewnie. "Lepkie ręcę" jest używane w języku
 			ko_kr = "손재주",
 		},
@@ -243,14 +243,14 @@ local translations = {
 		[PlayerType.PLAYER_EVE] = {
 			en_us = "Safe bleeding",
 			ru = "Безопасное кровотечение",
-			cs_cz = "",
+			cs_cz = "Bezpečné krvácení",
 			pl = "Bezpieczny ból",	--Niby ból i krwotok to różne słowa, ale to mi się bardziej kojarzyło z samym efektem.
 			ko_kr = "안전한 출혈",
 		},
 		[PlayerType.PLAYER_SAMSON] = {
 			en_us = "Healing rage",
 			ru = "Исцеляющая ярость",
-			cs_cz = "",
+			cs_cz = "Léčivý hněv",
 			pl = "Leczący gniew",
 			ko_kr = "치유의 분노",
 		},
@@ -278,7 +278,7 @@ local translations = {
 		[PlayerType.PLAYER_THELOST] = {
 			en_us = "Regained power",
 			ru = "Возвращенная сила",
-			cs_cz = "Obnovená moc",
+			cs_cz = "Obnovená síla",
 			pl = "Odnaleziona siła", --chciałem dać "odnaleziona" bo tłumaczą losta jako "zaginionego". Ale nie wiem :/
 			ko_kr = "되찾은 동력",
 		},
@@ -341,14 +341,14 @@ local translations = {
 		[PlayerType.PLAYER_CAIN_B] = {
 			en_us = "Repurpose",
 			ru = "Переработка",
-			cs_cz = "Opětovné použití",
+			cs_cz = "Opětovné použití", -- I struggled with this one a lot, it's kinda weird to translate or my vocabulary is just shit ti-hi
 			pl = "Recykling",
 			ko_kr = "재활용",
 		},
 		[PlayerType.PLAYER_JUDAS_B] = {
 			en_us = "Shadow charge",
 			ru = "Теневой заряд",
-			cs_cz = "",
+			cs_cz = "Stínové nabití",
 			pl = "Szarża cieni",
 			ko_kr = "그림자 충전",
 		},
@@ -389,7 +389,7 @@ local translations = {
 		[PlayerType.PLAYER_EDEN_B] = {
 			en_us = "Eternal trinkets",
 			ru = "",
-			cs_cz = "",
+			cs_cz = "Věčné cetky",
 			pl = "Wieczne trynkiety", --EID tak trinkety tłumaczy
 			ko_kr = "영원한 장신구",
 		},
