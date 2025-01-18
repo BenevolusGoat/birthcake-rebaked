@@ -21,11 +21,8 @@ Mod:AddCallback(Mod.ModCallbacks.POST_BIRTHCAKE_COLLECT, ISAAC_CAKE.OnBirthcakeC
 
 function ISAAC_CAKE:SpawnStartingRoomDiceShard()
 	local room = Mod.Game:GetRoom()
-	local level = Mod.Game:GetLevel()
-	if room:GetType() ~= RoomType.ROOM_DEFAULT
-		or level:GetCurrentRoomIndex() ~= level:GetStartingRoomIndex()
-		or not room:IsFirstVisit()
-	then
+
+	if room:IsFirstVisit() then
 		return
 	end
 	Mod:ForEachPlayer(function(player)
@@ -39,7 +36,7 @@ function ISAAC_CAKE:SpawnStartingRoomDiceShard()
 	end)
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, ISAAC_CAKE.SpawnStartingRoomDiceShard)
+Mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, ISAAC_CAKE.SpawnStartingRoomDiceShard)
 
 ---@param player EntityPlayer
 function ISAAC_CAKE:ResetShardsOnNewFloor(player)

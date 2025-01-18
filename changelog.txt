@@ -18,7 +18,7 @@ Birthcake Changes:
 - J&E now only takes 10% of the other brother's stats instead of 25%
 
 Birthcake Reworks:
-- Isaac spawns a Dice Shard when entering a Treasure Room and when clearing a Boss Room. Spawned amount scales with trinket multipliers
+- Isaac spawns a Dice Shard every floor and on Birthcake first pickup. Spawned amount scales with trinket multipliers
 - Tainted Isaac gains an extra inventory slot that's tied to the Birthcake. Your number of extra inventory slots scales with your trinket multiplier
 - Tainted Judas will gain active charge when passing through enemies instead of slowing them
 - ??? has different interactions between The Poop and other actives. With The Poop, it spawns 2 additional poops directly adjacent to the initial poop depending on the direction you're facing, creating a wall. With other actives, it shoots out mini poops in random directions based on the number of charges the active has, which has similar conditions to The Poop of being different variants
