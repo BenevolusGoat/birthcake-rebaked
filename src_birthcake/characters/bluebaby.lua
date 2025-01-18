@@ -52,22 +52,42 @@ BLUEBABY_CAKE.PoopVariantChance = {
 ---@param rng any
 ---@param player EntityPlayer
 function BLUEBABY_CAKE:SpawnPoopWall(itemID, rng, player, flags, slot, _)
-	if not Mod:HasBitFlags(flags, UseFlag.USE_OWNED) then return end
-	local room = Mod.Game:GetRoom()
-	local originPos = room:GetGridPosition(room:GetGridIndex(player.Position))
-	local spawnDir = Mod:DirectionToVector(player:GetHeadDirection()):Rotated(90)
-	local playerPos = player.Position
+	if Mod:HasBitFlags(flags, UseFlag.USE_OWNED) 
+		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_BLUEBABY) 
+	then
+		local room = Mod.Game:GetRoom()
+		local originPos = room:GetGridPosition(room:GetGridIndex(player.Position))
+		local spawnDir = Mod:DirectionToVector(player:GetHeadDirection()):Rotated(90)
+		local playerPos = player.Position
 
-	for _ = _, 2 do
-		local pos = room:FindFreeTilePosition(originPos + spawnDir:Resized(40), 40)
-		player.Position = pos
-		player:UseActiveItem(CollectibleType.COLLECTIBLE_POOP, UseFlag.USE_NOANIM, slot)
-		spawnDir = spawnDir:Rotated(180)
+		for _ = _, 1 do -- idk why but with 2 it spawns 4 poops, so I changed it to 1
+			local pos = room:FindFreeTilePosition(originPos + spawnDir:Resized(40), 40)
+			if BLUEBABY_CAKE:CheckForValidPos(room:GetRoomShape(), pos) then
+				player.Position = pos
+				player:UseActiveItem(CollectibleType.COLLECTIBLE_POOP, UseFlag.USE_NOANIM, slot)
+				spawnDir = spawnDir:Rotated(180)
+			end
+		end
+		player.Position = playerPos
 	end
-	player.Position = playerPos
 end
 
 Mod:AddCallback(ModCallbacks.MC_USE_ITEM, BLUEBABY_CAKE.SpawnPoopWall, CollectibleType.COLLECTIBLE_POOP)
+
+---@param roomShape RoomShape
+---@param pos Vector
+function BLUEBABY_CAKE:CheckForValidPos(roomShape, pos) --func for checking position in those thin and tall rooms cuz they're just bugged
+	if (roomShape == RoomShape.ROOMSHAPE_IH or roomShape == RoomShape.ROOMSHAPE_IIH)
+		and (pos.Y < 180 or pos.Y > 380)
+	then
+		return false
+	elseif (roomShape == RoomShape.ROOMSHAPE_IV or roomShape == RoomShape.ROOMSHAPE_IIV)
+		and (pos.X < 180 or pos.X > 460)
+	then
+		return false
+	end
+	return true
+end
 
 ---@param rng RNG
 ---@param player EntityPlayer
