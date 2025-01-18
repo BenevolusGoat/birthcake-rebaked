@@ -63,9 +63,11 @@ function AZAZEL_CAKE:OnSneeze(effect)
 		local randomVel = randomInt(-2, 2)
 		local randomAngle = randomInt(-20, 20)
 		local vel = (fireDir:Resized(10 + randomVel):Rotated(randomAngle) * player.ShotSpeed * 1.2) + player:GetTearMovementInheritance(fireDir)
-		local tear = player:FireTear(player.Position, vel, false, false, false, player, 0.5)
+		local tear = Isaac.Spawn(EntityType.ENTITY_TEAR, TearVariant.BOOGER, 0, player.Position, vel, player):ToTear()
+		---@cast tear EntityTear
+		tear.CollisionDamage = tear.CollisionDamage * 0.5
 		tear.FallingAcceleration = AZAZEL_CAKE.BOOGER_RANGE
-		tear:ChangeVariant(TearVariant.BOOGER)
+
 		if Mod.GENERIC_RNG:RandomFloat() < 0.11 then
 			tear:AddTearFlags(TearFlags.TEAR_BOOGER)
 		end

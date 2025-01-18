@@ -15,18 +15,25 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, CAIN_BIRTHCAKE.CainPickup, CacheFlag.CACHE_LUCK)
 
+---@type {[SlotVariant]: {RefundReward: fun(player: EntityPlayer), RefundChance: number | fun(player: EntityPlayer): number}}
 CAIN_BIRTHCAKE.SlotsData = {
 	[Mod.SlotVariant.SLOT_MACHINE] = {
 		RefundChance = 0.33,
-		RefundReward = 1,
+		RefundReward = function(player)
+			player:AddCoins(1)
+		end,
 	},
 	[Mod.SlotVariant.FORTUNE_TELLING_MACHINE] = {
 		RefundChance = 0.33,
-		RefundReward = 1,
+		RefundReward = function(player)
+			player:AddCoins(1)
+		end,
 	},
 	[Mod.SlotVariant.CRANE_GAME] = {
 		RefundChance = 0.25,
-		RefundReward = 5,
+		RefundReward = function(player)
+			player:AddCoins(1)
+		end,
 	},
 }
 
@@ -54,12 +61,12 @@ function CAIN_BIRTHCAKE:OnSlotInitiate(slot)
 				local player = data.TouchedPlayer
 				local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
 				local roll = rng:RandomFloat()
-				local baseChance = slotData.RefundChance
+				local baseChance = type(slotData.RefundChance) == "function" and slotData.RefundChance(player) or slotData.RefundChance
 				local trinketMult = 0.3 * (Mod:GetTrinketMult(player) - 1)
 				local chance = baseChance * (1.3 + trinketMult)
 
 				if roll < chance then
-					player:AddCoins(slotData.RefundReward)
+					slotData.RefundReward(player)
 					player:AnimateHappy()
 				end
 				data.WaitAfterInitiate = true

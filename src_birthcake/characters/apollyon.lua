@@ -47,7 +47,7 @@ function APOLLYON_CAKE:ManageVoidedTrinkets(player)
 		if trinketList then
 			Mod:RemoveSmeltedTrinkets(player, trinketList)
 		end
-	elseif not player_run_save.ApollyonBirthcakeHasVoid and player:HasCollectible(CollectibleType.COLLECTIBLE_VOID) then
+	elseif not player_run_save.ApollyonBirthcakeHasVoid and player:HasCollectible(CollectibleType.COLLECTIBLE_VOID) and not player.QueuedItem.Item then
 		player_run_save.ApollyonBirthcakeHasVoid = true
 		local trinketList = player_run_save.ApollyonBirthcakeTrinkets
 		if trinketList then
@@ -59,8 +59,6 @@ end
 Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, APOLLYON_CAKE.ManageVoidedTrinkets, PlayerType.PLAYER_APOLLYON)
 
 -- Apollyon B Birthcake
-
---TODO: Add trinket mult interaction
 
 function APOLLYON_CAKE:TaintedTrinketConsumer(_, _, player, _, _, _)
 	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_APOLLYON_B) then

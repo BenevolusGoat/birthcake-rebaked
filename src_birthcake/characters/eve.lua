@@ -13,7 +13,11 @@ function EVE_CAKE:RedHeartDamage(ent, damage, flags, source, countdownFrames)
 	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_EVE)
 		and not Mod:HasBitFlags(flags, EVE_CAKE.DAMAGE_FLAGS)
 	then
-		player:TakeDamage(damage, flags | EVE_CAKE.DAMAGE_FLAGS, source, countdownFrames)
+		player:UseActiveItem(CollectibleType.COLLECTIBLE_RAZOR_BLADE, UseFlag.USE_NOANIM)
+		local level = Mod.Game:GetLevel()
+		if not level:GetStateFlag(LevelStateFlag.STATE_REDHEART_DAMAGED) then
+			Mod.Game:GetLevel():SetStateFlag(LevelStateFlag.STATE_REDHEART_DAMAGED, true)
+		end
 		return false
 	end
 end
@@ -21,6 +25,8 @@ end
 Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, EVE_CAKE.RedHeartDamage, EntityType.ENTITY_PLAYER)
 
 -- Tainted Eve Birthcake
+
+--TODO: maybe chance to spawn extra red clot
 
 ---@param ent Entity
 function EVE_CAKE:ClotDeath(ent, dmg, flag, source, cdframe)

@@ -1,15 +1,17 @@
 - Code completely rewritten to be better compatible with mods, co-op, and overall way better optimized
 
 Birthcake Changes:
-- Magdalene's "doubling" effect now affects Scared Hearts
-- Magdalene granting soul hearts with Yum Heart use now scales with your trinket modifier instead of just Mom's Box, up to one and a half soul hearts
+- Magdalene's "doubling" effect now affects Scared Hearts and Half Soul Hearts, reduced from 50% to 25%
+- Removed Magdalene's Half Soul Heart heal with Yum Heart
 - Tainted Magdalene has hearts explode with a base damage value of 5.25 (2x T. Maggy's base damage, instead of half the player's damage) that increases based on the combined number of and total trinket multipliers of all Tainted Magdelenes with
 - Removed Tainted Cain's effect of a 5% chance for giving you a pickup you bagged
-- Removed devil deal interaction with Judas/Dark Judas. Instead, if they would take fatal damage, they will gain a black heart, damage all enemies in the room, and have Birthcake removed from their inventory. Any trinket multipliers will add an additional black heart
-- Judas'/Dark Judas' damage up has been changed from +20% to +2 flat damage and +10%
+- Judas'/Dark Judas' damage up has been changed from +20% to +10%
+- Devil Deals will consume Birthcake if the deal would otherwise be fatal
+- Tainted ???'s poops have a chance to not take any damage instead of being immune
+- Removed Tainted poops having collision removed and causing slow
 - Removed Tainted Eve spawning clots twice as fast
-- Lazarus will receive a soul heart upon reviving as Lazarus Risen instead of an extra heart container on a new floor
-- Lost now gets two free charges that's shared between all actives (with a normal method of charging), additional charges granted scaling with trinket multipliers. Eternal D6, if used with these special charges, will reroll with the same effect as Lost's birthright
+- Lazarus ???
+- Lost has an Astral Projection-like effect upon losing all of their Holy Mantle charges, slowing everything in the room down briefly
 - Removed Lilith's secondary effect of consuming the trinket on a new floor and gaining a familiar
 - Chance of Lilith's familiars obtaining their tear effects increases with your trinket multiplier, +25% for each additional mulitplier
 - Keeper spawns more nickels depending on your multiplier instead of spawning a Golden Penny when entering shops or devil rooms
@@ -18,20 +20,21 @@ Birthcake Changes:
 Birthcake Reworks:
 - Isaac spawns a Dice Shard when entering a Treasure Room and when clearing a Boss Room. Spawned amount scales with trinket multipliers
 - Tainted Isaac gains an extra inventory slot that's tied to the Birthcake. Your number of extra inventory slots scales with your trinket multiplier
-- ??? has different interactions between The Poop and other actives. With The Poop, it spawns 2 additional poops directly adjacent to the initial poop depending on the direction you're facing, creating a wall. With other actives, it shoots out mini poops in random directions based on the number of charges the active has, which has similar conditions to The Poop of being different variants
 - Tainted Judas will gain active charge when passing through enemies instead of slowing them
+- ??? has different interactions between The Poop and other actives. With The Poop, it spawns 2 additional poops directly adjacent to the initial poop depending on the direction you're facing, creating a wall. With other actives, it shoots out mini poops in random directions based on the number of charges the active has, which has similar conditions to The Poop of being different variants
+- Eve triggers use of The Razor when taking damage from most sources, but will still get the Devil Deal red heart penalty
 - Tainted Eve ???
 - Azazel has the duration of their beam extended so long as it damages enemies, for a maximum time of 3x the typical duration. Trinket multipliers will each add +50% of this duration
 - Tainted Azazel shoots 6 booger tears in front of them upon sneezing that all inflict the Brimstone Curse on contact. 10% chance for them to stick to enemies
-- Eden's Birthcake is removed and they instantly gain 3 random gulped trinkets. Having Mom's Box and the trinket being golden each add an additional trinket
-- Tainted Eden also gulps 3 random trinkets, but are tied to the Birthcake and are rerolled upon taking damage. Birthcake itself does not get rerolled
+- Eden's Birthcake grants 3 random gulped trinkets, additional trinkets based on multipliers. The trinkets are tied to Birthcake, meaning dropping it will remove the trinkets, picking it up will re-grant them
+- Tainted Eden has a chance to
 - Tainted Lazarus ???
 - Tainted Lilith ???
 - When The Soul shoots through Forgotten's Body, it creates a Compound Fracture effect of 1-3 half-damage tears, adding an additional bone scaling with trinket multipliers. Doing this charges The Forgotten's body with "soul charges". When swapping back to The Forgotten, the stored charges convert to a diminishing tears up. This tears up instantly goes away when swapping back to The Soul
 - Tainted Forgotten will spawn bone orbitals when killing enemies, which will orbit around Tainted Soul. When picking up T. Forgotten and throwing them, the bone orbitals are shot forward like tears
 - Bethany will spawn a duplicate wisp of the same type 25% of the time when using an active item. Chance scales with trinket multipliers
 - Tainted Bethany's wisps now have double health when being spawned. This does not affect the Birthright-spawned wisps. They spawn with an additional +2 HP with trinket multipliers
-- Tainted Jacob ???
+- Tainted Jacob will have Dark Esau spawn a trail of flames that block projectiles and tears as well as damage both you and enemies
 
 Modding API:
 - Has both BirthcakeRebaked and Birthcake globals, the latter for backwards compatibility

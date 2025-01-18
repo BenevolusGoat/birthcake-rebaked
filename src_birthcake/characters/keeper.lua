@@ -29,9 +29,6 @@ Mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, KEEPER_CAKE.Nickel)
 function KEEPER_CAKE:SpawnMiniShop()
 	local room = game:GetRoom()
 	local centerPos = room:GetCenterPos()
-
-	room:TurnGold()
-
 	local item = BirthcakeRebaked:SpawnFromPool(ItemPoolType.POOL_SHOP, centerPos + Vector(0, -60), -1)
 	local pickup1 = BirthcakeRebaked:SpawnRandomPickup(centerPos + Vector(80, -40), -1)
 	local pickup2 = BirthcakeRebaked:SpawnRandomPickup(centerPos + Vector(-80, -40), -1)

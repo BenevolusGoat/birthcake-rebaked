@@ -110,28 +110,22 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, THEFORGOTTEN_CAKE.CashInSoulCharge, PlayerType.PLAYER_THEFORGOTTEN)
 
-local function Delay2Tears(delay)
-	return 30 / (delay + 1)
-  end
-
-local function Tears2Delay(tears)
-	return (30 / tears) - 1
-  end
-
 ---@param player EntityPlayer
 function THEFORGOTTEN_CAKE:SoulChargeFireDelayCache(player)
 	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_THEFORGOTTEN) then
-		local tears = Delay2Tears(player.MaxFireDelay)
+		local tears = Mod:Delay2Tears(player.MaxFireDelay)
 		local effectCountdown = player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID)
 		local fireDelayMult = THEFORGOTTEN_CAKE.SOUL_CHARGE_FIREDELAY_MULT * (effectCountdown / THEFORGOTTEN_CAKE.SOUL_CHARGE_DURATION_MULT)
 		tears = tears + fireDelayMult
-		player.MaxFireDelay = Tears2Delay(tears)
+		player.MaxFireDelay = Mod:Tears2Delay(tears)
 	end
 end
 
 Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, THEFORGOTTEN_CAKE.SoulChargeFireDelayCache, CacheFlag.CACHE_FIREDELAY)
 
 -- Tainted Forgotten's Birthcake
+
+--TODO: Bone Orbitals float in place. Picking up forgotten will make them come to you. Max of 6
 
 ---@param ent Entity
 ---@param source EntityRef

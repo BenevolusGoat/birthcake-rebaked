@@ -33,20 +33,19 @@ Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, SAMSON_CAKE.BloodLust, EntityTy
 
 -- Tainted Samson Birthcake
 
+SAMSON_CAKE.BASE_BERSERK_HELP_CHANCE = 0.2
+
 function SAMSON_CAKE:BerserkRoomClear()
 	Mod:ForEachPlayer(function(player)
 		if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_SAMSON_B)
 			and player:GetEffects():HasCollectibleEffect(CollectibleType.COLLECTIBLE_BERSERK)
 		then
 			local playerEffects = player:GetEffects()
-			local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
+			local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
 			local roll = rng:RandomFloat()
-			if roll < 0.25 then
-				--TODO: WEIGTHED chances to spawning hearts
-				--SFXManager():Play(SoundEffect.SOUND_PARTY_HORN, 1, 0, false, 1)
-				local variant = rng:RandomInt(12)
-				Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, variant,
-					Isaac.GetFreeNearPosition(player.Position, 10), Vector(0, 0), player)
+			if roll < Mod:GetBalanceApprovedLuckChance(SAMSON_CAKE.BASE_BERSERK_HELP_CHANCE, Mod:GetTrinketMult(player)) then
+				Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_HALF,
+					Mod.Game:GetRoom():FindFreePickupSpawnPosition(player.Position, 40), Vector(0, 0), player)
 				playerEffects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_BERSERK, true, 1)
 			end
 		end

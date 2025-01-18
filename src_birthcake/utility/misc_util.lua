@@ -122,9 +122,9 @@ function BirthcakeRebaked:AwardPedestalItem(pickup, player)
 	local itemId = pickup.SubType
 	if itemId ~= CollectibleType.COLLECTIBLE_NULL then
 		local configitem = Mod.ItemConfig:GetCollectible(itemId)
-		player:AnimateCollectible(itemId)
+		--[[ player:AnimateCollectible(itemId)
 		player:QueueItem(configitem, pickup.Charge, pickup.Touched)
-		player.QueuedItem.Item = configitem
+		player.QueuedItem.Item = configitem ]]
 		Mod.SFXManager:Play(SoundEffect.SOUND_CHOIR_UNLOCK, 0.5)
 		pickup.Touched = true
 		pickup.SubType = 0
@@ -142,7 +142,7 @@ end
 ---@function
 function BirthcakeRebaked:KillChoice(pickup)
 	if pickup.OptionsPickupIndex ~= 0 then
-		local pickups =Isaac.FindByType(EntityType.ENTITY_PICKUP)
+		local pickups = Isaac.FindByType(EntityType.ENTITY_PICKUP)
 		for i = #pickups, 1, -1 do
 			local ent = pickups[i]
 			if pickup.OptionsPickupIndex == ent:ToPickup().OptionsPickupIndex and GetPtrHash(pickup) ~= GetPtrHash(ent) then
@@ -196,4 +196,34 @@ end
 ---@param dir integer
 function BirthcakeRebaked:DirectionToVector(dir)
 	return Vector(-1, 0):Rotated(90 * dir)
+end
+
+---@param baseChance number
+---@param mult number
+function BirthcakeRebaked:GetBalanceApprovedLuckChance(baseChance, mult)
+	return (1 - 2^(-mult)) * baseChance * 2
+end
+
+function BirthcakeRebaked:Delay2Tears(delay)
+	return 30 / (delay + 1)
+end
+
+function BirthcakeRebaked:Tears2Delay(tears)
+	return (30 / tears) - 1
+end
+
+---@param pickup EntityPickup
+function BirthcakeRebaked:IsDevilDealItem(pickup)
+	return pickup.Price < 0 and pickup.Price ~= PickupPrice.PRICE_FREE and pickup.Price ~= PickupPrice.PRICE_SPIKES
+end
+
+---Credit to Epiphany
+---@param player EntityPlayer
+---@param pickup EntityPickup
+function BirthcakeRebaked:CanPickupDeal(player, pickup)
+	return player:CanPickupItem()
+		and player:IsExtraAnimationFinished()
+		and pickup.Wait == 0
+		and Mod:IsDevilDealItem(pickup)
+		and pickup.Price ~= PickupPrice.PRICE_SOUL
 end

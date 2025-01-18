@@ -3,16 +3,6 @@ local Mod = BirthcakeRebaked
 local LILITH_CAKE = {}
 BirthcakeRebaked.Birthcake.LILITH = LILITH_CAKE
 
--- Functions
-
-function LILITH_CAKE:CheckLillith(player)
-	return player:GetPlayerType() == PlayerType.PLAYER_LILITH
-end
-
-function LILITH_CAKE:CheckLillithB(player)
-	return player:GetPlayerType() == PlayerType.PLAYER_LILITH_B
-end
-
 -- Lillith Birthcake
 
 ---@param tearOrLaser EntityTear | EntityLaser
@@ -39,4 +29,74 @@ Mod:AddCallback(ModCallbacks.MC_POST_LASER_UPDATE, LILITH_CAKE.EffectShare)
 
 -- Tainted Lillith Birthcake
 
---TODO: Consider a second Gello that has a chance to spawn
+LILITH_CAKE.SPAWN_RUNT_CHANCE = 0.25
+
+---@param ent Entity
+function LILITH_CAKE:SetRuntColor(ent)
+	local color = ent.Color
+	color:SetColorize(2, 0, 0, 0.7)
+	ent:SetColor(color, -1, 10, false, true)
+end
+
+---@param player EntityPlayer
+function LILITH_CAKE:FireRunt(player)
+	if player:HasTrinket(Mod.Birthcake.ID)
+		and player:GetFireDirection() ~= Direction.NO_DIRECTION
+		and player.FireDelay == player.MaxFireDelay * 2
+		and player:GetTrinketRNG(Mod.Birthcake.ID):RandomFloat() < LILITH_CAKE.SPAWN_RUNT_CHANCE * Mod:GetTrinketMult(player)
+	then
+		local data = Mod:GetData(player)
+		if not data.ExtraGello then
+			local familiar = Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.UMBILICAL_BABY, 0, player.Position, Vector.Zero, player):ToFamiliar()
+			---@cast familiar EntityFamiliar
+			familiar:SetSize(10, Vector(1, 1), 12)
+			LILITH_CAKE:SetRuntColor(familiar)
+			data.ExtraGello = familiar
+			Mod:GetData(familiar).LilithBirthcakeGello = true
+		end
+	end
+end
+
+Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, LILITH_CAKE.FireRunt, PlayerType.PLAYER_LILITH_B)
+
+function LILITH_CAKE:OnFamiliarUpdate(familiar)
+	local data = Mod:GetData(familiar)
+	if data.LilithBirthcakeGello and familiar.Player then
+		familiar.SpriteScale = Vector(0.75, 0.75)
+	end
+end
+
+Mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, LILITH_CAKE.OnFamiliarUpdate, FamiliarVariant.UMBILICAL_BABY)
+
+---@param ent Entity
+---@param amount integer
+---@param flags DamageFlag
+---@param source EntityRef
+---@param countdownFrames integer
+function LILITH_CAKE:NerfGelloRuntDamage(ent, amount, flags, source, countdownFrames)
+	if source.Entity
+		and source.Entity:ToFamiliar()
+		and source.Entity.Variant == FamiliarVariant.UMBILICAL_BABY
+		and Mod:GetData(source.Entity).LilithBirthcakeGello
+	then
+		return amount * 0.5
+	end
+end
+
+Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, LILITH_CAKE.NerfGelloRuntDamage)
+
+function LILITH_CAKE:OnEntityRemove(ent)
+	if ent.Variant == FamiliarVariant.UMBILICAL_BABY
+		and ent.SpawnerEntity
+		and ent.SpawnerEntity:ToPlayer()
+	then
+		local data = Mod:GetData(ent.SpawnerEntity)
+		if data.ExtraGello
+			and GetPtrHash(Mod:GetData(ent.SpawnerEntity).ExtraGello) == GetPtrHash(ent)
+		then
+			data.ExtraGello = nil
+		end
+	end
+end
+
+Mod:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, LILITH_CAKE.OnEntityRemove, EntityType.ENTITY_FAMILIAR)

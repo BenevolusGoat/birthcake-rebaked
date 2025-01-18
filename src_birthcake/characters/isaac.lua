@@ -9,33 +9,49 @@ BirthcakeRebaked.Birthcake.ISAAC = ISAAC_CAKE
 
 function ISAAC_CAKE:SpawnTreasureDiceShard()
 	local room = Mod.Game:GetRoom()
-	if room:GetType() ~= RoomType.ROOM_TREASURE then return end
+	local level = Mod.Game:GetLevel()
+	if room:GetType() ~= RoomType.ROOM_DEFAULT
+		or level:GetCurrentRoomIndex() ~= level:GetStartingRoomIndex()
+	then
+		return
+	end
 	Mod:ForEachPlayer(function(player)
-		if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_ISAAC) then
+		local effects = player:GetEffects()
+		if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_ISAAC)
+			and not effects:HasTrinketEffect(Mod.Birthcake.ID)
+		then
+			effects:AddTrinketEffect(Mod.Birthcake.ID)
 			for _ = 1, Mod:GetTrinketMult(player) do
 				Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_DICE_SHARD,
 					room:FindFreePickupSpawnPosition(room:GetCenterPos()), Vector.Zero, player)
 			end
+			Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
 		end
 	end)
 end
 
 Mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, ISAAC_CAKE.SpawnTreasureDiceShard)
 
-function ISAAC_CAKE:SpawnBossDiceShard()
-	local room = Mod.Game:GetRoom()
-	if room:GetType() ~= RoomType.ROOM_BOSS then return end
-	Mod:ForEachPlayer(function(player)
-		if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_ISAAC) then
-			for _ = 1, Mod:GetTrinketMult(player) do
-				Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_DICE_SHARD,
-					room:FindFreePickupSpawnPosition(room:GetCenterPos() - Vector(0, 40)), Vector.Zero, player)
+---@param player EntityPlayer
+function ISAAC_CAKE:ResetShardsOnNewFloor(player)
+	local effects = player:GetEffects()
+	if effects:HasTrinketEffect(Mod.Birthcake.ID) then
+		effects:RemoveTrinketEffect(Mod.Birthcake.ID, -1)
+	end
+end
+
+if REPENTOGON then
+	Mod:AddCallback(ModCallbacks.MC_POST_PLAYER_NEW_LEVEL, ISAAC_CAKE.ResetShardsOnNewFloor, PlayerType.PLAYER_ISAAC)
+else
+	Mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
+		Mod:ForEachPlayer(function(player)
+			if player:GetPlayerType() == PlayerType.PLAYER_ISAAC then
+				ISAAC_CAKE:ResetShardsOnNewFloor(player)
 			end
-		end
+		end)
 	end)
 end
 
-Mod:AddPriorityCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, CallbackPriority.EARLY, ISAAC_CAKE.SpawnBossDiceShard)
 
 -- Isaac B Birthcake
 
@@ -74,6 +90,7 @@ function ISAAC_CAKE:PrePickupCollision(pickup, collider)
 		if #inventory < player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID) then
 			inventory[#inventory + 1] = pickup.SubType
 			Mod:AwardPedestalItem(pickup, player)
+			Mod.HiddenItemManager:Add(player, pickup.SubType, -1, 1, "Isaac B Birthcake")
 			return false
 		end
 	end
@@ -133,7 +150,7 @@ HudHelper.RegisterHUDElement({
 	end,
 	Condition = function(player)
 		return Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_ISAAC_B)
-		and player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID) > 0
+			and player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID) > 0
 	end,
 	OnRender = function(player, playerHUDIndex, _, position)
 		local inventoryCap = player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID)

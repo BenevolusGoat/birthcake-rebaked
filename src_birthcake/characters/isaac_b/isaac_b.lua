@@ -28,7 +28,7 @@ function ISAAC_CAKE:TryRemoveBirthcakeItems(player)
 			local itemID = inventory[numItems]
 			table.remove(inventory, numItems)
 			numItems = numItems - 1
-			player:RemoveCollectible(itemID, true)
+			Mod.HiddenItemManager:Remove(player, itemID, "Isaac B Birthcake")
 			local collectible = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID,
 			room:FindFreePickupSpawnPosition(player.Position, 40, true, false), Vector.Zero, player):ToPickup()
 			---@cast collectible EntityPickup

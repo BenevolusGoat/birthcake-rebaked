@@ -25,7 +25,9 @@ function ISAAC_CAKE:TryRemoveBirthcakeItems(player)
 		local diff = numItems - expectedCap
 		for _ = 1, diff do
 			local itemID = inventory[numItems]
+			table.remove(inventory, numItems)
 			numItems = numItems - 1
+			Mod.HiddenItemManager:Remove(player, itemID, "Isaac B Birthcake")
 			player:DropCollectible(itemID, nil, true)
 		end
 	end
@@ -53,27 +55,6 @@ end
 Mod:AddCallback(ModCallbacks.MC_PRE_ADD_COLLECTIBLE, ISAAC_CAKE.OnCollectibleAdd)
 
 ---@param player EntityPlayer
----@param itemID CollectibleType
-function ISAAC_CAKE:OnCollectibleRemove(player, itemID)
-	if player:GetPlayerType() == PlayerType.PLAYER_ISAAC_B
-		and ISAAC_CAKE:ItemWillFillInventory(itemID)
-		and ISAAC_CAKE:HasFullInventory(player)
-	then
-		local player_run_save = Mod.SaveManager.TryGetRunSave(player)
-		local inventory = player_run_save and player_run_save.IsaacBBirthcakeInventory
-		if inventory and #inventory > 0 then
-			for index, inventoryItem in ipairs(inventory) do
-				if itemID == inventoryItem then
-					table.remove(inventory, index)
-				end
-			end
-		end
-	end
-end
-
-Mod:AddCallback(ModCallbacks.MC_POST_TRIGGER_COLLECTIBLE_REMOVED, ISAAC_CAKE.OnCollectibleRemove)
-
----@param player EntityPlayer
 function ISAAC_CAKE:OnIsaacBFirstPickup(player, _, _, isGolden)
 	if player:GetPlayerType() == PlayerType.PLAYER_ISAAC_B then
 		local addBy = isGolden and 2 or 1
@@ -91,6 +72,7 @@ function ISAAC_CAKE:OnIsaacBPickupRemove(player, trinketID)
 		local effects = player:GetEffects()
 		effects:RemoveTrinketEffect(Mod.Birthcake.ID, removeBy)
 		ISAAC_CAKE:TryRemoveBirthcakeItems(player)
+		print("no more $19 fortnite card")
 	end
 end
 

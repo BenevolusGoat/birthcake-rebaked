@@ -5,63 +5,84 @@ local JUDAS_CAKE = {}
 
 BirthcakeRebaked.Birthcake.JUDAS = JUDAS_CAKE
 
+---@param player EntityPlayer
 function JUDAS_CAKE:JudasHasBirthcake(player)
 	return (player:GetPlayerType() == PlayerType.PLAYER_JUDAS or player:GetPlayerType() == PlayerType.PLAYER_BLACKJUDAS)
-		and player:HasTrinket(Mod.Birthcake.ID)
+	and player:HasTrinket(Mod.Birthcake.ID)
 end
 
 -- Judas Birthcake
 
+JUDAS_CAKE.PickupPriceCost = {
+	[PickupPrice.PRICE_ONE_HEART] = {
+		Red = 1,
+	},
+	[PickupPrice.PRICE_TWO_HEARTS] = {
+		Red = 2,
+	},
+	[PickupPrice.PRICE_THREE_SOULHEARTS] = {
+		Soul = 3
+	},
+	[PickupPrice.PRICE_ONE_HEART_AND_TWO_SOULHEARTS] = {
+		Red = 1,
+		Soul = 2
+	},
+	[PickupPrice.PRICE_SPIKES] = {},
+	[PickupPrice.PRICE_SOUL] = {},
+	[PickupPrice.PRICE_ONE_SOUL_HEART] = {
+		Soul = 1
+	},
+	[PickupPrice.PRICE_TWO_SOUL_HEARTS] = {
+		Soul = 2
+	},
+	[PickupPrice.PRICE_ONE_HEART_AND_ONE_SOUL_HEART] = {
+		Red = 1,
+		Soul = 1
+	},
+}
+
+---@param player EntityPlayer
+---@param pickup EntityPickup
+function JUDAS_CAKE:IsFatalDeal(player, pickup)
+	local hearts = player:GetEffectiveMaxHearts()
+	local soulHearts = player:GetSoulHearts()
+	if not Mod:CanPickupDeal(player, pickup) then return false end
+	local cost = JUDAS_CAKE.PickupPriceCost[pickup.Price]
+	if not cost then return false end
+	local heartCost = cost.Red or 0
+	local soulCost = cost.Soul or 0
+	print(hearts, soulHearts)
+	hearts = math.max(0, hearts - (heartCost * 2))
+	soulHearts = math.max(0, soulHearts - (soulCost * 2))
+	print(hearts, soulHearts)
+	return hearts + soulHearts <= 0
+end
+
+---@param player EntityPlayer
 function JUDAS_CAKE:JudasPickup(player)
 	if JUDAS_CAKE:JudasHasBirthcake(player) then
-		player.Damage = player.Damage + 2 + (player.Damage * 0.1) * Mod:GetTrinketMult(player)
+		player.Damage = (player.Damage * 0.1) * Mod:GetTrinketMult(player)
 	end
 end
 
 Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, JUDAS_CAKE.JudasPickup, CacheFlag.CACHE_DAMAGE)
 
----@param player EntityPlayer
-function JUDAS_CAKE:ExchangeBirthcake(player)
-	player:AddBlackHearts(2)
-	local trinketMult = Mod:GetTrinketMult(player)
-	if trinketMult > 1 then
-		player:AddBlackHearts(2)
-	end
-	player:TryRemoveTrinket(Mod.Birthcake.ID)
-	local cooldown = player:HasTrinket(TrinketType.TRINKET_BLIND_RAGE) and 60 or 20
-	player:SetMinDamageCooldown(cooldown * (2 * trinketMult))
-	Mod.SFXManager:Play(SoundEffect.SOUND_SATAN_GROW)
-end
+---@param collider Entity
+---@param pickup EntityPickup
+function JUDAS_CAKE:OnDevilDealCollision(pickup, collider)
+	local player = collider:ToPlayer()
 
----@param ent Entity
----@param amount integer
----@param flags DamageFlag
----@param source EntityRef
----@param frames integer
-function JUDAS_CAKE:PreTakeDamage(ent, amount, flags, source, frames)
-	local player = ent:ToPlayer() ---@cast player EntityPlayer
-	if JUDAS_CAKE:JudasHasBirthcake(player)
-		and BirthcakeRebaked:IsPlayerTakingMortalDamage(player, amount)
+	if player
+		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_JUDAS)
+		and JUDAS_CAKE:IsFatalDeal(player, pickup)
 	then
-		--Adding health to block damage instead of preventing it
-		player:AddBlackHearts(amount)
-		JUDAS_CAKE:ExchangeBirthcake(player)
+		pickup.Price = PickupPrice.PRICE_SOUL
+		pickup.AutoUpdatePrice = false
+		player:TryRemoveTrinket(Mod.Birthcake.ID)
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, JUDAS_CAKE.PreTakeDamage, EntityType.ENTITY_PLAYER)
-
----@param player EntityPlayer
-function JUDAS_CAKE:CheckHealthOnUpdate(player)
-	if player:HasTrinket(Mod.Birthcake.ID)
-		and BirthcakeRebaked:GetAllHearts(player) == 0
-	then
-		JUDAS_CAKE:ExchangeBirthcake(player)
-	end
-end
-
-Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, JUDAS_CAKE.CheckHealthOnUpdate, PlayerType.PLAYER_JUDAS)
-Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, JUDAS_CAKE.CheckHealthOnUpdate, PlayerType.PLAYER_BLACKJUDAS)
+Mod:AddPriorityCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, CallbackPriority.EARLY, JUDAS_CAKE.OnDevilDealCollision, PickupVariant.PICKUP_COLLECTIBLE)
 
 -- Tainted Judas Birthcake
 

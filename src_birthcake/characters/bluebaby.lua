@@ -4,16 +4,6 @@ local game = Mod.Game
 local BLUEBABY_CAKE = {}
 BirthcakeRebaked.Birthcake.BLUEBABY = BLUEBABY_CAKE
 
--- Functions
-
-function BLUEBABY_CAKE:CheckBlueBaby(player)
-	return player:GetPlayerType() == PlayerType.PLAYER_BLUEBABY
-end
-
-function BLUEBABY_CAKE:CheckBlueBabyB(player)
-	return player:GetPlayerType() == PlayerType.PLAYER_BLUEBABY_B
-end
-
 -- Blue Baby Birthcake
 
 ---Credit to Epiphany for this luck chance calculation
@@ -100,6 +90,7 @@ function BLUEBABY_CAKE:SpawnPoop(itemID, rng, player, _, _, _)
 			chargeUsed = 1
 		end
 		if chargeUsed == 0 then return end
+		chargeUsed = math.ceil(chargeUsed / 2)
 
 		for _ = 1, chargeUsed do
 			local variant = Mod.EntityPoopVariant.NORMAL
@@ -119,9 +110,15 @@ function BLUEBABY_CAKE:SpawnPoop(itemID, rng, player, _, _, _)
 			local tear = Isaac.Spawn(EntityType.ENTITY_TEAR, TearVariant.GRIDENT, 0, player.Position, RandomVector():Resized(12), player):ToTear()
 			---@cast tear EntityTear
 			local sprite = tear:GetSprite()
+			local result = Isaac.RunCallbackWithParam(Mod.ModCallbacks.BLUEBABY_GET_POOP_TEAR_SPRITE, variant, player)
 			sprite.Offset = Vector(0, -5)
-			sprite:Load("gfx/tear_poops_birthcake.anm2", true)
-			sprite:SetFrame("Idle", variant)
+			if result ~= nil and type(result) == "userdata" and getmetatable(result).__type == "Sprite" then
+				sprite:Load(result:GetFilename(), true)
+				sprite:SetFrame(result:GetAnimation(), result:GetFrame())
+			else
+				sprite:Load("gfx/tear_poops_birthcake.anm2", true)
+				sprite:SetFrame("Idle", variant)
+			end
 			tear.FallingAcceleration = 0.5
 			Mod:GetData(tear).BluebabyCakeTear = variant
 		end
@@ -162,23 +159,19 @@ end, EntityType.ENTITY_TEAR)
 
 -- Blue Baby B Birthcake
 
-function BLUEBABY_CAKE:Poop()
-	for _, poop in ipairs(Isaac.FindByType(EntityType.ENTITY_POOP)) do
-		local player = poop.SpawnerEntity and poop.SpawnerEntity:ToPlayer()
-		if player and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_BLUEBABY_B) then
-			if poop.EntityCollisionClass == EntityCollisionClass.ENTCOLL_ALL then
-				poop.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYEROBJECTS
-			end
-			if poop:GetSprite():GetAnimation() ~= "State5" then
-				for _, projEnt in ipairs(Isaac.FindInRadius(poop.Position, poop.Size, EntityPartition.BULLET)) do
-					projEnt:Remove()
-				end
-				for _, enemy in ipairs(Isaac.FindInRadius(poop.Position, poop.Size, EntityPartition.ENEMY)) do
-					enemy:AddSlowing(EntityRef(player), 1, 0.5, enemy:GetColor())
-				end
-			end
-		end
+BLUEBABY_CAKE.NO_POOP_DAMAGE_CHANCE = 0.33
+
+---@param poop EntityNPC
+function BLUEBABY_CAKE:OnPoopDamage(poop, amount, flags, source, countdownFlags)
+	local player = poop.SpawnerEntity and poop.SpawnerEntity:ToPlayer()
+
+	if player
+		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_BLUEBABY_B)
+		and poop.Variant ~= Mod.EntityPoopVariant.PETRIFIED
+		and player:GetTrinketRNG(Mod.Birthcake.ID):RandomFloat() < Mod:GetBalanceApprovedLuckChance(BLUEBABY_CAKE.NO_POOP_DAMAGE_CHANCE, Mod:GetTrinketMult(player))
+	then
+		return false
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, BLUEBABY_CAKE.Poop)
+Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, BLUEBABY_CAKE.OnPoopDamage, EntityType.ENTITY_POOP)

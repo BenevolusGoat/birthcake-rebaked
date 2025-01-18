@@ -4,23 +4,16 @@ local game = Mod.Game
 local MAGDALENE_CAKE = {}
 BirthcakeRebaked.Birthcake.MAGDALENE = MAGDALENE_CAKE
 
-MAGDALENE_CAKE.HEART_REPLACE_CHANCE = 0.50
+MAGDALENE_CAKE.HEART_REPLACE_CHANCE = 0.25
 MAGDALENE_CAKE.MAX_SOUL_HEART_BONUS = 3
 
 -- Magdalene Birthcake
-
-function MAGDALENE_CAKE:SoulRefill(_, _, player, _, _, _)
-	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_MAGDALENE) then
-		player:AddSoulHearts(math.min(MAGDALENE_CAKE.MAX_SOUL_HEART_BONUS, 1 * Mod:GetTrinketMult(player)))
-	end
-end
-
-Mod:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, MAGDALENE_CAKE.SoulRefill, CollectibleType.COLLECTIBLE_YUM_HEART)
 
 MAGDALENE_CAKE.HeartSubTypeConversion = {
 	[HeartSubType.HEART_HALF] = HeartSubType.HEART_FULL,
 	[HeartSubType.HEART_FULL] = HeartSubType.HEART_DOUBLEPACK,
 	[HeartSubType.HEART_SCARED] = HeartSubType.HEART_DOUBLEPACK,
+	[HeartSubType.HEART_HALF_SOUL] = HeartSubType.HEART_SOUL
 }
 
 function MAGDALENE_CAKE:HeartReplace(entType, variant, subType, position, velocity, spawner, seed)

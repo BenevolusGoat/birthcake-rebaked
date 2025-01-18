@@ -36,16 +36,25 @@ HudHelper.RegisterHUDElement({
 	end,
 	OnRender = function(player, _, _, pos, scale)
 		local data = Mod:GetData(player)
-		if not data.BirthcakePlayerType or data.BirthcakePlayerType ~= player:GetPlayerType() then
+		if not data.BirthcakeSprite then
 			data.BirthcakeSprite = Mod:GetBirthcakeSprite(player)
 			data.BirthcakeSprite:Play("Idle")
-			data.BirthcakePlayerType = player:GetPlayerType()
 		end
+		local playerType = player:GetPlayerType()
 		data.BirthcakeSprite.Scale = Vector(scale, scale)
-		Isaac.RunCallbackWithParam(Mod.ModCallbacks.PRE_BIRTHCAKE_RENDER, player:GetPlayerType(), player,
+		Isaac.RunCallbackWithParam(Mod.ModCallbacks.PRE_BIRTHCAKE_RENDER, playerType, player,
 			data.BirthcakeSprite, pos)
 		data.BirthcakeSprite:Render(pos)
-		Isaac.RunCallbackWithParam(Mod.ModCallbacks.POST_BIRTHCAKE_RENDER, player:GetPlayerType(), player,
+		Isaac.RunCallbackWithParam(Mod.ModCallbacks.POST_BIRTHCAKE_RENDER, playerType, player,
 			data.BirthcakeSprite, pos)
 	end
 }, HudHelper.HUDType.TRINKET)
+
+function BIRTHCAKE_TRINKET:OnPlayerTypeChange(player)
+	local data = Mod:GetData(player)
+	if data.BirthcakeSprite then
+		data.BirthcakeSprite = nil
+	end
+end
+
+Mod:AddCallback(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, BIRTHCAKE_TRINKET.OnPlayerTypeChange)
