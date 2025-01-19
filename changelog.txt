@@ -15,7 +15,6 @@ Birthcake Changes:
 - Removed Lilith's secondary effect of consuming the trinket on a new floor and gaining a familiar
 - Chance of Lilith's familiars obtaining their tear effects increases with your trinket multiplier, +25% for each additional mulitplier
 - Keeper spawns more nickels depending on your multiplier instead of spawning a Golden Penny when entering shops or devil rooms
-- J&E now only takes 10% of the other brother's stats instead of 25%
 
 Birthcake Reworks:
 - Isaac spawns a Dice Shard every floor and on Birthcake first pickup. Spawned amount scales with trinket multipliers
@@ -34,6 +33,7 @@ Birthcake Reworks:
 - Tainted Forgotten will spawn bone orbitals when killing enemies, which will orbit around Tainted Soul. When picking up T. Forgotten and throwing them, the bone orbitals are shot forward like tears
 - Bethany will spawn a duplicate wisp of the same type 25% of the time when using an active item. Chance scales with trinket multipliers
 - Tainted Bethany's wisps now have double health when being spawned. This does not affect the Birthright-spawned wisps. They spawn with an additional +2 HP with trinket multipliers
+- Jacob & Esau, whichever brother has Birthcake, will reflect their received damage onto the other brother
 - Tainted Jacob will have Dark Esau spawn a trail of flames that block projectiles and tears as well as damage both you and enemies
 
 Modding API:

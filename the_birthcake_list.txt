@@ -16,7 +16,7 @@ Keeper: Shops and Devil Rooms spawn a nickel
 Apollyon: Trinkets can be voided. They're gulped, but tied to Void.
 Forgor: Shoot your skeleton body as The Soul to charge it up (with a cap), which creates a compound fracture-like effect on hit. Swapping back to the Forgor gives you a fading tears up depending on charge. Switching back immediately resets this tears up, so cant be stacked a ton
 Bethany: May spawn an additonal wisp on active use
-J&E: Holder gains 10% of the other brother's stats
+J&E: Holder reflects their damage onto the other brother
 
 Tainted:
 Isaac: One extra inventory slot
