@@ -13,28 +13,28 @@ local function accurateBlurbsPatch()
 
 	---Any empty descriptions are for characters that I may change the effect of, or ones I do want but haven't thought of an idea yet
 	local BIRTHCAKE_DESCRIPTION = {
-		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_ISAAC] = {
 			en_us = "Spawns Dice Shard + Dice Shards in starting room",
-			ru = "Осколки кости в Сокровищнице и комнате Босса",
+			ru = "Создает Осколок Кости + Осколки Кости в стартовой комнате",
 			pl = "Odłamki Kości w pokojach Skarbów i Bossa",
 		},
-		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_MAGDALENE] = {
 			en_us = "Heart pickups may double",
-			ru = "Подбираемые сердца могут удвоиться. Ням Сердце! дает половину сердца души",
+			ru = "Подбираемые сердца могут удвоиться",
 			pl = "Serca są czasami podwojone. Serduszko daje pół serca dusz",
 		},
 		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_CAIN] = {
 			en_us = "(Slots + Fortune Machines + Crane Games) may refund",
-			ru = "Игральные автоматы могут возвратить деньги. Меньший шанс для Кран-машины",
+			ru = "(Игральные автоматы + Автоматы предсказаний + Кран-машины) могут возвратить деньги", --Looks too long, I'll mb change that later
 			pl = "Automaty do Gier i z Wróżbami czasami zwracają pieniądze. Chwytaki również, ale rzadziej",
 		},
-		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_JUDAS] = {
 			en_us = "Damage multiplier + lethal Devil deal occurs at Birthcake cost",
-			ru = "Плоский урон ↑, Множитель урона ↑. Спасает от смерти, после чего исчезает",
+			ru = "Множитель урона ↑ + летальная Сделка с Дьяволом совершается по цене Пироженного",
 			pl = "Większe obrażenia i mnożnik obrażeń. Zapobiega śmierci, ale zostaje zniszcony",
 		},
 		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK]
@@ -46,43 +46,43 @@ local function accurateBlurbsPatch()
 		-- EN: [X] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_EVE] = {
 			en_us = "Dead Bird damage scaling + leaves blood creep",
-			ru = "Красные сердца в приоритете при получении урона, при этом шанс сделок не снижается",
+			ru = "Изменение урона Мертвой Птицы от урона персонажа + она оставляет кровавый след", -how the f am i supposed to translate "scaling"?
 			pl = "Obrażenia najpierw zabierają czerwone zdrowie, bez zmniejszania szansy na pokój Diabła",
 		},
-		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_SAMSON] = {
 			en_us = "Drops Red Hearts at maximum rage",
 			ru = "Роняет красные сердца при максимальном уровне ярости",
 			pl = "Tworzy serduszka po osiągnieciu maksymalnego gniewu",
 		},
-		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_AZAZEL] = {
 			en_us = "DMG down + longer Brimstone duration while damaging enemies",
-			ru = "Длительность луча серы увеличивается по мере нанесения урона",
+			ru = "Урон ↓ + длительность луча серы увеличивается по мере нанесения урона",
 			pl = "Zadawanie obrażeń wydłuża laser",
 		},
-		-- EN: [X] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		-- EN: [X] | RU: [Х] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_LAZARUS] = {
 			en_us = "???",
-			ru = "Урон по комнате и сердце души при возрождении",
+			ru = "???",
 			pl = "Obrażenia w pokoju i serce dusz po odrodzeniu",
 		},
-		-- EN: [X] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		-- EN: [X] | RU: [Х] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_LAZARUS2] = {
 			en_us = "???",
-			ru = "Подожди следующего этажа для эффекта",
+			ru = "???",
 			pl = "Poczekaj do następnego piętra",
 		},
-		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_EDEN] = {
 			en_us = "3 random gulped trinkets + can be dropped",
-			ru = "Приваривает 3 случайных брелока",
+			ru = "Проглатывает 3 случайных брелока + можно выбросить",
 			pl = "3 losowe połknięte trynkiety",
 		},
-		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_THELOST] = {
 			en_us = "Astral Projection when losing Mantle",
-			ru = "2 бесплатных использования Вечного Д6 каждый этаж. Вечный Д6 делает реролл Д6 и Права первородства",
+			ru = "Эффект Астральной Проэкции при потери Мантии",
 			pl = "2 darmowe użycia przedmiotu na piętro. Wieczne D6 wykonuje efekt D6 + Prawo Urodzenia",
 		},
 		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK]
@@ -91,34 +91,34 @@ local function accurateBlurbsPatch()
 			ru = "Спутники имеют шанс скопировать эффекты слез",
 			pl = "Sojusznicy czasami kopiują efekty twoich łez",
 		},
-		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_KEEPER] = {
 			en_us = "Nickel in Shop and Devil Rooms",
 			ru = "Пятак в Магазине и комнате Сделки с Дьяволом",
 			pl = "Piątak w sklepach i pokojach Diabła",
 		},
-		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_APOLLYON] = {
 			en_us = "Trinkets can be voided",
-			ru = "Поглощаемые брелки",
+			ru = "Брелки могут быть поглощены",
 			pl = "Jadalne trynkiety",
 		},
-		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_THEFORGOTTEN] = {
 			en_us = "Shoot skeleton body to charge + fill for fading tears up",
-			ru = 'Стрельба по телу Забытого "заряжает" его. При изменении режима повышение скорострельности',
+			ru = "Стреляй по скелету для зарядки + вселись для убывающего повышения скорострельности",
 			pl = "Strzel w ciało, aby je naładować. Wróc do niego, aby dostać bonus do szybkostrzelności"
 		},
-		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_BETHANY] = {
 			en_us = "May spawn additional wisp on active use",
 			ru = "При использовании активируемого предмета может появиться дополнительный огонек",
 			pl = "Użyte przedmioty czasami dają dodatkowe ogniki",
 		},
-		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_JACOB] = {
 			en_us = "Somewhat equalize brother stats upwards",
-			ru = "Получение небольшого процента характеристик другого брата",
+			ru = "Уравнивание характеристик братьев в большую сторону",
 			pl = "Dostań część statystyk od brata",
 		},
 		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK]
@@ -127,16 +127,16 @@ local function accurateBlurbsPatch()
 			ru = "Дополнительный слот инвентаря",
 			pl = "Dodatkowe miejsce w ekwipunku",
 		},
-		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_MAGDALENE_B] = {
 			en_us = "Temp. hearts ejected from enemies explode",
 			ru = "Временные сердца, падающие с врагов, взрываются",
 			pl = "Serduszka z przeciwników wybuchają",
 		},
-		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_CAIN_B] = {
 			en_us = "Double pickups are split",
-			ru = "Двойные подбираемые предметы распадаются на два обычных",
+			ru = "Двойные подбираемые предметы распадаются",
 			pl = "Rozdziela podwójne pickupy",
 		},
 		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK]
@@ -145,10 +145,10 @@ local function accurateBlurbsPatch()
 			ru = "Прохождение сквозь врагов под действием Темных Искусств заряжает активный предмет",
 			pl = "Mroczne Techniki ładują się szybciej, gdy trafiają przeciwników",
 		},
-		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_BLUEBABY_B] = {
 			en_us = "You poops may not take damage",
-			ru = "Какашки блокируют снаряды и замедляют врагов",
+			ru = "Твои какашки могут не получить урон",
 			pl = "Kupy blokują pociski i spowalniają przeciwników",
 		},
 		-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
@@ -173,21 +173,21 @@ local function accurateBlurbsPatch()
 			en_us = "???",
 			ru = "???",
 		},
-		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_EDEN_B] = {
 			en_us = "May not reroll everything when hurt",
-			ru = "???",
+			ru = "Может не поменять все при получении урона",
 			pl = "3 losowe połknięte trynkiety, ciągle zmienne",
 		},
-		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		[PlayerType.PLAYER_THELOST_B] = {
 			en_us = "More Holy Cards",
-			ru = "???",
+			ru = "Больше Святых Карт",
 		},
-		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		[PlayerType.PLAYER_LILITH_B] = {
 			en_us = "Chance for extra fetus",
-			ru = "???",
+			ru = "Шанс на дополнительного зародыша",
 		},
 		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK]
 		[PlayerType.PLAYER_KEEPER_B] = {
@@ -213,10 +213,10 @@ local function accurateBlurbsPatch()
 			ru = "Двойное здоровье у огоньков",
 			pl = "Ogniki mają podwojone zdrowie",
 		},
-		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		[PlayerType.PLAYER_JACOB_B] = {
 			en_us = "Dark Esau leaves a trail of flames",
-			ru = "???",
+			ru = "Темный Исав оставляет огненный след",
 		}
 	}
 

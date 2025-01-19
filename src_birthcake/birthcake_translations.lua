@@ -49,7 +49,7 @@ local CAKE              = {
 	ko_kr = "케이크",
 }
 --is a LIE
---ТОРТ ЭТО ЛОЖЬ --It's funny that I typed "THE CAKE IS A LIE" but everyone just typed "IS A LIE"
+--ЭТО ЛОЖЬ
 --je LEŽ
 --es una MENTIRA
 
@@ -391,10 +391,10 @@ local translations      = {
 			pl = "Szarża cieni",
 			ko_kr = "그림자 충전",
 		},
-		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [!] | PL: [!] | KO_KR [!]
 		[PlayerType.PLAYER_BLUEBABY_B] = {
 			en_us = "Sturdy turds",
-			ru = "Твердый кал",
+			ru = "Твердые какашки",
 			cs_cz = "Tvrdé hovno",
 			pl = "Zatwardzenie",
 			ko_kr = "거 똥 한 번 더럽게 단단하네!",
@@ -423,33 +423,33 @@ local translations      = {
 			pl = "Alergie ↑",
 			ko_kr = "알레르기 증가",
 		},
-		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_LAZARUS_B] = {
 			en_us = "Rise again",
-			ru = "Дар с небес",
+			ru = "Восстань снова",
 			cs_cz = "Dar z neznáma",
 			pl = "Dar z nie tego świata"
 		},
-		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [!] | PL: [!] | KO_KR [!]
 		[PlayerType.PLAYER_EDEN_B] = {
 			en_us = "Anti-Virus, results may vary",
-			ru = "",
+			ru = "Антивирус, результаты могут различаться",
 			cs_cz = "Věčné cetky",
 			pl = "Wieczne trynkiety", --EID tak trinkety tłumaczy
 			ko_kr = "영원한 장신구",
 		},
-		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
 		[PlayerType.PLAYER_THELOST_B] = {
 			en_us = "Blessed deck",
-			ru = "",
+			ru = "Благословенная колода",
 			cs_cz = "",
 			pl = "",
 			ko_kr = "",
 		},
-		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
 		[PlayerType.PLAYER_LILITH_B] = {
 			en_us = "Missing twin",
-			ru = "",
+			ru = "Пропавший близнец",
 			cs_cz = "",
 			pl = "",
 			ko_kr = "",
@@ -486,10 +486,10 @@ local translations      = {
 			pl = "Silniejsze ogniki",
 			ko_kr = "강해진 소환물",
 		},
-		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
 		[PlayerType.PLAYER_JACOB_B] = {
 			en_us = "Blazing trail",
-			ru = "",
+			ru = "Пылающий след",
 			cs_cz = "",
 			pl = "",
 			ko_kr = "",
