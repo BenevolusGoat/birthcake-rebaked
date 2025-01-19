@@ -267,12 +267,12 @@ local translations = {
 			pl = "Erupcja Wezuwiusza", --przepraszam. Nie mogłem się powstrzymać.
 			ko_kr = "설사",
 		},
-		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [!] | KO_KR [!]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
 		[PlayerType.PLAYER_EVE] = {
 			en_us = "Bloody murder!",
 			ru = "Кровавое убийство!",
 			cs_cz = "Krvavá vražda",
-			pl = "Bezpieczny ból",	--Niby ból i krwotok to różne słowa, ale to mi się bardziej kojarzyło z samym efektem.
+			pl = "Krwawy Morderca",
 			ko_kr = "안전한 출혈",
 		},
 		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
@@ -355,12 +355,12 @@ local translations = {
 			pl = "Harmonia ciała i duszy",
 			ko_kr = "육신과 영혼의 조화",
 		},
-		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [!] | KO_KR [!]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
 		[PlayerType.PLAYER_JACOB] = {
 			en_us = "What's mine is yours",
 			ru = "Что мое, то и твое",
 			cs_cz = "Co je mé je tvé",
-			pl = "Silniejszy od ciebie",
+			pl = "Moje, twoje, nasze, wspólne", --Makłowicz
 			ko_kr = "너보다 강해",
 		},
 		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
@@ -395,7 +395,7 @@ local translations = {
 			pl = "Szarża cieni",
 			ko_kr = "그림자 충전",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [!] | KO_KR [!]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
 		[PlayerType.PLAYER_BLUEBABY_B] = {
 			en_us = "Sturdy turds",
 			ru = "Твердые какашки",
@@ -432,30 +432,30 @@ local translations = {
 			en_us = "Rise again",
 			ru = "Восстань снова",
 			cs_cz = "Povstaň znovu",
-			pl = "Dar z nie tego świata"
+			pl = "Powstań z grobu",
 		},
-		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [!] | KO_KR [!]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
 		[PlayerType.PLAYER_EDEN_B] = {
 			en_us = "Anti-Virus, results may vary",
 			ru = "Антивирус, результаты могут различаться",
 			cs_cz = "Antivirus, výsledky se mohou lišit",
-			pl = "Wieczne trynkiety", --EID tak trinkety tłumaczy
+			pl = "Antivirus, wyniki mogą byż różne",
 			ko_kr = "영원한 장신구",
 		},
-		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 		[PlayerType.PLAYER_THELOST_B] = {
 			en_us = "Blessed deck",
 			ru = "Благословенная колода",
 			cs_cz = "Požehnaný balíček",
-			pl = "",
+			pl = "Święta Talia",
 			ko_kr = "",
 		},
-		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 		[PlayerType.PLAYER_LILITH_B] = {
 			en_us = "Missing twin",
 			ru = "Пропавший близнец",
 			cs_cz = "Pohřešované dvojče",
-			pl = "",
+			pl = "Zaginiony Bliźniak",
 			ko_kr = "",
 		},
 		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
@@ -490,12 +490,12 @@ local translations = {
 			pl = "Silniejsze ogniki",
 			ko_kr = "강해진 소환물",
 		},
-		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 		[PlayerType.PLAYER_JACOB_B] = {
 			en_us = "Blazing trail",
 			ru = "Пылающий след",
 			cs_cz = "Žhnoucí stopa",
-			pl = "",
+			pl = "Płonący ślad",
 			ko_kr = "",
 		},
 	},
