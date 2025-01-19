@@ -46,7 +46,7 @@ local function accurateBlurbsPatch()
 		-- EN: [X] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_EVE] = {
 			en_us = "Dead Bird damage scaling + leaves blood creep",
-			ru = "Изменение урона Мертвой Птицы от урона персонажа + она оставляет кровавый след", -how the f am i supposed to translate "scaling"?
+			ru = "Изменение урона Мертвой Птицы от урона персонажа + она оставляет кровавый след", --how the f am i supposed to translate "scaling"?
 			pl = "Obrażenia najpierw zabierają czerwone zdrowie, bez zmniejszania szansy na pokój Diabła",
 		},
 		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [!]
