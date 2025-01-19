@@ -74,14 +74,14 @@ Mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, LILITH_CAKE.OnFamiliarUpdate, F
 ---@param source EntityRef
 ---@param countdownFrames integer
 function LILITH_CAKE:NerfGelloRuntDamage(ent, amount, flags, source, countdownFrames)
-	if source.Entity -- yk that TEARS damage enemies, not BABY
+	if source.Entity
 		and source.Entity.SpawnerEntity
 		and source.Entity.SpawnerEntity:ToFamiliar()
 		and source.Entity.SpawnerEntity.Variant == FamiliarVariant.UMBILICAL_BABY
 		and Mod:GetData(source.Entity.SpawnerEntity).LilithBirthcakeGello
 	then
 		ent:TakeDamage(amount * 0.5, flags, EntityRef(source.Entity.SpawnerEntity), countdownFrames)
-		return false --also did you forget that mod is non-rgon?
+		return false
 	end
 end
 
