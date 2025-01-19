@@ -122,9 +122,9 @@ function BirthcakeRebaked:AwardPedestalItem(pickup, player)
 	local itemId = pickup.SubType
 	if itemId ~= CollectibleType.COLLECTIBLE_NULL then
 		local configitem = Mod.ItemConfig:GetCollectible(itemId)
-		--[[ player:AnimateCollectible(itemId)
-		player:QueueItem(configitem, pickup.Charge, pickup.Touched)
-		player.QueuedItem.Item = configitem ]]
+		player:AnimateCollectible(itemId)
+		--[[player:QueueItem(configitem, pickup.Charge, pickup.Touched)
+		player.QueuedItem.Item = configitem]]
 		Mod.SFXManager:Play(SoundEffect.SOUND_CHOIR_UNLOCK, 0.5)
 		pickup.Touched = true
 		pickup.SubType = 0
@@ -201,6 +201,7 @@ end
 ---@param baseChance number
 ---@param mult number
 function BirthcakeRebaked:GetBalanceApprovedLuckChance(baseChance, mult)
+	if mult == 0 then mult = 1 end --I did that cuz in my tests mult was just 0 idk why
 	return (1 - 2^(-mult)) * baseChance * 2
 end
 

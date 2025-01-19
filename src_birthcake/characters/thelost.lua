@@ -70,7 +70,7 @@ Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, THELOST_CAKE.FadingTearsUp, Cach
 -- Tainted Lost Birthcake
 
 
-THELOST_CAKE.HOLY_CARD_REPLACE_BASE_CHANCE = 10
+THELOST_CAKE.HOLY_CARD_REPLACE_BASE_CHANCE = 0.1 --wtf Benny, 10 is too much
 
 function THELOST_CAKE:OnBirthcakeCollect(player, firstTime)
 	if firstTime then

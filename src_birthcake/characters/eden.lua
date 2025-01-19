@@ -102,6 +102,7 @@ function EDEN_CAKE:PreventReroll(ent, amount, flags, source, countdownFrames)
 			data.EdenCakePreventLoop = true
 			player:TakeDamage(amount, flags | DamageFlag.DAMAGE_NO_PENALTIES, source, countdownFrames)
 			data.EdenCakePreventLoop = false
+			return false
 		end
 	end
 end

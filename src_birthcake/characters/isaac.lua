@@ -69,7 +69,8 @@ end
 
 function ISAAC_CAKE:ItemWillFillInventory(itemID)
 	local itemConfig = Mod.ItemConfig:GetCollectible(itemID)
-	if (itemConfig.Type == ItemType.ITEM_PASSIVE or itemConfig.Type == ItemType.ITEM_FAMILIAR)
+	if itemConfig
+		and (itemConfig.Type == ItemType.ITEM_PASSIVE or itemConfig.Type == ItemType.ITEM_FAMILIAR)
 		and not itemConfig:HasTags(ItemConfig.TAG_QUEST)
 		and itemID ~= CollectibleType.COLLECTIBLE_BIRTHRIGHT
 	then
@@ -96,8 +97,8 @@ function ISAAC_CAKE:PrePickupCollision(pickup, collider)
 		end
 		if #inventory < player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID) then
 			inventory[#inventory + 1] = pickup.SubType
-			Mod:AwardPedestalItem(pickup, player)
 			Mod.HiddenItemManager:Add(player, pickup.SubType, -1, 1, ISAAC_CAKE.HIDDEN_ITEM_MANAGER_GROUP)
+			Mod:AwardPedestalItem(pickup, player)
 			return false
 		end
 	end
