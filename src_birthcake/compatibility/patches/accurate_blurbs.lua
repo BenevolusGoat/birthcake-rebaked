@@ -118,7 +118,7 @@ local function accurateBlurbsPatch()
 		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_JACOB] = {
 			en_us = "Damage is reflected onto the other brother",
-			ru = "Получение небольшого процента характеристик другого брата",
+			ru = "Получаемый урон перенаправляется на другого брата",
 			pl = "Dostań część statystyk od brata",
 		},
 		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK]
