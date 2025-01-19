@@ -62,9 +62,9 @@ function MAGDALENE_CAKE:HeartExplode(pickup)
 			local position = Vector(math.random(-25, 25), math.random(-25, 25))
 			position = position + pickup.Position
 			Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BLOOD_EXPLOSION, 0, position,
-				Vector(0, 0), pickup)
+				Vector.Zero, pickup)
 			Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 0, position,
-				Vector(0, 0), pickup)
+				Vector.Zero, pickup)
 		end
 	end
 end

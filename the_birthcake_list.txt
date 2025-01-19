@@ -5,7 +5,7 @@ Maggy: Heart pickups chance to be double (Half red -> Full red, Full red -> Doub
 Cain: Slot Machines, Fortune Telling Machines, and Crane Games have a chance to refund
 Judas: Small damage multiplier up. If you were to die from a devil deal, it would consume the cake instead
 Blue Baby: The Poop can spawn two poops adjacent to the original poop depending on the direction you're facing. Other actives will shoot out poop projectiles that spawn their respective poop when landing.
-Eve: Undecided
+Eve: Dead Bird turns into Blood Bird, scaling off of player damage (cannot go below their base damage, and scales respectfully to not be too crazy) and occasionally leaves small damaging puddles of blood
 Samson: Drops a heart when reaching max blood lust. With Birthright it activates at both non-br and br max points. Soul Heart if you're full health, red heart if you can take it, double red hearts if you are missing enough red health
 Azazel: Your brimstone lasts longer when damaging enemies
 Lazarus: Undecided

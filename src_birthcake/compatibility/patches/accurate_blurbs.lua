@@ -45,7 +45,7 @@ local function accurateBlurbsPatch()
 		},
 		-- EN: [X] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_EVE] = {
-			en_us = "???",
+			en_us = "Dead Bird damage scaling + leaves blood creep",
 			ru = "Красные сердца в приоритете при получении урона, при этом шанс сделок не снижается",
 			pl = "Obrażenia najpierw zabierają czerwone zdrowie, bez zmniejszania szansy na pokój Diabła",
 		},
