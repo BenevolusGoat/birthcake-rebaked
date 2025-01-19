@@ -267,9 +267,9 @@ local translations = {
 			pl = "Erupcja Wezuwiusza", --przepraszam. Nie mogłem się powstrzymać.
 			ko_kr = "설사",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [!] | PL: [!] | KO_KR [!]
 		[PlayerType.PLAYER_EVE] = {
-			en_us = "Safe bleeding",
+			en_us = "Bloody murder!",
 			ru = "Безопасное кровотечение",
 			cs_cz = "Bezpečné krvácení",
 			pl = "Bezpieczny ból",	--Niby ból i krwotok to różne słowa, ale to mi się bardziej kojarzyło z samym efektem.
@@ -355,9 +355,9 @@ local translations = {
 			pl = "Harmonia ciała i duszy",
 			ko_kr = "육신과 영혼의 조화",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [!] | PL: [!] | KO_KR [!]
 		[PlayerType.PLAYER_JACOB] = {
-			en_us = "Stronger than you",
+			en_us = "What's mine is yours",
 			ru = "Сильнее, чем ты",
 			cs_cz = "Silnější než ty",
 			pl = "Silniejszy od ciebie",

@@ -20,39 +20,28 @@ end
 
 -- Jacob Birthcake
 
-local function tearsUpAdd(firedelay, val)
-	local currentTears = 30 / (firedelay + 1)
-	local newTears = currentTears + val
-	return math.max((30 / newTears) - 1, -0.99)
-end
+---@param ent Entity
+---@param amount integer
+---@param flags DamageFlag
+---@param source EntityRef
+---@param countdown integer
+function JACOB_ESAU_CAKE:RedirectDamage(ent, amount, flags, source, countdown)
+	local player = ent:ToPlayer() ---@cast player EntityPlayer
+	local data = Mod:GetData(player)
 
----@param player EntityPlayer
----@param flag CacheFlag
-function JACOB_ESAU_CAKE:ShareTwinStats(player, flag)
 	if JACOB_ESAU_CAKE:CheckJacobEsau(player)
 		and player:GetOtherTwin()
+		and not data.JacobEsauCakePreventLoop
 	then
-		local otherTwin = player:GetOtherTwin()
-		if Mod:HasBitFlags(flag, CacheFlag.CACHE_DAMAGE) then
-			player.Damage = player.Damage + (otherTwin.Damage) * JACOB_ESAU_CAKE.STAT_SHARE_MULT
-		end
-		if Mod:HasBitFlags(flag, CacheFlag.CACHE_SHOTSPEED) then
-			player.ShotSpeed = player.ShotSpeed + (otherTwin.ShotSpeed) * JACOB_ESAU_CAKE.STAT_SHARE_MULT
-		end
-		if Mod:HasBitFlags(flag, CacheFlag.CACHE_SPEED) then
-			player.MoveSpeed = player.MoveSpeed + (otherTwin.MoveSpeed) * JACOB_ESAU_CAKE.STAT_SHARE_MULT
-		end
-		if Mod:HasBitFlags(flag, CacheFlag.CACHE_RANGE) then
-			player.TearRange = player.TearRange + (otherTwin.TearRange) * JACOB_ESAU_CAKE.STAT_SHARE_MULT
-		end
-		if Mod:HasBitFlags(flag, CacheFlag.CACHE_FIREDELAY) then
-			local value = (30 / otherTwin.MaxFireDelay) * JACOB_ESAU_CAKE.STAT_SHARE_MULT
-			player.MaxFireDelay = tearsUpAdd(player.MaxFireDelay, value)
-		end
+		local otherData = Mod:GetData(player:GetOtherTwin())
+		otherData.JacobEsauCakePreventLoop = true
+		player:GetOtherTwin():TakeDamage(amount, flags, source, countdown)
+		otherData.JacobEsauCakePreventLoop = false
+		return false
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, JACOB_ESAU_CAKE.ShareTwinStats)
+Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, JACOB_ESAU_CAKE.RedirectDamage, EntityType.ENTITY_PLAYER)
 
 -- Tainted Jacob
 

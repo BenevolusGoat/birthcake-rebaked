@@ -117,8 +117,8 @@ local function accurateBlurbsPatch()
 		},
 		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		[PlayerType.PLAYER_JACOB] = {
-			en_us = "Somewhat equalize brother stats upwards",
-			ru = "Уравнивание характеристик братьев в большую сторону",
+			en_us = "Damage is reflected onto the other brother",
+			ru = "Получение небольшого процента характеристик другого брата",
 			pl = "Dostań część statystyk od brata",
 		},
 		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK]
