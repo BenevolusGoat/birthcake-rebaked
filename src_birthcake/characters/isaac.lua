@@ -58,8 +58,9 @@ else
 	end)
 end
 
-
 -- Isaac B Birthcake
+
+ISAAC_CAKE.HIDDEN_ITEM_MANAGER_GROUP = "Isaac B Birthcake"
 
 ---@param player EntityPlayer
 function ISAAC_CAKE:GetMaxInventorySpace(player)
@@ -96,7 +97,7 @@ function ISAAC_CAKE:PrePickupCollision(pickup, collider)
 		if #inventory < player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID) then
 			inventory[#inventory + 1] = pickup.SubType
 			Mod:AwardPedestalItem(pickup, player)
-			Mod.HiddenItemManager:Add(player, pickup.SubType, -1, 1, "Isaac B Birthcake")
+			Mod.HiddenItemManager:Add(player, pickup.SubType, -1, 1, ISAAC_CAKE.HIDDEN_ITEM_MANAGER_GROUP)
 			return false
 		end
 	end
@@ -134,6 +135,22 @@ function ISAAC_CAKE:ManageBirthrightInventoryCap(player)
 end
 
 Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, ISAAC_CAKE.ManageBirthrightInventoryCap, PlayerType.PLAYER_ISAAC_B)
+
+---@param player EntityPlayer
+function ISAAC_CAKE:OnPlayerTypeChange(player)
+	local player_run_save = Mod.SaveManager.GetRunSave(player)
+	if player_run_save.IsaacBBirthcakeInventory then
+		for _, itemID in ipairs(player_run_save.IsaacBBirthcakeInventory) do
+			player:AddCollectible(itemID, 0, false)
+			Mod.HiddenItemManager:Remove(player, itemID, ISAAC_CAKE.HIDDEN_ITEM_MANAGER_GROUP)
+		end
+		player_run_save.IsaacBBirthcakeInventory = nil
+		player_run_save.IsaacBBirthcakeSprites = nil
+		player_run_save.IsaacCakeHasBirthright = nil
+	end
+end
+
+Mod:AddCallback(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, ISAAC_CAKE.OnPlayerTypeChange, PlayerType.PLAYER_ISAAC_B)
 
 local inventorySprite = Sprite()
 inventorySprite:Load("gfx/ui/ui_inventory.anm2", false)

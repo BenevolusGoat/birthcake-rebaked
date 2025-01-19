@@ -57,6 +57,19 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, EDEN_CAKE.ManageTrinkets, PlayerType.PLAYER_EDEN)
 
+function EDEN_CAKE:OnPlayerTypeChange(player)
+	local player_run_save = Mod.SaveManager.GetRunSave(player)
+	if player_run_save.EdenCakeHasTrinkets then
+		local trinketList = player_run_save.EdenCakeTrinkets
+		if trinketList then
+			Mod:RemoveSmeltedTrinkets(player, trinketList)
+		end
+		player_run_save.EdenCakeHasTrinkets = nil
+	end
+end
+
+Mod:AddCallback(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, EDEN_CAKE.OnPlayerTypeChange, PlayerType.PLAYER_EDEN)
+
 -- Tainted Eden birthcake
 
 EDEN_CAKE.PREVENT_REROLL_CHANCE = 0.33

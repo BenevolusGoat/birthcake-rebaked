@@ -27,7 +27,7 @@ function ISAAC_CAKE:TryRemoveBirthcakeItems(player)
 			local itemID = inventory[numItems]
 			table.remove(inventory, numItems)
 			numItems = numItems - 1
-			Mod.HiddenItemManager:Remove(player, itemID, "Isaac B Birthcake")
+			Mod.HiddenItemManager:Remove(player, itemID, ISAAC_CAKE.HIDDEN_ITEM_MANAGER_GROUP)
 			player:DropCollectible(itemID, nil, true)
 		end
 	end

@@ -6,8 +6,10 @@ BirthcakeRebaked.Birthcake.APOLLYON = APOLLYON_CAKE
 
 ---@param player EntityPlayer
 function APOLLYON_CAKE:OnPlayerInit(player)
-	local player_run_save = Mod.SaveManager.GetRunSave(player)
-	player_run_save.ApollyonBirthcakeHasVoid = player:HasCollectible(CollectibleType.COLLECTIBLE_VOID)
+	if player:GetPlayerType() == PlayerType.PLAYER_APOLLYON then
+		local player_run_save = Mod.SaveManager.GetRunSave(player)
+		player_run_save.ApollyonBirthcakeHasVoid = player:HasCollectible(CollectibleType.COLLECTIBLE_VOID)
+	end
 end
 
 Mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, APOLLYON_CAKE.OnPlayerInit)
@@ -37,9 +39,9 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_USE_ITEM, APOLLYON_CAKE.OnVoidUse, CollectibleType.COLLECTIBLE_VOID)
 
+---Even if you LOSE Birthcake or are no longer Apollyon, the items are tied to Void, so you should keep the voided trinkets, just can't void any further ones
 ---@param player EntityPlayer
 function APOLLYON_CAKE:ManageVoidedTrinkets(player)
-	if not player:HasTrinket(Mod.Birthcake.ID) then return end
 	local player_run_save = Mod.SaveManager.GetRunSave(player)
 	if player_run_save.ApollyonBirthcakeHasVoid and not player:HasCollectible(CollectibleType.COLLECTIBLE_VOID) then
 		player_run_save.ApollyonBirthcakeHasVoid = false
@@ -47,7 +49,11 @@ function APOLLYON_CAKE:ManageVoidedTrinkets(player)
 		if trinketList then
 			Mod:RemoveSmeltedTrinkets(player, trinketList)
 		end
-	elseif not player_run_save.ApollyonBirthcakeHasVoid and player:HasCollectible(CollectibleType.COLLECTIBLE_VOID) and not player.QueuedItem.Item then
+	--It's nil if you've never been Apollyon with Void
+	elseif player_run_save.ApollyonBirthcakeHasVoid == false
+		and player:HasCollectible(CollectibleType.COLLECTIBLE_VOID)
+		and not player.QueuedItem.Item
+	then
 		player_run_save.ApollyonBirthcakeHasVoid = true
 		local trinketList = player_run_save.ApollyonBirthcakeTrinkets
 		if trinketList then
@@ -56,7 +62,7 @@ function APOLLYON_CAKE:ManageVoidedTrinkets(player)
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, APOLLYON_CAKE.ManageVoidedTrinkets, PlayerType.PLAYER_APOLLYON)
+Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, APOLLYON_CAKE.ManageVoidedTrinkets)
 
 -- Apollyon B Birthcake
 
