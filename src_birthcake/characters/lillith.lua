@@ -59,10 +59,24 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, LILITH_CAKE.FireRunt, PlayerType.PLAYER_LILITH_B)
 
+---@param familiar EntityFamiliar
 function LILITH_CAKE:OnFamiliarUpdate(familiar)
 	local data = Mod:GetData(familiar)
 	if data.LilithBirthcakeGello and familiar.Player then
 		familiar.SpriteScale = Vector(0.75, 0.75)
+		if REPENTOGON then
+			for _, gello in ipairs(Isaac.FindInCapsule(familiar:GetCollisionCapsule(), EntityPartition.FAMILIAR)) do
+				gello:AddVelocity((gello.Position - familiar.Position):Normalized())
+			end
+		else
+			for _, gello in ipairs(Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.UMBILICAL_BABY)) do
+				if GetPtrHash(gello) ~= GetPtrHash(familiar)
+					and	gello.Position:DistanceSquared(familiar.Position) <= (familiar.Size + gello.Size) ^ 2
+				then
+					gello:AddVelocity((gello.Position - familiar.Position):Normalized())
+				end
+			end
+		end
 	end
 end
 
