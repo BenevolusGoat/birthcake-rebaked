@@ -55,7 +55,11 @@ local CAKE              = {
 
 ---This can be stolen from stringtable.sta as they define character names
 ---But I don't know if it'd be any different with the 's and s'
-local translations      = {
+
+-- [OK]: good
+-- [!]: needs to be updated with the english translation
+-- [X]: hasn't been done yet
+local translations = {
 	BIRTHCAKE_NAME = {
 		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 		[PlayerType.PLAYER_ISAAC] = {
@@ -391,11 +395,11 @@ local translations      = {
 			pl = "Szarża cieni",
 			ko_kr = "그림자 충전",
 		},
-		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [!] | KO_KR [!]
 		[PlayerType.PLAYER_BLUEBABY_B] = {
 			en_us = "Sturdy turds",
 			ru = "Твердые какашки",
-			cs_cz = "Tvrdé hovno",
+			cs_cz = "Tvrdá hovna",
 			pl = "Zatwardzenie",
 			ko_kr = "거 똥 한 번 더럽게 단단하네!",
 		},
@@ -423,34 +427,34 @@ local translations      = {
 			pl = "Alergie ↑",
 			ko_kr = "알레르기 증가",
 		},
-		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [!] | KO_KR [X]
 		[PlayerType.PLAYER_LAZARUS_B] = {
 			en_us = "Rise again",
 			ru = "Восстань снова",
-			cs_cz = "Dar z neznáma",
+			cs_cz = "Povstaň znovu",
 			pl = "Dar z nie tego świata"
 		},
-		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [!] | KO_KR [!]
 		[PlayerType.PLAYER_EDEN_B] = {
 			en_us = "Anti-Virus, results may vary",
 			ru = "Антивирус, результаты могут различаться",
-			cs_cz = "Věčné cetky",
+			cs_cz = "Antivirus, výsledky se mohou lišit",
 			pl = "Wieczne trynkiety", --EID tak trinkety tłumaczy
 			ko_kr = "영원한 장신구",
 		},
-		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 		[PlayerType.PLAYER_THELOST_B] = {
 			en_us = "Blessed deck",
 			ru = "Благословенная колода",
-			cs_cz = "",
+			cs_cz = "Požehnaný balíček",
 			pl = "",
 			ko_kr = "",
 		},
-		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 		[PlayerType.PLAYER_LILITH_B] = {
 			en_us = "Missing twin",
 			ru = "Пропавший близнец",
-			cs_cz = "",
+			cs_cz = "Pohřešované dvojče",
 			pl = "",
 			ko_kr = "",
 		},
@@ -486,11 +490,11 @@ local translations      = {
 			pl = "Silniejsze ogniki",
 			ko_kr = "강해진 소환물",
 		},
-		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 		[PlayerType.PLAYER_JACOB_B] = {
 			en_us = "Blazing trail",
 			ru = "Пылающий след",
-			cs_cz = "",
+			cs_cz = "Žhnoucí stopa",
 			pl = "",
 			ko_kr = "",
 		},
