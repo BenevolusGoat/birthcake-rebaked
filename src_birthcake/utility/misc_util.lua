@@ -228,3 +228,18 @@ function BirthcakeRebaked:CanPickupDeal(player, pickup)
 		and Mod:IsDevilDealItem(pickup)
 		and pickup.Price ~= PickupPrice.PRICE_SOUL
 end
+
+---Credit to Epiphany
+---@generic K, V
+---@param tab table<K,V>
+---@param func fun(val: V): any
+---@function
+function BirthcakeRebaked:Map(tab, func)
+	local out = {}
+
+	for k, v in pairs(tab) do
+		out[k] = func(v)
+	end
+
+	return out
+end

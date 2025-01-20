@@ -1,5 +1,5 @@
 ---@class ModReference
-_G.BirthcakeRebaked = RegisterMod("Birthcake Rebaked", 1)
+_G.BirthcakeRebaked = RegisterMod("Birthcake: Rebaked", 1)
 local Mod = BirthcakeRebaked
 BirthcakeRebaked.SaveManager = include("src_birthcake.utility.save_manager")
 BirthcakeRebaked.SaveManager.Init(BirthcakeRebaked)
@@ -180,13 +180,15 @@ end
 
 local miscSrc = {
 	"compatibility.birthcake_legacy",
-	"compatibility.patches_loader",
 	"trinket_birthcake",
 	"challenge_birthday_party",
+	"api"
 }
 for _, path in ipairs(miscSrc) do
 	include("src_birthcake." .. path)
 end
+
+include("src_birthcake.compatibility.patches.eid")
 
 local languageOptionToEID = {
 	["en"] = "en_us",
@@ -200,7 +202,13 @@ local languageOptionToEID = {
 }
 
 function BirthcakeRebaked:TryGetTranslation(table)
-	return table[languageOptionToEID[Options.Language]] or table.en_us
+	local desc = table[languageOptionToEID[Options.Language]] or table.en_us
+
+	if desc == "" then
+		desc = table.en_us
+	end
+
+	return desc
 end
 
 ---@param player EntityPlayer
@@ -238,10 +246,10 @@ function BirthcakeRebaked:GetBirthcakeSprite(player)
 	sprite:Load("gfx/005.350_trinket.anm2", false)
 	if spriteConfig then
 		sprite:ReplaceSpritesheet(0, spriteConfig.SpritePath)
-		sprite:LoadGraphics()
 	elseif not spriteConfig and Birthcake.BirthcakeDescs[playerType] then
 		sprite:ReplaceSpritesheet(0, trinketPath .. player:GetName():lower() .. "_birthcake.png")
 	end
+	sprite:LoadGraphics()
 	local spriteResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.LOAD_BIRTHCAKE_SPRITE, playerType, player, sprite)
 	sprite = (spriteResult ~= nil and type(spriteResult) == "userdata" and getmetatable(spriteResult).__type == "Sprite" and spriteResult) or
 		sprite
@@ -310,7 +318,6 @@ if REPENTOGON then
 	Mod:AddCallback(ModCallbacks.MC_POST_TRIGGER_TRINKET_ADDED, BirthcakeRebaked.OnTrinketAdd,
 		Mod.Birthcake.ID + TrinketType.TRINKET_GOLDEN_FLAG)
 end
-
 
 ---@param pickup EntityPickup
 function BirthcakeRebaked:ChangeSpritePickup(pickup)
@@ -419,3 +426,5 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, BirthcakeLocals.ChangeDesc)
 ]]
+
+include("src_birthcake.compatibility.patches_loader")

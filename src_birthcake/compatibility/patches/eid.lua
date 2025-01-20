@@ -3,6 +3,7 @@ local Mod = BirthcakeRebaked
 local game = Mod.Game
 
 local BIRTHCAKE_EID = {}
+BirthcakeRebaked.EID = BIRTHCAKE_EID
 
 function BIRTHCAKE_EID:ClosestPlayerTo(entity) --This seems to error for some people sooo yeah
 	if not entity then return EID.player end
@@ -34,116 +35,22 @@ end
 
 --#region Changing mod's name and indicator for EID
 
-EID._currentMod = "Birthcake: Rebaked"
-EID:setModIndicatorName("Birthcake: Rebaked")
+EID._currentMod = Mod.Name
+EID:setModIndicatorName(Mod.Name)
 local birthcakeModSprite = Sprite()
-birthcakeModSprite:Load("gfx/eid_birthcake_icon.anm2", true)
+birthcakeModSprite:Load("gfx/ui/eid_birthcake_icon.anm2", true)
 EID:addIcon("Birthcake: Rebaked ModIcon", "Idle", 0, 10, 11, 5, 5, birthcakeModSprite)
 EID:setModIndicatorIcon("Birthcake: Rebaked ModIcon")
 
 --#endregion
 
---#region Dynamic Descriptions functions
+--#region Icons
 
-local function containsFunction(tbl)
-	for _, v in pairs(tbl) do
-		if type(v) == "function" then
-			return true
-		end
-	end
-	return false
-end
+--#endregion
 
-local DynamicDescriptions = {
-	[EntityType.ENTITY_PICKUP] = {
-		[PickupVariant.PICKUP_COLLECTIBLE] = {},
-		[PickupVariant.PICKUP_TAROTCARD] = {},
-	}
-}
+--#region Snipped Dynamic Description stuff from Epiphany
 
 local DD = {} ---@class DynamicDescriptions
-
----@param descTab table
----@return {Func: fun(descObj: table): (string), AppendToEnd: boolean}
-function DD:CreateCallback(descTab, appendToEnd)
-	return {
-		Func = function(descObj)
-			return table.concat(
-				Mod:Map(
-					descTab,
-					function(val)
-						if type(val) == "function" then
-							local ret = val(descObj)
-							if type(ret) == "table" then
-								return table.concat(ret, "")
-							elseif type(ret) == "string" then
-								return ret
-							else
-								return ""
-							end
-						end
-
-						return val or ""
-					end
-				),
-				""
-			)
-		end,
-		AppendToEnd = appendToEnd or false
-	}
-end
-
----@param modFunc { Func: function } | fun(descObj: table): string
----@param type integer
----@param variant integer
----@param subtype integer
----@param language string
-function DD:SetCallback(modFunc, type, variant, subtype, language)
-	if not DynamicDescriptions[type] then
-		DynamicDescriptions[type] = {}
-	end
-
-	if not DynamicDescriptions[type][variant] then
-		DynamicDescriptions[type][variant] = {}
-	end
-
-	if not DynamicDescriptions[type][variant][subtype] then
-		DynamicDescriptions[type][variant][subtype] = {}
-	end
-
-	if not DynamicDescriptions[type][variant][subtype][language] then
-		DynamicDescriptions[type][variant][subtype][language] = modFunc
-	else
-		error("Description modifier already exists for " .. type .. " " .. variant .. " " .. subtype .. " " .. language,
-			2)
-	end
-end
-
----@param type integer
----@param variant integer
----@param subtype integer
----@param language string
----@return {Func: fun(descObj: table): (string?), AppendToEnd: boolean}?
-function DD:GetCallback(type, variant, subtype, language)
-	if not DynamicDescriptions[type] then
-		return nil
-	end
-
-	if not DynamicDescriptions[type][variant] then
-		return nil
-	end
-
-	if not DynamicDescriptions[type][variant][subtype] then
-		return nil
-	end
-
-	if not DynamicDescriptions[type][variant][subtype][language] then
-		return DynamicDescriptions[type][variant][subtype]
-			["en_us"] -- fallback to english if no translation is available
-	end
-
-	return DynamicDescriptions[type][variant][subtype][language]
-end
 
 -- concat all subsequent string elements of a dynamic description
 -- into one string so we have to concat less stuff at runtime
@@ -171,7 +78,30 @@ function DD:MakeMinimizedDescription(desc)
 
 	out[#out + 1] = table.concat(builder, "")
 
-	return out
+	return {
+		Func = function(descObj)
+			return table.concat(
+				Mod:Map(
+					out,
+					function(val)
+						if type(val) == "function" then
+							local ret = val(descObj)
+							if type(ret) == "table" then
+								return table.concat(ret, "")
+							elseif type(ret) == "string" then
+								return ret
+							else
+								return ""
+							end
+						end
+
+						return val or ""
+					end
+				),
+				""
+			)
+		end,
+	}
 end
 
 ---@param desc (string | function)[] | function
@@ -209,17 +139,9 @@ function BIRTHCAKE_EID:TrinketMulti(player, trinketId)
 end
 
 ---@param multiplier integer
----@param ... string
+---@param ... any
 function BIRTHCAKE_EID:TrinketMultiStr(multiplier, ...)
 	return ({ ... })[multiplier] or ""
-end
-
-local function trinketMulti(player, trinketId)
-	return BIRTHCAKE_EID:TrinketMulti(player, trinketId)
-end
-
-local function trinketMultiStr(multiplier, ...)
-	return BIRTHCAKE_EID:TrinketMultiStr(multiplier, ...)
 end
 
 local DESCRIPTION_SHARE = {
@@ -290,28 +212,29 @@ en_us = {
 	}
 },
  ]]
-local EID = {
+
+BIRTHCAKE_EID.Descs = {
 	[PlayerType.PLAYER_ISAAC] = {
 		---@param descObj EID_DescObj
 		---@param str string
-		_modifier = function(descObj, str)
-			local mult = trinketMulti(EID.player, descObj.ObjType)
-			local thing = str:format()
-			if mult > 1 then
+		_modifier = function(descObj, str, strMult)
+			local mult = BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjType)
 
+			if mult > 1 then
+				return strMult:format(mult - 1)
 			end
 			return str
 		end,
 		en_us = {
 			"{{Card" .. Card.CARD_DICE_SHARD .."}} ",
 			function(descObj)
-				return EID[PlayerType.PLAYER_ISAAC]._modifier(descObj, "%s Dice Shard")
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "A Dice Shard", "%s Dice Shards")
 			end,
 			" spawns in the starting room of every floor"
 		}
 	},
 	[PlayerType.PLAYER_MAGDALENE] = {
-
+		en_us = {"Is cool and epic"}
 	},
 	[PlayerType.PLAYER_CAIN] = {
 
@@ -411,32 +334,54 @@ local EID = {
 	},
 }
 
-for id, trinketDescData in pairs(EID) do
+for sharedDescription, copyDescription in pairs(DESCRIPTION_SHARE) do
+	BIRTHCAKE_EID.Descs[sharedDescription] = BIRTHCAKE_EID.Descs[copyDescription]
+end
+
+EID:addTrinket(Mod.Birthcake.ID, "", "Birthcake")
+
+for _, trinketDescData in pairs(BIRTHCAKE_EID.Descs) do
 	for language, descData in pairs(trinketDescData) do
-		if language:match('^_') then goto continue end -- skip helper private fields
-
-		local name = descData.Name
-		local description = descData.Description
-
-		if not DD:IsValidDescription(description) then
-			Mod:Log("Invalid trinket description for " .. name .. " (" .. id .. ")", "Language: " .. language)
-			goto continue
-		end
-
-		local minimized = DD:MakeMinimizedDescription(description)
-
-		if not containsFunction(minimized) and not trinketDescData._AppendToEnd then
-			EID:addTrinket(id, table.concat(minimized, ""), name, language)
-		else
-			-- don't add descriptions for vanilla trinkets that already have one
-			if not EID.descriptions[language].trinkets[id] then
-				EID:addTrinket(id, "", name, language) -- description only contains name/language, the actual description is generated at runtime
-			end
-
-			DD:SetCallback(DD:CreateCallback(minimized, trinketDescData._AppendToEnd), EntityType.ENTITY_PICKUP,
-				PickupVariant.PICKUP_TRINKET, id, language)
-		end
-
+		if language:match('^_') or not DD:IsValidDescription(descData) then goto continue end -- skip helper private fields
+		local newDesc = DD:MakeMinimizedDescription(descData)
+		trinketDescData[language] = newDesc
 		::continue::
 	end
 end
+
+EID:addDescriptionModifier(
+	"Birthcake Description",
+	-- condition
+	function(descObj)
+		local subtype = descObj.ObjSubType
+		if descObj.ObjVariant == PickupVariant.PICKUP_TRINKET then
+			subtype = (subtype & ~TrinketType.TRINKET_GOLDEN_FLAG)
+			if subtype == Mod.Birthcake.ID and EID.player then
+				local desc = BIRTHCAKE_EID.Descs[EID.player:GetPlayerType()]
+				if desc	and BIRTHCAKE_EID:GetTranslatedString(desc) then
+					return true
+				end
+			end
+		end
+		return false
+	end,
+	-- modifier
+	---@param descObj EID_DescObj
+	function(descObj)
+		local playerType = EID.player:GetPlayerType()
+		local desc = BIRTHCAKE_EID:GetTranslatedString(BIRTHCAKE_EID.Descs[playerType])
+		local name = Mod:GetBirthcakeName(EID.player)
+		local spriteConfig = Mod.BirthcakeSprite[playerType]
+		local sprite = descObj.Icon[7]
+		if spriteConfig then
+			sprite:ReplaceSpritesheet(1, spriteConfig.SpritePath)
+		elseif not spriteConfig and Birthcake.BirthcakeDescs[playerType] then
+			sprite:ReplaceSpritesheet(1, "gfx/items/trinkets" .. EID.player:GetName():lower() .. "_birthcake.png")
+		end
+
+		sprite:LoadGraphics()
+		descObj.Description = "#{{Player" .. playerType .. "}} {{ColorGray}}" .. name .. "#" .. desc.Func(descObj)
+
+		return descObj
+	end
+)
