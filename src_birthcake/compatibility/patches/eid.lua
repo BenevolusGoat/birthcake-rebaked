@@ -218,25 +218,65 @@ BIRTHCAKE_EID.Descs = {
 		---@param descObj EID_DescObj
 		---@param str string
 		_modifier = function(descObj, str, strMult)
-			local mult = BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjType)
+			local mult = BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)
 
 			if mult > 1 then
-				return strMult:format(mult - 1)
+				return strMult:format(mult)
 			end
 			return str
 		end,
 		en_us = {
-			"{{Card" .. Card.CARD_DICE_SHARD .."}} ",
+			"Spawns ",
 			function(descObj)
-				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "A Dice Shard", "%s Dice Shards")
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "a {{Card" .. Card.CARD_DICE_SHARD .."}}Dice Shard", "%s {{Card" .. Card.CARD_DICE_SHARD .."}}Dice Shards")
 			end,
-			" spawns in the starting room of every floor"
+			" on pickup and in the starting room of every floor"
+		},
+		ru = {
+			"Создает ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "{{Card" .. Card.CARD_DICE_SHARD .."}}Осколок Кости", "%s {{Card" .. Card.CARD_DICE_SHARD .."}}Осколков Кости")
+			end,
+			" при подьеме и в стартовой комнате каждого этажа"
 		}
 	},
 	[PlayerType.PLAYER_MAGDALENE] = {
-		en_us = {"Is cool and epic"}
+		en_us = {"{{Heart}} Hearts have a 25% chance to be doubled"},
+		ru = {"{{Heart}} Сердца имеют 25% шанс удвоиться"}
 	},
 	[PlayerType.PLAYER_CAIN] = {
+		---@param descObj EID_DescObj
+		---@param str string
+		_modifier = function(descObj, baseChance)
+			local mult = BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)
+			local chance = baseChance * (1.3 + 0.3 * (mult - 1))
+			
+			return tostring(chance * 100)
+		end,
+		en_us = {
+			"#{{Slotmachine}} Slot Machines and {{FortuneTeller}} Fortune Telling Machines have a ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_CAIN]._modifier(descObj, 0.33)
+			end,
+			"% chance to refund money",
+			"#{{CraneGame}} Crane Games have a ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_CAIN]._modifier(descObj, 0.25)
+			end,
+			"% chance to refund money"
+		},
+		ru = {
+			"{{Slotmachine}} Игровые автоматы и {{FortuneTeller}} Автоматы для предсказаний имеют ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_CAIN]._modifier(descObj, 0.33)
+			end,
+			"% шанс возвратить деньги",
+			"#{{CraneGame}} Кран-машины имеют ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_CAIN]._modifier(descObj, 0.25)
+			end,
+			"% шанс возвратить деньги"
+		},
 
 	},
 	[PlayerType.PLAYER_JUDAS] = {

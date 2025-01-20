@@ -23,17 +23,16 @@ function ISAAC_CAKE:SpawnStartingRoomDiceShard()
 	local room = Mod.Game:GetRoom()
 
 	if room:IsFirstVisit() then
-		return
-	end
-	Mod:ForEachPlayer(function(player)
-		if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_ISAAC) then
-			for _ = 1, Mod:GetTrinketMult(player) do
-				Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_DICE_SHARD,
-					room:FindFreePickupSpawnPosition(room:GetCenterPos()), Vector.Zero, player)
+		Mod:ForEachPlayer(function(player)
+			if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_ISAAC) then
+				for _ = 1, Mod:GetTrinketMult(player) do
+					Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_DICE_SHARD,
+						room:FindFreePickupSpawnPosition(room:GetCenterPos()), Vector.Zero, player)
+				end
+				Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
 			end
-			Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
-		end
-	end)
+		end)
+	end
 end
 
 Mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, ISAAC_CAKE.SpawnStartingRoomDiceShard)
