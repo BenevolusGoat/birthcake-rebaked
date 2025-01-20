@@ -25,9 +25,9 @@ function MAGDALENE_CAKE:HeartReplace(entType, variant, subType, position, veloci
 		local newVariant = MAGDALENE_CAKE.HeartSubTypeConversion
 
 		if player and newVariant then
-			local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
+			local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
 			local roll = rng:RandomFloat()
-			if roll < MAGDALENE_CAKE.HEART_REPLACE_CHANCE then
+			if roll < Mod:GetBalanceApprovedLuckChance(MAGDALENE_CAKE.HEART_REPLACE_CHANCE, Mod:GetTrinketMult(player)) then
 				return { EntityType.ENTITY_PICKUP, newVariant, HeartSubType.HEART_DOUBLEPACK, seed }
 			end
 		end

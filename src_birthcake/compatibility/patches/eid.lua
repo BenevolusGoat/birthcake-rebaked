@@ -221,35 +221,51 @@ BIRTHCAKE_EID.Descs = {
 			local mult = BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)
 
 			if mult > 1 then
-				return strMult:format(mult)
+				return "{{ColorGold}}" .. mult .. "{{CR}}" .. strMult
 			end
 			return str
 		end,
 		en_us = {
 			"Spawns ",
 			function(descObj)
-				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "a {{Card" .. Card.CARD_DICE_SHARD .."}}Dice Shard", "%s {{Card" .. Card.CARD_DICE_SHARD .."}}Dice Shards")
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "a {{Card" .. Card.CARD_DICE_SHARD .."}}Dice Shard", " {{Card" .. Card.CARD_DICE_SHARD .."}}Dice Shards")
 			end,
 			" on pickup and in the starting room of every floor"
 		},
 		ru = {
 			"Создает ",
 			function(descObj)
-				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "{{Card" .. Card.CARD_DICE_SHARD .."}}Осколок Кости", "%s {{Card" .. Card.CARD_DICE_SHARD .."}}Осколков Кости")
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "{{Card" .. Card.CARD_DICE_SHARD .."}}Осколок Кости", " {{Card" .. Card.CARD_DICE_SHARD .."}}Осколков Кости")
 			end,
 			" при подьеме и в стартовой комнате каждого этажа"
 		}
 	},
 	[PlayerType.PLAYER_MAGDALENE] = {
-		en_us = {"{{Heart}} Hearts have a 25% chance to be doubled"},
-		ru = {"{{Heart}} Сердца имеют 25% шанс удвоиться"}
+		en_us = {
+		"{{Heart}} Hearts have a ",
+			function(descObj)
+				return tostring(100 * Mod:GetBalanceApprovedLuckChance(Mod.Birthcake.MAGDALENE.HEART_REPLACE_CHANCE, BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)))
+			end,
+		"% chance to be doubled"
+		},
+		ru = {
+		"{{Heart}} Сердца имеют ",
+			function(descObj)
+				return tostring(100 * Mod:GetBalanceApprovedLuckChance(Mod.Birthcake.MAGDALENE.HEART_REPLACE_CHANCE, BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)))
+			end,
+		"% шанс удвоиться"
+		},
 	},
 	[PlayerType.PLAYER_CAIN] = {
 		---@param descObj EID_DescObj
 		---@param str string
 		_modifier = function(descObj, baseChance)
 			local mult = BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)
-			local chance = baseChance * (1.3 + 0.3 * (mult - 1))
+			local chance = baseChance * (1 + 0.3 * (mult - 1))
+			
+			if mult > 1 then
+				return "{{ColorGold}}" .. tostring(chance * 100) .. "{{CR}}"
+			end
 			
 			return tostring(chance * 100)
 		end,

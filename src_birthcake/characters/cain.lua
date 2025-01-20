@@ -63,7 +63,7 @@ function CAIN_BIRTHCAKE:OnSlotInitiate(slot)
 				local roll = rng:RandomFloat()
 				local baseChance = type(slotData.RefundChance) == "function" and slotData.RefundChance(player) or slotData.RefundChance
 				local trinketMult = 0.3 * (Mod:GetTrinketMult(player) - 1)
-				local chance = baseChance * (1.3 + trinketMult)
+				local chance = baseChance * (1 + trinketMult)
 
 				if roll < chance then
 					slotData.RefundReward(player)

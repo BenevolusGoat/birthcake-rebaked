@@ -201,7 +201,7 @@ end
 ---@param baseChance number
 ---@param mult number
 function BirthcakeRebaked:GetBalanceApprovedLuckChance(baseChance, mult)
-	if mult == 0 then mult = 1 end --I did that cuz in my tests mult was just 0 idk why
+	if mult == 0 then mult = 1 end
 	return (1 - 2^(-mult)) * baseChance * 2
 end
 

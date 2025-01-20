@@ -82,6 +82,8 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, LILITH_CAKE.OnFamiliarUpdate, FamiliarVariant.UMBILICAL_BABY)
 
+LILITH_CAKE.RUNT_BASE_DMG_MULT = 0.5
+
 ---@param ent Entity
 ---@param amount integer
 ---@param flags DamageFlag
@@ -94,7 +96,8 @@ function LILITH_CAKE:NerfGelloRuntDamage(ent, amount, flags, source, countdownFr
 		and source.Entity.SpawnerEntity.Variant == FamiliarVariant.UMBILICAL_BABY
 		and Mod:GetData(source.Entity.SpawnerEntity).LilithBirthcakeGello
 	then
-		ent:TakeDamage(amount * 0.5, flags, EntityRef(source.Entity.SpawnerEntity), countdownFrames)
+		local mult = Mod:GetBalanceApprovedLuckChance(LILITH_CAKE.RUNT_BASE_DMG_MULT, Mod:GetTrinketMult(player))
+		ent:TakeDamage(amount * mult, flags, EntityRef(source.Entity.SpawnerEntity), countdownFrames)
 		return false
 	end
 end
