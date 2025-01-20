@@ -400,7 +400,7 @@ local translations = {
 			en_us = "Sturdy turds",
 			ru = "Твердые какашки",
 			cs_cz = "Tvrdá hovna",
-			pl = "Zatwardzenie",
+			pl = "Kał ze skał",
 			ko_kr = "거 똥 한 번 더럽게 단단하네!",
 		},
 		-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
