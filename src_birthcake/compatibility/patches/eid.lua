@@ -393,7 +393,14 @@ BIRTHCAKE_EID.Descs = {
 BIRTHCAKE_EID.DefaultDescription = {
 	en_us = {
 		"↑ +5% to all stats"
-	}
+	},
+	ru = {
+		"↑ +5% ко всем характеристикам"
+	},
+}
+BIRTHCAKE_EID.Names = {
+	en_us = "Birthcake",
+	ru = "Пироженое",
 }
 
 for sharedDescription, copyDescription in pairs(DESCRIPTION_SHARE) do
@@ -418,6 +425,16 @@ for language, descData in pairs(BIRTHCAKE_EID.DefaultDescription) do
 	::continue::
 end
 
+---@param player EntityPlayer
+function BIRTHCAKE_EID:GetBirthcakeName(player)
+	local playerType = player:GetPlayerType()
+	local name = Mod.BirthcakeNames[playerType][EID.getLanguage()] or Mod.BirthcakeNames[playerType].en_us
+	--[[local nameResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.GET_BIRTHCAKE_ITEMTEXT_NAME, playerType, player, name) idk if we need that, but uncomment, if we do
+	name = (nameResult ~= nil and tostring(nameResult)) or name]]
+	return name
+end
+
+
 EID:addDescriptionModifier(
 	"Birthcake Description",
 	-- condition
@@ -440,7 +457,7 @@ EID:addDescriptionModifier(
 		if descTable and BIRTHCAKE_EID:GetTranslatedString(descTable) then
 			desc = BIRTHCAKE_EID:GetTranslatedString(descTable)
 		end
-		local name = Mod:GetBirthcakeName(EID.player)
+		local name = BIRTHCAKE_EID:GetBirthcakeName(EID.player)
 		local spriteConfig = Mod.BirthcakeSprite[playerType]
 		local sprite = descObj.Icon[7]
 		if spriteConfig then
@@ -451,6 +468,7 @@ EID:addDescriptionModifier(
 
 		sprite:LoadGraphics()
 		descObj.Description = "#{{Player" .. playerType .. "}} {{ColorGray}}" .. name .. "#" .. desc.Func(descObj)
+		descObj.Name = BIRTHCAKE_EID.Names[EID.getLanguage()] or BIRTHCAKE_EID.Names.en_us
 
 		return descObj
 	end
