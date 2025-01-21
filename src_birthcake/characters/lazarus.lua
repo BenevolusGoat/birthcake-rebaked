@@ -4,40 +4,77 @@ local game = Mod.Game
 local LAZARUS_CAKE = {}
 BirthcakeRebaked.Birthcake.LAZARUS = LAZARUS_CAKE
 
+---@param player EntityPlayer
+function LAZARUS_CAKE:CheckLazarusB(player)
+	local playerType = player:GetPlayerType()
+	return (playerType == PlayerType.PLAYER_LAZARUS_B or playerType == PlayerType.PLAYER_LAZARUS2_B) and player:HasTrinket(Mod.Birthcake.ID)
+end
+
 -- Lazarus Birthcake
 
----@param ent Entity
----@param amount integer
-function LAZARUS_CAKE:DeathBringer(ent, amount)
-	local player = ent:ToPlayer()
-	---@cast player EntityPlayer
-
-	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_LAZARUS)
-		and Mod:IsPlayerTakingMortalDamage(player, amount)
-		and player:WillPlayerRevive()
-	then
-		Mod:GetData(player).CheckLazarusRisen = true
-	end
-end
-
-Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, LAZARUS_CAKE.DeathBringer, EntityType.ENTITY_PLAYER)
+LAZARUS_CAKE.HIDDEN_ITEM_MANAGER_GROUP = "Laz Birthcake"
 
 ---@param player EntityPlayer
-function LAZARUS_CAKE:AliveMonger(player)
+function LAZARUS_CAKE:CheckBirthcake(player)
 	if player:HasTrinket(Mod.Birthcake.ID)
-		and Mod:GetAllHearts(player) > 0
-		and Mod:GetData(player).CheckLazarusRisen == true
-		and player:GetPlayerType() == PlayerType.PLAYER_LAZARUS2
+		and Mod.HiddenItemManager:CountStack(player, CollectibleType.COLLECTIBLE_LAZARUS_RAGS, LAZARUS_CAKE.HIDDEN_ITEM_MANAGER_GROUP) == 0
 	then
-		for _ = 1, player:GetTrinketMultiplier(Mod.Birthcake.ID) do
-			player:UseActiveItem(CollectibleType.COLLECTIBLE_NECRONOMICON, UseFlag.USE_NOANIM)
-		end
-		player:AddSoulHearts(2)
-		Mod:GetData(player).CheckLazarusRisen = false
+		local effects = player:GetEffects()
+		Mod.HiddenItemManager:Add(player, CollectibleType.COLLECTIBLE_LAZARUS_RAGS, -1, 1, LAZARUS_CAKE.HIDDEN_ITEM_MANAGER_GROUP)
+		effects:AddTrinketEffect(Mod.Birthcake.ID, false, effects:GetNullEffectNum(NullItemID.ID_LAZARUS_BOOST))
+	elseif not player:HasTrinket(Mod.Birthcake.ID)
+		and Mod.HiddenItemManager:CountStack(player, CollectibleType.COLLECTIBLE_LAZARUS_RAGS, LAZARUS_CAKE.HIDDEN_ITEM_MANAGER_GROUP) > 0
+	then
+		Mod.HiddenItemManager:RemoveAll(player, LAZARUS_CAKE.HIDDEN_ITEM_MANAGER_GROUP)
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, LAZARUS_CAKE.AliveMonger, PlayerType.PLAYER_LAZARUS2)
+---@param player EntityPlayer
+function LAZARUS_CAKE:CheckRisenDeath(player)
+	local data = Mod:GetData(player)
+	---If you've already revived as Laz Risen, and you suddenly receive another boost, likely from our wisp
+	if player:HasTrinket(Mod.Birthcake.ID) then
+		local hasBirthcakeRevive = Mod.HiddenItemManager:CountStack(player, CollectibleType.COLLECTIBLE_LAZARUS_RAGS, LAZARUS_CAKE.HIDDEN_ITEM_MANAGER_GROUP) > 0
+		local effects = player:GetEffects()
+		local reviveNum = effects:GetNullEffectNum(NullItemID.ID_LAZARUS_BOOST)
+		local reviveTracker = effects:GetTrinketEffectNum(Mod.Birthcake.ID)
+
+		if reviveTracker < reviveNum then
+			effects:AddTrinketEffect(Mod.Birthcake.ID, false, reviveNum - reviveTracker)
+			if not data.LazCakeHasRags and hasBirthcakeRevive then
+				local hadGolden = player:TryRemoveTrinket(Mod.Birthcake.ID + TrinketType.TRINKET_GOLDEN_FLAG)
+				local momsBoxBonus = player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_BOX) and 1 or 0
+				if hadGolden then
+					local bonus = 1 + momsBoxBonus
+					effects:AddNullEffect(NullItemID.ID_LAZARUS_BOOST, false, bonus)
+					effects:AddTrinketEffect(Mod.Birthcake.ID, false, bonus)
+				else
+					player:TryRemoveTrinket(Mod.Birthcake.ID)
+					effects:AddNullEffect(NullItemID.ID_LAZARUS_BOOST, false, momsBoxBonus)
+					effects:AddTrinketEffect(Mod.Birthcake.ID, false, momsBoxBonus)
+				end
+				Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
+				if not player:HasTrinket(Mod.Birthcake.ID) then
+					Mod.HiddenItemManager:RemoveAll(player, LAZARUS_CAKE.HIDDEN_ITEM_MANAGER_GROUP)
+				end
+			end
+		end
+	end
+	data.LazCakeHasRags = player:HasCollectible(CollectibleType.COLLECTIBLE_LAZARUS_RAGS, true, true)
+end
+
+function LAZARUS_CAKE:OnLazRisenPeffectUpdate(player)
+	LAZARUS_CAKE:CheckBirthcake(player)
+	LAZARUS_CAKE:CheckRisenDeath(player)
+end
+
+Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, LAZARUS_CAKE.OnLazRisenPeffectUpdate, PlayerType.PLAYER_LAZARUS2)
+
+function LAZARUS_CAKE:OnPlayerTypeChange()
+
+end
+
+Mod:AddCallback(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, LAZARUS_CAKE.OnPlayerTypeChange, PlayerType.PLAYER_LAZARUS2)
 
 -- Tainted Lazarus Birthcake
 

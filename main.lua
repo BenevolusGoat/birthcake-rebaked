@@ -349,6 +349,12 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, BirthcakeRebaked.ChangeSpritePickup, PickupVariant.PICKUP_TRINKET)
 
+---For testing help
+function BirthcakeRebaked:SpawnGoldenBirthcake()
+	local room = Mod.Game:GetRoom()
+	Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, Mod.Birthcake.ID + TrinketType.TRINKET_GOLDEN_FLAG, room:FindFreePickupSpawnPosition(room:GetCenterPos()), Vector.Zero, nil)
+end
+
 --[[
 local function round(number, precision)
 	local fmtStr = string.format('%%0.%sf', precision)

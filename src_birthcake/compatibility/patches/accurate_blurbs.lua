@@ -44,14 +44,9 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 		pl = "Zadawanie obrażeń wydłuża laser",
 	},
 	[PlayerType.PLAYER_LAZARUS] = {				-- EN: [X] | RU: [Х] | SPA: [X] | CS_CZ: [X] | PL: [!]
-		en_us = "???",
+		en_us = "Extra Lazarus' Rags revive",
 		ru = "???",
 		pl = "Obrażenia w pokoju i serce dusz po odrodzeniu",
-	},
-	[PlayerType.PLAYER_LAZARUS2] = {			-- EN: [X] | RU: [Х] | SPA: [X] | CS_CZ: [X] | PL: [!]
-		en_us = "???",
-		ru = "???",
-		pl = "Poczekaj do następnego piętra",
 	},
 	[PlayerType.PLAYER_EDEN] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		en_us = "3 random gulped trinkets + can be dropped",
@@ -179,12 +174,12 @@ local function accurateBlurbsPatch()
 	local DESCRIPTION_SHARE = {
 		[PlayerType.PLAYER_BLACKJUDAS] = PlayerType.PLAYER_JUDAS,
 		[PlayerType.PLAYER_ESAU] = PlayerType.PLAYER_JACOB,
-		[PlayerType.PLAYER_LAZARUS2_B] = PlayerType.PLAYER_LAZARUS2,
+		[PlayerType.PLAYER_LAZARUS2] = PlayerType.PLAYER_LAZARUS,
+		[PlayerType.PLAYER_LAZARUS2_B] = PlayerType.PLAYER_LAZARUS_B,
 		[PlayerType.PLAYER_JACOB2_B] = PlayerType.PLAYER_JACOB,
 		[PlayerType.PLAYER_THESOUL] = PlayerType.PLAYER_THEFORGOTTEN,
 		[PlayerType.PLAYER_THESOUL_B] = PlayerType.PLAYER_THEFORGOTTEN,
 	}
-
 
 	for sharedDescription, copyDescription in pairs(DESCRIPTION_SHARE) do
 		Mod.BirthcakeAccurateBlurbs[sharedDescription] = Mod.BirthcakeAccurateBlurbs[copyDescription]

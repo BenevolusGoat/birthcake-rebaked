@@ -265,8 +265,8 @@ local translations = {
 			pl = "Daleki wydech", --szczerze to jest takie pół śmiechem pisane
 			ko_kr = "깊어진 숨결",
 		},
-		[PlayerType.PLAYER_LAZARUS] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "Come down with me",
+		[PlayerType.PLAYER_LAZARUS] = {				-- EN: [X] | RU: [!] | SPA: [X] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+			en_us = "Rise again",
 			ru = "Снизойди со мной",
 			cs_cz = "Sejdi se mnou",
 			pl = "Polegnijcie, ze mną", --idk mi się nie podoboa co ty myślisz?
