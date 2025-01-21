@@ -345,23 +345,26 @@ local translations = {
 			pl = "Moje, twoje, nasze, wspólne", --Makłowicz
 			ko_kr = "너보다 강해",
 		},
-		[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Pocket item",
 			ru = "Карманный предмет",
+			spa = "Objeto de bolsillo",
 			cs_cz = "Kapesní předmět",
 			pl = "Podręczny przedmiot",
 			ko_kr = "주머니 아이템",
 		},
-		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Heart attack",
 			ru = "Сердечный приступ",
+			spa = "Infarto",
 			cs_cz = "Infarkt",
 			pl = "Zawał",
 			ko_kr = "심장이 터질 것만 같아!", --진짜 터짐 ㅋㅋ
 		},
-		[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Repurpose",
 			ru = "Переработка",
+			spa = "Reutilizar",
 			cs_cz = "Opětovné použití", -- I struggled with this one a lot, it's kinda weird to translate or my vocabulary is just shit ti-hi
 			pl = "Recykling",
 			ko_kr = "재활용",
@@ -369,13 +372,15 @@ local translations = {
 		[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Shadow charge",
 			ru = "Теневой заряд",
+			spa = "Carga sombría",
 			cs_cz = "Stínové nabití",
 			pl = "Szarża cieni",
 			ko_kr = "그림자 충전",
 		},
-		[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
+		[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
 			en_us = "Sturdy turds",
 			ru = "Твердые какашки",
+			spa = "Cacas robustas",
 			cs_cz = "Tvrdá hovna",
 			pl = "Kał ze skał",
 			ko_kr = "거 똥 한 번 더럽게 단단하네!",
@@ -387,16 +392,18 @@ local translations = {
 			pl = "",
 			ko_kr = "",
 		},
-		[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Unending rampage",
 			ru = "Нескончаемая ярость",
+			spa = "Alboroto interminable", --Probably works??? couldn't find anything better for it
 			cs_cz = "Nekonečné běsnění",
 			pl = "Nieskończony gniew",
 			ko_kr = "끝없는 폭주",
 		},
-		[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Allergy up",
 			ru = "Аллергия ↑",
+			spa = "Alergia ↑",
 			cs_cz = "Alergie ↑",
 			pl = "Alergie ↑",
 			ko_kr = "알레르기 증가",
@@ -407,58 +414,66 @@ local translations = {
 			cs_cz = "Povstaň znovu",
 			pl = "Powstań z grobu",
 		},
-		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
+		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
 			en_us = "Anti-Virus, results may vary",
 			ru = "Антивирус, результаты могут различаться",
+			spa = "Antivirus, los efectos pueden variar",
 			cs_cz = "Antivirus, výsledky se mohou lišit",
 			pl = "Antivirus, wyniki mogą byż różne",
 			ko_kr = "영원한 장신구",
 		},
-		[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
+		[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 			en_us = "Blessed deck",
 			ru = "Благословенная колода",
+			spa = "Baraja bendecida",
 			cs_cz = "Požehnaný balíček",
 			pl = "Święta Talia",
 			ko_kr = "",
 		},
-		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
+		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 			en_us = "Missing twin",
 			ru = "Пропавший близнец",
+			spa = "Gemelo perdido",
 			cs_cz = "Pohřešované dvojče",
 			pl = "Zaginiony Bliźniak",
 			ko_kr = "",
 		},
-		[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Local business",
 			ru = "Местный бизнес",
+			spa = "Negocio local",
 			cs_cz = "Místní podnik",
 			pl = "Lokalny biznes",
 			ko_kr = "소상공인",
 		},
-		[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Harvest",
 			ru = "Сбор урожая",
+			spa = "Cosecha",
 			cs_cz = "Sklizeň",
 			pl = "Żniwa",
 			ko_kr = "수확",
 		},
-		[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Fracture",
 			ru = "Перелом",
+			spa = "Fractura",
 			cs_cz = "Zlomenina",
 			pl = "Rozpad",
 			ko_kr = "골절",
 		},
-		[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Stronger summons",
 			ru = "Более сильные огоньки", --"Призывы" don't sound very good
+			spa = "Invocaciones más fuertes",
 			cs_cz = "Silnější vyvolání",
 			pl = "Silniejsze ogniki",
 			ko_kr = "강해진 소환물",
 		},
-		[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
+		[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 			en_us = "Blazing trail",
 			ru = "Пылающий след",
+			spa = "Rastro en llamas",
 			cs_cz = "Žhnoucí stopa",
 			pl = "Płonący ślad",
 			ko_kr = "",
