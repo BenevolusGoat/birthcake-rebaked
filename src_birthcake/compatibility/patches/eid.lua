@@ -295,97 +295,97 @@ BIRTHCAKE_EID.Descs = {
 		},
 
 	},
-	[PlayerType.PLAYER_JUDAS] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_JUDAS] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_BLUEBABY] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_BLUEBABY] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_EVE] = {					-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_EVE] = {					-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_SAMSON] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_SAMSON] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_AZAZEL] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_AZAZEL] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_LAZARUS] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_LAZARUS] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_EDEN] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_EDEN] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_THELOST] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_THELOST] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_LILITH] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_LILITH] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_KEEPER] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_KEEPER] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_APOLLYON] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_APOLLYON] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_BETHANY] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_BETHANY] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_JACOB] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_JACOB] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_CAIN_B] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_CAIN_B] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_EVE_B] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_EVE_B] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_EDEN_B] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_EDEN_B] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_THELOST_B] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_THELOST_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_LILITH_B] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_LILITH_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_JACOB_B] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_JACOB_B] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
 }
