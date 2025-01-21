@@ -10,6 +10,7 @@ Birthcake Changes:
 - Tainted ???'s poops have a chance to not take any damage instead of being immune
 - Removed Tainted poops having collision removed and causing slow
 - Removed Tainted Eve spawning clots twice as fast
+- Tainted Eve's clots leave different types of creep depending on the clot that died
 - Lazarus ???
 - Lost has an Astral Projection-like effect upon losing all of their Holy Mantle charges, slowing everything in the room down briefly
 - Removed Lilith's secondary effect of consuming the trinket on a new floor and gaining a familiar

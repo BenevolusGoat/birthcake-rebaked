@@ -24,7 +24,7 @@ Maggy: Temporary hearts dropped from enemies explode (3.5 damage + (0.5 * curren
 Cain: Double pickups are split in half (Double heart -> two full hearts, etc)
 Judas:  Passing through enemies with Dark Arts gives active charge. 180 total, +20 for each enemy
 Blue Baby: Chance for your poop to not take any damage
-Eve: Undecided
+Eve: Clots leave a small puddle of creep on death. These deal the same damage as and similar effects to the respective clot
 Samson: Chance on room clear to increase Berserk timer by 5 seconds and spawn half a red heart
 Azazel: When sneezing, shoot out 6 snot tears with short-ish range that inflict brimstone mark. small chance to stick like a normal booger tear
 Lazarus: Undecided
