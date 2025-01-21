@@ -23,7 +23,6 @@ Birthcake Reworks:
 - Tainted Judas will gain active charge when passing through enemies instead of slowing them
 - ??? has different interactions between The Poop and other actives. With The Poop, it spawns 2 additional poops directly adjacent to the initial poop depending on the direction you're facing, creating a wall. With other actives, it shoots out mini poops in random directions based on the number of charges the active has, which has similar conditions to The Poop of being different variants
 - Eve: Dead Bird turns into Blood Bird, scaling off of player damage (cannot go below their base damage, and scales respectfully to not be too crazy) and occasionally leaves small damaging puddles of blood
-- Tainted Eve ???
 - Azazel has the duration of their beam extended so long as it damages enemies, for a maximum time of 3x the typical duration. Trinket multipliers will each add +50% of this duration. Also comes with a -10% damage reduction
 - Tainted Azazel shoots 6 booger tears in front of them upon sneezing that all inflict the Brimstone Curse on contact. 10% chance for them to stick to enemies
 - Eden's Birthcake grants 3 random gulped trinkets, additional trinkets based on multipliers. The trinkets are tied to Birthcake, meaning dropping it will remove the trinkets, picking it up will re-grant them
