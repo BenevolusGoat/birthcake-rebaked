@@ -63,6 +63,7 @@ function LAZARUS_CAKE:CheckRisenDeath(player)
 	data.LazCakeHasRags = player:HasCollectible(CollectibleType.COLLECTIBLE_LAZARUS_RAGS, true, true)
 end
 
+---@param player EntityPlayer
 function LAZARUS_CAKE:OnLazRisenPeffectUpdate(player)
 	LAZARUS_CAKE:CheckBirthcake(player)
 	LAZARUS_CAKE:CheckRisenDeath(player)
@@ -70,8 +71,9 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, LAZARUS_CAKE.OnLazRisenPeffectUpdate, PlayerType.PLAYER_LAZARUS2)
 
-function LAZARUS_CAKE:OnPlayerTypeChange()
-
+---@param player EntityPlayer
+function LAZARUS_CAKE:OnPlayerTypeChange(player)
+	Mod.HiddenItemManager:RemoveAll(player, LAZARUS_CAKE.HIDDEN_ITEM_MANAGER_GROUP)
 end
 
 Mod:AddCallback(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, LAZARUS_CAKE.OnPlayerTypeChange, PlayerType.PLAYER_LAZARUS2)
