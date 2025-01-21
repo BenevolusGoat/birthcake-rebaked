@@ -214,7 +214,7 @@ en_us = {
  ]]
 
 BIRTHCAKE_EID.Descs = {
-	[PlayerType.PLAYER_ISAAC] = {
+	[PlayerType.PLAYER_ISAAC] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		---@param descObj EID_DescObj
 		---@param str string
 		_modifier = function(descObj, str, strMult)
@@ -240,7 +240,7 @@ BIRTHCAKE_EID.Descs = {
 			" при подьеме и в стартовой комнате каждого этажа"
 		}
 	},
-	[PlayerType.PLAYER_MAGDALENE] = {
+	[PlayerType.PLAYER_MAGDALENE] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"{{Heart}} Hearts have a ",
 			function(descObj)
@@ -256,7 +256,7 @@ BIRTHCAKE_EID.Descs = {
 		"% шанс удвоиться"
 		},
 	},
-	[PlayerType.PLAYER_CAIN] = {
+	[PlayerType.PLAYER_CAIN] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		---@param descObj EID_DescObj
 		---@param str string
 		_modifier = function(descObj, baseChance)
@@ -295,97 +295,97 @@ BIRTHCAKE_EID.Descs = {
 		},
 
 	},
-	[PlayerType.PLAYER_JUDAS] = {
+	[PlayerType.PLAYER_JUDAS] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_BLUEBABY] = {
+	[PlayerType.PLAYER_BLUEBABY] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_EVE] = {
+	[PlayerType.PLAYER_EVE] = {					-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_SAMSON] = {
+	[PlayerType.PLAYER_SAMSON] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_AZAZEL] = {
+	[PlayerType.PLAYER_AZAZEL] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_LAZARUS] = {
+	[PlayerType.PLAYER_LAZARUS] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_EDEN] = {
+	[PlayerType.PLAYER_EDEN] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_THELOST] = {
+	[PlayerType.PLAYER_THELOST] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_LILITH] = {
+	[PlayerType.PLAYER_LILITH] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_KEEPER] = {
+	[PlayerType.PLAYER_KEEPER] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_APOLLYON] = {
+	[PlayerType.PLAYER_APOLLYON] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN] = {
+	[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_BETHANY] = {
+	[PlayerType.PLAYER_BETHANY] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_JACOB] = {
+	[PlayerType.PLAYER_JACOB] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_ISAAC_B] = {
+	[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_MAGDALENE_B] = {
+	[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_CAIN_B] = {
+	[PlayerType.PLAYER_CAIN_B] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_JUDAS_B] = {
+	[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_BLUEBABY_B] = {
+	[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_EVE_B] = {
+	[PlayerType.PLAYER_EVE_B] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_SAMSON_B] = {
+	[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_AZAZEL_B] = {
+	[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_LAZARUS_B] = {
+	[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_EDEN_B] = {
+	[PlayerType.PLAYER_EDEN_B] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_THELOST_B] = {
+	[PlayerType.PLAYER_THELOST_B] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_LILITH_B] = {
+	[PlayerType.PLAYER_LILITH_B] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_KEEPER_B] = {
+	[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_APOLLYON_B] = {
+	[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN_B] = {
+	[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_BETHANY_B] = {
+	[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_JACOB_B] = {
+	[PlayerType.PLAYER_JACOB_B] = {				-- EN: [X] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
 }
