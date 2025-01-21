@@ -50,3 +50,16 @@ BirthcakeRebaked.EntityPoopVariant = EntityPoopVariant or {
     HOLY = 16,
     WHITE = 16,
 }
+
+---Not RGON but wanted to put it with the others
+
+---@enum BloodClotSubtype
+BirthcakeRebaked.BloodClotSubtype = {
+	RED = 0,
+	SOUL = 1,
+	BLACK = 2,
+	ETERNAL = 3,
+	GOLD = 4,
+	BONE = 5,
+	ROTTEN = 6
+}

@@ -84,7 +84,56 @@ Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, EVE_CAKE.BuffBloodBirdDamage)
 
 -- Tainted Eve Birthcake
 
---TODO: maybe chance to spawn extra red clot
+---@type {[BloodClotSubtype]: fun(clot: EntityFamiliar, creep: EntityEffect)}
+EVE_CAKE.ClotVariantOnDeath = {
+	[Mod.BloodClotSubtype.RED] = function(clot, creep)
+		creep.CollisionDamage = clot.Player.Damage * 0.35
+	end,
+	[Mod.BloodClotSubtype.SOUL] = function(clot, creep)
+		creep:GetSprite():Load("gfx/1000.025_creep (white).anm2", true)
+		creep.Color = Color(1,1,1,1,-0.9, -0.725, -0.5)
+		creep.Color = Color(0.2, 0.4, 0.7, 1)
+		creep.CollisionDamage = clot.Player.Damage * 0.35
+	end,
+	[Mod.BloodClotSubtype.BLACK] = function(clot, creep)
+		creep:GetSprite():Load("gfx/1000.025_creep (white).anm2", true)
+		creep.Color = Color(1,1,1,1,-0.9, -0.9, -0.9)
+		creep.CollisionDamage = clot.Player.Damage * 0.43
+		local data = Mod:GetData(creep)
+		data.IsEveCakeCreep = true
+		data.EveCakeBlackCreep = true
+		creep.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_WALLS
+	end,
+	[Mod.BloodClotSubtype.ETERNAL] = function(clot, creep)
+		creep:GetSprite():Load("gfx/1000.025_creep (white).anm2", true)
+		creep.CollisionDamage = clot.Player.Damage * 0.52
+		local data = Mod:GetData(creep)
+		data.IsEveCakeCreep = true
+		data.EveCakeWhiteCreep = true
+	end,
+	[Mod.BloodClotSubtype.GOLD] = function(clot, creep)
+		creep:GetSprite():Load("gfx/1000.025_creep (white).anm2", true)
+		creep.Color = Color(1,1,1,1,-0.05, -0.4, -1)
+		creep.CollisionDamage = clot.Player.Damage * 0.35
+		local data = Mod:GetData(creep)
+		data.IsEveCakeCreep = true
+		data.EveCakeGoldCreep = true
+	end,
+	[Mod.BloodClotSubtype.BONE] = function(clot, creep)
+		creep:GetSprite():Load("gfx/1000.025_creep (white).anm2", true)
+		creep.Color = Color(1,1,1,1,-0.25, -0.27, -0.29)
+		creep.CollisionDamage = clot.Player.Damage * 0.35
+		for _ = 1, 3 do
+			Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BONE_ORBITAL, 0, clot.Position, Vector.Zero, clot.Player)
+		end
+	end,
+	[Mod.BloodClotSubtype.ROTTEN] = function(clot, creep)
+		creep:GetSprite():Load("gfx/1000.025_creep (white).anm2", true)
+		creep.Color = Color(1,1,1,1,-0.8, -0.78, -0.87)
+		creep.CollisionDamage = clot.Player.Damage * 0.35
+		clot.Player:AddBlueFlies(3, clot.Position, clot.Player)
+	end
+}
 
 ---@param ent Entity
 function EVE_CAKE:ClotDeath(ent, dmg, flag, source, cdframe)
@@ -92,11 +141,46 @@ function EVE_CAKE:ClotDeath(ent, dmg, flag, source, cdframe)
 
 	if player
 		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_EVE_B)
-		and ent.Variant == FamiliarVariant.BLOOD_BABY and ent:IsDead()
+		and ent.Variant == FamiliarVariant.BLOOD_BABY
 	then
-		Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 0, ent.Position, Vector.Zero, ent)
+		local clot = ent:ToFamiliar() ---@cast clot EntityFamiliar
+		local creep = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 0, clot.Position, Vector.Zero, clot):ToEffect()
+		---@cast creep EntityEffect
+		creep:SetTimeout(241)
+		local deathEffect = EVE_CAKE.ClotVariantOnDeath[ent.SubType]
+		if deathEffect then
+			deathEffect(clot, creep)
+		end
+		creep:Update()
 	end
 end
 
 Mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, EVE_CAKE.ClotDeath, EntityType.ENTITY_FAMILIAR)
 
+---@param effect EntityEffect
+function EVE_CAKE:OnClotCreepUpdate(effect)
+	local data = Mod:GetData(effect)
+	if not data.IsEveCakeCreep then return end
+	local ref = EntityRef(effect)
+	local radius = data.EveCakeWhiteCreep and effect.Size * 5 or effect.Size
+	for _, ent in ipairs(Isaac.FindInRadius(effect.Position, radius, EntityPartition.ENEMY)) do
+		local npc = ent:ToNPC()
+		if npc and ent:IsActiveEnemy(false) and ent:IsVulnerableEnemy() and Mod.Game:GetRoom():IsPositionInRoom(npc.Position, 0) then
+			if data.EveCakeGoldCreep then
+				npc:AddMidasFreeze(ref, 150)
+			elseif data.EveCakeBlackCreep then
+				npc:AddFear(ref, 150)
+			elseif data.EveCakeWhiteCreep then
+				effect:AddVelocity((npc.Position - effect.Position):Normalized())
+				if effect.Velocity:Length() > 5 then
+					effect.Velocity = effect.Velocity:Resized(5)
+				end
+			end
+		end
+	end
+	if data.EveCakeWhiteCreep and not Mod.Game:GetRoom():IsPositionInRoom(effect.Position, 0) then
+		effect.Velocity = Vector.Zero
+	end
+end
+
+Mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, EVE_CAKE.OnClotCreepUpdate, EffectVariant.PLAYER_CREEP_RED)
