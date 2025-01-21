@@ -457,6 +457,7 @@ local translations = {
 		--"Alle Werte hoch", (German)
 		spa = "Mejora todas las estadísticas",
 		fr = "Toutes les stats augmentées",
+		cs_cz = "Všechny statistiky ↑",
 	}
 }
 
