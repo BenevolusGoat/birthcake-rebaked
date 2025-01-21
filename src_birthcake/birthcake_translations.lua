@@ -209,121 +209,138 @@ local translations = {
 
 	---Any empty descriptions are for characters that I may change the effect of, or ones I do want but haven't thought of an idea yet
 	BIRTHCAKE_DESCRIPTION = {
-		[PlayerType.PLAYER_ISAAC] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_ISAAC] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Bonus roll",
 			ru = "Бонусный переброс",
+			spa = "Intento extra", --kinda had to change it to "Extra attempt"
 			cs_cz = "Bonusový hod", -- Or "Bonusová šance", not sure what fits more
 			pl = "Bonusowa szansa", --Nie wiem, czy lepiej, ale próbowałem.
 			ko_kr = "추가 리롤",
 		},
-		[PlayerType.PLAYER_MAGDALENE] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_MAGDALENE] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Healing power",
 			ru = "Сила исцеления",
+			spa = "Poder sanador",
 			cs_cz = "Síla léčení",
 			pl = "Siła leczenia",
 			ko_kr = "회복력",
 		},
-		[PlayerType.PLAYER_CAIN] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_CAIN] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Sleight of hand",
 			ru = "Ловкость рук",
+			spa = "Prestidigitación",
 			cs_cz = "Fígl", -- The direct translation sounds really weird, I think this one is fitting tho hehe
 			pl = "Lepkie ręce", --dosłownie tłumaczenie brzmi badziewnie. "Lepkie ręcę" jest używane w języku
 			ko_kr = "손재주",
 		},
-		[PlayerType.PLAYER_JUDAS] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_JUDAS] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Sinner's guard",
 			ru = "Страж грешника",
+			spa = "Guardia del pecador",
 			cs_cz = "Hříšníkův strážce",
 			pl = "Straż Grzesznika", --ej Monwil, sprawdź wymowę rosyjskiego tłumaczenia lub przeczytaj czeskie :trololed:
 			ko_kr = "죄인의 보호막",
 		},
-		[PlayerType.PLAYER_BLUEBABY] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_BLUEBABY] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Loose bowels",
 			ru = "Дряблый кишечник",
+			spa = "Caca estreñida",
 			cs_cz = "Řídká stolice",
 			pl = "Erupcja Wezuwiusza", --przepraszam. Nie mogłem się powstrzymać.
 			ko_kr = "설사",
 		},
-		[PlayerType.PLAYER_EVE] = {					-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
+		[PlayerType.PLAYER_EVE] = {					-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
 			en_us = "Bloody murder!",
 			ru = "Кровавое убийство!",
+			spa = "Asesinato sangriento!",
 			cs_cz = "Krvavá vražda",
 			pl = "Krwawy Morderca",
 			ko_kr = "안전한 출혈",
 		},
-		[PlayerType.PLAYER_SAMSON] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_SAMSON] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Healing rage",
 			ru = "Исцеляющая ярость",
+			spa = "Furia curativa",
 			cs_cz = "Léčivý hněv",
 			pl = "Leczący gniew",
 			ko_kr = "치유의 분노",
 		},
-		[PlayerType.PLAYER_AZAZEL] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_AZAZEL] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Deeper breaths",
 			ru = "Дыши глубже...",
+			spa = "Respiración profunda",
 			cs_cz = "Hluboké dýchání",
 			pl = "Daleki wydech", --szczerze to jest takie pół śmiechem pisane
 			ko_kr = "깊어진 숨결",
 		},
-		[PlayerType.PLAYER_LAZARUS] = {				-- EN: [X] | RU: [!] | SPA: [X] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		[PlayerType.PLAYER_LAZARUS] = {				-- EN: [X] | RU: [!] | SPA: [OK] | CS_CZ: [!] | PL: [!] | KO_KR [!]
 			en_us = "Rise again",
 			ru = "Снизойди со мной",
+			spa = "Regresa otra vez",
 			cs_cz = "Sejdi se mnou",
 			pl = "Polegnijcie, ze mną", --idk mi się nie podoboa co ty myślisz?
 			ko_kr = "동귀어진",
 		},
-		[PlayerType.PLAYER_EDEN] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_EDEN] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Variety flavor",
 			ru = "Вкус разнообразия",
+			spa = "Multisabor",
 			cs_cz = "Všehochuť",
 			pl = "Smak różnorodności",
 			ko_kr = "다양한 맛",
 		},
-		[PlayerType.PLAYER_THELOST] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_THELOST] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Regained power",
 			ru = "Возвращенная сила",
+			spa = "Poder recuperado",
 			cs_cz = "Obnovená síla",
 			pl = "Odnaleziona siła", --chciałem dać "odnaleziona" bo tłumaczą losta jako "zaginionego". Ale nie wiem :/
 			ko_kr = "되찾은 동력",
 		},
-		[PlayerType.PLAYER_LILITH] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_LILITH] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Remember to share!",
 			ru = "Не забудь поделиться!",
+			spa = "Acuérdate de compartir!",
 			cs_cz = "Nezapomeň se podělit!",
 			pl = "Pamiętaj, by się dzielić!",
 			ko_kr = "좋은 건 나눠야지!",
 		},
-		[PlayerType.PLAYER_KEEPER] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_KEEPER] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Spare change",
 			ru = "Лишняя мелочь",
+			spa = "Monedas sueltas",
 			cs_cz = "Drobné",
 			pl = "Drobne",
 			ko_kr = "잔돈",
 		},
-		[PlayerType.PLAYER_APOLLYON] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_APOLLYON] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Snack time!",
 			ru = "Время перекуса!",
+			spa = "Hora de merendar!",
 			cs_cz = "Sváča!",
 			pl = "Smakołyki!",
 			ko_kr = "간식 시간이다!",
 		},
-		[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Revitalize",
 			ru = "Оживление",
+			spa = "Revitalizar",
 			cs_cz = "Oživení",
 			pl = "Ożywiony",
 			ko_kr = "재활",
 		},
-		[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Harmony of body and soul",
 			ru = "Гармония души и тела",
+			spa = "Armonía del cuerpo y el alma",
 			cs_cz = "Rovnováha těla a duše",
 			pl = "Harmonia ciała i duszy",
 			ko_kr = "육신과 영혼의 조화",
 		},
-		[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
+		[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
 			en_us = "What's mine is yours",
 			ru = "Что мое, то и твое",
+			spa = "Lo que es mío es tuyo",
 			cs_cz = "Co je mé je tvé",
 			pl = "Moje, twoje, nasze, wspólne", --Makłowicz
 			ko_kr = "너보다 강해",
