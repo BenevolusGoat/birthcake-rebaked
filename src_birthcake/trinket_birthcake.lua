@@ -20,7 +20,8 @@ local characters = {
 	"thelost",
 	"azazel",
 	"forgotten",
-	"lillith"
+	"lillith",
+	"default_effect"
 }
 local characterScriptPath = "src_birthcake.characters."
 

@@ -448,7 +448,16 @@ local translations = {
 		},
 	},
 
-	EID = {}
+	DEFAULT_DESCRIPTION = {
+		en_us = "All stats up",
+		ja_jp = "全てのステータスがアップ",
+		ko_kr = "모든 능력치 증가",
+		--"所有属性上升", (Simplified Chinese)
+		ru = "Все характеристики ↑",
+		--"Alle Werte hoch", (German)
+		spa = "Mejora todas las estadísticas",
+		fr = "Toutes les stats augmentées",
+	}
 }
 
 for sharedName, copyName in pairs(NAME_SHARE) do

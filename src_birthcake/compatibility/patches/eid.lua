@@ -390,6 +390,12 @@ BIRTHCAKE_EID.Descs = {
 	},
 }
 
+BIRTHCAKE_EID.DefaultDescription = {
+	en_us = {
+		"↑ +5% to all stats"
+	}
+}
+
 for sharedDescription, copyDescription in pairs(DESCRIPTION_SHARE) do
 	BIRTHCAKE_EID.Descs[sharedDescription] = BIRTHCAKE_EID.Descs[copyDescription]
 end
@@ -405,6 +411,13 @@ for _, trinketDescData in pairs(BIRTHCAKE_EID.Descs) do
 	end
 end
 
+for language, descData in pairs(BIRTHCAKE_EID.DefaultDescription) do
+	if language:match('^_') or not DD:IsValidDescription(descData) then goto continue end -- skip helper private fields
+	local newDesc = DD:MakeMinimizedDescription(descData)
+	BIRTHCAKE_EID.DefaultDescription[language] = newDesc
+	::continue::
+end
+
 EID:addDescriptionModifier(
 	"Birthcake Description",
 	-- condition
@@ -413,10 +426,7 @@ EID:addDescriptionModifier(
 		if descObj.ObjVariant == PickupVariant.PICKUP_TRINKET then
 			subtype = (subtype & ~TrinketType.TRINKET_GOLDEN_FLAG)
 			if subtype == Mod.Birthcake.ID and EID.player then
-				local desc = BIRTHCAKE_EID.Descs[EID.player:GetPlayerType()]
-				if desc	and BIRTHCAKE_EID:GetTranslatedString(desc) then
-					return true
-				end
+				return true
 			end
 		end
 		return false
@@ -425,7 +435,11 @@ EID:addDescriptionModifier(
 	---@param descObj EID_DescObj
 	function(descObj)
 		local playerType = EID.player:GetPlayerType()
-		local desc = BIRTHCAKE_EID:GetTranslatedString(BIRTHCAKE_EID.Descs[playerType])
+		local descTable = BIRTHCAKE_EID.Descs[EID.player:GetPlayerType()]
+		local desc = BIRTHCAKE_EID:GetTranslatedString(BIRTHCAKE_EID.DefaultDescription)
+		if descTable and BIRTHCAKE_EID:GetTranslatedString(descTable) then
+			desc = BIRTHCAKE_EID:GetTranslatedString(descTable)
+		end
 		local name = Mod:GetBirthcakeName(EID.player)
 		local spriteConfig = Mod.BirthcakeSprite[playerType]
 		local sprite = descObj.Icon[7]

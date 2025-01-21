@@ -166,6 +166,7 @@ BirthcakeRebaked.ModCallbacks = {
 local translations = include("src_birthcake.birthcake_translations")
 BirthcakeRebaked.BirthcakeNames = translations.BIRTHCAKE_NAME
 BirthcakeRebaked.BirthcakeDescriptions = translations.BIRTHCAKE_DESCRIPTION
+BirthcakeRebaked.BirthcakeDefaultDescription = translations.DEFAULT_DESCRIPTION
 BirthcakeRebaked.EID = translations.EID
 
 local utility = {
@@ -226,7 +227,7 @@ end
 ---@param player EntityPlayer
 function BirthcakeRebaked:GetBirthcakeDescription(player)
 	local playerType = player:GetPlayerType()
-	local description = "No effect!" --Placeholder
+	local description = Mod:TryGetTranslation(Mod.BirthcakeDefaultDescription)
 	if Mod.BirthcakeDescriptions[playerType] and Mod:TryGetTranslation(Mod.BirthcakeDescriptions[playerType]) then
 		description = Mod:TryGetTranslation(Mod.BirthcakeDescriptions[playerType])
 	elseif Birthcake.BirthcakeDescs[playerType] then
@@ -244,11 +245,13 @@ function BirthcakeRebaked:GetBirthcakeSprite(player)
 	local spriteConfig = Mod.BirthcakeSprite[playerType]
 	local sprite = Sprite()
 	sprite:Load("gfx/005.350_trinket.anm2", false)
+	local spritePath = trinketPath .. "0_isaac_birthcake.png"
 	if spriteConfig then
-		sprite:ReplaceSpritesheet(0, spriteConfig.SpritePath)
+		spritePath = spriteConfig.SpritePath
 	elseif not spriteConfig and Birthcake.BirthcakeDescs[playerType] then
-		sprite:ReplaceSpritesheet(0, trinketPath .. player:GetName():lower() .. "_birthcake.png")
+		spritePath = trinketPath .. player:GetName():lower() .. "_birthcake.png"
 	end
+	sprite:ReplaceSpritesheet(0, spritePath)
 	sprite:LoadGraphics()
 	local spriteResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.LOAD_BIRTHCAKE_SPRITE, playerType, player, sprite)
 	sprite = (spriteResult ~= nil and type(spriteResult) == "userdata" and getmetatable(spriteResult).__type == "Sprite" and spriteResult) or
