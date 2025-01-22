@@ -51,10 +51,8 @@ function JUDAS_CAKE:IsFatalDeal(player, pickup)
 	if not cost then return false end
 	local heartCost = cost.Red or 0
 	local soulCost = cost.Soul or 0
-	print(hearts, soulHearts)
 	hearts = math.max(0, hearts - (heartCost * 2))
 	soulHearts = math.max(0, soulHearts - (soulCost * 2))
-	print(hearts, soulHearts)
 	return hearts + soulHearts <= 0
 end
 
