@@ -97,7 +97,7 @@ Mod:AddCallback(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, LAZARUS_CAKE.OnPlayerTy
 
 -- Tainted Lazarus Birthcake
 
-LAZARUS_CAKE.ITEM_SPLIT_CHANCE = 0.30
+LAZARUS_CAKE.ITEM_SPLIT_CHANCE = 0.5
 local ALIVE_COLOR = Color(1, 1, 1, 1, 0.7, 0.9, 1)
 local DEAD_COLOR = Color(1, 1, 1, 1, 1, 0, 0)
 
