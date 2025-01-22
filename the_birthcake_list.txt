@@ -8,7 +8,7 @@ Blue Baby: The Poop can spawn two poops adjacent to the original poop depending 
 Eve: Dead Bird turns into Blood Bird, scaling off of player damage (cannot go below their base damage, and scales respectfully to not be too crazy) and occasionally leaves small damaging puddles of blood
 Samson: Drops a heart when reaching max blood lust. With Birthright it activates at both non-br and br max points. Soul Heart if you're full health, red heart if you can take it, double red hearts if you are missing enough red health
 Azazel: Your brimstone lasts longer when damaging enemies
-Lazarus: Undecided
+Lazarus: Acts like a Lazarus' Rags, reviving you a second time and further contributing to your damage boost that affects both forms
 Eden: 3 random gulped trinket on first time pickup, can be dropped
 The Lost: When getting hit with mantle, if you have no further mantle charges, you activate an Astral Projectile-like effect
 Lilith: Familiars have a chance to copy your tear effects
@@ -27,7 +27,7 @@ Blue Baby: Chance for your poop to not take any damage
 Eve: Clots leave a small puddle of creep on death. These deal the same damage as and similar effects to the respective clot
 Samson: Chance on room clear to increase Berserk timer by 5 seconds and spawn half a red heart
 Azazel: When sneezing, shoot out 6 snot tears with short-ish range that inflict brimstone mark. small chance to stick like a normal booger tear
-Lazarus: Undecided
+Lazarus: When using Flip, it has a chance to split collectibles into both of their halves as separate pedestals
 Eden: Chance to not reroll your entire inventory when rerolling (Birthcake itself, like Birthright, is immune to this)
 The Lost: Spawns a Holy Card, higher chance to find them
 Lilith: Chance for a second Gello to spawn when whipping out the first Gello. No whip effect and has a delay coming out, is smaller and deals half your damage

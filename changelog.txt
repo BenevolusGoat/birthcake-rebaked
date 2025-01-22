@@ -27,7 +27,7 @@ Birthcake Reworks:
 - Eden's Birthcake grants 3 random gulped trinkets, additional trinkets based on multipliers. The trinkets are tied to Birthcake, meaning dropping it will remove the trinkets, picking it up will re-grant them
 - Tainted Eden has a chance to not reroll their items on hit, scaling with trinket multipliers
 - Lazarus gains an extra Lazarus' Rags revive that has priority over most extra life counters, not counting his own innate revive and the item itself. Upon revive, the cake is consumed, and you'll gain another point to the damage boost you gain as you normally would with a Laz's Rags revive. More damage is added if it was a golden trinket and/or if you have Mom's Box
-- Tainted Lazarus ???
+- Tainted Lazarus will have a chance to split flipped collectible apart in two
 - Tainted Lilith has a chance to shoot out a second, smaller Gello that deals 50% less damage. It does not shoot out of Lilith like a whip, unlike the main Gello
 - When The Soul shoots through Forgotten's Body, it creates a Compound Fracture effect of 1-3 half-damage tears, adding an additional bone scaling with trinket multipliers. Doing this charges The Forgotten's body with "soul charges". When swapping back to The Forgotten, the stored charges convert to a diminishing tears up. This tears up instantly goes away when swapping back to The Soul
 - Tainted Forgotten will spawn bone orbitals when killing enemies, which will orbit around Tainted Soul. When picking up T. Forgotten and throwing them, the bone orbitals are shot forward like tears
