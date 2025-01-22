@@ -4,7 +4,7 @@ local game = Mod.Game
 local BETHANY_CAKE = {}
 BirthcakeRebaked.Birthcake.BETHANY = BETHANY_CAKE
 
-BETHANY_CAKE.WISP_CHANCE = 0.25
+BETHANY_CAKE.WISP_DUPE_CHANCE = 0.25
 
 -- Bethany Birthcake
 
@@ -18,7 +18,7 @@ function BETHANY_CAKE:OnActiveUse(itemID, rng, player, flags)
 		or player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES))
 	then
 		local chanceMult = Mod:GetTrinketMult(player)
-		if rng:RandomFloat() < BETHANY_CAKE.WISP_CHANCE * chanceMult then
+		if rng:RandomFloat() <= BETHANY_CAKE.WISP_DUPE_CHANCE * chanceMult then
 			player:AddWisp(itemID, player.Position)
 		end
 	end

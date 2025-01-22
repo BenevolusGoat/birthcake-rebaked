@@ -11,10 +11,11 @@ function SAMSON_CAKE:BloodLust(ent, amount, flags, source, dmg)
 	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_SAMSON) then
 		local bloodyLustStack = player:GetEffects():GetCollectibleEffectNum(CollectibleType.COLLECTIBLE_BLOODY_LUST)
 		if bloodyLustStack == 6 or (bloodyLustStack == 10 and player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)) then
-			for i = 1, 2 do
+			local addedHearts = 0
+			for _ = 1, 2 do
 				local variant = HeartSubType.HEART_FULL
 				if Mod:GetTrinketMult(player) > 1 then
-					local health = player:GetHearts() + (i - 1) * 2
+					local health = player:GetHearts() * 2 + player:GetRottenHearts() + addedHearts
 					local maxHealth = player:GetEffectiveMaxHearts()
 					if health >= maxHealth then
 						variant = HeartSubType.HEART_SOUL
@@ -22,6 +23,7 @@ function SAMSON_CAKE:BloodLust(ent, amount, flags, source, dmg)
 						variant = HeartSubType.HEART_DOUBLEPACK
 					end
 				end
+				addedHearts = addedHearts + (variant == HeartSubType.HEART_DOUBLEPACK) and 4 or 2
 				Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, variant,
 					Isaac.GetFreeNearPosition(player.Position, 10), Vector.Zero, player)
 			end
@@ -43,7 +45,7 @@ function SAMSON_CAKE:BerserkRoomClear()
 			local playerEffects = player:GetEffects()
 			local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
 			local roll = rng:RandomFloat()
-			if roll < Mod:GetBalanceApprovedChance(SAMSON_CAKE.BASE_BERSERK_HELP_CHANCE, Mod:GetTrinketMult(player)) then
+			if roll <= Mod:GetBalanceApprovedChance(SAMSON_CAKE.BASE_BERSERK_HELP_CHANCE, Mod:GetTrinketMult(player)) then
 				Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_HALF,
 					Mod.Game:GetRoom():FindFreePickupSpawnPosition(player.Position, 40), Vector(0, 0), player)
 				playerEffects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_BERSERK, true, 1)

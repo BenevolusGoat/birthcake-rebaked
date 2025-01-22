@@ -5,6 +5,8 @@ BirthcakeRebaked.Birthcake.LILITH = LILITH_CAKE
 
 -- Lillith Birthcake
 
+LILITH_CAKE.SHARE_TEAR_EFFECTS_CHANCE = 0.25
+
 ---@param tearOrLaser EntityTear | EntityLaser
 function LILITH_CAKE:EffectShare(tearOrLaser)
 	if tearOrLaser.FrameCount == 1
@@ -17,7 +19,7 @@ function LILITH_CAKE:EffectShare(tearOrLaser)
 		local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
 		local trinketMult = Mod:GetTrinketMult(player)
 
-		if rng:RandomFloat() < 0.25 * trinketMult then
+		if rng:RandomFloat() <= LILITH_CAKE.SHARE_TEAR_EFFECTS_CHANCE * trinketMult then
 			tearOrLaser:AddTearFlags(player.TearFlags)
 			tearOrLaser:SetColor(player.TearColor, -1, 1, false, false)
 		end
@@ -43,7 +45,8 @@ function LILITH_CAKE:FireRunt(player)
 	if player:HasTrinket(Mod.Birthcake.ID)
 		and player:GetFireDirection() ~= Direction.NO_DIRECTION
 		and player.FireDelay == player.MaxFireDelay * 2
-		and player:GetTrinketRNG(Mod.Birthcake.ID):RandomFloat() < LILITH_CAKE.SPAWN_RUNT_CHANCE * Mod:GetTrinketMult(player)
+		and player:GetTrinketRNG(Mod.Birthcake.ID):RandomFloat()
+		<= Mod:GetBalanceApprovedChance(LILITH_CAKE.SPAWN_RUNT_CHANCE, Mod:GetTrinketMult(player))
 	then
 		local data = Mod:GetData(player)
 		if not data.ExtraGello then
@@ -94,11 +97,15 @@ function LILITH_CAKE:NerfGelloRuntDamage(ent, amount, flags, source, countdownFr
 		and source.Entity.SpawnerEntity
 		and source.Entity.SpawnerEntity:ToFamiliar()
 		and source.Entity.SpawnerEntity.Variant == FamiliarVariant.UMBILICAL_BABY
-		and Mod:GetData(source.Entity.SpawnerEntity).LilithBirthcakeGello
 	then
-		local mult = Mod:GetBalanceApprovedChance(LILITH_CAKE.RUNT_BASE_DMG_MULT, Mod:GetTrinketMult(player))
-		ent:TakeDamage(amount * mult, flags, EntityRef(source.Entity.SpawnerEntity), countdownFrames)
-		return false
+		local familiar = source.Entity.SpawnerEntity:ToFamiliar() ---@cast familiar EntityFamiliar
+		local data = Mod:GetData(familiar)
+		if data.LilithBirthcakeGello and not data.PreventDaamgeLoop then
+			data.PreventDamageLoop = true
+			ent:TakeDamage(amount * LILITH_CAKE.RUNT_BASE_DMG_MULT, flags, source, countdownFrames)
+			data.PreventDamageLoop = false
+			return false
+		end
 	end
 end
 

@@ -8,7 +8,6 @@ BirthcakeRebaked.Birthcake.AZAZEL = AZAZEL_CAKE
 
 --API SSUUCCKKSS and I can't change the damage of the laser directly, trust me I tried for non-gon
 
-AZAZEL_CAKE.DEFAULT_MAX_DURATION = 7
 AZAZEL_CAKE.DEFAULT_BONUS_DURATION = 14
 
 ---@param ent Entity
@@ -36,7 +35,7 @@ function AZAZEL_CAKE:OnEntityTakeDamage(ent, amount, flags, source, countdown)
 				local bonusDuration = AZAZEL_CAKE.DEFAULT_BONUS_DURATION * trinketMult
 				local data = Mod:GetData(laser)
 				if (data.AzazelBirthcakeExtension or 0) < AZAZEL_CAKE.DEFAULT_BONUS_DURATION + bonusDuration then
-					laser:SetTimeout(AZAZEL_CAKE.DEFAULT_MAX_DURATION)
+					laser:SetTimeout(laser.Timeout)
 					data.AzazelBirthcakeExtension = (data.AzazelBirthcakeExtension or 0) + 1
 				end
 			end
@@ -62,6 +61,7 @@ Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, AZAZEL_CAKE.DamageDown, CacheFla
 -- Tainted Azazel Birthcake
 
 AZAZEL_CAKE.BOOGER_RANGE = 0.25
+AZAZEL_CAKE.BOOGER_STICK_CHANCE = 0.11
 
 local function randomInt(lower, upper)
 	return Mod.GENERIC_RNG:RandomInt((upper - lower) + 1) + lower
@@ -84,7 +84,7 @@ function AZAZEL_CAKE:OnSneeze(effect)
 		tear.CollisionDamage = tear.CollisionDamage * 0.5
 		tear.FallingAcceleration = AZAZEL_CAKE.BOOGER_RANGE
 
-		if Mod.GENERIC_RNG:RandomFloat() < 0.11 then
+		if Mod.GENERIC_RNG:RandomFloat() <= AZAZEL_CAKE.BOOGER_STICK_CHANCE * Mod:GetTrinketMult(player) then
 			tear:AddTearFlags(TearFlags.TEAR_BOOGER)
 		end
 		tear:SetColor(Color(1, 0, 0, 1, 0.5, 0, 0), -1, 10, false, true)

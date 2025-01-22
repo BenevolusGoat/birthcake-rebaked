@@ -102,7 +102,7 @@ function BLUEBABY_CAKE:SpawnPoop(itemID, rng, player, _, _, _)
 				local poopChance = type(chance) == "function" and chance(player) or chance
 				---@cast poopChance number
 
-				if roll < poopChance * chanceMult then
+				if roll <= poopChance * chanceMult then
 					variant = poopVariant
 				end
 			end
@@ -168,7 +168,8 @@ function BLUEBABY_CAKE:OnPoopDamage(poop, amount, flags, source, countdownFlags)
 	if player
 		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_BLUEBABY_B)
 		and poop.Variant ~= Mod.EntityPoopVariant.PETRIFIED
-		and player:GetTrinketRNG(Mod.Birthcake.ID):RandomFloat() < Mod:GetBalanceApprovedLuckChance(BLUEBABY_CAKE.NO_POOP_DAMAGE_CHANCE, Mod:GetTrinketMult(player))
+		and player:GetTrinketRNG(Mod.Birthcake.ID):RandomFloat()
+		<= Mod:GetBalanceApprovedChance(BLUEBABY_CAKE.NO_POOP_DAMAGE_CHANCE, Mod:GetTrinketMult(player))
 	then
 		return false
 	end

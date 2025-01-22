@@ -70,7 +70,7 @@ Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, THELOST_CAKE.FadingTearsUp, Cach
 -- Tainted Lost Birthcake
 
 
-THELOST_CAKE.HOLY_CARD_REPLACE_BASE_CHANCE = 0.1 --a little adjustment
+THELOST_CAKE.HOLY_CARD_REPLACE_BASE_CHANCE = 0.1
 
 function THELOST_CAKE:OnBirthcakeCollect(player, firstTime)
 	if firstTime then
@@ -91,7 +91,7 @@ function THELOST_CAKE:ReplaceWithHolyCard(rng, _, onlyPlayingCards)
 				totalMult = totalMult + Mod:GetTrinketMult(player)
 			end
 		end)
-		if totalMult > 0 and rng:RandomFloat() < Mod:GetBalanceApprovedChance(THELOST_CAKE.HOLY_CARD_REPLACE_BASE_CHANCE, totalMult) then
+		if totalMult > 0 and rng:RandomFloat() <= Mod:GetBalanceApprovedChance(THELOST_CAKE.HOLY_CARD_REPLACE_BASE_CHANCE, totalMult) then
 			return Card.CARD_HOLY
 		end
 	end
