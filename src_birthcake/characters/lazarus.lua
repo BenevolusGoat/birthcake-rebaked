@@ -107,7 +107,44 @@ local DEAD_COLOR = Color(1, 1, 1, 1, 1, 0, 0)
 function LAZARUS_CAKE:PreFlipPedestals(itemID, rng, player)
 	for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)) do
 		local pickup = ent:ToPickup() ---@cast pickup EntityPickup
-		Mod:GetData(pickup).FlipPedestal = ent.SubType
+		if pickup.SubType ~= CollectibleType.COLLECTIBLE_NULL then
+			Mod:GetData(pickup).FlipPedestal = {pickup.SubType, pickup.Price}
+		end
+	end
+end
+
+LAZARUS_CAKE.DevilPriceSplit = {
+	[PickupPrice.PRICE_THREE_SOULHEARTS] = PickupPrice.PRICE_ONE_SOUL_HEART,
+	[PickupPrice.PRICE_TWO_HEARTS] = PickupPrice.PRICE_ONE_HEART,
+	[PickupPrice.PRICE_ONE_HEART_AND_TWO_SOULHEARTS] = PickupPrice.PRICE_ONE_HEART_AND_ONE_SOUL_HEART,
+	[PickupPrice.PRICE_TWO_SOUL_HEARTS] = PickupPrice.PRICE_ONE_SOUL_HEART,
+}
+
+---@param pickup EntityPickup
+---@param player EntityPlayer
+---@param previousItemID integer
+---@param previousPrice integer
+function LAZARUS_CAKE:SpawnSplitPedestals(pickup, player, previousItemID, previousPrice)
+	local useAlive = player:GetPlayerType() == PlayerType.PLAYER_LAZARUS_B
+	for i = 1, 2 do
+		local subtype = i == 1 and previousItemID or pickup.SubType
+		local pos = i == 1 and Vector(40, 0) or Vector(-40, 0)
+		useAlive = i == 1 and useAlive or not useAlive
+		local splitPedestal = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, subtype,
+		Mod.Game:GetRoom():FindFreePickupSpawnPosition(pickup.Position + pos, 0), Vector.Zero, player):ToPickup()
+		---@cast splitPedestal EntityPickup
+		splitPedestal:SetColor(useAlive and ALIVE_COLOR or DEAD_COLOR, 30, 1, true, false)
+		local price = i == 1 and previousPrice or pickup.Price
+		if price ~= 0 then
+			if price >= 2 then
+				price = math.floor(price / 2)
+			elseif LAZARUS_CAKE.DevilPriceSplit[price] then
+				price = LAZARUS_CAKE.DevilPriceSplit[price]
+			end
+			splitPedestal.Price = price
+			splitPedestal.AutoUpdatePrice = price ~= PickupPrice.PRICE_FREE
+			splitPedestal.ShopItemId = -1
+		end
 	end
 end
 
@@ -118,24 +155,18 @@ function LAZARUS_CAKE:PostFlipPedestals(itemID, rng, player)
 	if LAZARUS_CAKE:CheckLazarusB(player) then
 		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)) do
 			local pickup = ent:ToPickup() ---@cast pickup EntityPickup
-			local previousSubType = Mod:GetData(pickup).FlipPedestal
+			local data = Mod:GetData(pickup)
+			local previousItemID = data.FlipPedestal[1]
+			local previousPrice = data.FlipPedestal[2]
 			local randomFloat = player:GetTrinketRNG(Mod.Birthcake.ID):RandomFloat()
 			local randomChance = Mod:GetBalanceApprovedChance(LAZARUS_CAKE.ITEM_SPLIT_CHANCE, Mod:GetTrinketMult(player))
-			if previousSubType
-			and pickup.SubType ~= previousSubType
-			and randomFloat < randomChance
+
+			if previousItemID
+				and pickup.SubType ~= previousItemID
+				and randomFloat < randomChance
 			then
-				local useAlive = player:GetPlayerType() == PlayerType.PLAYER_LAZARUS_B
 				pickup:Remove()
-				local splitPedestal1 = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, previousSubType,
-				Mod.Game:GetRoom():FindFreePickupSpawnPosition(pickup.Position, 40, true), Vector.Zero, player):ToPickup()
-				---@cast splitPedestal1 EntityPickup
-				local splitPedestal2 = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, pickup
-				.SubType,
-				pickup.Position, Vector.Zero, player):ToPickup()
-				---@cast splitPedestal2 EntityPickup
-				splitPedestal1:SetColor(useAlive and ALIVE_COLOR or DEAD_COLOR, 30, 1, true, false)
-				splitPedestal2:SetColor(useAlive and DEAD_COLOR or ALIVE_COLOR, 30, 1, true, false)
+				LAZARUS_CAKE:SpawnSplitPedestals(pickup, player, previousItemID, previousPrice)
 			end
 		end
 	end
