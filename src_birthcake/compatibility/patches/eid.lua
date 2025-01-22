@@ -295,59 +295,108 @@ BIRTHCAKE_EID.Descs = {
 		},
 
 	},
-	[PlayerType.PLAYER_JUDAS] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_JUDAS] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = {
+		"{{ArrowUp}}{{Damage}} x0.1 damage multiplier", --number might be wrong? i got it directly from judas' code
+		"#{{DevilRoom}} If taking a Devil Deal item were to kill Judas, this trinket is consumed instead."
+		},
 
 	},
-	[PlayerType.PLAYER_BLUEBABY] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_BLUEBABY] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { --will probably have to havei t dynamically change depending on the active being held
+		"{{Collectible36}} The Poop spawns 2 additional poops at both sides of the original on use.", 
+		"#The sides the poop appear on depend on the direction ??? is facing.",
+		"#{{Collectible}} With other active items, fires out 3 poop projectiles in random directions that create a poop on contact."
+		},
 	},
-	[PlayerType.PLAYER_EVE] = {					-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_EVE] = {					-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { --maybe add bffs here? number is probably inaccurate too
+		"{{Collectible117}} Turns Dead Bird into Blood Bird.", 
+		"#Blood Bird periodically leaves behind small damaging pools of red creep.",
+		"#Blood Bird's damage scales with Eve's damage."
+		},
 	},
-	[PlayerType.PLAYER_SAMSON] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_SAMSON] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"{{Collectible157}} Reaching the maximum damage increase with Bloody Lust drops a {{Heart}} red heart.", 
+		"#Drops two red hearts if Samson's health is low enough",
+		"#{{SoulHeart}} Drops a soul heart if at full health"
+		},
 	},
-	[PlayerType.PLAYER_AZAZEL] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_AZAZEL] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"Brimstone blasts last longer while damaging enemies." --idk how to word this lol
+		},
 	},
-	[PlayerType.PLAYER_LAZARUS] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_LAZARUS] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"{{Collectible332}} If Lazarus Risen dies, this trinket is consumed and he is revived again.", 
+		"#The revive grants another damage increase and removes a heart container."
+		},
 	},
-	[PlayerType.PLAYER_EDEN] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_EDEN] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"{{Trinket}} Gulps three random trinkets while held.", 
+		"#The trinket effects are lost when Birthcake is dropped."
+		},
 	},
-	[PlayerType.PLAYER_THELOST] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_THELOST] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"{{Collectible677}} Temporarily slows down enemies and grants a decaying fire rate increase when Holy Mantle is broken."
+		},
 	},
-	[PlayerType.PLAYER_LILITH] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_LILITH] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"Familiars have a chance to mimic Lilith's tear effects."
+		},
 	},
-	[PlayerType.PLAYER_KEEPER] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_KEEPER] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"{{Shop}} Shops and {{DevilRoom}} Devil Rooms contain a nickel."
+		},
 	},
-	[PlayerType.PLAYER_APOLLYON] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_APOLLYON] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"{{Collectible477}} Void can absorb trinkets.", 
+		"#Voided trinkets are gulped, retaining their effects permanently as long as Void is held."
+		},
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"Firing at the skeleton as the soul will cause bone fragment tears to fire out of it in random directions.", 
+		"#Returning to the skeleton will grant a decaying fire rate increase depending on how much it was shot at." --could be worded better
+		},
 	},
-	[PlayerType.PLAYER_BETHANY] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"Using an active item has a chance to spawn an additional wisp"
+		},
 	},
-	[PlayerType.PLAYER_JACOB] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"{{ArrowUp}}{{Damage}} The holder will grant a portion of their damage to the other brother" --word this better?
+		},
 	},
-	[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"Grants an additional item slot"
+		},
 	},
-	[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"Dropped hearts eventually explode into pools of red creep",
+		"#Explosion damage scales with Magdalene's damage"
+		},
 	},
-	[PlayerType.PLAYER_CAIN_B] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"Double pickups that spawn are split into two." 
+		},
 	},
-	[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	en_us = { 
+		"{{Collectible705}} Passing through enemies with Dark Arts slightly decreases its charge time." 
+		},
 	},
 	[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
