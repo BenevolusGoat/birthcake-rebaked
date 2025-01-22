@@ -90,16 +90,3 @@ function BirthcakeRebaked:FirstPlayerTypeBirthcakeOwner(playerType)
 
 	return birthcakePlayer
 end
-
----@param player EntityPlayer
----@return table
-function BirthcakeRebaked:GetLazBSharedSaveData(player)
-	if player:GetPlayerType() == PlayerType.PLAYER_LAZARUS2_B then
-		local playerKey = Mod.SaveManager.Utility.GetSaveIndex(player, true)
-		local run_save = Mod.SaveManager.GetEntireSave().game.run
-		run_save[playerKey] = run_save[playerKey] or {}
-		return run_save[playerKey]
-	else
-		return Mod.SaveManager.GetRunSave(player)
-	end
-end

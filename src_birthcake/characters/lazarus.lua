@@ -4,11 +4,25 @@ local game = Mod.Game
 local LAZARUS_CAKE = {}
 BirthcakeRebaked.Birthcake.LAZARUS = LAZARUS_CAKE
 
+--"lazarusshared" doesn't work for TRINKETS so this is my only other option non-rgon *fucking sobbing out my ass*
+local flippedLazPlayer = {}
+
 ---@param player EntityPlayer
 function LAZARUS_CAKE:CheckLazarusB(player)
 	local playerType = player:GetPlayerType()
-	return (playerType == PlayerType.PLAYER_LAZARUS_B or playerType == PlayerType.PLAYER_LAZARUS2_B)
-	and	player:HasTrinket(Mod.Birthcake.ID)
+	local isLaz = (playerType == PlayerType.PLAYER_LAZARUS_B or playerType == PlayerType.PLAYER_LAZARUS2_B)
+	local twin = player:GetOtherTwin() --Birthright, works on non-rgon and rgon
+	local otherLaz
+	if not twin then
+		if REPENTOGON then
+			otherLaz = player:GetFlippedForm()
+		else
+			otherLaz = flippedLazPlayer[player.Index]
+		end
+	else
+		otherLaz = twin
+	end
+	return isLaz and (otherLaz and otherLaz:HasTrinket(Mod.Birthcake.ID) or player:HasTrinket(Mod.Birthcake.ID))
 end
 
 -- Lazarus Birthcake
@@ -87,14 +101,6 @@ LAZARUS_CAKE.ITEM_SPLIT_CHANCE = 0.30
 local ALIVE_COLOR = Color(1, 1, 1, 1, 0.7, 0.9, 1)
 local DEAD_COLOR = Color(1, 1, 1, 1, 1, 0, 0)
 
----@param player EntityPlayer
-function LAZARUS_CAKE:OnBirthcakeCollect(player)
-	local player_run_save = Mod:GetLazBSharedSaveData(player)
-	player_run_save.LazBCakeShared = player:GetPlayerType()
-end
-
-Mod:AddCallback(Mod.ModCallbacks.POST_BIRTHCAKE_COLLECT, LAZARUS_CAKE.OnBirthcakeCollect)
-
 ---@param itemID CollectibleType
 ---@param rng RNG
 ---@param player EntityPlayer
@@ -109,40 +115,37 @@ end
 ---@param rng RNG
 ---@param player EntityPlayer
 function LAZARUS_CAKE:PostFlipPedestals(itemID, rng, player)
-	local player_run_save = Mod:GetLazBSharedSaveData(player)
-	if LAZARUS_CAKE:CheckLazarusB(player) or player_run_save.LazBCakeShared then
-		--If the form expected to have Birthcake doesn't have it
-		if player:GetPlayerType() == player_run_save.LazBCakeShared
-			and not player:HasTrinket(Mod.Birthcake.ID)
-		then
-			player_run_save.LazBCakeShared = nil
-			return
-		--Update who has Birthcake
-		elseif LAZARUS_CAKE:CheckLazarusB(player) then
-			player_run_save.LazBCakeShared = player:GetPlayerType()
-		end
+	if LAZARUS_CAKE:CheckLazarusB(player) then
 		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)) do
 			local pickup = ent:ToPickup() ---@cast pickup EntityPickup
 			local previousSubType = Mod:GetData(pickup).FlipPedestal
 			local randomFloat = player:GetTrinketRNG(Mod.Birthcake.ID):RandomFloat()
 			local randomChance = Mod:GetBalanceApprovedChance(LAZARUS_CAKE.ITEM_SPLIT_CHANCE, Mod:GetTrinketMult(player))
 			if previousSubType
-				and pickup.SubType ~= previousSubType
-				and randomFloat < randomChance
+			and pickup.SubType ~= previousSubType
+			and randomFloat < randomChance
 			then
 				local useAlive = player:GetPlayerType() == PlayerType.PLAYER_LAZARUS_B
 				pickup:Remove()
 				local splitPedestal1 = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, previousSubType,
-					Mod.Game:GetRoom():FindFreePickupSpawnPosition(pickup.Position, 40, true), Vector.Zero, player):ToPickup()
+				Mod.Game:GetRoom():FindFreePickupSpawnPosition(pickup.Position, 40, true), Vector.Zero, player):ToPickup()
 				---@cast splitPedestal1 EntityPickup
 				local splitPedestal2 = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, pickup
-					.SubType,
-					pickup.Position, Vector.Zero, player):ToPickup()
+				.SubType,
+				pickup.Position, Vector.Zero, player):ToPickup()
 				---@cast splitPedestal2 EntityPickup
 				splitPedestal1:SetColor(useAlive and ALIVE_COLOR or DEAD_COLOR, 30, 1, true, false)
 				splitPedestal2:SetColor(useAlive and DEAD_COLOR or ALIVE_COLOR, 30, 1, true, false)
 			end
 		end
+	end
+	--If RGON or Birthright, don't bother
+	if REPENTOGON or player:GetOtherTwin() then return end
+	local playerType = player:GetPlayerType()
+	if (playerType == PlayerType.PLAYER_LAZARUS_B or playerType == PlayerType.PLAYER_LAZARUS2_B) then
+		flippedLazPlayer[player.Index] = player
+	elseif flippedLazPlayer[player.Index] then
+		flippedLazPlayer[player.Index] = nil
 	end
 end
 
