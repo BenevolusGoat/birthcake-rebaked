@@ -27,7 +27,9 @@ function MAGDALENE_CAKE:HeartReplace(entType, variant, subType, position, veloci
 		if player and newVariant then
 			local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
 			local roll = rng:RandomFloat()
-			if roll < Mod:GetBalanceApprovedLuckChance(MAGDALENE_CAKE.HEART_REPLACE_CHANCE, Mod:GetTrinketMult(player)) then
+			if roll < Mod:GetBalanceApprovedChance(MAGDALENE_CAKE.HEART_REPLACE_CHANCE,
+			Mod:GetTrinketMult(player))
+			then
 				return { EntityType.ENTITY_PICKUP, newVariant, HeartSubType.HEART_DOUBLEPACK, seed }
 			end
 		end
@@ -56,7 +58,8 @@ function MAGDALENE_CAKE:HeartExplode(pickup)
 	then
 		pickup:BloodExplode()
 		local baseDamage = MAGDALENE_CAKE.HeartSubtypeDamage[pickup.SubType] + (0.5 * Mod.Game:GetLevel():GetStage())
-		game:BombExplosionEffects(pickup.Position, baseDamage * damageMult, TearFlags.TEAR_BLOOD_BOMB, nil, Mod:FirstPlayerTypeBirthcakeOwner(PlayerType.PLAYER_MAGDALENE_B), 0.5, true,
+		game:BombExplosionEffects(pickup.Position, baseDamage * damageMult, TearFlags.TEAR_BLOOD_BOMB, nil,
+		Mod:FirstPlayerTypeBirthcakeOwner(PlayerType.PLAYER_MAGDALENE_B), 0.5, true,
 			false, DamageFlag.DAMAGE_EXPLOSION)
 		for _ = 1, 10 do
 			local position = Vector(math.random(-25, 25), math.random(-25, 25))

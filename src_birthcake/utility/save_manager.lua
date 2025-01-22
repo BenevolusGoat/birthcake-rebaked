@@ -227,7 +227,8 @@ end
 
 ---Gets a unique string as an identifier for the entity in the save data.
 ---@param ent? Entity | Vector
-function SaveManager.Utility.GetSaveIndex(ent)
+---@param sharedLaz? boolean
+function SaveManager.Utility.GetSaveIndex(ent, sharedLaz)
 	local typeToName = {
 		[EntityType.ENTITY_PLAYER] = "PLAYER_",
 		[EntityType.ENTITY_FAMILIAR] = "FAMILIAR_",
@@ -245,7 +246,7 @@ function SaveManager.Utility.GetSaveIndex(ent)
 		if ent:ToPlayer() then
 			local player = ent:ToPlayer() ---@cast player EntityPlayer
 			local id = 1
-			if player:GetPlayerType() == PlayerType.PLAYER_LAZARUS2_B then
+			if player:GetPlayerType() == PlayerType.PLAYER_LAZARUS2_B and not sharedLaz then
 				id = 2
 			end
 			identifier = tostring(player:GetCollectibleRNG(id):GetSeed())

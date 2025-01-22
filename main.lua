@@ -159,7 +159,7 @@ BirthcakeRebaked.ModCallbacks = {
 	POST_BIRTHCAKE_PICKUP = "BIRTHCAKE_POST_BIRTHCAKE_PICKUP",
 	---(player: EntityPlayer, firstTimePickup: boolean, isGolden: boolean), Optional Arg: PlayerType - Called when collecting the Birthcake trinket. REPENTOGON will trigger this any time the item is added to the player's inventory. Otherwise, it triggers only when picked up as a trinket
 	POST_BIRTHCAKE_COLLECT = "BIRTHCAKE_POST_BIRTHCAKE_COLLECT",
-	--(player: EntityPlayer, oldPlayerType: PlayerType), Optional Arg: PlayerType - Called when your tracked PlayerType changes. This happens regardless of you having Birthcake or not. PlayerType arg is for the previous PlayerType you were
+	--(player: EntityPlayer, oldPlayerType: PlayerType), Optional Arg: PlayerType - Called when your tracked PlayerType changes. This happens regardless of you having Birthcake or not. `player` is your current player with the new PlayerType. `PlayerType` arg is for the previous PlayerType you were
 	POST_PLAYERTYPE_CHANGE = "BIRTHCAKE_POST_PLAYERTYPE_CHANGE",
 	BLUEBABY_GET_POOP_TEAR_SPRITE = "BIRTHCAKE_BLUEBABY_GET_POOP_TEAR_SPRITE"
 }

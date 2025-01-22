@@ -42,8 +42,8 @@ BLUEBABY_CAKE.PoopVariantChance = {
 ---@param rng any
 ---@param player EntityPlayer
 function BLUEBABY_CAKE:SpawnPoopWall(itemID, rng, player, flags, slot, _)
-	if Mod:HasBitFlags(flags, UseFlag.USE_OWNED) 
-		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_BLUEBABY) 
+	if Mod:HasBitFlags(flags, UseFlag.USE_OWNED)
+		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_BLUEBABY)
 	then
 		local room = Mod.Game:GetRoom()
 		local originPos = room:GetGridPosition(room:GetGridIndex(player.Position))
@@ -146,8 +146,8 @@ function BLUEBABY_CAKE:OnTearDestroy(tear)
 	local data = Mod:GetData(tear)
 	if data.BluebabyCakeTear then
 		Isaac.Spawn(EntityType.ENTITY_POOP, data.BluebabyCakeTear, 0,
-		Mod.Game:GetRoom():FindFreeTilePosition(tear.Position, 40), Vector.Zero,
-		Mod:FirstPlayerTypeBirthcakeOwner(PlayerType.PLAYER_BLUEBABY))
+			Mod.Game:GetRoom():FindFreeTilePosition(tear.Position, 40), Vector.Zero,
+			Mod:FirstPlayerTypeBirthcakeOwner(PlayerType.PLAYER_BLUEBABY))
 	end
 end
 

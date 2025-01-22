@@ -75,7 +75,7 @@ THELOST_CAKE.HOLY_CARD_REPLACE_BASE_CHANCE = 0.1 --a little adjustment
 function THELOST_CAKE:OnBirthcakeCollect(player, firstTime)
 	if firstTime then
 		Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_HOLY,
-		Mod.Game:GetRoom():FindFreePickupSpawnPosition(player.Position, 40), Vector.Zero, player)
+			Mod.Game:GetRoom():FindFreePickupSpawnPosition(player.Position, 40), Vector.Zero, player)
 	end
 end
 
@@ -91,7 +91,7 @@ function THELOST_CAKE:ReplaceWithHolyCard(rng, _, onlyPlayingCards)
 				totalMult = totalMult + Mod:GetTrinketMult(player)
 			end
 		end)
-		if totalMult > 0 and rng:RandomFloat() < Mod:GetBalanceApprovedLuckChance(THELOST_CAKE.HOLY_CARD_REPLACE_BASE_CHANCE, totalMult) then
+		if totalMult > 0 and rng:RandomFloat() < Mod:GetBalanceApprovedChance(THELOST_CAKE.HOLY_CARD_REPLACE_BASE_CHANCE, totalMult) then
 			return Card.CARD_HOLY
 		end
 	end

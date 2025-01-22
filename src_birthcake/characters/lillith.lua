@@ -71,7 +71,7 @@ function LILITH_CAKE:OnFamiliarUpdate(familiar)
 		else
 			for _, gello in ipairs(Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.UMBILICAL_BABY)) do
 				if GetPtrHash(gello) ~= GetPtrHash(familiar)
-					and	gello.Position:DistanceSquared(familiar.Position) <= (familiar.Size + gello.Size) ^ 2
+					and gello.Position:DistanceSquared(familiar.Position) <= (familiar.Size + gello.Size) ^ 2
 				then
 					gello:AddVelocity((gello.Position - familiar.Position):Normalized())
 				end
@@ -96,7 +96,7 @@ function LILITH_CAKE:NerfGelloRuntDamage(ent, amount, flags, source, countdownFr
 		and source.Entity.SpawnerEntity.Variant == FamiliarVariant.UMBILICAL_BABY
 		and Mod:GetData(source.Entity.SpawnerEntity).LilithBirthcakeGello
 	then
-		local mult = Mod:GetBalanceApprovedLuckChance(LILITH_CAKE.RUNT_BASE_DMG_MULT, Mod:GetTrinketMult(player))
+		local mult = Mod:GetBalanceApprovedChance(LILITH_CAKE.RUNT_BASE_DMG_MULT, Mod:GetTrinketMult(player))
 		ent:TakeDamage(amount * mult, flags, EntityRef(source.Entity.SpawnerEntity), countdownFrames)
 		return false
 	end

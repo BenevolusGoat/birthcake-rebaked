@@ -43,7 +43,7 @@ function SAMSON_CAKE:BerserkRoomClear()
 			local playerEffects = player:GetEffects()
 			local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
 			local roll = rng:RandomFloat()
-			if roll < Mod:GetBalanceApprovedLuckChance(SAMSON_CAKE.BASE_BERSERK_HELP_CHANCE, Mod:GetTrinketMult(player)) then
+			if roll < Mod:GetBalanceApprovedChance(SAMSON_CAKE.BASE_BERSERK_HELP_CHANCE, Mod:GetTrinketMult(player)) then
 				Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_HALF,
 					Mod.Game:GetRoom():FindFreePickupSpawnPosition(player.Position, 40), Vector(0, 0), player)
 				playerEffects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_BERSERK, true, 1)

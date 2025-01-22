@@ -273,12 +273,11 @@ local translations = {
 			pl = "Daleki wydech", --szczerze to jest takie pół śmiechem pisane
 			ko_kr = "깊어진 숨결",
 		},
-		[PlayerType.PLAYER_LAZARUS] = {				-- EN: [X] | RU: [!] | SPA: [OK] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		[PlayerType.PLAYER_LAZARUS] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
 			en_us = "Rise again",
-			ru = "Снизойди со мной",
-			spa = "Regresa otra vez",
-			cs_cz = "Sejdi se mnou",
-			pl = "Polegnijcie, ze mną", --idk mi się nie podoboa co ty myślisz?
+			ru = "Восстань снова",
+			cs_cz = "Povstaň znovu",
+			pl = "Powstań z grobu",
 			ko_kr = "동귀어진",
 		},
 		[PlayerType.PLAYER_EDEN] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
@@ -408,8 +407,8 @@ local translations = {
 			pl = "Alergie ↑",
 			ko_kr = "알레르기 증가",
 		},
-		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [!] | KO_KR [X]
-			en_us = "Rise again",
+		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [!] | PL: [!] | KO_KR [X]
+			en_us = "Untwined destiny",
 			ru = "Восстань снова",
 			cs_cz = "Povstaň znovu",
 			pl = "Powstań z grobu",

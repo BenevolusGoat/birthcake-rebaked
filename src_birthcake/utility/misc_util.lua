@@ -200,9 +200,9 @@ end
 
 ---@param baseChance number
 ---@param mult number
-function BirthcakeRebaked:GetBalanceApprovedLuckChance(baseChance, mult)
+function BirthcakeRebaked:GetBalanceApprovedChance(baseChance, mult)
 	if mult == 0 then mult = 1 end
-	return (1 - 2^(-mult)) * baseChance * 2
+	return (1 - 2 ^ (-mult)) * baseChance * 2
 end
 
 function BirthcakeRebaked:Delay2Tears(delay)
