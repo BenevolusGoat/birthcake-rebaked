@@ -328,7 +328,7 @@ BIRTHCAKE_EID.Descs = {
 		en_us = { --will probably have to havei t dynamically change depending on the active being held
 		--Nah its fine, better to make player aware of both effects
 		"{{Collectible36}} The Poop spawns 2 additional poops at both sides of the original on use.",
-		"#The sides the poop appear on depend on the direction ??? is facing.",
+		"#The sides the poops appear on depend on the direction ??? is facing.",
 		"#{{Collectible}} With other active items, fires out 3 poop projectiles in random directions that create a poop on contact."
 		},
 	},
@@ -398,7 +398,7 @@ BIRTHCAKE_EID.Descs = {
 	},
 	[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
-		"{{ArrowUp}}{{Damage}} The holder will reflect all damage they take onto the other brother"
+		"The holder will reflect all damage they take onto the other brother"
 		},
 	},
 	[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
@@ -410,7 +410,7 @@ BIRTHCAKE_EID.Descs = {
 		en_us = {
 		"Dropped hearts eventually explode into pools of red creep",
 		--Old effect. It now scales with a base value depending on the heart itself, increases further with the current stage
-		"#Explosion damage scales with Magdalene's damage"
+		"#Explosion damage depends on the heart type and the current stage"
 		},
 	},
 	[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
