@@ -13,6 +13,7 @@ end
 
 -- Judas Birthcake
 
+JUDAS_CAKE.DAMAGE_MULT_UP = 0.1
 JUDAS_CAKE.PickupPriceCost = {
 	[PickupPrice.PRICE_ONE_HEART] = {
 		Red = 1,
@@ -59,7 +60,7 @@ end
 ---@param player EntityPlayer
 function JUDAS_CAKE:JudasPickup(player)
 	if JUDAS_CAKE:JudasHasBirthcake(player) then
-		player.Damage = player.Damage + (player.Damage * 0.1) * Mod:GetTrinketMult(player)
+		player.Damage = player.Damage * (1 + (JUDAS_CAKE.DAMAGE_MULT_UP * Mod:GetTrinketMult(player)))
 	end
 end
 

@@ -214,7 +214,7 @@ en_us = {
  ]]
 
 ---@param chance number
-function BIRTHCAKE_EID:TranslateChanceValue(chance)
+function BIRTHCAKE_EID:AdjustNumberValue(chance)
 	chance = chance * 100
 	local floored = math.floor(chance)
 
@@ -263,7 +263,7 @@ BIRTHCAKE_EID.Descs = {
 			local baseChance = Mod.Birthcake.MAGDALENE.HEART_REPLACE_CHANCE
 			local mult = BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)
 			local chance = Mod:GetBalanceApprovedChance(baseChance, mult)
-			chance = BIRTHCAKE_EID:TranslateChanceValue(chance)
+			chance = BIRTHCAKE_EID:AdjustNumberValue(chance)
 
 			return BIRTHCAKE_EID:GoldConditional(chance, mult)
 		end,
@@ -288,7 +288,7 @@ BIRTHCAKE_EID.Descs = {
 		_modifier = function(descObj, baseChance)
 			local mult = BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)
 			local chance = Mod.Birthcake.CAIN:GetSlotRefundChance(baseChance, mult)
-			chance = BIRTHCAKE_EID:TranslateChanceValue(chance)
+			chance = BIRTHCAKE_EID:AdjustNumberValue(chance)
 
 			return BIRTHCAKE_EID:GoldConditional(chance, mult)
 		end,
@@ -501,10 +501,10 @@ BIRTHCAKE_EID.Descs = {
 
 BIRTHCAKE_EID.DefaultDescription = {
 	en_us = {
-		"↑ +5% to all stats"
+		"↑ +" .. BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.DEFAULT_EFFECT.STAT_MULT) .. "% to all stats"
 	},
 	ru = {
-		"↑ +5% ко всем характеристикам"
+		"↑ +" .. BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.DEFAULT_EFFECT.STAT_MULT) .. "% ко всем характеристикам"
 	},
 }
 
