@@ -151,7 +151,7 @@ local DESCRIPTION_SHARE = {
 	[PlayerType.PLAYER_LAZARUS2_B] = PlayerType.PLAYER_LAZARUS2,
 	[PlayerType.PLAYER_JACOB2_B] = PlayerType.PLAYER_JACOB,
 	[PlayerType.PLAYER_THESOUL] = PlayerType.PLAYER_THEFORGOTTEN,
-	[PlayerType.PLAYER_THESOUL_B] = PlayerType.PLAYER_THEFORGOTTEN,
+	[PlayerType.PLAYER_THESOUL_B] = PlayerType.PLAYER_THEFORGOTTEN_B,
 }
 
 ---@class EID_DescObj
@@ -213,15 +213,33 @@ en_us = {
 },
  ]]
 
+---@param chance number
+function BIRTHCAKE_EID:TranslateChanceValue(chance)
+	chance = chance * 100
+	local floored = math.floor(chance)
+
+	if floored - chance == 0 then
+		chance = floored
+	end
+	return chance
+end
+
+function BIRTHCAKE_EID:GoldConditional(str, mult)
+	if mult > 1 then
+		return "{{ColorGold}}" .. str .. "{{CR}}"
+	end
+	return tostring(str)
+end
+
 BIRTHCAKE_EID.Descs = {
 	[PlayerType.PLAYER_ISAAC] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		---@param descObj EID_DescObj
 		---@param str string
 		_modifier = function(descObj, str, strMult)
-			local mult = BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)
+			local trinketMult = BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)
 
-			if mult > 1 then
-				return "{{ColorGold}}" .. mult .. "{{CR}}" .. strMult
+			if trinketMult > 1 then
+				return "{{ColorGold}}" .. trinketMult .. "{{CR}}" .. strMult
 			end
 			return str
 		end,
@@ -241,36 +259,41 @@ BIRTHCAKE_EID.Descs = {
 		}
 	},
 	[PlayerType.PLAYER_MAGDALENE] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		_modifier = function(descObj)
+			local baseChance = Mod.Birthcake.MAGDALENE.HEART_REPLACE_CHANCE
+			local mult = BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)
+			local chance = Mod:GetBalanceApprovedChance(baseChance, mult)
+			chance = BIRTHCAKE_EID:TranslateChanceValue(chance)
+
+			return BIRTHCAKE_EID:GoldConditional(chance, mult)
+		end,
 		en_us = {
 		"{{Heart}} Hearts have a ",
 			function(descObj)
-				return tostring(100 * Mod:GetBalanceApprovedChance(Mod.Birthcake.MAGDALENE.HEART_REPLACE_CHANCE, BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)))
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_MAGDALENE]._modifier(descObj)
 			end,
 		"% chance to be doubled"
 		},
 		ru = {
 		"{{Heart}} Сердца имеют ",
 			function(descObj)
-				return tostring(100 * Mod:GetBalanceApprovedChance(Mod.Birthcake.MAGDALENE.HEART_REPLACE_CHANCE, BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)))
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_MAGDALENE]._modifier(descObj)
 			end,
 		"% шанс удвоиться"
 		},
 	},
 	[PlayerType.PLAYER_CAIN] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		---@param descObj EID_DescObj
-		---@param str string
+		---@param baseChance number
 		_modifier = function(descObj, baseChance)
 			local mult = BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)
-			local chance = baseChance * (1 + 0.3 * (mult - 1))
+			local chance = Mod.Birthcake.CAIN:GetSlotRefundChance(baseChance, mult)
+			chance = BIRTHCAKE_EID:TranslateChanceValue(chance)
 
-			if mult > 1 then
-				return "{{ColorGold}}" .. tostring(chance * 100) .. "{{CR}}"
-			end
-
-			return tostring(chance * 100)
+			return BIRTHCAKE_EID:GoldConditional(chance, mult)
 		end,
 		en_us = {
-			"#{{Slotmachine}} Slot Machines and {{FortuneTeller}} Fortune Telling Machines have a ",
+			"{{Slotmachine}} Slot Machines and {{FortuneTeller}} Fortune Telling Machines have a ",
 			function(descObj)
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_CAIN]._modifier(descObj, 0.33)
 			end,
@@ -297,13 +320,14 @@ BIRTHCAKE_EID.Descs = {
 	},
 	[PlayerType.PLAYER_JUDAS] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
-		"{{ArrowUp}}{{Damage}} x0.1 damage multiplier", --number might be wrong? i got it directly from judas' code
-		"#{{DevilRoom}} If taking a Devil Deal item were to kill Judas, this trinket is consumed instead."
+			"{{ArrowUp}}{{Damage}} +10% damage multiplier",
+			"#{{DevilRoom}} If taking a Devil Deal item were to kill Judas, this trinket is consumed instead."
 		},
 
 	},
 	[PlayerType.PLAYER_BLUEBABY] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = { --will probably have to havei t dynamically change depending on the active being held
+		--Nah its fine, better to make player aware of both effects
 		"{{Collectible36}} The Poop spawns 2 additional poops at both sides of the original on use.",
 		"#The sides the poop appear on depend on the direction ??? is facing.",
 		"#{{Collectible}} With other active items, fires out 3 poop projectiles in random directions that create a poop on contact."
@@ -318,7 +342,10 @@ BIRTHCAKE_EID.Descs = {
 	},
 	[PlayerType.PLAYER_SAMSON] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
-		"{{Collectible157}} Reaching the maximum damage increase with Bloody Lust drops two {{Heart}} red hearts."
+		"{{Collectible157}} Reaching the maximum damage increase with Bloody Lust drops a {{Heart}} red heart.",
+		--Should be noted that these effects below are only present with any trinket multipliers. Forgot about that on the birthcake list text file.
+		"#Drops two red hearts if Samson's health is low enough",
+		"#{{SoulHeart}} Drops a soul heart if at full health"
 		},
 	},
 	[PlayerType.PLAYER_AZAZEL] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
@@ -361,34 +388,35 @@ BIRTHCAKE_EID.Descs = {
 	},
 	[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
-		"Firing at the skeleton as the soul will cause bone fragment tears to fire out of it in random directions.",
-		"#Returning to the skeleton will grant a decaying fire rate increase depending on how much it was shot at." --could be worded better
+			"Firing at the {{Player16}}The Forgotten's body as {{Player17}}The Soul will cause bone fragment tears to fire out of it in random directions and fill it with \"soul charge\".",
+			"#Returning to the The Forgotten will grant a decaying fire rate increase depending on how much soul charge they were filled with."
 		},
 	},
 	[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
-		"Using an active item has a chance to spawn an additional wisp"
+		"Using an active item has a chance to spawn an additional wisp of the same type"
 		},
 	},
 	[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
-		"{{ArrowUp}}{{Damage}} The holder will grant a portion of their damage to the other brother" --word this better?
+		"{{ArrowUp}}{{Damage}} The holder will reflect all damage they take onto the other brother"
 		},
 	},
 	[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
-		"Grants an additional item slot"
+		"Grants an additional inventory slot"
 		},
 	},
 	[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"Dropped hearts eventually explode into pools of red creep",
+		--Old effect. It now scales with a base value depending on the heart itself, increases further with the current stage
 		"#Explosion damage scales with Magdalene's damage"
 		},
 	},
 	[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
-		"Double pickups that spawn are split into two."
+		"Double pickups that spawn are split into their halves."
 		},
 	},
 	[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
@@ -426,7 +454,8 @@ BIRTHCAKE_EID.Descs = {
 	[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"Taking damage has a chance to not reroll Eden's items.",
-		"#Birthcake is always immune to being rerolled."
+		"#Birthcake is mostly immune to being rerolled, having a "
+		.. Mod.Birthcake.EDEN.BIRTHCAKE_REROLL_CHANCE .. "% chance of being rerolled when."
 		},
 	},
 	[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
@@ -455,7 +484,7 @@ BIRTHCAKE_EID.Descs = {
 	[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"Killing enemies will spawn stationary bone fragments that damage enemies on contact",
-		"#Holding the skeleton will cause all bone fragments to fly towards the Soul, damaging enemies in the way"
+		"#Holding {{Player35}}The Forgotten will cause all bone fragments to fly towards {{Player40}}The Soul, damaging enemies in the way"
 		},
 	},
 	[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
@@ -478,10 +507,6 @@ BIRTHCAKE_EID.DefaultDescription = {
 	ru = {
 		"↑ +5% ко всем характеристикам"
 	},
-}
-BIRTHCAKE_EID.Names = {
-	en_us = "Birthcake",
-	ru = "Пироженое",
 }
 
 for sharedDescription, copyDescription in pairs(DESCRIPTION_SHARE) do
@@ -564,7 +589,7 @@ EID:addDescriptionModifier(
 				lastRenderedPlayerType = playerType
 			end
 			descObj.Description = descObj.Description .. "#{{Player" .. playerType .. "}} {{ColorGray}}" .. name .. "#" .. desc.Func(descObj)
-			descObj.Name = BIRTHCAKE_EID:GetTranslatedString(BIRTHCAKE_EID.Names)
+			descObj.Name = BIRTHCAKE_EID:GetTranslatedString(BirthcakeRebaked.BirthcakeOneLiners.BIRTHCAKE)
 		end
 
 		return descObj

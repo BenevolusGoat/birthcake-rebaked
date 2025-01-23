@@ -26,7 +26,7 @@ local NAME_SHARE        = {
 	[PlayerType.PLAYER_LAZARUS2_B] = PlayerType.PLAYER_LAZARUS,
 	[PlayerType.PLAYER_JACOB2_B] = PlayerType.PLAYER_JACOB,
 	[PlayerType.PLAYER_THESOUL] = PlayerType.PLAYER_THEFORGOTTEN,
-	[PlayerType.PLAYER_THESOUL_B] = PlayerType.PLAYER_THEFORGOTTEN,
+	[PlayerType.PLAYER_THESOUL_B] = PlayerType.PLAYER_THEFORGOTTEN_B,
 }
 
 local DESCRIPTION_SHARE = {
@@ -36,25 +36,8 @@ local DESCRIPTION_SHARE = {
 	[PlayerType.PLAYER_LAZARUS2_B] = PlayerType.PLAYER_LAZARUS2,
 	[PlayerType.PLAYER_JACOB2_B] = PlayerType.PLAYER_JACOB,
 	[PlayerType.PLAYER_THESOUL] = PlayerType.PLAYER_THEFORGOTTEN,
-	[PlayerType.PLAYER_THESOUL_B] = PlayerType.PLAYER_THEFORGOTTEN,
+	[PlayerType.PLAYER_THESOUL_B] = PlayerType.PLAYER_THEFORGOTTEN_B,
 }
-
---The
-local CAKE              = {
-	en_us = "Cake",
-	ru = "Пироженое",
-	spa = "Pastel",
-	cs_cz = "Dort",
-	pl = "Babeczka",
-	ko_kr = "케이크",
-}
---is a LIE
---ЭТО ЛОЖЬ
---je LEŽ
---es una MENTIRA
-
----This can be stolen from stringtable.sta as they define character names
----But I don't know if it'd be any different with the 's and s'
 
 -- [OK]: good
 -- [!]: needs to be updated with the english translation
@@ -62,148 +45,148 @@ local CAKE              = {
 local translations = {
 	BIRTHCAKE_NAME = {
 		[PlayerType.PLAYER_ISAAC] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "Isaac's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Исаака",
-			spa = CAKE.spa .. " de Isaac",
-			cs_cz = "Izákův " .. CAKE.cs_cz,
-			pl = CAKE.pl .. " Izaaka",
-			ko_kr = "아이작의 "..CAKE.ko_kr,
+			en_us = "Isaac's ",
+			ru = " Исаака",
+			spa = " de Isaac",
+			cs_cz = "Izákův ",
+			pl = " Izaaka",
+			ko_kr = "아이작의 ",
 		},
 		[PlayerType.PLAYER_MAGDALENE] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "Magdelene's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Магдалины",
-			spa = CAKE.spa .. " de Magdalena",
-			cs_cz = "Magdalénin " .. CAKE.cs_cz,
-			pl = CAKE.pl .. " Magdaleny",
-			ko_kr = "막달레나의 "..CAKE.ko_kr,
+			en_us = "Magdelene's ",
+			ru = " Магдалины",
+			spa = " de Magdalena",
+			cs_cz = "Magdalénin ",
+			pl = " Magdaleny",
+			ko_kr = "막달레나의 ",
 		},
 		[PlayerType.PLAYER_CAIN] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "Cain's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Каина",
-			spa = CAKE.spa .. " de Caín",
-			cs_cz = "Kainův " .. CAKE.cs_cz,
-			pl = CAKE.pl .. " Kaina",
-			ko_kr = "카인의 "..CAKE.ko_kr,
+			en_us = "Cain's ",
+			ru = " Каина",
+			spa = " de Caín",
+			cs_cz = "Kainův ",
+			pl = " Kaina",
+			ko_kr = "카인의 ",
 		},
 		[PlayerType.PLAYER_JUDAS] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "Judas '" .. CAKE.en_us,
-			ru = CAKE.ru .. " Иуды",
-			spa = CAKE.spa .. " de Judas",
-			cs_cz = "Jidášův " .. CAKE.cs_cz,
-			pl = CAKE.pl .. " Judasza",
-			ko_kr = "유다의 "..CAKE.ko_kr,
+			en_us = "Judas '",
+			ru = " Иуды",
+			spa = " de Judas",
+			cs_cz = "Jidášův ",
+			pl = " Judasza",
+			ko_kr = "유다의 ",
 		},
 		[PlayerType.PLAYER_BLUEBABY] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "???'s " .. CAKE.en_us,
-			ru = CAKE.ru .. " ???",
-			spa = CAKE.spa .. " de ???",
-			cs_cz = CAKE.cs_cz .. " ???",
-			pl = CAKE.pl .. " ???",
-			ko_kr = "???의 "..CAKE.ko_kr,
+			en_us = "???'s ",
+			ru = " ???",
+			spa = " de ???",
+			cs_cz = " ???",
+			pl = " ???",
+			ko_kr = "???의 ",
 		},
 		[PlayerType.PLAYER_EVE] = {					-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "Eve's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Евы",
-			spa = CAKE.spa .. " de Eva",
-			cs_cz = "Evin " .. CAKE.cs_cz,
-			pl = CAKE.pl .. " Ewy",
-			ko_kr = "이브의 "..CAKE.ko_kr,
+			en_us = "Eve's ",
+			ru = " Евы",
+			spa = " de Eva",
+			cs_cz = "Evin ",
+			pl = " Ewy",
+			ko_kr = "이브의 ",
 		},
 		[PlayerType.PLAYER_SAMSON] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "Samson's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Самсона",
-			spa = CAKE.spa .. " de Sansón",
-			cs_cz = "Samsonův " .. CAKE.cs_cz,
-			pl = CAKE.pl .. " Samsona",
-			ko_kr = "삼손의 "..CAKE.ko_kr,
+			en_us = "Samson's ",
+			ru = " Самсона",
+			spa = " de Sansón",
+			cs_cz = "Samsonův ",
+			pl = " Samsona",
+			ko_kr = "삼손의 ",
 		},
 		[PlayerType.PLAYER_AZAZEL] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "Azazel's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Азазеля",
-			spa = CAKE.spa .. " de Azazel",
-			cs_cz = "Azazelův " .. CAKE.cs_cz,
-			pl = CAKE.pl .. " Azazela",
-			ko_kr = "아자젤의 "..CAKE.ko_kr,
+			en_us = "Azazel's ",
+			ru = " Азазеля",
+			spa = " de Azazel",
+			cs_cz = "Azazelův ",
+			pl = " Azazela",
+			ko_kr = "아자젤의 ",
 		},
 		[PlayerType.PLAYER_LAZARUS] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "Lazarus '" .. CAKE.en_us,
-			ru = CAKE.ru .. " Лазаря",
-			spa = CAKE.spa .. " de Lázaro",
-			cs_cz = "Lazarův " .. CAKE.cs_cz,
-			pl = CAKE.pl .. " Łazarza",
-			ko_kr = "나사로의 "..CAKE.ko_kr,
+			en_us = "Lazarus '",
+			ru = " Лазаря",
+			spa = " de Lázaro",
+			cs_cz = "Lazarův ",
+			pl = " Łazarza",
+			ko_kr = "나사로의 ",
 		},
 		[PlayerType.PLAYER_EDEN] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "Eden's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Идена",
-			spa = CAKE.spa .. " de Edén",
-			cs_cz = "Edenův " .. CAKE.cs_cz,
-			pl = CAKE.pl .. " Edena",
-			ko_kr = "에덴의 "..CAKE.ko_kr,
+			en_us = "Eden's ",
+			ru = " Идена",
+			spa = " de Edén",
+			cs_cz = "Edenův ",
+			pl = " Edena",
+			ko_kr = "에덴의 ",
 		},
 		[PlayerType.PLAYER_THELOST] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "The Lost's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Потерянного",
-			spa = CAKE.spa .. " de El Perdido",
-			cs_cz = CAKE.cs_cz .. " Ztraceného",
-			pl = CAKE.pl .. " Zaginionego",	--kurde niektóre części EID po prostu go zostawiają jako Losta ale jak spolszczamy pełną gębą to idę z tym.
-			ko_kr = "더 로스트의 "..CAKE.ko_kr,
+			en_us = "The Lost's ",
+			ru = " Потерянного",
+			spa = " de El Perdido",
+			cs_cz = " Ztraceného",
+			pl = " Zaginionego",	--kurde niektóre części EID po prostu go zostawiają jako Losta ale jak spolszczamy pełną gębą to idę z tym.
+			ko_kr = "더 로스트의 ",
 		},
 		[PlayerType.PLAYER_LILITH] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "Lilith's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Лилит",
-			spa = CAKE.spa .. " de Lilith",
-			cs_cz = "Lilithin " .. CAKE.cs_cz, -- Couldn't find a better translation, seems to be called like that in czech anyways tho
-			pl = CAKE.pl .. " Lilit", --na polskiej wikipedii jest zapisywana jako "Lilith", ale polskie EID zapisuje jako "Lilit"
-			ko_kr = "릴리트의 "..CAKE.ko_kr,
+			en_us = "Lilith's ",
+			ru = " Лилит",
+			spa = " de Lilith",
+			cs_cz = "Lilithin ", -- Couldn't find a better translation, seems to be called like that in czech anyways tho
+			pl = " Lilit", --na polskiej wikipedii jest zapisywana jako "Lilith", ale polskie EID zapisuje jako "Lilit"
+			ko_kr = "릴리트의 ",
 		},
 		[PlayerType.PLAYER_KEEPER] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "Keeper's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Хранителя",
-			spa = CAKE.spa .. " de Keeper",
-			cs_cz = "Držitelův " .. CAKE.cs_cz, -- In EID he's just called "Keeper", which I just had to czech-ify
-			pl = CAKE.pl .. " Dozorcy", --Polskie EID tak to tłumaczy
-			ko_kr = "키퍼의 "..CAKE.ko_kr,
+			en_us = "Keeper's ",
+			ru = " Хранителя",
+			spa = " de Keeper",
+			cs_cz = "Držitelův ", -- In EID he's just called "Keeper", which I just had to czech-ify
+			pl = " Dozorcy", --Polskie EID tak to tłumaczy
+			ko_kr = "키퍼의 ",
 		},
 		[PlayerType.PLAYER_APOLLYON] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "Apollyon's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Апполиона",
-			spa = CAKE.spa .. " de Apolión",
-			cs_cz = "Apollyónův " .. CAKE.cs_cz,
-			pl = CAKE.pl .. " Apollyona", --EID nie zmienia mu nazwy. Polska wikipedia nazywa go "Abaddon"
-			ko_kr = "아폴리온의 "..CAKE.ko_kr,
+			en_us = "Apollyon's ",
+			ru = " Апполиона",
+			spa = " de Apolión",
+			cs_cz = "Apollyónův ",
+			pl = " Apollyona", --EID nie zmienia mu nazwy. Polska wikipedia nazywa go "Abaddon"
+			ko_kr = "아폴리온의 ",
 		},
 		[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "The Forgotten's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Забытого",
-			spa = CAKE.spa .. " de El Olvidado",
-			cs_cz = CAKE.cs_cz .. " Zapomenutého",
-			pl = CAKE.pl .. " Zapomnianego",
-			ko_kr = "더 포가튼의 "..CAKE.ko_kr,
+			en_us = "The Forgotten's ",
+			ru = " Забытого",
+			spa = " de El Olvidado",
+			cs_cz = " Zapomenutého",
+			pl = " Zapomnianego",
+			ko_kr = "더 포가튼의 ",
 		},
 		[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "Bethany's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Вифании", --Бетани
-			spa = CAKE.spa .. " de Bethany",
-			cs_cz = "Betániin " .. CAKE.cs_cz,
-			pl = CAKE.pl .. " Betanii",
-			ko_kr = "베타니의 "..CAKE.ko_kr,
+			en_us = "Bethany's ",
+			ru = " Вифании", --Бетани
+			spa = " de Bethany",
+			cs_cz = "Betániin ",
+			pl = " Betanii",
+			ko_kr = "베타니의 ",
 		},
-		[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "Jacob's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Якова",
-			spa = CAKE.spa .. " de Jacob",
-			cs_cz = "Jákobův " .. CAKE.cs_cz,
-			pl = CAKE.pl .. " Jakuba",
-			ko_kr = "야곱의 "..CAKE.ko_kr,
+		[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+			en_us = "Jacob & Esau's ",
+			ru = " Якова",
+			spa = " de Jacob",
+			cs_cz = "Jákobův ",
+			pl = " Jakuba",
+			ko_kr = "야곱의 ",
 		},
 		[PlayerType.PLAYER_ESAU] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "Esau's " .. CAKE.en_us,
-			ru = CAKE.ru .. " Исава",
-			spa = CAKE.spa .. " de Esaú",
-			cs_cz = "Ezauův " .. CAKE.cs_cz,
-			pl = CAKE.pl .. " Ezawa",
-			ko_kr = "에사우의 "..CAKE.ko_kr,
+			en_us = "Esau's ",
+			ru = " Исава",
+			spa = " de Esaú",
+			cs_cz = "Ezauův ",
+			pl = " Ezawa",
+			ko_kr = "에사우의 ",
 		},
 	},
 
@@ -479,18 +462,95 @@ local translations = {
 		},
 	},
 
-	DEFAULT_DESCRIPTION = {
-		en_us = "All stats up",
-		ja_jp = "全てのステータスがアップ",
-		ko_kr = "모든 능력치 증가",
-		--"所有属性上升", (Simplified Chinese)
-		ru = "Все характеристики ↑",
-		--"Alle Werte hoch", (German)
-		spa = "Mejora todas las estadísticas",
-		fr = "Toutes les stats augmentées",
-		cs_cz = "Všechny statistiky ↑",
+	TAINTED_TITLES = {
+		[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+			en_us = "The Broken"
+		},
+		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		},
+		[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		},
+		[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		},
+		[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		},
+		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		},
+		[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		},
+		[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		},
+		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		},
+		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		},
+		[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		},
+		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		},
+		[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		},
+		[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		},
+		[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		},
+		[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
+		},
+		[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		},
+	},
+
+	ONE_LINERS = {
+		DEFAULT_DESCRIPTION = {
+			en_us = "All stats up",
+			ja_jp = "全てのステータスがアップ",
+			ko_kr = "모든 능력치 증가",
+			--"所有属性上升", (Simplified Chinese)
+			ru = "Все характеристики ↑",
+			--"Alle Werte hoch", (German)
+			spa = "Mejora todas las estadísticas",
+			fr = "Toutes les stats augmentées",
+			cs_cz = "Všechny statistiky ↑",
+		},
+		--The
+		CAKE = {
+		en_us = "Cake",
+		ru = "Пироженое",
+		spa = "Pastel",
+		cs_cz = "Dort",
+		pl = "Babeczka",
+		ko_kr = "케이크",
+		--is a LIE
+		--ЭТО ЛОЖЬ
+		--je LEŽ
+		--es una MENTIRA
+		},
+		TAINTED = {
+			en_us = "Tainted"
+		},
+		BIRTHCAKE = {
+			en_us = "Birthcake",
+			ru = "Пироженое",
+		}
 	}
 }
+
+function BirthcakeRebaked:AppendCake(str, lang)
+	local reverse = {
+		ru = true,
+		spa = true,
+		pl = true
+	}
+	if reverse[lang] then
+		return translations.ONE_LINERS.CAKE[lang] .. str
+	else
+		return str .. translations.ONE_LINERS.CAKE[lang]
+	end
+end
+
+function BirthcakeRebaked:AppendTainted()
+
+end
 
 for sharedName, copyName in pairs(NAME_SHARE) do
 	translations.BIRTHCAKE_NAME[sharedName] = translations.BIRTHCAKE_NAME[copyName]

@@ -51,7 +51,12 @@ Mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, EVE_CAKE.BloodBirdUpdate, Famil
 
 ---@param player EntityPlayer
 function EVE_CAKE:GetBloodBirdDamageFormula(player)
-	return math.max(2, 1 + (player.Damage / (2 + (player.Damage * 0.05))))
+	local bffs = player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS)
+	local dmg = math.max(bffs and 4 or 2, 1 + (player.Damage / (2 + (player.Damage * 0.05))))
+	if bffs then
+		dmg = dmg * 1.5
+	end
+	return dmg
 end
 
 ---@param ent Entity

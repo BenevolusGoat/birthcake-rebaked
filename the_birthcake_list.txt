@@ -3,20 +3,20 @@ Normal:
 Isaac: Dice Shard spawns in starting room and on first pickup
 Maggy: Heart pickups chance to be double (Half red -> Full red, Full red -> Double red, Half soul -> Full soul)
 Cain: Slot Machines, Fortune Telling Machines, and Crane Games have a chance to refund
-Judas: Small damage multiplier up. If you were to die from a devil deal, it would consume the cake instead
-Blue Baby: The Poop can spawn two poops adjacent to the original poop depending on the direction you're facing. Other actives will shoot out poop projectiles that spawn their respective poop when landing.
-Eve: Dead Bird turns into Blood Bird, scaling off of player damage (cannot go below their base damage, and scales respectfully to not be too crazy) and occasionally leaves small damaging puddles of blood
-Samson: Drops a heart when reaching max blood lust. With Birthright it activates at both non-br and br max points. Soul Heart if you're full health, red heart if you can take it, double red hearts if you are missing enough red health
+Judas: Small damage multiplier up. If you were to die from a devil deal, it would be free and consume the cake instead
+Blue Baby: The Poop can spawn two poops adjacent to the original poop depending on the direction you're facing. Other actives will shoot out poop projectiles that spawn their respective poop when landing
+Eve: Dead Bird turns into Blood Bird, scaling off of player damage and occasionally leaves small damaging puddles of blood
+Samson: Drops 2 hearts when reaching max blood lust
 Azazel: Your brimstone lasts longer when damaging enemies
 Lazarus: Acts like a Lazarus' Rags, reviving you a second time and further contributing to your damage boost that affects both forms
-Eden: 3 random gulped trinket on first time pickup, can be dropped
-The Lost: When getting hit with mantle, if you have no further mantle charges, you activate an Astral Projectile-like effect
+Eden: 3 random gulped trinkets on first time pickup, can be dropped
+The Lost: When losing all your mantle charges for the room, you activate an Astral Projectile-like effect
 Lilith: Familiars have a chance to copy your tear effects
 Keeper: Shops and Devil Rooms spawn a nickel
 Apollyon: Trinkets can be voided. They're gulped, but tied to Void.
-Forgor: Shoot your skeleton body as The Soul to charge it up (with a cap), which creates a compound fracture-like effect on hit. Swapping back to the Forgor gives you a fading tears up depending on charge. Switching back immediately resets this tears up, so cant be stacked a ton
+Forgor: Shoot your skeleton body as The Soul to charge it up, which creates a compound fracture-like effect on hit. Swapping back to the Forgotten gives you a fading tears up depending on charge
 Bethany: May spawn an additonal wisp on active use
-J&E: Holder reflects their damage onto the other brother
+J&E: The holder reflects all damage they take onto the other brother
 
 Tainted:
 Isaac: One extra inventory slot

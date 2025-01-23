@@ -73,6 +73,7 @@ Mod:AddCallback(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, EDEN_CAKE.OnPlayerTypeC
 -- Tainted Eden birthcake
 
 EDEN_CAKE.PREVENT_REROLL_CHANCE = 0.33
+EDEN_CAKE.BIRTHCAKE_REROLL_CHANCE = 0.05
 
 ---@param ent Entity
 ---@param amount integer
@@ -86,6 +87,7 @@ function EDEN_CAKE:PreventReroll(ent, amount, flags, source, countdownFrames)
 		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_EDEN_B)
 		and not Mod:GetData(player).EdenCakePreventLoop
 	then
+		local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
 		--We only care about held Birthcakes, not smelted
 		local trinket0 = player:GetTrinket(0)
 		local trinket1 = player:GetTrinket(1)
@@ -98,10 +100,14 @@ function EDEN_CAKE:PreventReroll(ent, amount, flags, source, countdownFrames)
 			player:TryRemoveTrinket(trinket1)
 		end
 
-		if player:GetTrinketRNG(Mod.Birthcake.ID):RandomFloat() <= Mod:GetBalanceApprovedChance(EDEN_CAKE.PREVENT_REROLL_CHANCE, Mod:GetTrinketMult(player)) then
+		if rng:RandomFloat() <= Mod:GetBalanceApprovedChance(EDEN_CAKE.PREVENT_REROLL_CHANCE, Mod:GetTrinketMult(player)) then
 			data.EdenCakePreventLoop = true
 			player:TakeDamage(amount, flags | DamageFlag.DAMAGE_NO_PENALTIES, source, countdownFrames)
 			data.EdenCakePreventLoop = false
+
+			if rng:RandomFloat() <= EDEN_CAKE.BIRTHCAKE_REROLL_CHANCE then
+				EDEN_CAKE:ReturnBirthcake(player)
+			end
 			return false
 		end
 	end

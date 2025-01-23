@@ -1,10 +1,16 @@
+General additions/changes:
 - Code completely rewritten to be better compatible with mods, co-op, and overall way better optimized
+- Improved EID support
+- Multilingual descriptions! Both EID and the Birthcake names and descriptions support the following languages: English, Russian, Spanish, Czech, Polish, Korean
+- In co-op play, Birthcake will take on its default appearance, and will have its sprite updated when picked up by the player
+- The unique Birthcake sprite for each character now appears on the HUD, powered by Benny's HudHelper
+- A completely different sprite base for the tainted characters, as well as some touchups to vanilla ones, courtesy of the original spriter, damagaz
 
-Birthcake Changes:
+Birthcake effect changes:
 - Magdalene's "doubling" effect now affects Scared Hearts and Half Soul Hearts, reduced from 50% to 25%
 - Removed Magdalene's Half Soul Heart heal with Yum Heart
 - Tainted Magdalene has hearts explode with a base damage value of 5.25 (2x T. Maggy's base damage, instead of half the player's damage) that increases based on the combined number of and total trinket multipliers of all Tainted Magdelenes with
-- Removed Tainted Cain's effect of a 5% chance for giving you a pickup you bagged
+- Removed Tainted Cain's effect of a 5% chance to give you a pickup you bagged
 - Judas'/Dark Judas' damage up has been changed from +20% to +10%
 - Devil Deals will consume Birthcake if the deal would otherwise be fatal
 - Tainted ???'s poops have a chance to not take any damage instead of being immune
@@ -16,7 +22,7 @@ Birthcake Changes:
 - Chance of Lilith's familiars obtaining their tear effects increases with your trinket multiplier, +25% for each additional mulitplier
 - Keeper spawns more nickels depending on your multiplier instead of spawning a Golden Penny when entering shops or devil rooms
 
-Birthcake Reworks:
+Birthcake effect reworks:
 - Isaac spawns a Dice Shard every floor and on Birthcake first pickup. Spawned amount scales with trinket multipliers
 - Tainted Isaac gains an extra inventory slot that's tied to the Birthcake. Your number of extra inventory slots scales with your trinket multiplier
 - Tainted Judas will gain active charge when passing through enemies instead of slowing them
@@ -39,4 +45,4 @@ Birthcake Reworks:
 Modding API:
 - Has both BirthcakeRebaked and Birthcake globals, the latter for backwards compatibility
 - Nearly everything in the mod is exposed under the BirthcakeRebaked global, following Epiphany's codebase style
-- Various callbacks and API functions have been added for easier modding support, including EID
+- Various callbacks and API functions have been added for easier modding support

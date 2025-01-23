@@ -80,11 +80,10 @@ BirthcakeRebaked.BirthcakeSprite = {
 		SpritePath = trinketPath .. "18_bethany_birthcake.png",
 	},
 	[PlayerType.PLAYER_JACOB] = {
-		SpritePath = trinketPath .. "19_jacob_birthcake.png",
-		PickupSpritePath = trinketPath .. "19_jacob_esau_birthcake.png"
+		SpritePath = trinketPath .. "19_jacob_esau_birthcake.png",
 	},
 	[PlayerType.PLAYER_ESAU] = {
-		SpritePath = trinketPath .. "20_esau_birthcake.png",
+		SpritePath = trinketPath .. "19_jacob_esau_birthcake.png",
 	},
 	[PlayerType.PLAYER_ISAAC_B] = {
 		SpritePath = trinketPath .. "21_isaacb_birthcake.png",
@@ -169,7 +168,7 @@ BirthcakeRebaked.ModCallbacks = {
 local translations = include("src_birthcake.birthcake_translations")
 BirthcakeRebaked.BirthcakeNames = translations.BIRTHCAKE_NAME
 BirthcakeRebaked.BirthcakeDescriptions = translations.BIRTHCAKE_DESCRIPTION
-BirthcakeRebaked.BirthcakeDefaultDescription = translations.DEFAULT_DESCRIPTION
+BirthcakeRebaked.BirthcakeOneLiners = translations.ONE_LINERS
 BirthcakeRebaked.EID = translations.EID
 
 local utility = {
@@ -205,22 +204,27 @@ local languageOptionToEID = {
 	["zh"] = "zh_cn"
 }
 
-function BirthcakeRebaked:TryGetTranslation(table)
-	local desc = table[languageOptionToEID[Options.Language]] or table.en_us
+---@param table table
+---@return string, string
+function BirthcakeRebaked:GetTranslatedString(table)
+	if type(table) == "string" then return table, "en_us" end
+	local lang = languageOptionToEID[Options.Language]
+	local desc = table[lang]
 
-	if desc == "" then
+	if not table[lang] or desc == "" then
 		desc = table.en_us
+		lang = "en_us"
 	end
 
-	return desc
+	return desc, lang
 end
 
 ---@param player EntityPlayer
 function BirthcakeRebaked:GetBirthcakeName(player)
 	local playerType = player:GetPlayerType()
 	local name = player:GetName() .. "'s Cake"
-	if Mod.BirthcakeNames[playerType] and Mod:TryGetTranslation(Mod.BirthcakeNames[playerType]) then
-		name = Mod:TryGetTranslation(Mod.BirthcakeNames[playerType])
+	if Mod.BirthcakeNames[playerType] and Mod:GetTranslatedString(Mod.BirthcakeNames[playerType]) then
+		name = Mod:GetTranslatedString(Mod.BirthcakeNames[playerType])
 	end
 	local nameResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.GET_BIRTHCAKE_ITEMTEXT_NAME, playerType, player, name)
 	name = (nameResult ~= nil and tostring(nameResult)) or name
@@ -230,9 +234,9 @@ end
 ---@param player EntityPlayer
 function BirthcakeRebaked:GetBirthcakeDescription(player)
 	local playerType = player:GetPlayerType()
-	local description = Mod:TryGetTranslation(Mod.BirthcakeDefaultDescription)
-	if Mod.BirthcakeDescriptions[playerType] and Mod:TryGetTranslation(Mod.BirthcakeDescriptions[playerType]) then
-		description = Mod:TryGetTranslation(Mod.BirthcakeDescriptions[playerType])
+	local description = Mod:GetTranslatedString(Mod.BirthcakeOneLiners.DEFAULT_DESCRIPTION)
+	if Mod.BirthcakeDescriptions[playerType] and Mod:GetTranslatedString(Mod.BirthcakeDescriptions[playerType]) then
+		description = Mod:GetTranslatedString(Mod.BirthcakeDescriptions[playerType])
 	elseif Birthcake.BirthcakeDescs[playerType] then
 		description = Birthcake.BirthcakeDescs[playerType]
 	end
@@ -275,7 +279,7 @@ function BirthcakeRebaked:ResetEffectsOnTypeChange(player)
 	elseif lastPlayerType ~= playerType then
 		Isaac.RunCallbackWithParam(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, lastPlayerType, player,
 			lastPlayerType)
-			playerByIndex[player.Index] = playerType
+		playerByIndex[player.Index] = playerType
 		player:GetEffects():RemoveTrinketEffect(Mod.Birthcake.ID, -1)
 	end
 end
