@@ -515,6 +515,7 @@ function BIRTHCAKE_EID:GetBirthcakeName(player)
 	return name
 end
 
+local lastRenderedPlayerType
 
 EID:addDescriptionModifier(
 	"Birthcake Description",
@@ -539,15 +540,18 @@ EID:addDescriptionModifier(
 			desc = BIRTHCAKE_EID:GetTranslatedString(descTable)
 		end
 		local name = BIRTHCAKE_EID:GetBirthcakeName(EID.player)
-		local spriteConfig = Mod.BirthcakeSprite[playerType]
-		local sprite = descObj.Icon[7]
-		if spriteConfig then
-			sprite:ReplaceSpritesheet(1, spriteConfig.SpritePath)
-		elseif not spriteConfig and Birthcake.BirthcakeDescs[playerType] then
-			sprite:ReplaceSpritesheet(1, "gfx/items/trinkets" .. EID.player:GetName():lower() .. "_birthcake.png")
-		end
+		if lastRenderedPlayerType ~= playerType then
+			local spriteConfig = Mod.BirthcakeSprite[playerType]
+			local sprite = descObj.Icon[7]
+			if spriteConfig then
+				sprite:ReplaceSpritesheet(1, spriteConfig.SpritePath)
+			elseif not spriteConfig and Birthcake.BirthcakeDescs[playerType] then
+				sprite:ReplaceSpritesheet(1, "gfx/items/trinkets" .. EID.player:GetName():lower() .. "_birthcake.png")
+			end
 
-		sprite:LoadGraphics()
+			sprite:LoadGraphics()
+			lastRenderedPlayerType = playerType
+		end
 		descObj.Description = "#{{Player" .. playerType .. "}} {{ColorGray}}" .. name .. "#" .. desc.Func(descObj)
 		descObj.Name = BIRTHCAKE_EID.Names[EID.getLanguage()] or BIRTHCAKE_EID.Names.en_us
 

@@ -45,20 +45,24 @@ function BLUEBABY_CAKE:SpawnPoopWall(itemID, rng, player, flags, slot, _)
 	if Mod:HasBitFlags(flags, UseFlag.USE_OWNED)
 		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_BLUEBABY)
 	then
-		local room = Mod.Game:GetRoom()
-		local originPos = room:GetGridPosition(room:GetGridIndex(player.Position))
-		local spawnDir = Mod:DirectionToVector(player:GetHeadDirection()):Rotated(90)
-		local playerPos = player.Position
-
-		for _ = _, 1 do -- idk why but with 2 it spawns 4 poops, so I changed it to 1
-			local pos = room:FindFreeTilePosition(originPos + spawnDir:Resized(40), 40)
-			if BLUEBABY_CAKE:CheckForValidPos(room:GetRoomShape(), pos) then
-				player.Position = pos
-				player:UseActiveItem(CollectibleType.COLLECTIBLE_POOP, UseFlag.USE_NOANIM, slot)
-				spawnDir = spawnDir:Rotated(180)
+		local data = Mod:GetData(player)
+		if not data.PreventPoopLoop then
+			local room = Mod.Game:GetRoom()
+			local originPos = room:GetGridPosition(room:GetGridIndex(player.Position))
+			local spawnDir = Mod:DirectionToVector(player:GetHeadDirection()):Rotated(90)
+			local playerPos = player.Position
+			data.PreventPoopLoop = true
+			for _ = 1, 2 do -- idk why but with 2 it spawns 4 poops, so I changed it to 1
+				local pos = room:FindFreeTilePosition(originPos + spawnDir:Resized(40), 40)
+				if BLUEBABY_CAKE:CheckForValidPos(room:GetRoomShape(), pos) then
+					player.Position = pos
+					player:UseActiveItem(CollectibleType.COLLECTIBLE_POOP, UseFlag.USE_NOANIM, slot)
+					spawnDir = spawnDir:Rotated(180)
+				end
 			end
+			player.Position = playerPos
+			data.PreventPoopLoop = false
 		end
-		player.Position = playerPos
 	end
 end
 

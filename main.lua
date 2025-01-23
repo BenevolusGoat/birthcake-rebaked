@@ -20,6 +20,7 @@ end)
 
 local trinketPath = "gfx/items/trinkets/"
 
+---@type {[PlayerType]: {SpritePath: string, PickupSpritePath: string | nil, Anm2: string | nil}}
 BirthcakeRebaked.BirthcakeSprite = {
 	[PlayerType.PLAYER_ISAAC] = {
 		SpritePath = trinketPath .. "0_isaac_birthcake.png",
@@ -80,6 +81,7 @@ BirthcakeRebaked.BirthcakeSprite = {
 	},
 	[PlayerType.PLAYER_JACOB] = {
 		SpritePath = trinketPath .. "19_jacob_birthcake.png",
+		PickupSpritePath = trinketPath .. "19_jacob_esau_birthcake.png"
 	},
 	[PlayerType.PLAYER_ESAU] = {
 		SpritePath = trinketPath .. "20_esau_birthcake.png",
@@ -115,7 +117,6 @@ BirthcakeRebaked.BirthcakeSprite = {
 		SpritePath = trinketPath .. "30_edenb_birthcake.png",
 	},
 	[PlayerType.PLAYER_THELOST_B] = {
-		Anm2 = trinketPath .. "thelostb_birthcake.anm2",
 		SpritePath = trinketPath .. "31_thelostb_birthcake.png",
 	},
 	[PlayerType.PLAYER_LILITH_B] = {
@@ -151,8 +152,10 @@ BirthcakeRebaked.ModCallbacks = {
 	GET_BIRTHCAKE_ITEMTEXT_NAME = "BIRTHCAKE_GET_BIRTHCAKE_ITEMTEXT_NAME",
 	---(player: EntityPlayer, description: string): string, Optional Arg: PlayerType - Called when getting the player-specific description of Birthcake before displayed as item text. Return a string to override it
 	GET_BIRTHCAKE_ITEMTEXT_DESCRIPTION = "BIRTHCAKE_GET_BIRTHCAKE_ITEMTEXT_DESCRIPTION",
-	---(player: EntityPlayer, sprite: Sprite), Optional Arg: Player Type - Called when loading the player-specific Birthcake sprite. Return a sprite object to override it
+	---(player: EntityPlayer, sprite: Sprite), Optional Arg: PlayerType - Called when loading the player-specific Birthcake sprite. Return a sprite object to override it
 	LOAD_BIRTHCAKE_SPRITE = "BIRTHCAKE_LOAD_BIRTHCAKE_SPRITE",
+	---(player: EntityPlayer, pickup: EntityPickup), Optional Arg: PlayerType - Called when the Birthcake pickup spawns and after its sprite has been applied. You can give it a new sprite manually
+	POST_BIRTHCAKE_PICKUP_INIT = "BIRTHCAKE_POST_BIRTHCAKE_PICKUP_INIT",
 	PRE_BIRTHCAKE_RENDER = "BIRTHCAKE_PRE_BIRTHCAKE_RENDER",
 	POST_BIRTHCAKE_RENDER = "BIRTHCAKE_POST_BIRTHCAKE_RENDER",
 	---(player: EntityPlayer, firstTimePickup: boolean, isGolden: boolean), Optional Arg: PlayerType - Called when picking up the Birthcake trinket
@@ -259,15 +262,20 @@ function BirthcakeRebaked:GetBirthcakeSprite(player)
 	return sprite
 end
 
+--Setup like so so that this works with stuff like Forgotten and Tainted Laz
+
+local playerByIndex = {}
+
 ---@param player EntityPlayer
 function BirthcakeRebaked:ResetEffectsOnTypeChange(player)
-	local data = Mod:GetData(player)
 	local playerType = player:GetPlayerType()
-	if not data.BirthcakePlayerType then
-		data.BirthcakePlayerType = playerType
-	elseif data.BirthcakePlayerType ~= playerType then
-		Isaac.RunCallbackWithParam(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, data.BirthcakePlayerType, player, data.BirthcakePlayerType)
-		data.BirthcakePlayerType = playerType
+	local lastPlayerType = playerByIndex[player.Index]
+	if not lastPlayerType then
+		playerByIndex[player.Index] = playerType
+	elseif lastPlayerType ~= playerType then
+		Isaac.RunCallbackWithParam(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, lastPlayerType, player,
+			lastPlayerType)
+			playerByIndex[player.Index] = playerType
 		player:GetEffects():RemoveTrinketEffect(Mod.Birthcake.ID, -1)
 	end
 end
@@ -304,12 +312,12 @@ function BirthcakeRebaked:ItemDesc(player)
 	end
 end
 
-function Birthcake:OnPeffectUpdate(player)
+function BirthcakeRebaked:OnPeffectUpdate(player)
 	BirthcakeRebaked:ItemDesc(player)
 	BirthcakeRebaked:ResetEffectsOnTypeChange(player)
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, BirthcakeRebaked.ItemDesc)
+Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, BirthcakeRebaked.OnPeffectUpdate)
 
 if REPENTOGON then
 	function BirthcakeRebaked:OnTrinketAdd(player, trinketID, firstTime)
@@ -324,10 +332,21 @@ end
 
 ---@param pickup EntityPickup
 function BirthcakeRebaked:ChangeSpritePickup(pickup)
-	local player = Isaac.GetPlayer()
-	local playerType = player:GetPlayerType()
-
 	if Mod:IsBirthcake(pickup.SubType) then
+		local isCoopPlay = false
+		local controllerIdx
+		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PLAYER)) do
+			local player = ent:ToPlayer() ---@cast player EntityPlayer
+			if not controllerIdx then
+				controllerIdx = player.ControllerIndex
+			elseif controllerIdx ~= player.ControllerIndex then
+				isCoopPlay = true
+				break
+			end
+		end
+		if isCoopPlay then return end
+		local player = Isaac.GetPlayer()
+		local playerType = player:GetPlayerType()
 		local sprite = pickup:GetSprite()
 		local spriteConfig = Mod.BirthcakeSprite[playerType]
 		local anim = sprite:GetAnimation()
@@ -335,15 +354,23 @@ function BirthcakeRebaked:ChangeSpritePickup(pickup)
 			sprite:Load(spriteConfig.Anm2, true)
 			sprite:Play(anim)
 		end
-		if spriteConfig and spriteConfig.SpritePath then
-			sprite:ReplaceSpritesheet(0, spriteConfig.SpritePath)
+		local spritePath = trinketPath .. "0_isaac_birthcake.png"
+		if spriteConfig then
+			if spriteConfig.PickupSpritePath then
+				spritePath = spriteConfig.PickupSpritePath
+			elseif spriteConfig.SpritePath then
+				spritePath = spriteConfig.SpritePath
+			end
 		end
 		if not spriteConfig and Birthcake.BirthcakeDescs[playerType] then
-			sprite:ReplaceSpritesheet(0, trinketPath .. player:GetName():lower() .. "_birthcake.png")
+			spritePath = trinketPath .. player:GetName():lower() .. "_birthcake.png"
 		end
-		sprite:LoadGraphics()
+		if spritePath then
+			sprite:ReplaceSpritesheet(0, spritePath)
+			sprite:LoadGraphics()
+		end
 
-		Isaac.RunCallbackWithParam(Mod.ModCallbacks.LOAD_BIRTHCAKE_SPRITE, playerType, player, sprite)
+		Isaac.RunCallbackWithParam(Mod.ModCallbacks.POST_BIRTHCAKE_PICKUP_INIT, playerType, player, sprite)
 	end
 end
 
@@ -352,7 +379,9 @@ Mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, BirthcakeRebaked.ChangeSpriteP
 ---For testing help
 function BirthcakeRebaked:SpawnGoldenBirthcake()
 	local room = Mod.Game:GetRoom()
-	Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, Mod.Birthcake.ID + TrinketType.TRINKET_GOLDEN_FLAG, room:FindFreePickupSpawnPosition(room:GetCenterPos()), Vector.Zero, nil)
+	Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET,
+		Mod.Birthcake.ID + TrinketType.TRINKET_GOLDEN_FLAG, room:FindFreePickupSpawnPosition(room:GetCenterPos()),
+		Vector.Zero, nil)
 end
 
 --[[
