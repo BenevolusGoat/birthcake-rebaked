@@ -407,10 +407,10 @@ local translations = {
 			pl = "Alergie ↑",
 			ko_kr = "알레르기 증가",
 		},
-		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [!] | PL: [!] | KO_KR [X]
+		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [OK] | PL: [!] | KO_KR [X]
 			en_us = "Untwined destiny",
 			ru = "Восстань снова",
-			cs_cz = "Povstaň znovu",
+			cs_cz = "Rozpletený osud",
 			pl = "Powstań z grobu",
 		},
 		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
