@@ -72,7 +72,6 @@ function ISAAC_CAKE:OnIsaacBPickupRemove(player, trinketID)
 		local effects = player:GetEffects()
 		effects:RemoveTrinketEffect(Mod.Birthcake.ID, removeBy)
 		ISAAC_CAKE:TryRemoveBirthcakeItems(player)
-		print("no more $19 fortnite card")
 	end
 end
 

@@ -98,7 +98,7 @@ function EDEN_CAKE:PreventReroll(ent, amount, flags, source, countdownFrames)
 			player:TryRemoveTrinket(trinket1)
 		end
 
-		if player:GetTrinketRNG(Mod.Birthcake.ID):RandomFloat() < Mod:GetBalanceApprovedChance(EDEN_CAKE.PREVENT_REROLL_CHANCE, Mod:GetTrinketMult(player)) then
+		if player:GetTrinketRNG(Mod.Birthcake.ID):RandomFloat() <= Mod:GetBalanceApprovedChance(EDEN_CAKE.PREVENT_REROLL_CHANCE, Mod:GetTrinketMult(player)) then
 			data.EdenCakePreventLoop = true
 			player:TakeDamage(amount, flags | DamageFlag.DAMAGE_NO_PENALTIES, source, countdownFrames)
 			data.EdenCakePreventLoop = false

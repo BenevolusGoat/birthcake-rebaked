@@ -163,7 +163,7 @@ function LAZARUS_CAKE:PostFlipPedestals(itemID, rng, player)
 
 			if previousItemID
 				and pickup.SubType ~= previousItemID
-				and randomFloat < randomChance
+				and randomFloat <= randomChance
 			then
 				pickup:Remove()
 				LAZARUS_CAKE:SpawnSplitPedestals(pickup, player, previousItemID, previousPrice)
