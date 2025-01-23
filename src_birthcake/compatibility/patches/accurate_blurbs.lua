@@ -4,7 +4,7 @@ local loader = BirthcakeRebaked.PatchesLoader
 ---Any empty descriptions are for characters that I may change the effect of, or ones I do want but haven't thought of an idea yet
 BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 	[PlayerType.PLAYER_ISAAC] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
-		en_us = "Spawns Dice Shard + Dice Shards in starting room",
+		en_us = "Dice Shard in Starting Rooms",
 		ru = "Создает Осколок Кости + Осколки Кости в стартовой комнате",
 		pl = "Odłamki Kości w pokojach Skarbów i Bossa",
 	},
@@ -14,52 +14,52 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 		pl = "Serca są czasami podwojone. Serduszko daje pół serca dusz",
 	},
 	[PlayerType.PLAYER_CAIN] = {				-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
-		en_us = "(Slots + Fortune Machines + Crane Games) may refund",
+		en_us = "Machines may refund",
 		ru = "(Игральные автоматы + Автоматы предсказаний + Кран-машины) могут возвратить деньги", --Looks too long, I'll mb change that later
 		pl = "Automaty do Gier i z Wróżbami czasami zwracają pieniądze. Chwytaki również, ale rzadziej",
 	},
-	[PlayerType.PLAYER_JUDAS] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
-		en_us = "Damage multiplier + lethal Devil deal occurs at Birthcake cost",
+	[PlayerType.PLAYER_JUDAS] = {				-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		en_us = "DMG multiplier + exchange for lethal Deal",
 		ru = "Множитель урона ↑ + летальная Сделка с Дьяволом совершается по цене Пироженного",
 		pl = "Większe obrażenia i mnożnik obrażeń. Zapobiega śmierci, ale zostaje zniszcony",
 	},
-	[PlayerType.PLAYER_BLUEBABY] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK]
-		en_us = "Active items create poops based on charge",
+	[PlayerType.PLAYER_BLUEBABY] = {			-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		en_us = "Active use drop poops depending on charge",
 		ru = "Активные предметы создают какашки в зависимости от их заряда",
 		pl = "Przedmioty aktywne tworzą kupy zależnie od ładunków",
 	},
 	[PlayerType.PLAYER_EVE] = {					-- EN: [X] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
-		en_us = "Dead Bird damage scaling + leaves blood creep",
+		en_us = "(DMG scaling + blood-creep) for Dead Bird",
 		ru = "Изменение урона Мертвой Птицы от урона персонажа + она оставляет кровавый след", --how the f am i supposed to translate "scaling"?
 		pl = "Obrażenia najpierw zabierają czerwone zdrowie, bez zmniejszania szansy na pokój Diabła",
 	},
 	[PlayerType.PLAYER_SAMSON] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [!]
-		en_us = "Drops Red Hearts at maximum rage",
+		en_us = "Drop red hearts at maximum rage",
 		ru = "Роняет красные сердца при максимальном уровне ярости",
 		pl = "Tworzy serduszka po osiągnieciu maksymalnego gniewu",
 	},
-	[PlayerType.PLAYER_AZAZEL] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
-		en_us = "DMG down + longer Brimstone duration while damaging enemies",
+	[PlayerType.PLAYER_AZAZEL] = {				-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		en_us = "DMG down + extended Brimstone duration",
 		ru = "Урон ↓ + длительность луча серы увеличивается по мере нанесения урона",
 		pl = "Zadawanie obrażeń wydłuża laser",
 	},
-	[PlayerType.PLAYER_LAZARUS] = {				-- EN: [X] | RU: [Х] | SPA: [X] | CS_CZ: [X] | PL: [!]
+	[PlayerType.PLAYER_LAZARUS] = {				-- EN: [OK] | RU: [Х] | SPA: [X] | CS_CZ: [X] | PL: [!]
 		en_us = "Extra Lazarus' Rags revive",
 		ru = "???",
 		pl = "Obrażenia w pokoju i serce dusz po odrodzeniu",
 	},
-	[PlayerType.PLAYER_EDEN] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
-		en_us = "3 random gulped trinkets + can be dropped",
+	[PlayerType.PLAYER_EDEN] = {				-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		en_us = "3 unchanging random trinket effects",
 		ru = "Проглатывает 3 случайных брелока + можно выбросить",
 		pl = "3 losowe połknięte trynkiety",
 	},
-	[PlayerType.PLAYER_THELOST] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
-		en_us = "Astral Projection when losing Mantle",
+	[PlayerType.PLAYER_THELOST] = {				-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		en_us = "Astral Projection on Holy Mantle breakage",
 		ru = "Эффект Астральной Проэкции при потери Мантии",
 		pl = "2 darmowe użycia przedmiotu na piętro. Wieczne D6 wykonuje efekt D6 + Prawo Urodzenia",
 	},
-	[PlayerType.PLAYER_LILITH] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK]
-		en_us = "Familiars have a chance to copy your tear effects",
+	[PlayerType.PLAYER_LILITH] = {				-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [OK]
+		en_us = "Buddies may copy tear effects",
 		ru = "Спутники имеют шанс скопировать эффекты слез",
 		pl = "Sojusznicy czasami kopiują efekty twoich łez",
 	},
@@ -68,13 +68,13 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 		ru = "Пятак в Магазине и комнате Сделки с Дьяволом",
 		pl = "Piątak w sklepach i pokojach Diabła",
 	},
-	[PlayerType.PLAYER_APOLLYON] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
-		en_us = "Trinkets can be voided",
+	[PlayerType.PLAYER_APOLLYON] = {			-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		en_us = "Trinkets can be absorbed with Void",
 		ru = "Брелки могут быть поглощены",
 		pl = "Jadalne trynkiety",
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
-		en_us = "Shoot skeleton body to charge + fill for fading tears up",
+	[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		en_us = "Shoot bone-body to fill for fading tears up",
 		ru = "Стреляй по скелету для зарядки + вселись для убывающего повышения скорострельности",
 		pl = "Strzel w ciało, aby je naładować. Wróc do niego, aby dostać bonus do szybkostrzelności"
 	},
@@ -83,8 +83,8 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 		ru = "При использовании активируемого предмета может появиться дополнительный огонек",
 		pl = "Użyte przedmioty czasami dają dodatkowe ogniki",
 	},
-	[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
-		en_us = "Damage is reflected onto the other brother",
+	[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		en_us = "All damage hurts the other brother instead",
 		ru = "Получаемый урон перенаправляется на другого брата",
 		pl = "Dostań część statystyk od brata",
 	},
@@ -98,37 +98,37 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 		ru = "Временные сердца, падающие с врагов, взрываются",
 		pl = "Serduszka z przeciwników wybuchają",
 	},
-	[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
-		en_us = "Double pickups are split",
+	[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		en_us = "Double pickups are split apart",
 		ru = "Двойные подбираемые предметы распадаются",
 		pl = "Rozdziela podwójne pickupy",
 	},
-	[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK]
-		en_us = "Passing through enemies with Dark Arts gives active charge",
+	[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [OK]
+		en_us = "Pass through with Dark Arts for active charge",
 		ru = "Прохождение сквозь врагов под действием Темных Искусств заряжает активный предмет",
 		pl = "Mroczne Techniki ładują się szybciej, gdy trafiają przeciwników",
 	},
-	[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
-		en_us = "You poops may not take damage",
+	[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		en_us = "Poops may not be hurt",
 		ru = "Твои какашки могут не получить урон",
 		pl = "Kupy blokują pociski i spowalniają przeciwników",
 	},
-	[PlayerType.PLAYER_EVE_B] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = "???",
+	[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = "Clots drop creep on death",
 		ru = "???",
 	},
-	[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK]
-		en_us = "Clearing rooms may extend Berserk and spawn a heart",
+	[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		en_us = "Room clear may (extend Berserk + drop heart)",
 		ru = "Зачистка комнат может продлить действие Берсерка и создать сердце",
 		pl = "Kończenie pokojów czasami wydłuża stan Berserka i tworzy serduszko",
 	},
-	[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK]
-		en_us = "Sneeze brimstone-marking tears. Small chance to stick",
+	[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		en_us = "Sneeze brimstone-marking booger tears",
 		ru = "Вычихивание слез с меткой серы, имеющих маленький шанс прилипнуть",
 		pl = "Kichaj naznaczającymi łzami. Czasami są lepkie",
 	},
-	[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = "???",
+	[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = "Flipping items may split items into both sides",
 		ru = "???",
 	},
 	[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!]
@@ -136,26 +136,26 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 		ru = "Может не поменять все при получении урона",
 		pl = "3 losowe połknięte trynkiety, ciągle zmienne",
 	},
-	[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = "More Holy Cards",
+	[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = "Holy Card + cards may be Holy Card more",
 		ru = "Больше Святых Карт",
 	},
-	[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = "Chance for extra fetus",
+	[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = "Chance for additional Gello on birth",
 		ru = "Шанс на дополнительного зародыша",
 	},
-	[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK]
-		en_us = "Spawns a mini shop every floor",
+	[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		en_us = "Spawn a mini shop every floor",
 		ru = "Создает мини-магазин каждый этаж",
 		pl = "Mini sklep na każdym piętrze",
 	},
-	[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK]
-		en_us = "Abyssable trinkets for half damage locusts",
+	[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		en_us = "Abyss-absorb trinkets for half-DMG locusts",
 		ru = "Поглощение брелоков создает саранчу с половиной урона персонажа",
 		pl = "Pochłaniaj trynkiety, aby dostać szarańcze o połowicznych obrażeniach",
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK]
-		en_us = "Killing enemies spawns orbitals. Throw Forgotten to fire them",
+	[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!]
+		en_us = "Kill for bone-orbitals + hold body to gather",
 		ru = "Создает орбитальные кости при убийстве врагов. Бросок Забытого стреляет ими",
 		pl = "Zabijanie przeciwników tworzy kości. Rzuć ciałem, by je wystrzelić",
 	},
@@ -164,8 +164,8 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 		ru = "Двойное здоровье у огоньков",
 		pl = "Ogniki mają podwojone zdrowie",
 	},
-	[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = "Dark Esau leaves a trail of flames",
+	[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = "Dark Esau leaves a flame-trail",
 		ru = "Темный Исав оставляет огненный след",
 	}
 }
