@@ -244,14 +244,14 @@ BIRTHCAKE_EID.Descs = {
 		en_us = {
 		"{{Heart}} Hearts have a ",
 			function(descObj)
-				return tostring(100 * Mod:GetBalanceApprovedLuckChance(Mod.Birthcake.MAGDALENE.HEART_REPLACE_CHANCE, BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)))
+				return tostring(100 * Mod:GetBalanceApprovedChance(Mod.Birthcake.MAGDALENE.HEART_REPLACE_CHANCE, BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)))
 			end,
 		"% chance to be doubled"
 		},
 		ru = {
 		"{{Heart}} Сердца имеют ",
 			function(descObj)
-				return tostring(100 * Mod:GetBalanceApprovedLuckChance(Mod.Birthcake.MAGDALENE.HEART_REPLACE_CHANCE, BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)))
+				return tostring(100 * Mod:GetBalanceApprovedChance(Mod.Birthcake.MAGDALENE.HEART_REPLACE_CHANCE, BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)))
 			end,
 		"% шанс удвоиться"
 		},
@@ -262,11 +262,11 @@ BIRTHCAKE_EID.Descs = {
 		_modifier = function(descObj, baseChance)
 			local mult = BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)
 			local chance = baseChance * (1 + 0.3 * (mult - 1))
-			
+
 			if mult > 1 then
 				return "{{ColorGold}}" .. tostring(chance * 100) .. "{{CR}}"
 			end
-			
+
 			return tostring(chance * 100)
 		end,
 		en_us = {
@@ -304,167 +304,167 @@ BIRTHCAKE_EID.Descs = {
 	},
 	[PlayerType.PLAYER_BLUEBABY] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = { --will probably have to havei t dynamically change depending on the active being held
-		"{{Collectible36}} The Poop spawns 2 additional poops at both sides of the original on use.", 
+		"{{Collectible36}} The Poop spawns 2 additional poops at both sides of the original on use.",
 		"#The sides the poop appear on depend on the direction ??? is facing.",
 		"#{{Collectible}} With other active items, fires out 3 poop projectiles in random directions that create a poop on contact."
 		},
 	},
 	[PlayerType.PLAYER_EVE] = {					-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = { --maybe add bffs here?
-		"{{Collectible117}} Turns Dead Bird into Blood Bird.", 
+		"{{Collectible117}} Turns Dead Bird into Blood Bird.",
 		"#Blood Bird periodically leaves behind small damaging pools of red creep.",
 		"#Blood Bird's damage scales with Eve's damage."
 		},
 	},
 	[PlayerType.PLAYER_SAMSON] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
-		"{{Collectible157}} Reaching the maximum damage increase with Bloody Lust drops a {{Heart}} red heart.", 
+		en_us = {
+		"{{Collectible157}} Reaching the maximum damage increase with Bloody Lust drops a {{Heart}} red heart.",
 		"#Drops two red hearts if Samson's health is low enough",
 		"#{{SoulHeart}} Drops a soul heart if at full health"
 		},
 	},
 	[PlayerType.PLAYER_AZAZEL] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
+		en_us = {
 		"Brimstone blasts last longer while damaging enemies."
 		},
 	},
 	[PlayerType.PLAYER_LAZARUS] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
-		"{{Collectible332}} If Lazarus Risen dies, this trinket is consumed and he is revived again.", 
+		en_us = {
+		"{{Collectible332}} If Lazarus Risen dies, this trinket is consumed and he is revived again.",
 		"#The revive grants another damage increase and removes a heart container."
 		},
 	},
 	[PlayerType.PLAYER_EDEN] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
-		"{{Trinket}} Gulps three random trinkets while held.", 
+		en_us = {
+		"{{Trinket}} Gulps three random trinkets while held.",
 		"#The trinket effects are lost when Birthcake is dropped."
 		},
 	},
 	[PlayerType.PLAYER_THELOST] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
+		en_us = {
 		"{{Collectible677}} Temporarily slows down enemies and grants a decaying fire rate increase when Holy Mantle is broken."
 		},
 	},
 	[PlayerType.PLAYER_LILITH] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
+		en_us = {
 		"Familiars have a chance to mimic Lilith's tear effects."
 		},
 	},
 	[PlayerType.PLAYER_KEEPER] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
+		en_us = {
 		"{{Shop}} Shops and {{DevilRoom}} Devil Rooms contain a nickel."
 		},
 	},
 	[PlayerType.PLAYER_APOLLYON] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
-		"{{Collectible477}} Void can absorb trinkets.", 
+		en_us = {
+		"{{Collectible477}} Void can absorb trinkets.",
 		"#Voided trinkets are gulped, retaining their effects permanently as long as Void is held."
 		},
 	},
 	[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
-		"Firing at the skeleton as the soul will cause bone fragment tears to fire out of it in random directions.", 
+		en_us = {
+		"Firing at the skeleton as the soul will cause bone fragment tears to fire out of it in random directions.",
 		"#Returning to the skeleton will grant a decaying fire rate increase depending on how much it was shot at." --could be worded better
 		},
 	},
 	[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
+		en_us = {
 		"Using an active item has a chance to spawn an additional wisp"
 		},
 	},
 	[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
+		en_us = {
 		"{{ArrowUp}}{{Damage}} The holder will grant a portion of their damage to the other brother" --word this better?
 		},
 	},
 	[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
+		en_us = {
 		"Grants an additional item slot"
 		},
 	},
 	[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
+		en_us = {
 		"Dropped hearts eventually explode into pools of red creep",
 		"#Explosion damage scales with Magdalene's damage"
 		},
 	},
 	[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
-		"Double pickups that spawn are split into two." 
+		en_us = {
+		"Double pickups that spawn are split into two."
 		},
 	},
 	[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
-		"{{Collectible705}} Passing through enemies with Dark Arts slightly decreases its charge time." 
+		en_us = {
+		"{{Collectible705}} Passing through enemies with Dark Arts slightly decreases its charge time."
 		},
 	},
 	[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
 	[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
+		en_us = {
 		"Blood clots leave behind a small pool of damaging creep on death.",
 		"#The damage and effects of the creep depend on the type of clot killed."
 		},
 	},
 	[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
-		"{{Collectible704}} Clearing a room while in Berserk has a chance to extend its length by 5 seconds and spawn a {{HalfHeart}} half red heart." 
+		en_us = {
+		"{{Collectible704}} Clearing a room while in Berserk has a chance to extend its length by 5 seconds and spawn a {{HalfHeart}} half red heart."
 		},
 	},
 	[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
+		en_us = {
 		"Sneezing fires out a cluster of 6 tears that deal a portion of Azazel's damage",
 		"#{{Collectible459}} Tears have a chance to stick onto enemies to damage them over time"
 		},
 	},
 	[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
-		"{{Collectible711}} When using Flip, item pedestals have a chance to split into both collectibles displayed." 
+		en_us = {
+		"{{Collectible711}} When using Flip, item pedestals have a chance to split into both collectibles displayed."
 		},
 	},
 	[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
+		en_us = {
 		"Taking damage has a chance to not reroll Eden's items.",
 		"#Birthcake is always immune to being rerolled."
 		},
 	},
 	[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
+		en_us = {
 		"{{Card51}} Spawns a Holy Card when first picked up.",
 		"#Increases the chance for Holy Cards to appear"
 		},
 	},
 	[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
+		en_us = {
 		"Whipping out Lilith's Gello has a chance to spawn another Gello",
 		"#The additional Gello deals halved damage"
 		},
 	},
 	[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
+		en_us = {
 		"Spawns an item and two pickups for sale at the start of each floor"
 		},
 	},
 	[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
+		en_us = {
 		"{{Collectible706}} Trinkets can be converted into locusts by Abyss",
 		"#Locusts made from trinkets deal 50% damage"
 		},
 	},
 	[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
+		en_us = {
 		"Killing enemies will spawn stationary bone fragments that damage enemies on contact",
 		"#Holding the skeleton will cause all bone fragments to fly towards the Soul, damaging enemies in the way"
 		},
 	},
 	[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
+		en_us = {
 		"{{Collectible712}} Lemegeton wisps have doubled health"
 		},
 	},
 	[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { 
+		en_us = {
 		"Dark Esau leaves behind small flames when flying, blocking tears and enemy projectiles.",
 		"#The flames can damage both Jacob and enemies."
 		},
@@ -509,9 +509,12 @@ end
 ---@param player EntityPlayer
 function BIRTHCAKE_EID:GetBirthcakeName(player)
 	local playerType = player:GetPlayerType()
-	local name = Mod.BirthcakeNames[playerType][EID.getLanguage()] or Mod.BirthcakeNames[playerType].en_us
-	--[[local nameResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.GET_BIRTHCAKE_ITEMTEXT_NAME, playerType, player, name) idk if we need that, but uncomment, if we do
-	name = (nameResult ~= nil and tostring(nameResult)) or name]]
+	local name = player:GetName() .. "'s Cake"
+	if Mod.BirthcakeNames[playerType] and BIRTHCAKE_EID:GetTranslatedString(Mod.BirthcakeNames[playerType]) then
+		name = BIRTHCAKE_EID:GetTranslatedString(Mod.BirthcakeNames[playerType])
+	end
+	local nameResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.GET_BIRTHCAKE_ITEMTEXT_NAME, playerType, player, name)
+	name = (nameResult ~= nil and tostring(nameResult)) or name
 	return name
 end
 
@@ -533,27 +536,36 @@ EID:addDescriptionModifier(
 	-- modifier
 	---@param descObj EID_DescObj
 	function(descObj)
-		local playerType = EID.player:GetPlayerType()
-		local descTable = BIRTHCAKE_EID.Descs[EID.player:GetPlayerType()]
-		local desc = BIRTHCAKE_EID:GetTranslatedString(BIRTHCAKE_EID.DefaultDescription)
-		if descTable and BIRTHCAKE_EID:GetTranslatedString(descTable) then
-			desc = BIRTHCAKE_EID:GetTranslatedString(descTable)
-		end
-		local name = BIRTHCAKE_EID:GetBirthcakeName(EID.player)
-		if lastRenderedPlayerType ~= playerType then
-			local spriteConfig = Mod.BirthcakeSprite[playerType]
-			local sprite = descObj.Icon[7]
-			if spriteConfig then
-				sprite:ReplaceSpritesheet(1, spriteConfig.SpritePath)
-			elseif not spriteConfig and Birthcake.BirthcakeDescs[playerType] then
-				sprite:ReplaceSpritesheet(1, "gfx/items/trinkets" .. EID.player:GetName():lower() .. "_birthcake.png")
+		local players = EID.coopMainPlayers
+		for _, player in ipairs(players) do
+			local playerType = player:GetPlayerType()
+			local descTable = BIRTHCAKE_EID.Descs[playerType]
+			local desc = BIRTHCAKE_EID:GetTranslatedString(BIRTHCAKE_EID.DefaultDescription)
+			if descTable and BIRTHCAKE_EID:GetTranslatedString(descTable) then
+				desc = BIRTHCAKE_EID:GetTranslatedString(descTable)
 			end
+			local name = BIRTHCAKE_EID:GetBirthcakeName(EID.player)
+			local sprite = descObj.Icon[7]
+			if #players > 1 then
+				if lastRenderedPlayerType ~= PlayerType.PLAYER_ISAAC then
+					sprite:ReplaceSpritesheet(1, "gfx/items/trinkets/0_isaac_birthcake.png")
+					sprite:LoadGraphics()
+					lastRenderedPlayerType = PlayerType.PLAYER_ISAAC
+				end
+			elseif lastRenderedPlayerType ~= playerType then
+				local spriteConfig = Mod.BirthcakeSprite[playerType]
+				if spriteConfig then
+					sprite:ReplaceSpritesheet(1, spriteConfig.SpritePath)
+				elseif not spriteConfig and Birthcake.BirthcakeDescs[playerType] then
+					sprite:ReplaceSpritesheet(1, "gfx/items/trinkets" .. EID.player:GetName():lower() .. "_birthcake.png")
+				end
 
-			sprite:LoadGraphics()
-			lastRenderedPlayerType = playerType
+				sprite:LoadGraphics()
+				lastRenderedPlayerType = playerType
+			end
+			descObj.Description = descObj.Description .. "#{{Player" .. playerType .. "}} {{ColorGray}}" .. name .. "#" .. desc.Func(descObj)
+			descObj.Name = BIRTHCAKE_EID:GetTranslatedString(BIRTHCAKE_EID.Names)
 		end
-		descObj.Description = "#{{Player" .. playerType .. "}} {{ColorGray}}" .. name .. "#" .. desc.Func(descObj)
-		descObj.Name = BIRTHCAKE_EID.Names[EID.getLanguage()] or BIRTHCAKE_EID.Names.en_us
 
 		return descObj
 	end
