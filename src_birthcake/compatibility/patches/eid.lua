@@ -310,7 +310,7 @@ BIRTHCAKE_EID.Descs = {
 		},
 	},
 	[PlayerType.PLAYER_EVE] = {					-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-		en_us = { --maybe add bffs here? number is probably inaccurate too
+		en_us = { --maybe add bffs here?
 		"{{Collectible117}} Turns Dead Bird into Blood Bird.", 
 		"#Blood Bird periodically leaves behind small damaging pools of red creep.",
 		"#Blood Bird's damage scales with Eve's damage."
@@ -325,7 +325,7 @@ BIRTHCAKE_EID.Descs = {
 	},
 	[PlayerType.PLAYER_AZAZEL] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = { 
-		"Brimstone blasts last longer while damaging enemies." --idk how to word this lol
+		"Brimstone blasts last longer while damaging enemies."
 		},
 	},
 	[PlayerType.PLAYER_LAZARUS] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
@@ -394,48 +394,80 @@ BIRTHCAKE_EID.Descs = {
 		},
 	},
 	[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-	en_us = { 
+		en_us = { 
 		"{{Collectible705}} Passing through enemies with Dark Arts slightly decreases its charge time." 
 		},
 	},
 	[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 
 	},
-	[PlayerType.PLAYER_EVE_B] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"Blood clots leave behind a small pool of damaging creep on death.",
+		"#The damage and effects of the creep depend on the type of clot killed."
+		},
 	},
-	[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"{{Collectible704}} Clearing a room while in Berserk has a chance to extend its length by 5 seconds and spawn a {{HalfHeart}} half red heart." 
+		},
 	},
-	[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"Sneezing fires out a cluster of 6 tears that deal a portion of Azazel's damage",
+		"#{{Collectible459}} Tears have a chance to stick onto enemies to damage them over time"
+		},
 	},
-	[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"{{Collectible711}} When using Flip, item pedestals have a chance to split into both collectibles displayed." 
+		},
 	},
-	[PlayerType.PLAYER_EDEN_B] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"Taking damage has a chance to not reroll Eden's items.",
+		"#Birthcake is always immune to being rerolled."
+		},
 	},
-	[PlayerType.PLAYER_THELOST_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"{{Card51}} Spawns a Holy Card when first picked up.",
+		"#Increases the chance for Holy Cards to appear"
+		},
 	},
-	[PlayerType.PLAYER_LILITH_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"Whipping out Lilith's Gello has a chance to spawn another Gello",
+		"#The additional Gello deals halved damage"
+		},
 	},
-	[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"Spawns an item and two pickups for sale at the start of each floor"
+		},
 	},
-	[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"{{Collectible706}} Trinkets can be converted into locusts by Abyss",
+		"#Locusts made from trinkets deal 50% damage"
+		},
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"Killing enemies will spawn stationary bone fragments that damage enemies on contact",
+		"#Holding the skeleton will cause all bone fragments to fly towards the Soul, damaging enemies in the way"
+		},
 	},
-	[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"{{Collectible712}} Lemegeton wisps have doubled health"
+		},
 	},
-	[PlayerType.PLAYER_JACOB_B] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = { 
+		"Dark Esau leaves behind small flames when flying, blocking tears and enemy projectiles.",
+		"#The flames can damage both Jacob and enemies."
+		},
 	},
 }
 
