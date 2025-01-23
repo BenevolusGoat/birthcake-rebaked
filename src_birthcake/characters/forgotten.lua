@@ -227,12 +227,14 @@ Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, THEFORGOTTEN_CAKE.OnForgott
 function THEFORGOTTEN_CAKE:OrbitalRecallUpdate(familiar)
 	local data = Mod:GetData(familiar)
 	if data.ForgottenCakeBoneOrbital then
-		if familiar.Velocity:LengthSquared() >= 15 then
+		if familiar.Position:DistanceSquared(familiar.Player.Position) >= 40 ^ 2 then
 			if familiar.FrameCount % 3 == 0 then
 				local effect = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HAEMO_TRAIL, 0, familiar.Position, Vector.Zero, familiar):ToEffect()
 				---@cast effect EntityEffect
 				effect.DepthOffset = -5
-				effect.Color = Color(0,0,0,1,0.34,0.6,0.85)
+				effect.Color = Color(0,0,0,0,0.34,0.6,0.85)
+				effect:SetColor(Color(0,0,0,1,0.64,0.8, 1), 6, 10, true, true)
+				effect.SpriteScale = Vector(0.75, 0.75)
 				effect.PositionOffset = Vector(0, -8)
 			end
 		else
