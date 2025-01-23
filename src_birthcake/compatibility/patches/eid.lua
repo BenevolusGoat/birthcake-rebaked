@@ -318,9 +318,7 @@ BIRTHCAKE_EID.Descs = {
 	},
 	[PlayerType.PLAYER_SAMSON] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
-		"{{Collectible157}} Reaching the maximum damage increase with Bloody Lust drops a {{Heart}} red heart.",
-		"#Drops two red hearts if Samson's health is low enough",
-		"#{{SoulHeart}} Drops a soul heart if at full health"
+		"{{Collectible157}} Reaching the maximum damage increase with Bloody Lust drops two {{Heart}} red hearts."
 		},
 	},
 	[PlayerType.PLAYER_AZAZEL] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
@@ -398,8 +396,10 @@ BIRTHCAKE_EID.Descs = {
 		"{{Collectible705}} Passing through enemies with Dark Arts slightly decreases its charge time."
 		},
 	},
-	[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
-
+	[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		en_us = {
+		"Thrown poops have a chance to not be damaged when hit by projectiles."
+		},
 	},
 	[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
