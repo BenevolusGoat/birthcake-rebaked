@@ -160,7 +160,7 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 		pl = "Zabijanie przeciwników tworzy kości. Rzuć ciałem, by je wystrzelić",
 	},
 	[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK]
-		en_us = "Double health wisps",
+		en_us = "Wisps have double health",
 		ru = "Двойное здоровье у огоньков",
 		pl = "Ogniki mają podwojone zdrowie",
 	},
