@@ -169,11 +169,8 @@ local translations = include("src_birthcake.birthcake_translations")
 BirthcakeRebaked.BirthcakeNames = translations.BIRTHCAKE_NAME
 BirthcakeRebaked.BirthcakeDescriptions = translations.BIRTHCAKE_DESCRIPTION
 BirthcakeRebaked.BirthcakeOneLiners = translations.ONE_LINERS
+BirthcakeRebaked.BirthcakeTaitnedTitles = translations.TAINTED_TITLES
 BirthcakeRebaked.EID = translations.EID
-
-BirthcakeRebaked.Settings = {
-	TaintedTitle = 0
-}
 
 include("src_birthcake.compatibility.patches.mod_config_menu")
 
@@ -185,6 +182,17 @@ local utility = {
 }
 for _, path in ipairs(utility) do
 	include("src_birthcake.utility." .. path)
+end
+
+---All credit goes to Epiphany for these files
+local config = {
+	"settings_enum",
+	"settings_helper",
+	"settings_setup",
+	"mcm_setup",
+}
+for _, path in ipairs(config) do
+	include("src_birthcake.config." .. path)
 end
 
 local miscSrc = {
@@ -228,10 +236,26 @@ end
 ---@param player EntityPlayer
 function BirthcakeRebaked:GetBirthcakeName(player)
 	local playerType = player:GetPlayerType()
-	local name = player:GetName() .. "'s Cake"
-	if Mod.BirthcakeNames[playerType] and Mod:GetTranslatedString(Mod.BirthcakeNames[playerType]) then
-		name = Mod:GetTranslatedString(Mod.BirthcakeNames[playerType])
+	local name = player:GetName()
+	local lang = languageOptionToEID[Options.Language]
+	if Mod.BirthcakeNames[playerType] then
+		local newName, newLang = Mod:GetTranslatedString(Mod.BirthcakeNames[playerType])
+		name = newName
+		lang = newLang
 	end
+	local nameSetting = Mod.GetSetting(Mod.Setting.TaintedName)
+
+	if nameSetting == 2 then
+		if not string.find(name, "Tainted") then
+			name = Mod:AppendTainted(name, lang)
+		end
+	elseif nameSetting == 3 then
+		local nameTitle = Mod.BirthcakeTaitnedTitles[playerType]
+		if nameTitle then
+			name = Mod:GetTranslatedString(nameTitle)
+		end
+	end
+	name = Mod:AppendCake(name, lang)
 	local nameResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.GET_BIRTHCAKE_ITEMTEXT_NAME, playerType, player, name)
 	name = (nameResult ~= nil and tostring(nameResult)) or name
 	return name

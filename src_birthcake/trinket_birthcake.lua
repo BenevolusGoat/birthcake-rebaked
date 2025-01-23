@@ -58,4 +58,4 @@ function BIRTHCAKE_TRINKET:OnPlayerTypeChange(player)
 	end
 end
 
-Mod:AddCallback(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, BIRTHCAKE_TRINKET.OnPlayerTypeChange)
+Mod:AddPriorityCallback(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, CallbackPriority.EARLY, BIRTHCAKE_TRINKET.OnPlayerTypeChange)
