@@ -344,31 +344,34 @@ function BirthcakeRebaked:ChangeSpritePickup(pickup)
 				break
 			end
 		end
-		if isCoopPlay then return end
+
 		local player = Isaac.GetPlayer()
 		local playerType = player:GetPlayerType()
 		local sprite = pickup:GetSprite()
 		local spriteConfig = Mod.BirthcakeSprite[playerType]
 		local anim = sprite:GetAnimation()
-		if spriteConfig and spriteConfig.Anm2 then
-			sprite:Load(spriteConfig.Anm2, true)
-			sprite:Play(anim)
-		end
 		local spritePath = trinketPath .. "0_isaac_birthcake.png"
-		if spriteConfig then
-			if spriteConfig.PickupSpritePath then
-				spritePath = spriteConfig.PickupSpritePath
-			elseif spriteConfig.SpritePath then
-				spritePath = spriteConfig.SpritePath
+
+		if not isCoopPlay then
+			if spriteConfig and spriteConfig.Anm2 then
+				sprite:Load(spriteConfig.Anm2, true)
+				sprite:Play(anim)
+			end
+			if spriteConfig then
+				if spriteConfig.PickupSpritePath then
+					spritePath = spriteConfig.PickupSpritePath
+				elseif spriteConfig.SpritePath then
+					spritePath = spriteConfig.SpritePath
+				end
+			end
+			if not spriteConfig and Birthcake.BirthcakeDescs[playerType] then
+				spritePath = trinketPath .. player:GetName():lower() .. "_birthcake.png"
 			end
 		end
-		if not spriteConfig and Birthcake.BirthcakeDescs[playerType] then
-			spritePath = trinketPath .. player:GetName():lower() .. "_birthcake.png"
-		end
-		if spritePath then
-			sprite:ReplaceSpritesheet(0, spritePath)
-			sprite:LoadGraphics()
-		end
+
+		---@cast spritePath string
+		sprite:ReplaceSpritesheet(0, spritePath)
+		sprite:LoadGraphics()
 
 		Isaac.RunCallbackWithParam(Mod.ModCallbacks.POST_BIRTHCAKE_PICKUP_INIT, playerType, player, sprite)
 	end
