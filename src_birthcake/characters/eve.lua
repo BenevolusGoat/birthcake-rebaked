@@ -93,9 +93,6 @@ EVE_CAKE.ClotVariantOnDeath = {
 		creep:GetSprite():Load("gfx/1000.025_creep (white).anm2", true)
 		creep.Color = Color(1,1,1,1,-0.9, -0.725, -0.5)
 		creep.CollisionDamage = clot.Player.Damage * 0.35
-		local data = Mod:GetData(creep)
-		data.IsEveCakeCreep = true
-		data.EveCakeBlueCreep = true
 	end,
 	[Mod.BloodClotSubtype.BLACK] = function(clot, creep)
 		creep:GetSprite():Load("gfx/1000.025_creep (white).anm2", true)
@@ -170,8 +167,6 @@ function EVE_CAKE:OnClotCreepUpdate(effect)
 		if npc and ent:IsActiveEnemy(false) and ent:IsVulnerableEnemy() and Mod.Game:GetRoom():IsPositionInRoom(npc.Position, 0) then
 			if data.EveCakeGoldCreep then
 				npc:AddMidasFreeze(ref, 150)
-			elseif data.EveCakeBlueCreep then
-				npc:AddFreeze(ref, 150)
 			elseif data.EveCakeBlackCreep then
 				npc:AddFear(ref, 150)
 			elseif data.EveCakeWhiteCreep then
