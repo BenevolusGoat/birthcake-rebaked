@@ -1,5 +1,20 @@
 local Mod = BirthcakeRebaked
 
+---@param player EntityPlayer
+function BirthcakeRebaked:IsTainted(player)
+	if REPENTOGON then
+		return player:GetEntityConfigPlayer():IsTainted()
+	else
+		local playerType = player:GetPlayerType()
+		local name = player:GetName()
+		if playerType >= PlayerType.PLAYER_ISAAC_B and playerType < PlayerType.NUM_PLAYER_TYPES then
+			return true
+		else
+			return playerType == Isaac.GetPlayerTypeByName(name, true)
+		end
+	end
+end
+
 function BirthcakeRebaked:IsInList(item, table)
 	for _, v in pairs(table) do
 		if v == item then

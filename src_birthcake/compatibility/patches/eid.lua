@@ -508,6 +508,8 @@ BIRTHCAKE_EID.DefaultDescription = {
 	},
 }
 
+BIRTHCAKE_EID.LegacyDescriptions = {}
+
 EID:addTrinket(Mod.Birthcake.ID, "", "Birthcake")
 
 for _, trinketDescData in pairs(BIRTHCAKE_EID.Descs) do
@@ -554,10 +556,17 @@ EID:addDescriptionModifier(
 			local desc = BIRTHCAKE_EID:GetTranslatedString(BIRTHCAKE_EID.DefaultDescription)
 			if descTable and BIRTHCAKE_EID:GetTranslatedString(descTable) then
 				desc = BIRTHCAKE_EID:GetTranslatedString(descTable)
+			elseif Birthcake.TrinketDesc[playerType] and Birthcake.TrinketDesc[playerType].Normal then
+				local legacyDesc = BIRTHCAKE_EID.LegacyDescriptions[playerType]
+				if not legacyDesc then
+					BIRTHCAKE_EID.LegacyDescriptions[playerType] = DD:MakeMinimizedDescription({Birthcake.TrinketDesc[playerType].Normal})
+					legacyDesc = BIRTHCAKE_EID.LegacyDescriptions[playerType]
+				end
+				desc = legacyDesc
 			end
 			local name = EID:getPlayerName(playerType)
 			local sprite = descObj.Icon[7]
-			if #players > 1 then
+			if #players > 1 or not Mod.BirthcakeSprite[playerType] or not Birthcake.BirthcakeDescs[playerType] then
 				if lastRenderedPlayerType ~= PlayerType.PLAYER_ISAAC then
 					sprite:ReplaceSpritesheet(1, "gfx/items/trinkets/0_isaac_birthcake.png")
 					sprite:LoadGraphics()
@@ -568,13 +577,13 @@ EID:addDescriptionModifier(
 				if spriteConfig then
 					sprite:ReplaceSpritesheet(1, spriteConfig.SpritePath)
 				elseif not spriteConfig and Birthcake.BirthcakeDescs[playerType] then
-					sprite:ReplaceSpritesheet(1, "gfx/items/trinkets" .. EID.player:GetName():lower() .. "_birthcake.png")
+					sprite:ReplaceSpritesheet(1, "gfx/items/trinkets/" .. EID.player:GetName():lower() .. "_birthcake.png")
 				end
 
 				sprite:LoadGraphics()
 				lastRenderedPlayerType = playerType
 			end
-			descObj.Description = descObj.Description .. "#{{Player" .. playerType .. "}} {{ColorGray}}" .. name .. "#" .. desc.Func(descObj)
+			EID:appendToDescription(descObj, EID:GetPlayerIcon(playerType) .. " {{ColorIsaac}}" .. name .. "{{CR}}#" .. desc.Func(descObj) .. "#")
 			descObj.Name = BIRTHCAKE_EID:GetTranslatedString(BirthcakeRebaked.BirthcakeOneLiners.BIRTHCAKE)
 		end
 

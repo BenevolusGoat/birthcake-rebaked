@@ -566,7 +566,7 @@ function BirthcakeRebaked:AppendCake(str, lang)
 	end
 end
 
-function BirthcakeRebaked:AppendTainted(str, lang)
+function BirthcakeRebaked:PrefixTainted(str, lang)
 	local reverse = {
 		ru = true,
 		spa = true,

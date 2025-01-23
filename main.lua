@@ -237,28 +237,55 @@ end
 function BirthcakeRebaked:GetBirthcakeName(player)
 	local playerType = player:GetPlayerType()
 	local name = player:GetName()
+	local displayName = name
 	local lang = languageOptionToEID[Options.Language]
-	if Mod.BirthcakeNames[playerType] then
-		local newName, newLang = Mod:GetTranslatedString(Mod.BirthcakeNames[playerType])
-		name = newName
-		lang = newLang
-	end
 	local nameSetting = Mod.GetSetting(Mod.Setting.TaintedName)
 
-	if nameSetting == 2 then
-		if not string.find(name, "Tainted") then
-			name = Mod:AppendTainted(name, lang)
+	if Mod:IsTainted(player) then
+		--Some Tainteds have "B" at the end as their identifier, which is dumb to an extent
+		local stupidTaintedB = string.sub(name, -1, -1) == "B"
+		if stupidTaintedB then
+			name = string.sub(name, 1, -2)
+			displayName = string.sub(displayName, 1, -2)
 		end
-	elseif nameSetting == 3 then
-		local nameTitle = Mod.BirthcakeTaitnedTitles[playerType]
-		if nameTitle then
-			name = Mod:GetTranslatedString(nameTitle)
+		if nameSetting == 1
+			and string.find(displayName, "Tainted ")
+		then
+			displayName = string.gsub(displayName, "Tainted ", "")
+		elseif nameSetting == 2
+			and not string.find(displayName, "Tainted")
+		then
+			--If their name is the same as their normal variant
+			if playerType < PlayerType.NUM_PLAYER_TYPES
+				or Isaac.GetPlayerTypeByName(name, false) ~= -1
+			then
+				displayName = Mod:PrefixTainted(displayName, lang)
+			end
+		elseif nameSetting == 3 then
+			local nameTitle = Mod.BirthcakeTaitnedTitles[playerType]
+			if nameTitle then
+				displayName = Mod:GetTranslatedString(nameTitle)
+			end
 		end
 	end
-	name = Mod:AppendCake(name, lang)
-	local nameResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.GET_BIRTHCAKE_ITEMTEXT_NAME, playerType, player, name)
-	name = (nameResult ~= nil and tostring(nameResult)) or name
-	return name
+	if Mod.BirthcakeNames[playerType] then
+		local newName, newLang = Mod:GetTranslatedString(Mod.BirthcakeNames[playerType])
+		displayName = newName
+		lang = newLang
+	else
+		if string.sub(displayName, -1, -1) == "s" then
+			displayName = displayName .. "'"
+		else
+			displayName = displayName .. "'s"
+		end
+	end
+	if not string.find(displayName, "Cake") and not string.find(displayName, BirthcakeRebaked.BirthcakeOneLiners.CAKE[lang]) then
+		displayName = Mod:AppendCake(displayName, lang)
+	end
+	local nameResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.GET_BIRTHCAKE_ITEMTEXT_NAME, playerType, player,
+	displayName)
+	displayName = (nameResult ~= nil and tostring(nameResult)) or displayName
+	return displayName
 end
 
 ---@param player EntityPlayer
