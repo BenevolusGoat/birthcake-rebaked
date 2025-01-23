@@ -69,7 +69,7 @@ local translations = {
 			ko_kr = "카인의 ",
 		},
 		[PlayerType.PLAYER_JUDAS] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "Judas '",
+			en_us = "Judas' ",
 			ru = " Иуды",
 			spa = " de Judas",
 			cs_cz = "Jidášův ",
@@ -109,7 +109,7 @@ local translations = {
 			ko_kr = "아자젤의 ",
 		},
 		[PlayerType.PLAYER_LAZARUS] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
-			en_us = "Lazarus '",
+			en_us = "Lazarus' ",
 			ru = " Лазаря",
 			spa = " de Lázaro",
 			cs_cz = "Lazarův ",
@@ -180,6 +180,7 @@ local translations = {
 			pl = " Jakuba",
 			ko_kr = "야곱의 ",
 		},
+--[[
 		[PlayerType.PLAYER_ESAU] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Esau's ",
 			ru = " Исава",
@@ -188,6 +189,7 @@ local translations = {
 			pl = " Ezawa",
 			ko_kr = "에사우의 ",
 		},
+ ]]
 	},
 
 	---Any empty descriptions are for characters that I may change the effect of, or ones I do want but haven't thought of an idea yet

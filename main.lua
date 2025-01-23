@@ -161,7 +161,7 @@ BirthcakeRebaked.ModCallbacks = {
 	POST_BIRTHCAKE_PICKUP = "BIRTHCAKE_POST_BIRTHCAKE_PICKUP",
 	---(player: EntityPlayer, firstTimePickup: boolean, isGolden: boolean), Optional Arg: PlayerType - Called when collecting the Birthcake trinket. REPENTOGON will trigger this any time the item is added to the player's inventory. Otherwise, it triggers only when picked up as a trinket
 	POST_BIRTHCAKE_COLLECT = "BIRTHCAKE_POST_BIRTHCAKE_COLLECT",
-	--(player: EntityPlayer, oldPlayerType: PlayerType), Optional Arg: PlayerType - Called when your tracked PlayerType changes. This happens regardless of you having Birthcake or not. `player` is your current player with the new PlayerType. `PlayerType` arg is for the previous PlayerType you were
+	--(player: EntityPlayer, oldPlayerType: PlayerType): boolean, Optional Arg: PlayerType - Called when your tracked PlayerType changes. This happens regardless of you having Birthcake or not. `player` is your current player with the new PlayerType. `PlayerType` arg is for the previous PlayerType you were. Return `true` to stop the Birthcake TemporaryEffect from being reset on PlayerType change
 	POST_PLAYERTYPE_CHANGE = "BIRTHCAKE_POST_PLAYERTYPE_CHANGE",
 	BLUEBABY_GET_POOP_TEAR_SPRITE = "BIRTHCAKE_BLUEBABY_GET_POOP_TEAR_SPRITE"
 }
@@ -170,6 +170,12 @@ BirthcakeRebaked.BirthcakeNames = translations.BIRTHCAKE_NAME
 BirthcakeRebaked.BirthcakeDescriptions = translations.BIRTHCAKE_DESCRIPTION
 BirthcakeRebaked.BirthcakeOneLiners = translations.ONE_LINERS
 BirthcakeRebaked.EID = translations.EID
+
+BirthcakeRebaked.Settings = {
+	TaintedTitle = 0
+}
+
+include("src_birthcake.compatibility.patches.mod_config_menu")
 
 local utility = {
 	"hud_helper",
@@ -271,16 +277,18 @@ end
 local playerByIndex = {}
 
 ---@param player EntityPlayer
-function BirthcakeRebaked:ResetEffectsOnTypeChange(player)
+function BirthcakeRebaked:ResetEffectsOnPlayerTypeChange(player)
 	local playerType = player:GetPlayerType()
 	local lastPlayerType = playerByIndex[player.Index]
 	if not lastPlayerType then
 		playerByIndex[player.Index] = playerType
 	elseif lastPlayerType ~= playerType then
-		Isaac.RunCallbackWithParam(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, lastPlayerType, player,
+		local result = Isaac.RunCallbackWithParam(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, lastPlayerType, player,
 			lastPlayerType)
 		playerByIndex[player.Index] = playerType
-		player:GetEffects():RemoveTrinketEffect(Mod.Birthcake.ID, -1)
+		if not result then
+			player:GetEffects():RemoveTrinketEffect(Mod.Birthcake.ID, -1)
+		end
 	end
 end
 
@@ -316,9 +324,10 @@ function BirthcakeRebaked:ItemDesc(player)
 	end
 end
 
+---@param player EntityPlayer
 function BirthcakeRebaked:OnPeffectUpdate(player)
 	BirthcakeRebaked:ItemDesc(player)
-	BirthcakeRebaked:ResetEffectsOnTypeChange(player)
+	BirthcakeRebaked:ResetEffectsOnPlayerTypeChange(player)
 end
 
 Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, BirthcakeRebaked.OnPeffectUpdate)

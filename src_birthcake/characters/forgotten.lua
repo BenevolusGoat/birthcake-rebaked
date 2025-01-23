@@ -23,7 +23,6 @@ function THEFORGOTTEN_CAKE:OnForgottenBodyUpdate(familiar)
 		local effects = player:GetEffects()
 		local pData = Mod:GetData(player)
 		if pData.IsForgotten then
-			effects:RemoveTrinketEffect(Mod.Birthcake.ID, -1)
 			pData.IsForgotten = false
 			pData.IsSoul = true
 		end
@@ -97,7 +96,7 @@ function THEFORGOTTEN_CAKE:CashInSoulCharge(player)
 				effects:RemoveTrinketEffect(Mod.Birthcake.ID, -1)
 				local duration = numSoulCharge * THEFORGOTTEN_CAKE.SOUL_CHARGE_DURATION_MULT
 				effects:AddTrinketEffect(Mod.Birthcake.ID, false, duration)
-				player:SetColor(SOUL_COLOR, duration, 5, true, false)
+				player:SetColor(SOUL_COLOR, duration, 1, true, false)
 			end
 		end
 	end
@@ -109,6 +108,15 @@ function THEFORGOTTEN_CAKE:CashInSoulCharge(player)
 end
 
 Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, THEFORGOTTEN_CAKE.CashInSoulCharge, PlayerType.PLAYER_THEFORGOTTEN)
+
+---@param player EntityPlayer
+function THEFORGOTTEN_CAKE:StopBirthcakeEffectReset(player)
+	if player:GetPlayerType() == PlayerType.PLAYER_THEFORGOTTEN then
+		return true
+	end
+end
+
+Mod:AddCallback(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, THEFORGOTTEN_CAKE.StopBirthcakeEffectReset, PlayerType.PLAYER_THESOUL)
 
 ---@param player EntityPlayer
 function THEFORGOTTEN_CAKE:SoulChargeFireDelayCache(player)

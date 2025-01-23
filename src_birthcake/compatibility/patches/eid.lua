@@ -323,7 +323,6 @@ BIRTHCAKE_EID.Descs = {
 			"{{ArrowUp}}{{Damage}} +10% damage multiplier",
 			"#{{DevilRoom}} If taking a Devil Deal item were to kill Judas, this trinket is consumed instead."
 		},
-
 	},
 	[PlayerType.PLAYER_BLUEBABY] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = { --will probably have to havei t dynamically change depending on the active being held
@@ -388,8 +387,8 @@ BIRTHCAKE_EID.Descs = {
 	},
 	[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
-			"Firing at the {{Player16}}The Forgotten's body as {{Player17}}The Soul will cause bone fragment tears to fire out of it in random directions and fill it with \"soul charge\".",
-			"#Returning to the The Forgotten will grant a decaying fire rate increase depending on how much soul charge they were filled with."
+			"Firing at {{Player16}}The Forgotten's body as {{Player17}}The Soul will cause bone fragment tears to fire out of it in random directions and fill it with \"soul charge\".",
+			"#Returning to The Forgotten will grant a decaying fire rate increase depending on how much soul charge they were filled with."
 		},
 	},
 	[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
@@ -509,10 +508,6 @@ BIRTHCAKE_EID.DefaultDescription = {
 	},
 }
 
-for sharedDescription, copyDescription in pairs(DESCRIPTION_SHARE) do
-	BIRTHCAKE_EID.Descs[sharedDescription] = BIRTHCAKE_EID.Descs[copyDescription]
-end
-
 EID:addTrinket(Mod.Birthcake.ID, "", "Birthcake")
 
 for _, trinketDescData in pairs(BIRTHCAKE_EID.Descs) do
@@ -529,18 +524,6 @@ for language, descData in pairs(BIRTHCAKE_EID.DefaultDescription) do
 	local newDesc = DD:MakeMinimizedDescription(descData)
 	BIRTHCAKE_EID.DefaultDescription[language] = newDesc
 	::continue::
-end
-
----@param player EntityPlayer
-function BIRTHCAKE_EID:GetBirthcakeName(player)
-	local playerType = player:GetPlayerType()
-	local name = player:GetName() .. "'s Cake"
-	if Mod.BirthcakeNames[playerType] and BIRTHCAKE_EID:GetTranslatedString(Mod.BirthcakeNames[playerType]) then
-		name = BIRTHCAKE_EID:GetTranslatedString(Mod.BirthcakeNames[playerType])
-	end
-	local nameResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.GET_BIRTHCAKE_ITEMTEXT_NAME, playerType, player, name)
-	name = (nameResult ~= nil and tostring(nameResult)) or name
-	return name
 end
 
 local lastRenderedPlayerType
@@ -565,11 +548,14 @@ EID:addDescriptionModifier(
 		for _, player in ipairs(players) do
 			local playerType = player:GetPlayerType()
 			local descTable = BIRTHCAKE_EID.Descs[playerType]
+			if DESCRIPTION_SHARE[playerType] then
+				descTable = BIRTHCAKE_EID.Descs[DESCRIPTION_SHARE[playerType]]
+			end
 			local desc = BIRTHCAKE_EID:GetTranslatedString(BIRTHCAKE_EID.DefaultDescription)
 			if descTable and BIRTHCAKE_EID:GetTranslatedString(descTable) then
 				desc = BIRTHCAKE_EID:GetTranslatedString(descTable)
 			end
-			local name = BIRTHCAKE_EID:GetBirthcakeName(EID.player)
+			local name = EID:getPlayerName(playerType)
 			local sprite = descObj.Icon[7]
 			if #players > 1 then
 				if lastRenderedPlayerType ~= PlayerType.PLAYER_ISAAC then
