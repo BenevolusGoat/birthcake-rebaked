@@ -24,7 +24,7 @@ end)
 function BirthcakeRebaked:IsBirthcake(trinketID, isGolden)
 	local normalID = trinketID & ~TrinketType.TRINKET_GOLDEN_FLAG
 	local goldenID = normalID + TrinketType.TRINKET_GOLDEN_FLAG
-	if trinketID == Mod.Birthcake.ID or trinketID == goldenID then
+	if normalID == Mod.Birthcake.ID then
 		local golden = trinketID == goldenID
 		if isGolden ~= nil then
 			return (not isGolden and not golden) or (isGolden and golden)

@@ -7,4 +7,4 @@ SettingsHelper.AddChoiceSetting("Settings", Mod.Setting.TaintedName,
 		"Default name",
 		"\"Tainted\" prefix",
 		"Title",
-	}, 2)
+	}, 1)
