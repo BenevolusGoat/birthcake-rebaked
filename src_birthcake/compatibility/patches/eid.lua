@@ -320,7 +320,7 @@ BIRTHCAKE_EID.Descs = {
 	},
 	[PlayerType.PLAYER_JUDAS] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
-			"{{ArrowUp}}{{Damage}} +10% damage multiplier",
+			"{{ArrowUp}} {{Damage}} +10% damage multiplier",
 			"#{{DevilRoom}} If taking a Devil Deal item were to kill Judas, this trinket is consumed instead."
 		},
 	},
@@ -500,11 +500,26 @@ BIRTHCAKE_EID.Descs = {
 }
 
 BIRTHCAKE_EID.DefaultDescription = {
+	_modifier = function(descObj)
+		local mult = BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)
+		local statMult = Mod.Birthcake.DEFAULT_EFFECT:GetStatMult(mult)
+		statMult = BIRTHCAKE_EID:AdjustNumberValue(statMult)
+
+		return BIRTHCAKE_EID:GoldConditional(statMult, mult)
+	end,
 	en_us = {
-		"↑ +" .. BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.DEFAULT_EFFECT.STAT_MULT) .. "% to all stats"
+		"↑ +",
+		function(descObj)
+			return BIRTHCAKE_EID.DefaultDescription._modifier(descObj)
+		end,
+		"% to all stats"
 	},
 	ru = {
-		"↑ +" .. BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.DEFAULT_EFFECT.STAT_MULT) .. "% ко всем характеристикам"
+		"↑ +",
+		function(descObj)
+			return BIRTHCAKE_EID.DefaultDescription._modifier(descObj)
+		end,
+		"% ко всем характеристикам"
 	},
 }
 
@@ -529,6 +544,7 @@ for language, descData in pairs(BIRTHCAKE_EID.DefaultDescription) do
 end
 
 local lastRenderedPlayerType
+local lastRenderedSubType
 
 EID:addDescriptionModifier(
 	"Birthcake Description",
@@ -566,13 +582,15 @@ EID:addDescriptionModifier(
 			end
 			local name = EID:getPlayerName(playerType)
 			local sprite = descObj.Icon[7]
-			if #players > 1 or not Mod.BirthcakeSprite[playerType] or not Birthcake.BirthcakeDescs[playerType] then
-				if lastRenderedPlayerType ~= PlayerType.PLAYER_ISAAC then
+
+			if #players > 1 or (not Mod.BirthcakeSprite[playerType] and not Birthcake.BirthcakeDescs[playerType]) then
+				if lastRenderedPlayerType ~= PlayerType.PLAYER_ISAAC or lastRenderedSubType ~= descObj.ObjSubType then
 					sprite:ReplaceSpritesheet(1, "gfx/items/trinkets/0_isaac_birthcake.png")
 					sprite:LoadGraphics()
 					lastRenderedPlayerType = PlayerType.PLAYER_ISAAC
+					lastRenderedSubType = descObj.ObjSubType
 				end
-			elseif lastRenderedPlayerType ~= playerType then
+			elseif lastRenderedPlayerType ~= playerType or lastRenderedSubType ~= descObj.ObjSubType then
 				local spriteConfig = Mod.BirthcakeSprite[playerType]
 				if spriteConfig then
 					sprite:ReplaceSpritesheet(1, spriteConfig.SpritePath)
@@ -582,6 +600,7 @@ EID:addDescriptionModifier(
 
 				sprite:LoadGraphics()
 				lastRenderedPlayerType = playerType
+				lastRenderedSubType = descObj.ObjSubType
 			end
 			EID:appendToDescription(descObj, EID:GetPlayerIcon(playerType) .. " {{ColorIsaac}}" .. name .. "{{CR}}#" .. desc.Func(descObj) .. "#")
 			descObj.Name = BIRTHCAKE_EID:GetTranslatedString(BirthcakeRebaked.BirthcakeOneLiners.BIRTHCAKE)

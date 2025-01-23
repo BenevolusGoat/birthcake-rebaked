@@ -396,6 +396,7 @@ end
 
 ---@param pickup EntityPickup
 function BirthcakeRebaked:ChangeSpritePickup(pickup)
+	print( Mod:IsBirthcake(pickup.SubType)	)
 	if Mod:IsBirthcake(pickup.SubType) then
 		local isCoopPlay = false
 		local controllerIdx
