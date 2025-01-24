@@ -36,7 +36,7 @@ function AZAZEL_CAKE:OnEntityTakeDamage(ent, amount, flags, source, countdown)
 				local bonusDuration = AZAZEL_CAKE.DEFAULT_BONUS_DURATION * trinketMult
 				local data = Mod:GetData(laser)
 				if (data.AzazelBirthcakeExtension or 0) < AZAZEL_CAKE.DEFAULT_BONUS_DURATION + bonusDuration then
-					laser:SetTimeout(laser.Timeout)
+					laser.Timeout = laser.Timeout + 2
 					data.AzazelBirthcakeExtension = (data.AzazelBirthcakeExtension or 0) + 1
 				end
 			end
