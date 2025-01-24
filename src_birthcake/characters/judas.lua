@@ -85,7 +85,7 @@ Mod:AddPriorityCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, CallbackPriority.E
 
 -- Tainted Judas Birthcake
 
-JUDAS_CAKE.DARK_ARTS_CHARGE_BONUS = 20
+JUDAS_CAKE.DARK_ARTS_CHARGE_BONUS = 18
 
 ---@param player EntityPlayer
 function JUDAS_CAKE:ShadowCharge(player)
@@ -106,7 +106,8 @@ function JUDAS_CAKE:ShadowCharge(player)
 					and (not data.JudasCakeEnemyTouch
 					or not data.JudasCakeEnemyTouch[GetPtrHash(ent)])
 				then
-					player:SetActiveCharge(math.min(maxCharge, player:GetActiveCharge(ActiveSlot.SLOT_POCKET) + JUDAS_CAKE.DARK_ARTS_CHARGE_BONUS), ActiveSlot.SLOT_POCKET)
+					local chargeBonus = JUDAS_CAKE.DARK_ARTS_CHARGE_BONUS * Mod:GetTrinketMult(player)
+					player:SetActiveCharge(math.min(maxCharge, player:GetActiveCharge(ActiveSlot.SLOT_POCKET) + chargeBonus), ActiveSlot.SLOT_POCKET)
 					data.JudasCakeEnemyTouch = data.JudasCakeEnemyTouch or {}
 					data.JudasCakeEnemyTouch[GetPtrHash(ent)] = true
 				end

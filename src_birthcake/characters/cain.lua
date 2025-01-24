@@ -49,13 +49,6 @@ end
 Mod:AddPriorityCallback(ModCallbacks.MC_PRE_PLAYER_COLLISION, CallbackPriority.EARLY, CAIN_BIRTHCAKE.MachineInteraction,
 	0)
 
----@param baseChance number
----@param mult number
-function CAIN_BIRTHCAKE:GetSlotRefundChance(baseChance, mult)
-	local trinketMult = 0.3 * (mult - 1)
-	return baseChance * (1 + trinketMult)
-end
-
 function CAIN_BIRTHCAKE:OnSlotInitiate(slot)
 	local data = Mod:GetData(slot)
 	local sprite = slot:GetSprite()
@@ -70,7 +63,7 @@ function CAIN_BIRTHCAKE:OnSlotInitiate(slot)
 				local roll = rng:RandomFloat()
 				local baseChance = type(slotData.RefundChance) == "function" and slotData.RefundChance(player) or slotData.RefundChance
 				---@cast baseChance number
-				local chance = CAIN_BIRTHCAKE:GetSlotRefundChance(baseChance, Mod:GetTrinketMult(player))
+				local chance = Mod:GetBalanceApprovedChance(baseChance, Mod:GetTrinketMult(player))
 
 				if roll <= chance then
 					slotData.RefundReward(player)

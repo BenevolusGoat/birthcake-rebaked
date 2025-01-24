@@ -287,7 +287,7 @@ BIRTHCAKE_EID.Descs = {
 		---@param baseChance number
 		_modifier = function(descObj, baseChance)
 			local mult = BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)
-			local chance = Mod.Birthcake.CAIN:GetSlotRefundChance(baseChance, mult)
+			local chance = Mod:GetBalanceApprovedChance(baseChance, mult)
 			chance = BIRTHCAKE_EID:AdjustNumberValue(chance)
 
 			return BIRTHCAKE_EID:GoldConditional(chance, mult)

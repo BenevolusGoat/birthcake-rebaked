@@ -5,12 +5,45 @@ BirthcakeRebaked.CHALLENGE_BIRTHDAY_PARTY = BIRTHDAY_PARTY
 
 BIRTHDAY_PARTY.ID = Isaac.GetChallengeIdByName("Isaac's Birthday Party")
 
-BIRTHDAY_PARTY.CharacterLineSkip = {
-	[PlayerType.PLAYER_THELOST] = PlayerType.PLAYER_LILITH,
-	[PlayerType.PLAYER_THEFORGOTTEN] = PlayerType.PLAYER_BETHANY,
-	[PlayerType.PLAYER_JACOB] = PlayerType.PLAYER_ISAAC_B,
-	[PlayerType.PLAYER_JACOB_B] = PlayerType.PLAYER_ISAAC
+local CHARACTER_LIST = {
+	PlayerType.PLAYER_ISAAC,
+	PlayerType.PLAYER_MAGDALENE,
+	PlayerType.PLAYER_CAIN,
+	PlayerType.PLAYER_JUDAS,
+	PlayerType.PLAYER_BLUEBABY,
+	PlayerType.PLAYER_EVE,
+	PlayerType.PLAYER_SAMSON,
+	PlayerType.PLAYER_AZAZEL,
+	PlayerType.PLAYER_LAZARUS,
+	PlayerType.PLAYER_EDEN,
+	PlayerType.PLAYER_THELOST,
+	PlayerType.PLAYER_LILITH,
+	PlayerType.PLAYER_KEEPER,
+	PlayerType.PLAYER_APOLLYON,
+	PlayerType.PLAYER_THEFORGOTTEN,
+	PlayerType.PLAYER_BETHANY,
+	PlayerType.PLAYER_JACOB,
+	PlayerType.PLAYER_ISAAC_B,
+	PlayerType.PLAYER_MAGDALENE_B,
+	PlayerType.PLAYER_CAIN_B,
+	PlayerType.PLAYER_JUDAS_B,
+	PlayerType.PLAYER_BLUEBABY_B,
+	PlayerType.PLAYER_EVE_B,
+	PlayerType.PLAYER_SAMSON_B,
+	PlayerType.PLAYER_AZAZEL_B,
+	PlayerType.PLAYER_LAZARUS_B,
+	PlayerType.PLAYER_EDEN_B,
+	PlayerType.PLAYER_THELOST_B,
+	PlayerType.PLAYER_LILITH_B,
+	PlayerType.PLAYER_KEEPER_B,
+	PlayerType.PLAYER_APOLLYON_B,
+	PlayerType.PLAYER_THEFORGOTTEN_B,
+	PlayerType.PLAYER_BETHANY_B,
+	PlayerType.PLAYER_JACOB_B,
 }
+
+---Easy way to just copy a table I think
+BIRTHDAY_PARTY.CharacterList = setmetatable({}, getmetatable(CHARACTER_LIST))
 
 ---@type {[PlayerType]: fun(player: EntityPlayer)}
 BIRTHDAY_PARTY.CharacterRewards = {
@@ -76,8 +109,14 @@ function BIRTHDAY_PARTY:SwitchCharacter()
 				player:TryRemoveTrinket(Mod.Birthcake.ID)
 			end
 
-			player:ChangePlayerType(BIRTHDAY_PARTY.CharacterLineSkip[playerType] or playerType)
+			local randomPlayerType = Mod.GENERIC_RNG:RandomInt(#BIRTHDAY_PARTY.CharacterList)
+			player:ChangePlayerType(BIRTHDAY_PARTY.CharacterList[randomPlayerType])
+			table.remove(BIRTHDAY_PARTY.CharacterList, randomPlayerType)
 			playerType = player:GetPlayerType()
+
+			if #BIRTHDAY_PARTY.CharacterList == 0 then
+				BIRTHDAY_PARTY.CharacterList = setmetatable({}, getmetatable(CHARACTER_LIST))
+			end
 
 			if player:GetMaxHearts() == 0 then
 				player:AddMaxHearts(4)
@@ -86,7 +125,9 @@ function BIRTHDAY_PARTY:SwitchCharacter()
 				player:AddSoulHearts(6)
 			end
 
-			BIRTHDAY_PARTY.CharacterRewards[playerType](player)
+			if BIRTHDAY_PARTY.CharacterRewards[playerType] then
+				BIRTHDAY_PARTY.CharacterRewards[playerType](player)
+			end
 			player:QueueItem(Mod.ItemConfig:GetTrinket(Mod.Birthcake.ID))
 		end
 	end
