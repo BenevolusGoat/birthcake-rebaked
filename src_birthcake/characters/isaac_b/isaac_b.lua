@@ -56,10 +56,4 @@ function ISAAC_CAKE:ManageBirthcakeInventoryCap(player)
 	end
 end
 
----@param player EntityPlayer
-function ISAAC_CAKE:OnPeffectUpdate(player)
-	ISAAC_CAKE:OnIsaacBFirstPickup(player)
-	ISAAC_CAKE:ManageBirthcakeInventoryCap(player)
-end
-
-Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, ISAAC_CAKE.OnPeffectUpdate, PlayerType.PLAYER_ISAAC_B)
+Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, ISAAC_CAKE.ManageBirthcakeInventoryCap, PlayerType.PLAYER_ISAAC_B)
