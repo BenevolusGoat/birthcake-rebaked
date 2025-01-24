@@ -319,8 +319,20 @@ BIRTHCAKE_EID.Descs = {
 
 	},
 	[PlayerType.PLAYER_JUDAS] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		---@param descObj EID_DescObj
+		---@param basePercent number
+		_modifier = function(descObj)
+			local mult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj), descObj.ObjSubType)
+			local chance = BIRTHCAKE_EID:AdjustNumberValue(BirthcakeRebaked.Birthcake.JUDAS.DAMAGE_MULT_UP * mult)
+
+			return BIRTHCAKE_EID:GoldConditional(chance, mult)
+		end,
 		en_us = {
-			"{{ArrowUp}} {{Damage}} +10% damage multiplier",
+			"{{ArrowUp}} {{Damage}} +",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_JUDAS]._modifier(descObj)
+			end,
+			"% damage multiplier",
 			"#{{DevilRoom}} If taking a Devil Deal item were to kill Judas, this trinket is consumed instead."
 		},
 	},
