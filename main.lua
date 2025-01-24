@@ -331,7 +331,7 @@ local playerByIndex = {}
 function BirthcakeRebaked:ResetEffectsOnPlayerTypeChange(player)
 	local playerType = player:GetPlayerType()
 	local lastPlayerType = playerByIndex[player.Index]
-	if not lastPlayerType then
+	if not lastPlayerType or player.FrameCount == 0 then
 		playerByIndex[player.Index] = playerType
 	elseif lastPlayerType ~= playerType then
 		local result = Isaac.RunCallbackWithParam(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, lastPlayerType, player,

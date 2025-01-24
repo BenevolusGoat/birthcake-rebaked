@@ -187,8 +187,7 @@ Mod:AddCallback(ModCallbacks.MC_USE_ITEM, LAZARUS_CAKE.PostFlipPedestals, Collec
 function LAZARUS_CAKE:OnPlayerTypeBChange(player)
 	local playerType = player:GetPlayerType()
 	if playerType ~= PlayerType.PLAYER_LAZARUS_B and playerType ~= PlayerType.PLAYER_LAZARUS2_B then
-		local player_run_save = Mod:GetLazBSharedSaveData(player)
-		player_run_save.LazBCakeShared = nil
+		flippedLazPlayer[player.Index] = nil
 	end
 end
 
