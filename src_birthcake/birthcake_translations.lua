@@ -392,9 +392,10 @@ local translations = {
 			pl = "Alergie ↑",
 			ko_kr = "알레르기 증가",
 		},
-		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [OK] | PL: [!] | KO_KR [X]
+		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [!] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [X]
 			en_us = "Untwined destiny",
 			ru = "Восстань снова",
+			spa = "Destino desatado",
 			cs_cz = "Rozpletený osud",
 			pl = "Powstań z grobu",
 		},
@@ -465,56 +466,73 @@ local translations = {
 	},
 
 	TAINTED_TITLES = {
-		[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
-			en_us = "The Broken's"
+		[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+			en_us = "The Broken's",
+			spa = "Del Roto",
 		},
-		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
-			en_us = "The Dauntless's"
+		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+			en_us = "The Dauntless's",
+			spa = "de La Intrépida", --Idk if it's like this AT ALL
 		},
-		[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
-			en_us = "The Hoarder's"
+		[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+			en_us = "The Hoarder's",
+			spa = "Dell Acumulador",
 		},
-		[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
-			en_us = "The Deceiver's"
+		[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+			en_us = "The Deceiver's",
+			spa = "Del Traidor", --More like "The Traitor" but eh
 		},
-		[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
-			en_us = "The Soiled's"
+		[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+			en_us = "The Soiled's",
+			spa = "Del Sucio",
 		},
-		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
-			en_us = "The Curdled's"
+		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+			en_us = "The Curdled's",
+			spa = "de La Cuajada", --How the hell do I translate this
 		},
-		[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
-			en_us = "The Savage's"
+		[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+			en_us = "The Savage's",
+			spa = "Del Salvaje",
 		},
-		[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
-			en_us = "The Benighted's"
+		[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+			en_us = "The Benighted's",
+			spa = "Del Ignorante",
 		},
-		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
-			en_us = "The Enigma's"
+		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+			en_us = "The Enigma's",
+			spa = "Del Enigma",
 		},
-		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
-			en_us = "The Capricious'"
+		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+			en_us = "The Capricious'",
+			spa = "Del Caprichoso",
 		},
-		[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
-			en_us = "The Baleful's"
+		[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+			en_us = "The Baleful's",
+			spa = "Del Tétrico", --Is it like this? idk
 		},
-		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
-			en_us = "The Harlot's"
+		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+			en_us = "The Harlot's",
+			spa = "da La Prostituta",
 		},
-		[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
-			en_us = "The Miser's"
+		[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+			en_us = "The Miser's",
+			spa = "Del Avariento",
 		},
-		[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
-			en_us = "The Empty's"
+		[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+			en_us = "The Empty's",
+			spa = "de El Vacío",
 		},
-		[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
-			en_us = "The Fettered's"
+		[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+			en_us = "The Fettered's",
+			spa = "Del Encadenado",
 		},
-		[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
-			en_us = "The Zealot's"
+		[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+			en_us = "The Zealot's",
+			spa = "da La Fanática",
 		},
-		[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
-			en_us = "The Deserter's"
+		[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+			en_us = "The Deserter's",
+			spa = "Del Desertor",
 		},
 	},
 
@@ -540,15 +558,17 @@ local translations = {
 			ko_kr = "케이크",
 			--is a LIE
 			--ЭТО ЛОЖЬ
-			--je LEŽ
 			--es una MENTIRA
+			--je LEŽ
 		},
 		TAINTED = {
-			en_us = "Tainted"
+			en_us = "Tainted",
+			spa = "Tainted"
 		},
 		BIRTHCAKE = {
 			en_us = "Birthcake",
 			ru = "Пироженое",
+			spa = "Pastel de cumple",
 		}
 	}
 }
