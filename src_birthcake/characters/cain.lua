@@ -32,7 +32,7 @@ CAIN_BIRTHCAKE.SlotsData = {
 	[Mod.SlotVariant.CRANE_GAME] = {
 		RefundChance = 0.25,
 		RefundReward = function(player)
-			player:AddCoins(1)
+			player:AddCoins(5)
 		end,
 	},
 }
