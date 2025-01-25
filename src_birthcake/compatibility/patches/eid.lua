@@ -401,12 +401,27 @@ BIRTHCAKE_EID.Descs = {
 		},
 	},
 	[PlayerType.PLAYER_EDEN] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		---@param descObj EID_DescObj
+		_modifier = function(descObj)
+			local mult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj), descObj.ObjSubType)
+			local num = 2 + mult
+
+			return BIRTHCAKE_EID:GoldConditional(num, mult)
+		end,
 		en_us = {
-		"{{Trinket}} Gulps three random trinkets while held.",
+		"{{Trinket}} Gulps ",
+		function(descObj)
+			return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_EDEN]._modifier(descObj)
+		end,
+		" random trinkets while held.",
 		"#The trinket effects are lost when Birthcake is dropped."
 		},
 		en_us = {
-		"{{Trinket}} Проглатывает 3 случайных брелка при подборе.",
+		"{{Trinket}} Проглатывает ",
+		function(descObj)
+			return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_EDEN]._modifier(descObj)
+		end,
+		" случайных брелка при подборе.",
 		"#Еффекты брелков пропадают когда Пироженое выбрасывается."
 		},
 	},
@@ -427,11 +442,28 @@ BIRTHCAKE_EID.Descs = {
 		},
 	},
 	[PlayerType.PLAYER_KEEPER] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		---@param descObj EID_DescObj
+		---@param str string
+		---@param strMult string
+		_modifier = function(descObj, str, strMult)
+			local mult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj), descObj.ObjSubType)
+
+			if mult > 1 then
+				return BIRTHCAKE_EID:GoldConditional(mult, mult) .. strMult
+			end
+			return str
+		end,
 		en_us = {
-		"{{Shop}} Shops and {{DevilRoom}} Devil Rooms contain a nickel."
+		"{{Shop}} Shops and {{DevilRoom}} Devil Rooms contain ",
+		function(descObj)
+			return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_KEEPER]._modifier(descObj, "a nickel", " nickels")
+		end
 		},
 		ru = {
-		"{{Shop}} Магазины и комнаты {{DevilRoom}} Сделки с Дьяволом сдержат пятак."
+		"{{Shop}} Магазины и комнаты {{DevilRoom}} Сделки с Дьяволом содержат ",
+		function(descObj)
+			return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_KEEPER]._modifier(descObj, "пятак", " пятака")
+		end
 		},
 	},
 	[PlayerType.PLAYER_APOLLYON] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
@@ -455,11 +487,26 @@ BIRTHCAKE_EID.Descs = {
 		},
 	},
 	[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		---@param descObj EID_DescObj
+		_modifier = function(descObj)
+			local mult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj), descObj.ObjSubType)
+			local chance = BIRTHCAKE_EID:AdjustNumberValue(BirthcakeRebaked.Birthcake.BETHANY.WISP_DUPE_CHANCE * mult)
+
+			return BIRTHCAKE_EID:GoldConditional(chance, mult)
+		end,
 		en_us = {
-		"Using an active item has a chance to spawn an additional wisp of the same type"
+		"Using an active item has a ",
+		function(descObj)
+			return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_BETHANY]._modifier(descObj)
+		end,
+		"% chance to spawn an additional wisp of the same type"
 		},
 		ru = {
-		"Использование активного предмета имеет шанс создания дополнительного огонька того же типа"
+		"Использование активного предмета имеет ",
+		function(descObj)
+			return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_BETHANY]._modifier(descObj)
+		end,
+		"% шанс создания дополнительного огонька того же типа"
 		},
 	},
 	[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
@@ -478,95 +525,153 @@ BIRTHCAKE_EID.Descs = {
 		"Дает дополнительный слот инвентаря"
 		},
 	},
-	[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"Dropped hearts eventually explode into pools of red creep",
 		--Old effect. It now scales with a base value depending on the heart itself, increases further with the current stage
 		"#Explosion damage depends on the heart type and the current stage"
 		},
+		ru = {
+		"Выпавшие сердца в конце концов взрываются и оставляют лужи крови",
+		"#Урон взрыва зависит от типа сердца и текущего этажа"
+		},
 	},
-	[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"Double pickups that spawn are split into their halves."
 		},
+		ru = {
+		"Появляющиеся двойные подбираемые предметы распадаются на их половины."
+		},
 	},
-	[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"{{Collectible705}} Passing through enemies with Dark Arts slightly decreases its charge time."
 		},
+		ru = {
+		"{{Collectible705}} Прохождение сквозь врагов под Темными Искусствами немного уменьшает их время зарядки."
+		},
 	},
-	[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"Thrown poops have a chance to not be damaged when hit by projectiles."
 		},
+		ru = {
+		"Бросаемые какашки имеют шанс не повредиться когда в них попадают снаряды."
+		},
 	},
-	[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"Blood clots leave behind a small pool of damaging creep on death.",
 		"#The damage and effects of the creep depend on the type of clot killed."
 		},
+		ru = {
+		"Кровяные сгустки оставляют маленькую наносящую урон лужу при смерти.",
+		"#Урон и эффекты лужи зависят от типа умершего сгустка."
+		},
 	},
-	[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"{{Collectible704}} Clearing a room while in Berserk has a chance to extend its length by 5 seconds and spawn a {{HalfHeart}} half red heart."
 		},
+		ru = {
+		"{{Collectible704}} Зачистка комнаты под действием Берсерка имеет шанс увеличить его длительность на 5 секунд и создать {{HalfHeart}} половину красного сердца."
+		},
 	},
-	[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"Sneezing fires out a cluster of 6 tears that deal a portion of Azazel's damage",
 		"#{{Collectible459}} Tears have a chance to stick onto enemies to damage them over time"
 		},
+		ru = {
+		"При чихании выстреливает скопление из 6 слез, наносящих часть урона Азазеля ",
+		"#{{Collectible459}} Слезы имеют шанс прилипнуть к врагам для нанесения урона со временем"
+		},
 	},
-	[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"{{Collectible711}} When using Flip, item pedestals have a chance to split into both collectibles displayed."
 		},
+		ru = {
+		"{{Collectible711}} При использовании Переворота пьедесталы с предметами имеют шанс разделиться на оба отображаемых предмета."
+		},
 	},
-	[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"Taking damage has a chance to not reroll Eden's items.",
 		"#Birthcake is mostly immune to being rerolled, having a "
 		.. Mod.Birthcake.EDEN.BIRTHCAKE_REROLL_CHANCE .. "% chance of being rerolled when."
 		},
+		ru = {
+		"Получение урона имеет шанс не изменить предметы Идена.",
+		"#Пироженое в основном невосприимчиво к изменению, имеющее "
+		.. Mod.Birthcake.EDEN.BIRTHCAKE_REROLL_CHANCE .. "% шанс измениться когда."
+		},
 	},
-	[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"{{Card51}} Spawns a Holy Card when first picked up.",
 		"#Increases the chance for Holy Cards to appear"
 		},
+		ru = {
+		"{{Card51}} Создает Святую Карту при первом подборе.",
+		"#Увеличивает шанс Святых Карт появиться"
+		},
 	},
-	[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"Whipping out Lilith's Gello has a chance to spawn another Gello",
 		"#The additional Gello deals halved damage"
 		},
+		ru = {
+		"Выстреливание Гелло Лилит имеет шанс создать еще однго Гелло",
+		"#Дополнительный Гелло наносит половину урона"
+		},
 	},
-	[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"Spawns an item and two pickups for sale at the start of each floor"
 		},
+		ru = {
+		"Создает предмет и 2 подбираемых предмета на продажу в начале каждого этажа"
+		},
 	},
-	[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"{{Collectible706}} Trinkets can be converted into locusts by Abyss",
 		"#Locusts made from trinkets deal 50% damage"
 		},
+		ru = {
+		"{{Collectible706}} Брелки могут быть превращены в саранчу с помощью Бездны",
+		"#Саранча, полученная из брелков, наносит 50% урона"
+		},
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"Killing enemies will spawn stationary bone fragments that damage enemies on contact",
 		"#Holding {{Player35}}The Forgotten will cause all bone fragments to fly towards {{Player40}}The Soul, damaging enemies in the way"
 		},
+		ru = {
+		"Убийство врагов создаст неподвижные осколки костей, наносящие урон врагам при контакте",
+		"#Подбирание {{Player35}}Забытого заставит все осколки костей полететь к {{Player40}}Душе, нанося урон врагам по пути"
+		},
 	},
-	[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"{{Collectible712}} Lemegeton wisps have doubled health"
 		},
+		ru = {
+		"{{Collectible712}} Огоньки Лемегетона имеют удвоенное здоровье"
+		},
 	},
-	[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"Dark Esau leaves behind small flames when flying, blocking tears and enemy projectiles.",
 		"#The flames can damage both Jacob and enemies."
+		},
+		ru = {
+		"Темный Исав оставляет за собой огонь при полете, блокирующий слезы и снаряды врагов.",
+		"#Огонь может наносить урон и Иакову, и врагам."
 		},
 	},
 }

@@ -118,7 +118,7 @@ local translations = {
 		},
 		[PlayerType.PLAYER_EDEN] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Eden's",
-			ru = "Идена",
+			ru = "Эдема", --official name, but 2'nd variant is "Идена"
 			spa = "de Edén",
 			cs_cz = "Edenův",
 			pl = "Edena",
