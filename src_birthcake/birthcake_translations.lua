@@ -466,90 +466,107 @@ local translations = {
 	},
 
 	TAINTED_TITLES = {
-		[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Broken's",
 			spa = "Del Roto",
 			cs_cz = "Zlomeného",
+			ru = "Сломленного",
 		},
-		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Dauntless's",
 			spa = "de La Intrépida", --Idk if it's like this AT ALL
 			cs_cz = "Nesmělé",
+			ru = "Бесстрашшной",
 		},
-		[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Hoarder's",
 			spa = "Dell Acumulador",
 			cs_cz = "Hromadiče",
+			ru = "Скопидомца",
 		},
-		[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Deceiver's",
 			spa = "Del Traidor", --More like "The Traitor" but eh
 			cs_cz = "Šejdíře",
+			ru = "Лжеца",
 		},
-		[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Soiled's",
 			spa = "Del Sucio",
 			cs_cz = "Zašpiněného",
+			ru = "Запачканного",
 		},
-		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Curdled's",
 			spa = "de La Cuajada", --How the hell do I translate this
 			cs_cz = "Zkažené", -- I don't know man
+			ru = "Свернувшейся", --That sounds really weird
 		},
-		[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Savage's",
 			spa = "Del Salvaje",
 			cs_cz = "Divocha",
+			ru = "Дикаря",
 		},
-		[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Benighted's",
 			spa = "Del Ignorante",
 			cs_cz = "Zaostalého", -- I don't feel like this is the right translation...
+			ru = "Застигнутого ночью", -- a bit long, but right
 		},
-		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Enigma's",
 			spa = "Del Enigma",
 			cs_cz = "Záhadného",
+			ru = "Загадочного",
 		},
-		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Capricious'",
 			spa = "Del Caprichoso",
 			cs_cz = "Rozmarného",
+			ru = "Капризного",
 		},
-		[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Baleful's",
 			spa = "Del Tétrico", --Is it like this? idk
 			cs_cz = "Zlověstného",
+			ru = "Зловещего",
 		},
-		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Harlot's",
 			spa = "da La Prostituta",
 			cs_cz = "Coury",
+			ru = "Блудницы",
 		},
-		[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Miser's",
 			spa = "Del Avariento",
 			cs_cz = "Skrblíka",
+			ru = "Скупца", --"Скупого" is literally the same
 		},
-		[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Empty's",
 			spa = "de El Vacío",
 			cs_cz = "Prázdného",
+			ru = "Пустого",
 		},
-		[PlayerType.PLAYER_THEFORGOTTEN_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_THEFORGOTTEN_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Fettered's",
 			spa = "Del Encadenado",
 			cs_cz = "Spoutaného",
+			ru = "Скованного",
 		},
-		[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Zealot's",
 			spa = "da La Fanática",
 			cs_cz = "Zfanatizované",
+			ru = "Сектантки", --this is more like "sectarian", but I think it fits even better
 		},
-		[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [X] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Deserter's",
 			spa = "Del Desertor",
 			cs_cz = "Zrádce",
+			ru = "Дезертира",
 		},
 	},
 
@@ -582,10 +599,11 @@ local translations = {
 			en_us = "Tainted",
 			spa = "Tainted",
 			cs_cz = "Poskvrněný",
+			ru = "Порченый",
 		},
 		BIRTHCAKE = {
 			en_us = "Birthcake",
-			ru = "Пироженое",
+			ru = "Деньрожденное пироженое", --This translation really sucks, "Праздничное" is better, but not related to birthday that much
 			spa = "Pastel de cumple",
 			cs_cz = "Narozeninový dort",
 		}
