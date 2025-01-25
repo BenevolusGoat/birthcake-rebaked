@@ -318,7 +318,7 @@ BIRTHCAKE_EID.Descs = {
 		},
 
 	},
-	[PlayerType.PLAYER_JUDAS] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_JUDAS] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		---@param descObj EID_DescObj
 		---@param basePercent number
 		_modifier = function(descObj)
@@ -335,87 +335,147 @@ BIRTHCAKE_EID.Descs = {
 			"% damage multiplier",
 			"#{{DevilRoom}} If taking a Devil Deal item were to kill Judas, this trinket is consumed instead."
 		},
+		ru = {
+			"{{ArrowUp}} {{Damage}} +",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_JUDAS]._modifier(descObj)
+			end,
+			"% множитель урона",
+			"#{{DevilRoom}} Если взятие предмета Дьявольской Сделки убьет Иуду, то этот брелок будет поглощен вместо этого."
+		},
 	},
-	[PlayerType.PLAYER_BLUEBABY] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_BLUEBABY] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = { --will probably have to havei t dynamically change depending on the active being held
 		--Nah its fine, better to make player aware of both effects
 		"{{Collectible36}} The Poop spawns 2 additional poops at both sides of the original on use.",
 		"#The sides the poops appear on depend on the direction ??? is facing.",
 		"#{{Collectible}} With other active items, fires out 3 poop projectiles in random directions that create a poop on contact."
 		},
+		ru = {
+		"{{Collectible36}} Какашка создает 2 дополнительные какашки по обеим сторонам от оригинальной при использовании.",
+		"#Стороны, по которым создаются какашки, зависят от того, куда смотрит ???.",
+		"#{{Collectible}} С другими активными предметами, выстреливает 3 какашки в случайных направлениях, которые создают какашку при контакте."
+		},
 	},
-	[PlayerType.PLAYER_EVE] = {					-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_EVE] = {					-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = { --maybe add bffs here?
 		"{{Collectible117}} Turns Dead Bird into Blood Bird.",
 		"#Blood Bird periodically leaves behind small damaging pools of red creep.",
 		"#Blood Bird's damage scales with Eve's damage."
 		},
+		ru = {
+		"{{Collectible117}} Превращает Мертвую Птицу в Кровавую Птицу.",
+		"#Кровавая Птица переодически оставляет позади себя красные лужи, наносящие небольшой урон.",
+		"#Урон Кровавой Птицы скейлится от урона Евы."
+		},
 	},
-	[PlayerType.PLAYER_SAMSON] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_SAMSON] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"{{Collectible157}} Reaching the maximum damage increase with Bloody Lust drops a {{Heart}} red heart.",
 		--Should be noted that these effects below are only present with any trinket multipliers. Forgot about that on the birthcake list text file.
-		"#Drops two red hearts if Samson's health is low enough",
+		"#Drops 2 red hearts if Samson's health is low enough",
 		"#{{SoulHeart}} Drops a soul heart if at full health"
 		},
+		ru = {
+		"{{Collectible157}} Достижение максимального увеличения урона от Жажды Крови создает {{Heart}} красное сердце.",
+		"#Создает 2 красных сердца, если здоровье Самсона достаточно низкое.",
+		"#{{SoulHeart}} Создает сердце души при полном здоровье"
+		},
 	},
-	[PlayerType.PLAYER_AZAZEL] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_AZAZEL] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"Brimstone blasts last longer while damaging enemies."
 		},
+		en_us = {
+		"Луч Серы длится дольше во время нанесения урона врагам."
+		},
 	},
-	[PlayerType.PLAYER_LAZARUS] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_LAZARUS] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"{{Collectible332}} If Lazarus Risen dies, this trinket is consumed and he is revived again.",
 		"#The revive grants another damage increase and removes a heart container."
 		},
+		en_us = {
+		"{{Collectible332}} Если Воскресший Лазарь умрет, этот брелок будет использован, и он возродится снова.",
+		"#Возрождение также дает увеличение урона и забирает контейнер сердца."
+		},
 	},
-	[PlayerType.PLAYER_EDEN] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_EDEN] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"{{Trinket}} Gulps three random trinkets while held.",
 		"#The trinket effects are lost when Birthcake is dropped."
 		},
+		en_us = {
+		"{{Trinket}} Проглатывает 3 случайных брелка при подборе.",
+		"#Еффекты брелков пропадают когда Пироженое выбрасывается."
+		},
 	},
-	[PlayerType.PLAYER_THELOST] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_THELOST] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"{{Collectible677}} Temporarily slows down enemies and grants a decaying fire rate increase when Holy Mantle is broken."
 		},
+		ru = {
+		"{{Collectible677}} Временно замедляет врагов и дает убывающее повышение скорострельности при потере Святой Мантии."
+		},
 	},
-	[PlayerType.PLAYER_LILITH] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_LILITH] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"Familiars have a chance to mimic Lilith's tear effects."
 		},
+		ru = {
+		"Спутники имеют шанс скопировать эффекты слез Лилит."
+		},
 	},
-	[PlayerType.PLAYER_KEEPER] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_KEEPER] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"{{Shop}} Shops and {{DevilRoom}} Devil Rooms contain a nickel."
 		},
+		ru = {
+		"{{Shop}} Магазины и комнаты {{DevilRoom}} Сделки с Дьяволом сдержат пятак."
+		},
 	},
-	[PlayerType.PLAYER_APOLLYON] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_APOLLYON] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"{{Collectible477}} Void can absorb trinkets.",
 		"#Voided trinkets are gulped, retaining their effects permanently as long as Void is held."
 		},
+		ru = {
+		"{{Collectible477}} Пустота может поглощать брелки.",
+		"#Поглощенные брелки проглатываются, сохраняя свои еффекты до тех пор, пока Пустота удерживается в руках."
+		},
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 			"Firing at {{Player16}}The Forgotten's body as {{Player17}}The Soul will cause bone fragment tears to fire out of it in random directions and fill it with \"soul charge\".",
 			"#Returning to The Forgotten will grant a decaying fire rate increase depending on how much soul charge they were filled with."
 		},
+		ru = {
+			"Стреляя в тело {{Player16}}Забытого {{Player17}}Душой приведет к выстреливании из него осколков костей в случайных направлениях и заполнении его \"зарядом души\".",
+			"#Возращение к Забытому даст убывающее повышение скорострельности в зависимости от того, насколько много заряда души он имеет."
+		},
 	},
-	[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"Using an active item has a chance to spawn an additional wisp of the same type"
 		},
+		ru = {
+		"Использование активного предмета имеет шанс создания дополнительного огонька того же типа"
+		},
 	},
-	[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"The holder will reflect all damage they take onto the other brother"
 		},
+		ru = {
+		"Держащий брат будет перенаправлять весь получаемый урон на другого брата"
+		},
 	},
-	[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]
+	[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
 		"Grants an additional inventory slot"
+		},
+		en_us = {
+		"Дает дополнительный слот инвентаря"
 		},
 	},
 	[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X]

@@ -172,9 +172,9 @@ local translations = {
 			pl = "Betanii",
 			ko_kr = "베타니의",
 		},
-		[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [OK] | PL: [!] | KO_KR [!]
+		[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [ОК] | SPA: [!] | CS_CZ: [OK] | PL: [!] | KO_KR [!]
 			en_us = "Jacob & Esau's",
-			ru = "Якова",
+			ru = "Иакова и Исава",
 			spa = "de Jacob",
 			cs_cz = "Jákobův a Ezauův",
 			pl = "Jakuba",
@@ -392,9 +392,9 @@ local translations = {
 			pl = "Alergie ↑",
 			ko_kr = "알레르기 증가",
 		},
-		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [!] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [X]
+		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [X]
 			en_us = "Untwined destiny",
-			ru = "Восстань снова",
+			ru = "Неразрывная судьба",
 			spa = "Destino desatado",
 			cs_cz = "Rozpletený osud",
 			pl = "Powstań z grobu",
