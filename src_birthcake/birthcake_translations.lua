@@ -118,7 +118,7 @@ local translations = {
 		},
 		[PlayerType.PLAYER_EDEN] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
 			en_us = "Eden's",
-			ru = "Эдема", --official name, but 2'nd variant is "Идена"
+			ru = "Эдема", --official name, but I'd use 2'nd variant "Идена"
 			spa = "de Edén",
 			cs_cz = "Edenův",
 			pl = "Edena",
@@ -470,7 +470,7 @@ local translations = {
 			en_us = "The Broken's",
 			spa = "Del Roto",
 			cs_cz = "Zlomeného",
-			ru = "Сломленного",
+			ru = "Сломанного",
 		},
 		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Dauntless's",
@@ -482,25 +482,25 @@ local translations = {
 			en_us = "The Hoarder's",
 			spa = "Dell Acumulador",
 			cs_cz = "Hromadiče",
-			ru = "Скопидомца",
+			ru = "Хранителя (порченного)",
 		},
 		[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Deceiver's",
 			spa = "Del Traidor", --More like "The Traitor" but eh
 			cs_cz = "Šejdíře",
-			ru = "Лжеца",
+			ru = "Обманщика",
 		},
 		[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Soiled's",
 			spa = "Del Sucio",
 			cs_cz = "Zašpiněného",
-			ru = "Запачканного",
+			ru = "Грязного",
 		},
 		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Curdled's",
 			spa = "de La Cuajada", --How the hell do I translate this
 			cs_cz = "Zkažené", -- I don't know man
-			ru = "Свернувшейся", --That sounds really weird
+			ru = "Свернувшейся",
 		},
 		[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Savage's",
@@ -512,25 +512,25 @@ local translations = {
 			en_us = "The Benighted's",
 			spa = "Del Ignorante",
 			cs_cz = "Zaostalého", -- I don't feel like this is the right translation...
-			ru = "Застигнутого ночью", -- a bit long, but right
+			ru = "Мрачного",
 		},
 		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Enigma's",
 			spa = "Del Enigma",
 			cs_cz = "Záhadného",
-			ru = "Загадочного",
+			ru = "Загадки",
 		},
 		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Capricious'",
 			spa = "Del Caprichoso",
 			cs_cz = "Rozmarného",
-			ru = "Капризного",
+			ru = "Непостоянного",
 		},
 		[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Baleful's",
 			spa = "Del Tétrico", --Is it like this? idk
 			cs_cz = "Zlověstného",
-			ru = "Зловещего",
+			ru = "Гибельного",
 		},
 		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Harlot's",
@@ -542,7 +542,7 @@ local translations = {
 			en_us = "The Miser's",
 			spa = "Del Avariento",
 			cs_cz = "Skrblíka",
-			ru = "Скупца", --"Скупого" is literally the same
+			ru = "Скупого",
 		},
 		[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Empty's",
@@ -554,13 +554,13 @@ local translations = {
 			en_us = "The Fettered's",
 			spa = "Del Encadenado",
 			cs_cz = "Spoutaného",
-			ru = "Скованного",
+			ru = "Скованных", --the fact that it's in the plural makes sense actually
 		},
 		[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Zealot's",
 			spa = "da La Fanática",
 			cs_cz = "Zfanatizované",
-			ru = "Сектантки", --this is more like "sectarian", but I think it fits even better
+			ru = "Фанатички",
 		},
 		[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Deserter's",
