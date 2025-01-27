@@ -1383,6 +1383,7 @@ local function InitFunctions()
 				local hudLayout = HudHelper.Utils.GetHUDLayout(playerHUDIndex)
 
 				for hudType, hudTable in pairs(HudHelper.HUD_ELEMENTS) do
+					if type(hudType) == "string" then goto skipLegacy end
 					extraYPadding = 0
 					---Separated as ACTIVE_ITEM and TRINKET_ITEM are indexed uniquely by itemIDs instead of a priority order
 					if hudType ~= HudHelper.HUDType.ACTIVE_ITEM and hudType ~= HudHelper.HUDType.TRINKET_ITEM then
@@ -1454,6 +1455,7 @@ local function InitFunctions()
 							::continue2::
 						end
 					end
+					::skipLegacy::
 				end
 
 				::continue::
