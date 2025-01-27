@@ -369,11 +369,21 @@ BIRTHCAKE_EID.Descs = {
 		},
 	},
 	[PlayerType.PLAYER_SAMSON] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
+		---@param descObj EID_DescObj
+		---@param str string
+		_modifier = function(descObj, str, strMult)
+			local trinketMult = BIRTHCAKE_EID:TrinketMulti(EID.player, descObj.ObjSubType)
+
+			if trinketMult > 1 then
+				return "{{ColorGold}}" .. trinketMult .. "{{CR}}" .. strMult
+			end
+			return str
+		end,
 		en_us = {
-		"{{Collectible157}} Reaching the maximum damage increase with Bloody Lust drops 2 {{Heart}} red hearts.",
-		--Should be noted that these effects below are only present with any trinket multipliers. Forgot about that on the birthcake list text file.
-		"#Drops 2 red hearts if Samson's health is low enough",
-		"#{{SoulHeart}} Drops a soul heart if at full health"
+		"{{Collectible157}} Reaching the maximum damage increase with Bloody Lust drops 2 ",
+		function(descObj)
+			return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_SAMSON]._modifier(descObj, "{{Heart}} red hearts.", "{{SoulHeart}} soul hearts.")
+		end
 		},
 		ru = {
 		"{{Collectible157}} Достижение максимального увеличения урона от Жажды Крови создаёт {{Heart}} красное сердце.",
