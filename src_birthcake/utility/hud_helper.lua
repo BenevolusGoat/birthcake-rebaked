@@ -1033,10 +1033,7 @@ local function InitFunctions()
 				or hudType == HudHelper.HUDType.TRINKET_ITEM
 			then
 				local itemID = conditionParam
-				if hudType == HudHelper.HUDType.TRINKET_ITEM then
-					itemID = itemID & ~TrinketType.TRINKET_GOLDEN_FLAG
-				end
-				local hud = hudElements[itemID]
+				local hud = hudElements[itemID & ~TrinketType.TRINKET_GOLDEN_FLAG]
 				if hud
 					and (not player:IsCoopGhost() or hud.BypassGhostBaby)
 					and ((not hud.PreRenderCallback and not isPreCallback) or (hud.PreRenderCallback and isPreCallback))
@@ -1304,10 +1301,10 @@ local function InitFunctions()
 			then
 				scale = 0.5
 			end
-			local trinketID = player:GetTrinket(slot) & ~TrinketType.TRINKET_GOLDEN_FLAG
+			local trinketID = player:GetTrinket(slot)
 			if isItem then
 				---@cast hud HUDInfo_TrinketItem
-				if hud.ItemID ~= trinketID then goto continue end
+				if hud.ItemID ~= trinketID & ~TrinketType.TRINKET_GOLDEN_FLAG then goto continue end
 				hud.OnRender(player, playerHUDIndex, hudLayout, pos, scale, 1, trinketID)
 				HudHelper.LastAppliedHUD[HudHelper.HUDType.TRINKET_ITEM][playerHUDIndex] = hud
 			else
