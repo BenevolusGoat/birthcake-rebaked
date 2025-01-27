@@ -370,7 +370,7 @@ BIRTHCAKE_EID.Descs = {
 	},
 	[PlayerType.PLAYER_SAMSON] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X]
 		en_us = {
-		"{{Collectible157}} Reaching the maximum damage increase with Bloody Lust drops a {{Heart}} red heart.",
+		"{{Collectible157}} Reaching the maximum damage increase with Bloody Lust drops 2 {{Heart}} red hearts.",
 		--Should be noted that these effects below are only present with any trinket multipliers. Forgot about that on the birthcake list text file.
 		"#Drops 2 red hearts if Samson's health is low enough",
 		"#{{SoulHeart}} Drops a soul heart if at full health"
