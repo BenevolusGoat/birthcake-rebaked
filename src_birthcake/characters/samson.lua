@@ -10,7 +10,9 @@ function SAMSON_CAKE:BloodLust(ent, amount, flags, source, dmg)
 	local player = ent:ToPlayer() ---@cast player EntityPlayer
 	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_SAMSON) then
 		local bloodyLustStack = player:GetEffects():GetCollectibleEffectNum(CollectibleType.COLLECTIBLE_BLOODY_LUST)
-		if bloodyLustStack == 6 or (bloodyLustStack == 10 and player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)) then
+		print(bloodyLustStack)
+		if bloodyLustStack == 5 or (bloodyLustStack == 9 and player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)) then
+			print("hi")
 			local addedHearts = 0
 			for _ = 1, 2 do
 				local variant = HeartSubType.HEART_FULL
@@ -23,7 +25,8 @@ function SAMSON_CAKE:BloodLust(ent, amount, flags, source, dmg)
 						variant = HeartSubType.HEART_DOUBLEPACK
 					end
 				end
-				addedHearts = addedHearts + (variant == HeartSubType.HEART_DOUBLEPACK) and 4 or 2
+				print("bro")
+				addedHearts = addedHearts + (variant == HeartSubType.HEART_DOUBLEPACK and 4 or 2)
 				Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, variant,
 					Isaac.GetFreeNearPosition(player.Position, 10), Vector.Zero, player)
 			end
