@@ -13,7 +13,7 @@ end
 
 -- Judas Birthcake
 
-JUDAS_CAKE.DAMAGE_MULT_UP = 0.1
+JUDAS_CAKE.DAMAGE_MULT_UP = 0.15
 JUDAS_CAKE.PickupPriceCost = {
 	[PickupPrice.PRICE_ONE_HEART] = {
 		Red = 1,

@@ -320,11 +320,10 @@ function BirthcakeRebaked:GetBirthcakeSprite(player)
 	local spriteResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.LOAD_BIRTHCAKE_SPRITE, playerType, player, sprite)
 	sprite = (spriteResult ~= nil and type(spriteResult) == "userdata" and getmetatable(spriteResult).__type == "Sprite" and spriteResult) or
 		sprite
-	return sprite
+	return sprite, spritePath
 end
 
---Setup like so so that this works with stuff like Forgotten and Tainted Laz
-
+--Setup like this so that this works with stuff like Forgotten and Tainted Laz
 local playerByIndex = {}
 
 ---@param player EntityPlayer
@@ -355,7 +354,7 @@ function BirthcakeRebaked:ItemDesc(player)
 		and Mod:IsBirthcake(queuedItem.ID)
 	then
 		data.HoldingBirthcake = queuedItem.ID
-		data.BirthcakeFirstPickup = player.QueuedItem.Touched
+		data.BirthcakeFirstPickup = not player.QueuedItem.Touched
 		local name = Mod:GetBirthcakeName(player)
 		local description = Mod:GetBirthcakeDescription(player)
 
@@ -396,19 +395,8 @@ end
 
 ---@param pickup EntityPickup
 function BirthcakeRebaked:ChangeSpritePickup(pickup)
-	print( Mod:IsBirthcake(pickup.SubType)	)
 	if Mod:IsBirthcake(pickup.SubType) then
-		local isCoopPlay = false
-		local controllerIdx
-		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PLAYER)) do
-			local player = ent:ToPlayer() ---@cast player EntityPlayer
-			if not controllerIdx then
-				controllerIdx = player.ControllerIndex
-			elseif controllerIdx ~= player.ControllerIndex then
-				isCoopPlay = true
-				break
-			end
-		end
+		local isCoopPlay = Mod:IsCoopPlay()
 
 		local player = Isaac.GetPlayer()
 		local playerType = player:GetPlayerType()

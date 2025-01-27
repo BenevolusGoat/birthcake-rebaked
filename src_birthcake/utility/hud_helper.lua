@@ -792,6 +792,14 @@ local function InitFunctions()
 		return pos
 	end
 
+	function HudHelper.GetExtraItemHUDOffset()
+		local extraHUDOffset = Vector(112, 92)
+		if Options.ExtraHUDStyle == 2 then
+			extraHUDOffset = Vector(104, 79.5)
+		end
+		return extraHUDOffset
+	end
+
 	--#endregion
 
 	--#region Misc helper functions
@@ -1364,6 +1372,54 @@ local function InitFunctions()
 		end
 	end
 
+	---@param player EntityPlayer
+	---@param isPreCallback boolean
+	function HudHelper.RenderStrawmenHealth(player, isPreCallback)
+		for _, hud in ipairs(HudHelper.HUD_ELEMENTS[HudHelper.HUDType.HEALTH]) do
+			if hud.Condition(player, -1, HudHelper.HUDLayout.STRAWMAN_HEARTS)
+				and ((not hud.PreRenderCallback and not isPreCallback) or (hud.PreRenderCallback and isPreCallback))
+			then
+				---@cast hud HUDInfo_Health
+				local position = HudHelper.GetStrawmanHealthHUDOffset(player)
+				renderHeartHUDs(player, -1, HudHelper.HUDLayout.STRAWMAN_HEARTS, position, hud)
+			end
+		end
+	end
+
+	function HudHelper.RenderExtraItemHUDTrinkets(isPreCallback)
+		local player = Isaac.GetPlayer()
+		local posIndex = 0
+		local columns = Options.ExtraHUDStyle * 2
+		local maxInventory = Options.ExtraHUDStyle * 5 * columns
+		local scale = Options.ExtraHUDStyle == 1 and 1 or 0.5
+		local extraHUDOffset = HudHelper.GetExtraItemHUDOffset()
+		local alpha = 0.5
+		for trinketID, hud in pairs(HudHelper.HUD_ELEMENTS[HudHelper.HUDType.TRINKET_ITEM]) do
+			if player:HasTrinket(trinketID) then
+				local collectiblesHistory = player:GetHistory():GetCollectiblesHistory()
+				for i = #collectiblesHistory, 1, -1 do
+					local historyItem = collectiblesHistory[i]
+					if historyItem:IsTrinket() or Mod.ItemConfig:GetCollectible(historyItem:GetItemID()).Type ~= ItemType.ITEM_ACTIVE then
+						posIndex = posIndex + 1
+					end
+					if posIndex > maxInventory then return end
+					if historyItem:IsTrinket() and (historyItem:GetItemID() & ~TrinketType.TRINKET_GOLDEN_FLAG) == trinketID
+						and (not player:IsCoopGhost() or hud.BypassGhostBaby)
+						and ((not hud.PreRenderCallback and not isPreCallback) or (hud.PreRenderCallback and isPreCallback))
+					then
+						local xPos = (32 * scale) * ((posIndex - 1) % columns)
+						local yPos = (32 * scale) * (math.ceil(posIndex / columns) - 1)
+						local offset = Vector(xPos, yPos)
+
+						local position = HudHelper.GetHUDPosition(2) + extraHUDOffset + offset
+
+						hud.OnRender(player, 1, HudHelper.Utils.GetHUDLayout(1), position, scale, alpha, historyItem:GetItemID())
+					end
+				end
+			end
+		end
+	end
+
 	function HudHelper.RenderHUDs(isPreCallback)
 		if HudHelper.ShouldHideHUD() then
 			return
@@ -1461,20 +1517,16 @@ local function InitFunctions()
 				::continue::
 			end
 		end
-		if #HudHelper.HUD_ELEMENTS[HudHelper.HUDType.HEALTH] == 0 then return end
-		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PLAYER)) do
-			local player = ent:ToPlayer()
-			if player and player.Parent and not player:IsDead() and player.Variant == 0 then
-				for _, hud in ipairs(HudHelper.HUD_ELEMENTS[HudHelper.HUDType.HEALTH]) do
-					if hud.Condition(player, -1, HudHelper.HUDLayout.STRAWMAN_HEARTS)
-						and ((not hud.PreRenderCallback and not isPreCallback) or (hud.PreRenderCallback and isPreCallback))
-					then
-						---@cast hud HUDInfo_Health
-						local position = HudHelper.GetStrawmanHealthHUDOffset(player)
-						renderHeartHUDs(player, -1, HudHelper.HUDLayout.STRAWMAN_HEARTS, position, hud)
-					end
+		if #HudHelper.HUD_ELEMENTS[HudHelper.HUDType.HEALTH] == 0 then
+			for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PLAYER)) do
+				local player = ent:ToPlayer()
+				if player and player.Parent and not player:IsDead() and player.Variant == 0 then
+					HudHelper.RenderStrawmenHealth(player, isPreCallback)
 				end
 			end
+		end
+		if Options.ExtraHUDStyle > 0 then
+			--HudHelper.RenderExtraItemHUDTrinkets(isPreCallback)
 		end
 	end
 

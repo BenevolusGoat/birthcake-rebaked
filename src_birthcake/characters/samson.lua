@@ -10,23 +10,24 @@ function SAMSON_CAKE:BloodLust(ent, amount, flags, source, dmg)
 	local player = ent:ToPlayer() ---@cast player EntityPlayer
 	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_SAMSON) then
 		local bloodyLustStack = player:GetEffects():GetCollectibleEffectNum(CollectibleType.COLLECTIBLE_BLOODY_LUST)
-		print(bloodyLustStack)
+
 		if bloodyLustStack == 5 or (bloodyLustStack == 9 and player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)) then
-			print("hi")
 			local addedHearts = 0
 			for _ = 1, 2 do
 				local variant = HeartSubType.HEART_FULL
 				if Mod:GetTrinketMult(player) > 1 then
-					local health = player:GetHearts() * 2 + player:GetRottenHearts() + addedHearts
+					local health = player:GetHearts() + player:GetRottenHearts() + addedHearts
 					local maxHealth = player:GetEffectiveMaxHearts()
+
 					if health >= maxHealth then
 						variant = HeartSubType.HEART_SOUL
-					elseif health <= maxHealth / 2 + 1 then
+					elseif health <= maxHealth * 0.5 then
 						variant = HeartSubType.HEART_DOUBLEPACK
+						addedHearts = addedHearts + 4
+					else
+						addedHearts = addedHearts + 2
 					end
 				end
-				print("bro")
-				addedHearts = addedHearts + (variant == HeartSubType.HEART_DOUBLEPACK and 4 or 2)
 				Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, variant,
 					Isaac.GetFreeNearPosition(player.Position, 10), Vector.Zero, player)
 			end
@@ -38,7 +39,7 @@ Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, SAMSON_CAKE.BloodLust, EntityTy
 
 -- Tainted Samson Birthcake
 
-SAMSON_CAKE.BASE_BERSERK_HELP_CHANCE = 0.2
+SAMSON_CAKE.BASE_BERSERK_HELP_CHANCE = 0.25
 
 function SAMSON_CAKE:BerserkRoomClear()
 	Mod:ForEachPlayer(function(player)
@@ -52,6 +53,7 @@ function SAMSON_CAKE:BerserkRoomClear()
 				Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_HALF,
 					Mod.Game:GetRoom():FindFreePickupSpawnPosition(player.Position, 40), Vector(0, 0), player)
 				playerEffects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_BERSERK, true, 1)
+				Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
 			end
 		end
 	end)

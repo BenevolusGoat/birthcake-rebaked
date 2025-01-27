@@ -35,7 +35,7 @@ HudHelper.RegisterHUDElement({
 		local data = Mod:GetData(player)
 		local isGolden = Mod:IsBirthcake(trinketID, true)
 		if isGolden and not data.GoldenBirthcakeSprite then
-			local sprite = Mod:GetBirthcakeSprite(player)
+			local sprite, spritePath = Mod:GetBirthcakeSprite(player)
 			sprite:Play("Idle")
 			if REPENTOGON then
 				sprite:SetRenderFlags(AnimRenderFlags.GOLDEN)
@@ -43,7 +43,12 @@ HudHelper.RegisterHUDElement({
 				--Credit to Epiphany for this anm2
 				sprite = Sprite()
 				sprite:Load("gfx/ui/golden_item_hud.anm2")
+				for i = 0, 31 do
+					sprite:ReplaceSpritesheet(i, spritePath)
+				end
+				sprite:LoadGraphics()
 				sprite:Play("GoldenItemHUD")
+				sprite.Offset = Vector(-16, -25)
 			end
 			data.GoldenBirthcakeSprite = sprite
 		end

@@ -19,6 +19,8 @@ end
 
 Mod:AddCallback(Mod.ModCallbacks.POST_BIRTHCAKE_COLLECT, ISAAC_CAKE.OnBirthcakeCollect, PlayerType.PLAYER_ISAAC)
 
+local delayHorn = false
+
 function ISAAC_CAKE:SpawnStartingRoomDiceShard()
 	local room = Mod.Game:GetRoom()
 
@@ -27,9 +29,9 @@ function ISAAC_CAKE:SpawnStartingRoomDiceShard()
 			if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_ISAAC) then
 				for _ = 1, Mod:GetTrinketMult(player) do
 					Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_DICE_SHARD,
-						room:FindFreePickupSpawnPosition(room:GetCenterPos()), Vector.Zero, player)
+						room:FindFreePickupSpawnPosition(room:GetCenterPos(), 0, true), Vector.Zero, player)
 				end
-				Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
+				delayHorn = true
 			end
 		end)
 	end
@@ -44,6 +46,15 @@ function ISAAC_CAKE:ResetShardsOnNewFloor(player)
 		effects:RemoveTrinketEffect(Mod.Birthcake.ID, -1)
 	end
 end
+
+function ISAAC_CAKE:PlayPartyHorn()
+	if delayHorn then
+		Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
+		delayHorn = false
+	end
+end
+
+Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, ISAAC_CAKE.PlayPartyHorn)
 
 if REPENTOGON then
 	Mod:AddCallback(ModCallbacks.MC_POST_PLAYER_NEW_LEVEL, ISAAC_CAKE.ResetShardsOnNewFloor, PlayerType.PLAYER_ISAAC)

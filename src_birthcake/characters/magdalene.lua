@@ -4,8 +4,7 @@ local game = Mod.Game
 local MAGDALENE_CAKE = {}
 BirthcakeRebaked.Birthcake.MAGDALENE = MAGDALENE_CAKE
 
-MAGDALENE_CAKE.HEART_REPLACE_CHANCE = 0.25
-MAGDALENE_CAKE.MAX_SOUL_HEART_BONUS = 3
+MAGDALENE_CAKE.HEART_REPLACE_CHANCE = 0.33
 
 -- Magdalene Birthcake
 
@@ -16,26 +15,31 @@ MAGDALENE_CAKE.HeartSubTypeConversion = {
 	[HeartSubType.HEART_HALF_SOUL] = HeartSubType.HEART_SOUL
 }
 
-function MAGDALENE_CAKE:HeartReplace(entType, variant, subType, position, velocity, spawner, seed)
-	if entType == EntityType.ENTITY_PICKUP
-		and variant == PickupVariant.PICKUP_HEART
-	then
-		local player = BirthcakeRebaked:FirstPlayerTypeBirthcakeOwner(PlayerType.PLAYER_MAGDALENE)
-		if not player then return end
-		local newVariant = MAGDALENE_CAKE.HeartSubTypeConversion
+---@param pickup EntityPickup
+function MAGDALENE_CAKE:HeartReplace(pickup)
+	local pickup_save = Mod.SaveManager.TryGetRoomFloorSave(pickup)
+	local player = BirthcakeRebaked:FirstPlayerTypeBirthcakeOwner(PlayerType.PLAYER_MAGDALENE)
+	if not player then return end
+	local newSubType = MAGDALENE_CAKE.HeartSubTypeConversion[pickup.SubType]
 
-		if player and newVariant then
-			local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
-			if rng:RandomFloat()
-				<= Mod:GetBalanceApprovedChance(MAGDALENE_CAKE.HEART_REPLACE_CHANCE, Mod:GetTrinketMult(player))
-			then
-				return { EntityType.ENTITY_PICKUP, newVariant, HeartSubType.HEART_DOUBLEPACK, seed }
-			end
+	if player
+		and newSubType
+		and (not pickup_save
+		or not pickup_save.NoRerollSave.MagdaleneCakeUpgradedPickup)
+	then
+		pickup_save = Mod.SaveManager.GetRoomFloorSave(pickup).NoRerollSave
+		local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
+		if rng:RandomFloat()
+			<= Mod:GetBalanceApprovedChance(MAGDALENE_CAKE.HEART_REPLACE_CHANCE, Mod:GetTrinketMult(player))
+		then
+			pickup_save.MagdaleneCakeUpgradedPickup = true
+			pickup:Morph(pickup.Type, pickup.Variant, newSubType, true, true)
+			Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
 		end
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, MAGDALENE_CAKE.HeartReplace)
+Mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, MAGDALENE_CAKE.HeartReplace, PickupVariant.PICKUP_HEART)
 
 -- Tainted Magdalene Birthcake
 
@@ -48,18 +52,21 @@ MAGDALENE_CAKE.HeartSubtypeDamage = {
 
 ---@param pickup EntityPickup
 function MAGDALENE_CAKE:HeartExplode(pickup)
-	local damageMult = Mod:GetCombinedTrinketMult(PlayerType.PLAYER_MAGDALENE_B)
+	local trinketMult = Mod:GetCombinedTrinketMult(PlayerType.PLAYER_MAGDALENE_B)
 
 	if MAGDALENE_CAKE.HeartSubtypeDamage[pickup.SubType]
 		and pickup.Timeout == 0
 		and pickup:GetSprite():GetAnimation() ~= "Collect"
-		and damageMult > 0
+		and trinketMult > 0
 	then
 		pickup:BloodExplode()
-		local baseDamage = MAGDALENE_CAKE.HeartSubtypeDamage[pickup.SubType] + (0.5 * Mod.Game:GetLevel():GetStage())
-		game:BombExplosionEffects(pickup.Position, baseDamage * damageMult, TearFlags.TEAR_BLOOD_BOMB, nil,
-		Mod:FirstPlayerTypeBirthcakeOwner(PlayerType.PLAYER_MAGDALENE_B), 0.5, true,
-			false, DamageFlag.DAMAGE_EXPLOSION)
+		local damage = (MAGDALENE_CAKE.HeartSubtypeDamage[pickup.SubType] + (0.5 * Mod.Game:GetLevel():GetStage())) * (trinketMult * 0.5)
+		for _, ent in ipairs(Isaac.FindInRadius(pickup.Position, pickup.Size * 3, EntityPartition.ENEMY)) do
+			if ent:IsActiveEnemy(false) and ent:IsVulnerableEnemy() then
+				ent:TakeDamage(damage, DamageFlag.DAMAGE_EXPLOSION | DamageFlag.DAMAGE_IGNORE_ARMOR, EntityRef(pickup), 0)
+			end
+		end
+		Mod.SFXManager:Play(SoundEffect.SOUND_EXPLOSION_WEAK)
 		for _ = 1, 10 do
 			local position = Vector(math.random(-25, 25), math.random(-25, 25))
 			position = position + pickup.Position

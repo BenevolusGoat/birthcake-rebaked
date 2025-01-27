@@ -11,14 +11,39 @@ EDEN_CAKE.HiddenItemGroup = "Eden Birthcake"
 function EDEN_CAKE:RefreshBirthcakeTrinkets(player)
 	local player_run_save = Mod.SaveManager.GetRunSave(player)
 	local itemPool = Mod.Game:GetItemPool()
-	local trinketList = {}
-	player_run_save.EdenCakeTrinkets = player_run_save.EdenCakeTrinkets or trinketList
-	Mod:RemoveSmeltedTrinkets(player, trinketList)
-	for _ = 1, 2 + Mod:GetTrinketMult(player) - #player_run_save.EdenCakeTrinkets do
-		local trinketID = itemPool:GetTrinket()
-		table.insert(trinketList, trinketID)
+	local trinketList = player_run_save.EdenCakeTrinkets
+	if not trinketList then
+		local newList = {}
+		player_run_save.EdenCakeTrinkets = newList
+		trinketList = newList
 	end
-	Mod:AddSmeltedTrinkets(player, trinketList)
+	local effects = player:GetEffects()
+	local inventoryCap = effects:GetTrinketEffectNum(Mod.Birthcake.ID)
+	local expectedNum = 2 + Mod:GetTrinketMult(player)
+	local currentNum = #player_run_save.EdenCakeTrinkets
+	--print(inventoryCap, expectedNum, currentNum)
+	if expectedNum < inventoryCap and expectedNum > 0 then
+		local removeList = {}
+		for i = inventoryCap, expectedNum + 1, -1 do
+			table.insert(removeList, player_run_save.EdenCakeTrinkets[i])
+		end
+		--print("Removed", #removeList)
+		effects:RemoveTrinketEffect(Mod.Birthcake.ID, #removeList)
+		Mod:RemoveSmeltedTrinkets(player, removeList)
+	elseif expectedNum > currentNum or currentNum > inventoryCap then
+		local addList = {}
+		for i = inventoryCap + 1, expectedNum do
+			local trinketID = player_run_save.EdenCakeTrinkets[i] or itemPool:GetTrinket()
+			table.insert(addList, trinketID)
+			--print("adding", trinketID)
+			if not player_run_save.EdenCakeTrinkets[i] then
+				--print("new trinket", trinketID)
+				table.insert(player_run_save.EdenCakeTrinkets, trinketID)
+			end
+		end
+		effects:AddTrinketEffect(Mod.Birthcake.ID, false, #addList)
+		Mod:AddSmeltedTrinkets(player, addList)
+	end
 	Mod.SFXManager:Play(SoundEffect.SOUND_VAMP_GULP)
 	player_run_save.EdenCakeHasTrinkets = true
 end
@@ -46,10 +71,13 @@ function EDEN_CAKE:ManageTrinkets(player)
 		local trinketList = player_run_save.EdenCakeTrinkets
 		if trinketList then
 			Mod:AddSmeltedTrinkets(player, trinketList)
+		else
+			EDEN_CAKE:RefreshBirthcakeTrinkets(player)
 		end
 		player_run_save.EdenCakeHasTrinkets = true
-	elseif player_run_save.EdenCakeHasTrinkets and player:HasTrinket(Mod.Birthcake.ID) then
-		if #player_run_save.EdenCakeTrinkets ~= 2 + Mod:GetTrinketMult(player) then
+	elseif player_run_save.EdenCakeHasTrinkets and player:HasTrinket(Mod.Birthcake.ID) and not player.QueuedItem.Item then
+		local effects = player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID)
+		if effects ~= 2 + Mod:GetTrinketMult(player) then
 			EDEN_CAKE:RefreshBirthcakeTrinkets(player)
 		end
 	end

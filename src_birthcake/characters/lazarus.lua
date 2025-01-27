@@ -37,7 +37,9 @@ function LAZARUS_CAKE:CheckBirthcake(player)
 		local effects = player:GetEffects()
 		Mod.HiddenItemManager:Add(player, CollectibleType.COLLECTIBLE_LAZARUS_RAGS, -1, 1,
 			LAZARUS_CAKE.HIDDEN_ITEM_MANAGER_GROUP)
-		effects:AddTrinketEffect(Mod.Birthcake.ID, false, effects:GetNullEffectNum(NullItemID.ID_LAZARUS_BOOST))
+		local reviveNum = effects:GetNullEffectNum(NullItemID.ID_LAZARUS_BOOST)
+		local reviveTracker = effects:GetTrinketEffectNum(Mod.Birthcake.ID)
+		effects:AddTrinketEffect(Mod.Birthcake.ID, false, reviveNum - reviveTracker)
 	elseif not player:HasTrinket(Mod.Birthcake.ID)
 		and Mod.HiddenItemManager:CountStack(player, CollectibleType.COLLECTIBLE_LAZARUS_RAGS, LAZARUS_CAKE.HIDDEN_ITEM_MANAGER_GROUP) > 0
 	then
@@ -97,7 +99,7 @@ Mod:AddCallback(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, LAZARUS_CAKE.OnPlayerTy
 
 -- Tainted Lazarus Birthcake
 
-LAZARUS_CAKE.ITEM_SPLIT_CHANCE = 0.5
+LAZARUS_CAKE.ITEM_SPLIT_CHANCE = 0.33
 local ALIVE_COLOR = Color(1, 1, 1, 1, 0.7, 0.9, 1)
 local DEAD_COLOR = Color(1, 1, 1, 1, 1, 0, 0)
 

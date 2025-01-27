@@ -29,6 +29,8 @@ function AZAZEL_CAKE:OnEntityTakeDamage(ent, amount, flags, source, countdown)
 			local laser = laserEnt:ToLaser()
 			---@cast laser EntityLaser
 			if laser.Timeout >= 1
+				and laser.Parent
+				and laser.SpawnerEntity
 				and GetPtrHash(laser.Parent) == GetPtrHash(player)
 				and GetPtrHash(laser.SpawnerEntity) == GetPtrHash(player)
 			then
@@ -79,11 +81,17 @@ function AZAZEL_CAKE:OnSneeze(effect)
 		local fireDir = BirthcakeRebaked:DirectionToVector(player:GetFireDirection())
 		local randomVel = randomInt(-2, 2)
 		local randomAngle = randomInt(-20, 20)
+		local randomRange = randomInt(-5, 5) * 0.01
 		local vel = (fireDir:Resized(10 + randomVel):Rotated(randomAngle) * player.ShotSpeed * 1.2) + player:GetTearMovementInheritance(fireDir)
 		local tear = Isaac.Spawn(EntityType.ENTITY_TEAR, TearVariant.BOOGER, 0, player.Position, vel, player):ToTear()
 		---@cast tear EntityTear
-		tear.CollisionDamage = tear.CollisionDamage * 0.5
-		tear.FallingAcceleration = AZAZEL_CAKE.BOOGER_RANGE
+		if not player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT) then
+			tear.CollisionDamage = tear.CollisionDamage * 0.5
+		else
+			tear.Scale = tear.Scale * 1.5
+		end
+
+		tear.FallingAcceleration = AZAZEL_CAKE.BOOGER_RANGE + randomRange
 
 		if Mod.GENERIC_RNG:RandomFloat() <= AZAZEL_CAKE.BOOGER_STICK_CHANCE * Mod:GetTrinketMult(player) then
 			tear:AddTearFlags(TearFlags.TEAR_BOOGER)

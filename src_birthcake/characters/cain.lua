@@ -107,30 +107,38 @@ CAIN_BIRTHCAKE.DoublePickupToSingle = {
 	},
 }
 
----@param entType EntityType
----@param variant integer
----@param subType integer
----@param position Vector
----@param velocity Vector
----@param spawner Entity?
----@param seed integer
-function CAIN_BIRTHCAKE:SplitPickup(entType, variant, subType, position, velocity, spawner, seed)
+---@param pickup EntityPickup
+function CAIN_BIRTHCAKE:SplitPickup(pickup)
+	local pickup_save = Mod.SaveManager.TryGetRoomFloorSave(pickup)
 	if Mod:AnyPlayerTypeHasBirthcake(PlayerType.PLAYER_CAIN_B)
-		and entType == EntityType.ENTITY_PICKUP
+		and not pickup:IsShopItem()
+		and (not pickup_save
+		or not pickup_save.NoRerollSave.CainCakeSplitPickup)
+		and pickup.FrameCount == 1
 	then
+		local variant = pickup.Variant
+		local subType = pickup.SubType
 		local splitSubType = CAIN_BIRTHCAKE.DoublePickupToSingle[variant] and
 			CAIN_BIRTHCAKE.DoublePickupToSingle[variant][subType]
 		if splitSubType then
-			Isaac.Spawn(entType, variant, splitSubType, Isaac.GetFreeNearPosition(position + Vector(15, 0), 0), velocity,
-				spawner)
-			Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.CLEAVER_SLASH, 0, position, Vector.Zero, nil)
+			pickup_save = Mod.SaveManager.GetRoomFloorSave(pickup).NoRerollSave
+			local pickup2 = Isaac.Spawn(pickup.Type, variant, splitSubType,
+			Isaac.GetFreeNearPosition(pickup.Position + Vector(15, 0), 0), Vector.Zero, pickup.SpawnerEntity):ToPickup()
+			---@cast pickup2 EntityPickup
+			Mod.SaveManager.GetRoomFloorSave(pickup2).NoRerollSave.CainCakeSplitPickup = true
+			pickup:Morph(pickup.Type, pickup.Variant, splitSubType, true, true, true)
+			pickup2:Morph(pickup.Type, pickup.Variant, splitSubType, true, true, true)
+			pickup_save.CainCakeSplitPickup = true
+			Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.CLEAVER_SLASH, 0, pickup.Position, Vector.Zero, nil)
 			Mod.SFXManager:Play(SoundEffect.SOUND_KNIFE_PULL)
-			return { entType, variant, splitSubType, seed }
 		end
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, CAIN_BIRTHCAKE.SplitPickup)
+Mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, CAIN_BIRTHCAKE.SplitPickup, PickupVariant.PICKUP_BOMB)
+Mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, CAIN_BIRTHCAKE.SplitPickup, PickupVariant.PICKUP_KEY)
+Mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, CAIN_BIRTHCAKE.SplitPickup, PickupVariant.PICKUP_HEART)
+Mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, CAIN_BIRTHCAKE.SplitPickup, PickupVariant.PICKUP_COIN)
 
 --[[ local BAG_OF_CRAFTING = KnifeVariant and KnifeVariant.BAG_OF_CRAFTING or 4
 local CLUB_HITBOX = KnifeSubType and KnifeSubType.CLUB_HITBOX or 4

@@ -182,7 +182,7 @@ function EVE_CAKE:OnClotCreepUpdate(effect)
 			end
 		end
 	end
-	if data.EveCakeWhiteCreep and not Mod.Game:GetRoom():IsPositionInRoom(effect.Position, 0) then
+	if data.EveCakeWhiteCreep and not Mod.Game:GetRoom():IsPositionInRoom(effect.Position, 15) then
 		effect.Velocity = Vector.Zero
 	end
 end

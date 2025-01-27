@@ -41,10 +41,10 @@ end
 ---@param player EntityPlayer
 function ISAAC_CAKE:ManageBirthcakeInventoryCap(player)
 	local effects = player:GetEffects()
-	local cakeEffects = effects:GetTrinketEffectNum(Mod.Birthcake.ID)
-	if cakeEffects > 0 then
-		local expectedCap = Mod:GetTrinketMult(player)
-		local currentCap = cakeEffects
+	local currentCap = effects:GetTrinketEffectNum(Mod.Birthcake.ID)
+	local expectedCap = Mod:GetTrinketMult(player)
+
+	if expectedCap > 0 or currentCap > 0 then
 		if expectedCap < currentCap then
 			local diff = currentCap - expectedCap
 			effects:RemoveTrinketEffect(Mod.Birthcake.ID, diff)

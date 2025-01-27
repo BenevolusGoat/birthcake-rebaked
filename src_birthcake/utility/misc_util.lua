@@ -143,8 +143,10 @@ function BirthcakeRebaked:AwardPedestalItem(pickup, player)
 		Mod.SFXManager:Play(SoundEffect.SOUND_CHOIR_UNLOCK, 0.5)
 		pickup.Touched = true
 		pickup.SubType = 0
-		pickup:GetSprite():Play("Empty", true)
-		pickup:GetSprite():ReplaceSpritesheet(4, "blank", true)
+		local sprite = pickup:GetSprite()
+		sprite:Play("Empty", true)
+		sprite:ReplaceSpritesheet(4, "blank")
+		sprite:LoadGraphics()
 		Mod.Game:GetHUD():ShowItemText(player, Isaac:GetItemConfig():GetCollectible(itemId))
 		Mod:KillChoice(pickup)
 	end
@@ -257,4 +259,22 @@ function BirthcakeRebaked:Map(tab, func)
 	end
 
 	return out
+end
+
+function BirthcakeRebaked:IsCoopPlay()
+	if REPENTOGON then
+		return PlayerManager.IsCoopPlay()
+	end
+	local isCoopPlay = false
+	local controllerIdx
+	for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PLAYER)) do
+		local player = ent:ToPlayer() ---@cast player EntityPlayer
+		if not controllerIdx then
+			controllerIdx = player.ControllerIndex
+		elseif controllerIdx ~= player.ControllerIndex then
+			isCoopPlay = true
+			break
+		end
+	end
+	return isCoopPlay
 end
