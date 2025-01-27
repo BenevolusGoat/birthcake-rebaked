@@ -83,14 +83,14 @@ local function InitMod()
 		[HudHelper.HUDType.EXTRA] = {}, ---@type HUDInfo_Extra[]
 		[HudHelper.HUDType.ACTIVE_ITEM] = {}, ---@type {[CollectibleType]: HUDInfo_ActiveItem}
 		[HudHelper.HUDType.TRINKET_ITEM] = {}, ---@type{[TrinketType]: HUDInfo_TrinketItem}
-		--Legacy
-		Base = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.BASE],
-		Actives = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.ACTIVE],
-		Health = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.HEALTH],
-		PocketItems = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.POCKET],
-		Trinkets = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.TRINKET],
-		Extra = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.EXTRA],
 	}
+	--Legacy
+	HudHelper.HUD_ELEMENTS.Base = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.BASE]
+	HudHelper.HUD_ELEMENTS.Actives = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.ACTIVE]
+	HudHelper.HUD_ELEMENTS.Health = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.HEALTH]
+	HudHelper.HUD_ELEMENTS.PocketItems = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.POCKET]
+	HudHelper.HUD_ELEMENTS.Trinkets = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.TRINKET]
+	HudHelper.HUD_ELEMENTS.Extra = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.EXTRA]
 
 	if CACHED_ELEMENTS then
 		for hudType, elements in pairs(CACHED_ELEMENTS) do
@@ -934,14 +934,14 @@ local function InitFunctions()
 		[HudHelper.HUDType.EXTRA] = {}, ---@type table<integer, HUDInfo_Extra>
 		[HudHelper.HUDType.ACTIVE_ITEM] = {}, ---@type table<integer, HUDInfo_ActiveItem>
 		[HudHelper.HUDType.TRINKET_ITEM] = {}, ---@type table<integer, HUDInfo_TrinketItem>
-		--Legacy
-		Base = HudHelper.LastAppliedHUD[HudHelper.HUDType.BASE],
-		Actives = HudHelper.LastAppliedHUD[HudHelper.HUDType.ACTIVE],
-		Health = HudHelper.LastAppliedHUD[HudHelper.HUDType.HEALTH],
-		PocketItems = HudHelper.LastAppliedHUD[HudHelper.HUDType.POCKET],
-		Trinkets = HudHelper.LastAppliedHUD[HudHelper.HUDType.TRINKET],
-		Extra = HudHelper.LastAppliedHUD[HudHelper.HUDType.EXTRA],
 	}
+	--Legacy
+	HudHelper.LastAppliedHUD.Base = HudHelper.LastAppliedHUD[HudHelper.HUDType.BASE]
+	HudHelper.LastAppliedHUD.Actives = HudHelper.LastAppliedHUD[HudHelper.HUDType.ACTIVE]
+	HudHelper.LastAppliedHUD.Health = HudHelper.LastAppliedHUD[HudHelper.HUDType.HEALTH]
+	HudHelper.LastAppliedHUD.PocketItems = HudHelper.LastAppliedHUD[HudHelper.HUDType.POCKET]
+	HudHelper.LastAppliedHUD.Trinkets = HudHelper.LastAppliedHUD[HudHelper.HUDType.TRINKET]
+	HudHelper.LastAppliedHUD.Extra = HudHelper.LastAppliedHUD[HudHelper.HUDType.EXTRA]
 
 	--Legacy
 	HudHelper.HUDTypeToTable = {
