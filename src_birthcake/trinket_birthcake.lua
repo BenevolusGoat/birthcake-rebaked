@@ -30,14 +30,10 @@ for _, name in ipairs(characters) do
 end
 
 HudHelper.RegisterHUDElement({
-	Name = "Birthcake",
-	Priority = HudHelper.Priority.NORMAL,
-	Condition = function(player, _, _, slot)
-		return Mod:IsBirthcake(player:GetTrinket(slot))
-	end,
-	OnRender = function(player, _, _, pos, scale, slot)
+	ItemID = Mod.Birthcake.ID,
+	OnRender = function(player, _, _, pos, scale, alpha, trinketID)
 		local data = Mod:GetData(player)
-		local isGolden = Mod:IsBirthcake(player:GetTrinket(slot), true)
+		local isGolden = Mod:IsBirthcake(trinketID, true)
 		if isGolden and not data.GoldenBirthcakeSprite then
 			local sprite = Mod:GetBirthcakeSprite(player)
 			sprite:Play("Idle")
@@ -59,6 +55,7 @@ HudHelper.RegisterHUDElement({
 		local sprite = isGolden and data.GoldenBirthcakeSprite or data.BirthcakeSprite
 		local playerType = player:GetPlayerType()
 		sprite.Scale = Vector(scale, scale)
+		sprite.Color = Color(1,1,1,alpha)
 		Isaac.RunCallbackWithParam(Mod.ModCallbacks.PRE_BIRTHCAKE_RENDER, playerType, player, sprite, pos)
 		sprite:Render(pos)
 		if Isaac.GetFrameCount() % 2 == 0 and not Mod.Game:IsPaused() then
@@ -66,7 +63,7 @@ HudHelper.RegisterHUDElement({
 		end
 		Isaac.RunCallbackWithParam(Mod.ModCallbacks.POST_BIRTHCAKE_RENDER, playerType, player, sprite, pos)
 	end
-}, HudHelper.HUDType.TRINKET)
+}, HudHelper.HUDType.TRINKET_ITEM)
 
 function BIRTHCAKE_TRINKET:OnPlayerTypeChange(player)
 	local data = Mod:GetData(player)
