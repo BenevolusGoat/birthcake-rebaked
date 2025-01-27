@@ -82,7 +82,14 @@ local function InitMod()
 		[HudHelper.HUDType.TRINKET] = {}, ---@type HUDInfo_Trinket[]
 		[HudHelper.HUDType.EXTRA] = {}, ---@type HUDInfo_Extra[]
 		[HudHelper.HUDType.ACTIVE_ITEM] = {}, ---@type {[CollectibleType]: HUDInfo_ActiveItem}
-		[HudHelper.HUDType.TRINKET_ITEM] = {} ---@type{[TrinketType]: HUDInfo_TrinketItem}
+		[HudHelper.HUDType.TRINKET_ITEM] = {}, ---@type{[TrinketType]: HUDInfo_TrinketItem}
+		--Legacy
+		Base = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.BASE],
+		Actives = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.ACTIVE],
+		Health = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.HEALTH],
+		PocketItems = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.POCKET],
+		Trinkets = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.TRINKET],
+		Extra = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.EXTRA],
 	}
 
 	if CACHED_ELEMENTS then
@@ -926,7 +933,23 @@ local function InitFunctions()
 		[HudHelper.HUDType.TRINKET] = {}, ---@type table<integer, HUDInfo_Trinket>
 		[HudHelper.HUDType.EXTRA] = {}, ---@type table<integer, HUDInfo_Extra>
 		[HudHelper.HUDType.ACTIVE_ITEM] = {}, ---@type table<integer, HUDInfo_ActiveItem>
-		[HudHelper.HUDType.TRINKET_ITEM] = {} ---@type table<integer, HUDInfo_TrinketItem>
+		[HudHelper.HUDType.TRINKET_ITEM] = {}, ---@type table<integer, HUDInfo_TrinketItem>
+		--Legacy
+		Base = HudHelper.LastAppliedHUD[HudHelper.HUDType.BASE],
+		Actives = HudHelper.LastAppliedHUD[HudHelper.HUDType.ACTIVE],
+		Health = HudHelper.LastAppliedHUD[HudHelper.HUDType.HEALTH],
+		PocketItems = HudHelper.LastAppliedHUD[HudHelper.HUDType.POCKET],
+		Trinkets = HudHelper.LastAppliedHUD[HudHelper.HUDType.TRINKET],
+		Extra = HudHelper.LastAppliedHUD[HudHelper.HUDType.EXTRA],
+	}
+
+	--Legacy
+	HudHelper.HUDTypeToTable = {
+		[0] = HudHelper.HUD_ELEMENTS.Base,
+		[1] = HudHelper.HUD_ELEMENTS.Actives,
+		[2] = HudHelper.HUD_ELEMENTS.Health,
+		[3] = HudHelper.HUD_ELEMENTS.PocketItems,
+		[4] = HudHelper.HUD_ELEMENTS.Extra,
 	}
 
 	local numPlayers = 0
