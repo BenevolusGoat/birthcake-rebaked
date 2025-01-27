@@ -1301,7 +1301,7 @@ local function InitFunctions()
 			then
 				scale = 0.5
 			end
-			local trinketID = player:GetTrinket(slot)
+			local trinketID = player:GetTrinket(slot) & ~TrinketType.TRINKET_GOLDEN_FLAG
 			if isItem then
 				---@cast hud HUDInfo_TrinketItem
 				if hud.ItemID ~= trinketID then goto continue end
