@@ -1030,10 +1030,13 @@ local function InitFunctions()
 				conditionParam = extraParams[2]
 			end
 			if hudType == HudHelper.HUDType.ACTIVE_ITEM
-			or hudType == HudHelper.HUDType.TRINKET_ITEM
+				or hudType == HudHelper.HUDType.TRINKET_ITEM
 			then
 				local itemID = conditionParam
-			local hud = hudElements[itemID]
+				if hudType == HudHelper.HUDType.TRINKET_ITEM then
+					itemID = itemID & ~TrinketType.TRINKET_GOLDEN_FLAG
+				end
+				local hud = hudElements[itemID]
 				if hud
 					and (not player:IsCoopGhost() or hud.BypassGhostBaby)
 					and ((not hud.PreRenderCallback and not isPreCallback) or (hud.PreRenderCallback and isPreCallback))
