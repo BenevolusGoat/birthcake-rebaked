@@ -4,6 +4,8 @@ local game = Mod.Game
 local KEEPER_CAKE = {}
 BirthcakeRebaked.Birthcake.KEEPER = KEEPER_CAKE
 
+local delayHorn
+
 -- Keeper Birthcake
 
 function KEEPER_CAKE:Nickel()
@@ -19,12 +21,24 @@ function KEEPER_CAKE:Nickel()
 			Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, CoinSubType.COIN_NICKEL,
 				room:FindFreePickupSpawnPosition(room:GetCenterPos(), 0), Vector.Zero, player)
 		end
+		delayHorn = true
 	end
 end
 
 Mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, KEEPER_CAKE.Nickel)
 
+function KEEPER_CAKE:PlayPartyHorn()
+	if delayHorn then
+		Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
+		delayHorn = false
+	end
+end
+
+Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, KEEPER_CAKE.PlayPartyHorn)
+
 -- Tainted Keeper Birthcake
+
+--TODO: Idea for mults. More shop items/pickups?
 
 function KEEPER_CAKE:SpawnMiniShop()
 	local room = game:GetRoom()
@@ -40,6 +54,7 @@ end
 function KEEPER_CAKE:FindKeeperB()
 	if BirthcakeRebaked:AnyPlayerTypeHasBirthcake(PlayerType.PLAYER_KEEPER_B) then
 		KEEPER_CAKE:SpawnMiniShop()
+		Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
 	end
 end
 

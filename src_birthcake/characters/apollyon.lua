@@ -4,6 +4,8 @@ local game = Mod.Game
 local APOLLYON_CAKE = {}
 BirthcakeRebaked.Birthcake.APOLLYON = APOLLYON_CAKE
 
+--TODO: interaction is voiding Birthcake?
+
 ---@param player EntityPlayer
 function APOLLYON_CAKE:OnPlayerInit(player)
 	if player:GetPlayerType() == PlayerType.PLAYER_APOLLYON then
@@ -65,6 +67,8 @@ end
 Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, APOLLYON_CAKE.ManageVoidedTrinkets)
 
 -- Apollyon B Birthcake
+
+--TODO: Idea for mult: Increase damage for flies, chance of spawning more flies, unique interaction if abyssing Birthcake?
 
 function APOLLYON_CAKE:TaintedTrinketConsumer(_, _, player, _, _, _)
 	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_APOLLYON_B) then

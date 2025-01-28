@@ -7,21 +7,37 @@ BirthcakeRebaked.Birthcake.LILITH = LILITH_CAKE
 
 LILITH_CAKE.SHARE_TEAR_EFFECTS_CHANCE = 0.25
 
+local weaponFamiliars = {
+	[FamiliarVariant.BLOOD_BABY] = true,
+	[FamiliarVariant.INCUBUS] = true,
+	[FamiliarVariant.TWISTED_BABY] = true,
+	[FamiliarVariant.CAINS_OTHER_EYE] = true,
+	[FamiliarVariant.SPRINKLER] = true,
+	[FamiliarVariant.UMBILICAL_BABY] = true
+}
+
 ---@param tearOrLaser EntityTear | EntityLaser
 function LILITH_CAKE:EffectShare(tearOrLaser)
 	if tearOrLaser.FrameCount == 1
 		and tearOrLaser.SpawnerEntity
-		and tearOrLaser.SpawnerEntity:ToFamiliar()
-		and tearOrLaser.SpawnerEntity:ToFamiliar().Player
-		and Mod:PlayerTypeHasBirthcake(tearOrLaser.SpawnerEntity:ToFamiliar().Player, PlayerType.PLAYER_LILITH)
 	then
-		local player = tearOrLaser.SpawnerEntity:ToFamiliar().Player
-		local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
-		local trinketMult = Mod:GetTrinketMult(player)
+		local familiar = tearOrLaser.SpawnerEntity:ToFamiliar()
+		if familiar
+			and (REPENTOGON and not familiar:GetWeapon() or not weaponFamiliars[familiar.Variant])
+			and Mod:PlayerTypeHasBirthcake(familiar.Player, PlayerType.PLAYER_LILITH)
+		then
+			local player = tearOrLaser.SpawnerEntity:ToFamiliar().Player
+			local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
+			local trinketMult = Mod:GetTrinketMult(player)
 
-		if rng:RandomFloat() <= LILITH_CAKE.SHARE_TEAR_EFFECTS_CHANCE * trinketMult then
-			tearOrLaser:AddTearFlags(player.TearFlags)
-			tearOrLaser:SetColor(player.TearColor, -1, 1, false, false)
+			if rng:RandomFloat() <= LILITH_CAKE.SHARE_TEAR_EFFECTS_CHANCE * trinketMult then
+				local tearParams = player:GetTearHitParams(tearOrLaser:ToTear() and WeaponType.WEAPON_TEARS or WeaponType.WEAPON_LASER, tearOrLaser.CollisionDamage / 3.5, 1, familiar)
+				tearOrLaser:AddTearFlags(tearParams.TearFlags)
+				tearOrLaser:SetColor(tearParams.TearColor, -1, 1, false, true)
+				if tearOrLaser:ToTear() and tearOrLaser.Variant ~= tearParams.TearVariant then
+					tearOrLaser:ChangeVariant(tearParams.TearVariant)
+				end
+			end
 		end
 	end
 end

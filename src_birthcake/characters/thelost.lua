@@ -82,9 +82,9 @@ end
 Mod:AddCallback(Mod.ModCallbacks.POST_BIRTHCAKE_COLLECT, THELOST_CAKE.OnBirthcakeCollect, PlayerType.PLAYER_THELOST_B)
 
 ---@param rng RNG
----@param onlyPlayingCards boolean
-function THELOST_CAKE:ReplaceWithHolyCard(rng, _, onlyPlayingCards)
-	if onlyPlayingCards then
+---@param usePlaying boolean
+function THELOST_CAKE:ReplaceWithHolyCard(rng, _, usePlaying, useRunes, onlyRunes)
+	if usePlaying and not onlyRunes then
 		local totalMult = 0
 		Mod:ForEachPlayer(function(player)
 			if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_THELOST_B) then
@@ -92,6 +92,7 @@ function THELOST_CAKE:ReplaceWithHolyCard(rng, _, onlyPlayingCards)
 			end
 		end)
 		if totalMult > 0 and rng:RandomFloat() <= Mod:GetBalanceApprovedChance(THELOST_CAKE.HOLY_CARD_REPLACE_BASE_CHANCE, totalMult) then
+			Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
 			return Card.CARD_HOLY
 		end
 	end

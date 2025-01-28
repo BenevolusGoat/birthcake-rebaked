@@ -72,7 +72,7 @@ function JUDAS_CAKE:OnDevilDealCollision(pickup, collider)
 	local player = collider:ToPlayer()
 
 	if player
-		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_JUDAS)
+		and JUDAS_CAKE:JudasHasBirthcake(player)
 		and JUDAS_CAKE:IsFatalDeal(player, pickup)
 	then
 		pickup.Price = PickupPrice.PRICE_SOUL

@@ -18,8 +18,9 @@ function BETHANY_CAKE:OnActiveUse(itemID, rng, player, flags)
 		or player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES))
 	then
 		local chanceMult = Mod:GetTrinketMult(player)
-		if rng:RandomFloat() <= BETHANY_CAKE.WISP_DUPE_CHANCE * chanceMult then
+		if rng:RandomFloat() <= Mod:GetBalanceApprovedChance(BETHANY_CAKE.WISP_DUPE_CHANCE, chanceMult) then
 			player:AddWisp(itemID, player.Position)
+			Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
 		end
 	end
 end

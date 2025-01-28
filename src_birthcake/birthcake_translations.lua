@@ -22,6 +22,7 @@ local NAME_SHARE        = {
 	[PlayerType.PLAYER_JACOB_B] = PlayerType.PLAYER_JACOB,
 
 	[PlayerType.PLAYER_BLACKJUDAS] = PlayerType.PLAYER_JUDAS,
+	[PlayerType.PLAYER_ESAU] = PlayerType.PLAYER_JACOB,
 	[PlayerType.PLAYER_LAZARUS2] = PlayerType.PLAYER_LAZARUS,
 	[PlayerType.PLAYER_LAZARUS2_B] = PlayerType.PLAYER_LAZARUS,
 	[PlayerType.PLAYER_JACOB2_B] = PlayerType.PLAYER_JACOB,
@@ -710,12 +711,12 @@ function BirthcakeRebaked:PrefixTainted(str, lang)
 	end
 end
 
-for sharedName, copyName in pairs(NAME_SHARE) do
-	translations.BIRTHCAKE_NAME[sharedName] = translations.BIRTHCAKE_NAME[copyName]
+for playerType, sharedType in pairs(NAME_SHARE) do
+	translations.BIRTHCAKE_NAME[playerType] = translations.BIRTHCAKE_NAME[sharedType]
 end
 
-for sharedDescription, copyDescription in pairs(DESCRIPTION_SHARE) do
-	translations.BIRTHCAKE_DESCRIPTION[sharedDescription] = translations.BIRTHCAKE_DESCRIPTION[copyDescription]
+for playerType, sharedType in pairs(DESCRIPTION_SHARE) do
+	translations.BIRTHCAKE_DESCRIPTION[playerType] = translations.BIRTHCAKE_DESCRIPTION[sharedType]
 end
 
 return translations

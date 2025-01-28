@@ -4,8 +4,6 @@ local game = Mod.Game
 local JACOB_ESAU_CAKE = {}
 BirthcakeRebaked.Birthcake.JACOB_AND_ESAU = JACOB_ESAU_CAKE
 
-JACOB_ESAU_CAKE.STAT_SHARE_MULT = 0.1
-
 -- functions
 
 function JACOB_ESAU_CAKE:CheckJacobEsau(player)
@@ -127,7 +125,11 @@ function JACOB_ESAU_CAKE:OnFireUpdate(effect)
 			end
 		end
 		local scale = effect.HitPoints / effect.MaxHitPoints
-		effect:GetSprite():GetLayer(0):SetSize(Vector(scale, scale))
+		if REPENTOGON then
+			effect:GetSprite():GetLayer(0):SetSize(Vector(scale, scale))
+		else
+			effect.SpriteScale = Vector(scale, scale)
+		end
 		if effect.HitPoints <= 2 or effect.Timeout == 0 then
 			effect:GetSprite():Play("Disappear")
 			if effect.HitPoints <= 2 then
