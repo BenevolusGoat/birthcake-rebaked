@@ -85,16 +85,36 @@ local function InitMod()
 		[HudHelper.HUDType.TRINKET_ITEM] = {}, ---@type{[TrinketType]: HUDInfo_TrinketItem}
 	}
 	--Legacy
-	HudHelper.HUD_ELEMENTS.Base = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.BASE]
-	HudHelper.HUD_ELEMENTS.Actives = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.ACTIVE]
-	HudHelper.HUD_ELEMENTS.Health = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.HEALTH]
-	HudHelper.HUD_ELEMENTS.PocketItems = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.POCKET]
-	HudHelper.HUD_ELEMENTS.Trinkets = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.TRINKET]
-	HudHelper.HUD_ELEMENTS.Extra = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.EXTRA]
+	local legacyStrings = {
+		Base = HudHelper.HUDType.BASE,
+		Actives = HudHelper.HUDType.ACTIVE,
+		Health = HudHelper.HUDType.HEALTH,
+		PocketItems = HudHelper.HUDType.POCKET,
+		Trinkets = HudHelper.HUDType.TRINKET,
+		Extra = HudHelper.HUDType.EXTRA
+	}
 
 	if CACHED_ELEMENTS then
-		for hudType, elements in pairs(CACHED_ELEMENTS) do
-			HudHelper.HUD_ELEMENTS[hudType] = elements
+		for hudType, hudElements in pairs(CACHED_ELEMENTS) do
+			--Older version of HudHelper using string keys
+			if type(hudType) == "string" then
+				--If elements with the proper HudType key already exist, group them together
+				local targetTable = CACHED_ELEMENTS[legacyStrings[hudType]]
+				if targetTable then
+					for _, element in ipairs(hudElements) do
+						targetTable[#targetTable] = element
+					end
+					table.sort(hudElements, function(a, b)
+						return a.Priority < b.Priority
+					end)
+					HudHelper.HUD_ELEMENTS[legacyStrings[hudType]] = hudElements
+				else
+					--If it doesn't exist, can just shove the whole thing in there
+					HudHelper.HUD_ELEMENTS[legacyStrings[hudType]] = hudElements
+				end
+			else
+				HudHelper.HUD_ELEMENTS[hudType] = hudElements
+			end
 		end
 	end
 	HudHelper.ItemSpecificOffset = {
@@ -943,22 +963,6 @@ local function InitFunctions()
 		[HudHelper.HUDType.ACTIVE_ITEM] = {}, ---@type table<integer, HUDInfo_ActiveItem>
 		[HudHelper.HUDType.TRINKET_ITEM] = {}, ---@type table<integer, HUDInfo_TrinketItem>
 	}
-	--Legacy
-	HudHelper.LastAppliedHUD.Base = HudHelper.LastAppliedHUD[HudHelper.HUDType.BASE]
-	HudHelper.LastAppliedHUD.Actives = HudHelper.LastAppliedHUD[HudHelper.HUDType.ACTIVE]
-	HudHelper.LastAppliedHUD.Health = HudHelper.LastAppliedHUD[HudHelper.HUDType.HEALTH]
-	HudHelper.LastAppliedHUD.PocketItems = HudHelper.LastAppliedHUD[HudHelper.HUDType.POCKET]
-	HudHelper.LastAppliedHUD.Trinkets = HudHelper.LastAppliedHUD[HudHelper.HUDType.TRINKET]
-	HudHelper.LastAppliedHUD.Extra = HudHelper.LastAppliedHUD[HudHelper.HUDType.EXTRA]
-
-	--Legacy
-	HudHelper.HUDTypeToTable = {
-		[0] = HudHelper.HUD_ELEMENTS.Base,
-		[1] = HudHelper.HUD_ELEMENTS.Actives,
-		[2] = HudHelper.HUD_ELEMENTS.Health,
-		[3] = HudHelper.HUD_ELEMENTS.PocketItems,
-		[4] = HudHelper.HUD_ELEMENTS.Extra,
-	}
 
 	local numPlayers = 0
 	local TWIN_COOP_OFFSET = Vector(0, 32)
@@ -1439,7 +1443,6 @@ local function InitFunctions()
 				local hudLayout = HudHelper.Utils.GetHUDLayout(playerHUDIndex)
 
 				for hudType, hudTable in pairs(HudHelper.HUD_ELEMENTS) do
-					if type(hudType) == "string" then goto skipLegacy end
 					extraYPadding = 0
 					---Separated as ACTIVE_ITEM and TRINKET_ITEM are indexed uniquely by itemIDs instead of a priority order
 					if hudType ~= HudHelper.HUDType.ACTIVE_ITEM and hudType ~= HudHelper.HUDType.TRINKET_ITEM then
@@ -1511,7 +1514,6 @@ local function InitFunctions()
 							::continue2::
 						end
 					end
-					::skipLegacy::
 				end
 
 				::continue::
