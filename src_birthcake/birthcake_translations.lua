@@ -302,14 +302,14 @@ local translations = {
 			ko_kr = "다양한 맛",
 			pt_br = "Sabor com variedade",
 		},
-		[PlayerType.PLAYER_THELOST] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
-			en_us = "Regained power",
-			ru = "Возвращенная сила",
-			spa = "Poder recuperado",
-			cs_cz = "Obnovená síla",
-			pl = "Odnaleziona siła", --chciałem dać "odnaleziona" bo tłumaczą losta jako "zaginionego". Ale nie wiem :/
-			ko_kr = "되찾은 동력",
-			pt_br = "Poder readquirido",
+		[PlayerType.PLAYER_THELOST] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
+			en_us = "Near-death experience",
+			ru = "",
+			spa = "",
+			cs_cz = "",
+			pl = "",
+			ko_kr = "",
+			pt_br = "",
 		},
 		[PlayerType.PLAYER_LILITH] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Remember to share!",
@@ -347,14 +347,14 @@ local translations = {
 			ko_kr = "재활",
 			pt_br = "Revitalizar",
 		},
-		[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
-			en_us = "Harmony of body and soul",
-			ru = "Гармония души и тела",
-			spa = "Armonía del cuerpo y el alma",
-			cs_cz = "Rovnováha těla a duše",
-			pl = "Harmonia ciała i duszy",
-			ko_kr = "육신과 영혼의 조화",
-			pt_br = "Harmonia de corpo e alma",
+		[PlayerType.PLAYER_BETHANY] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
+			en_us = "",
+			ru = "",
+			spa = "",
+			cs_cz = "",
+			pl = "",
+			ko_kr = "",
+			pt_br = "",
 		},
 		[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
 			en_us = "What's mine is yours",

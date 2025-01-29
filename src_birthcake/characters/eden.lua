@@ -120,12 +120,14 @@ function EDEN_CAKE:PreventReroll(ent, amount, flags, source, countdownFrames)
 		local trinket0 = player:GetTrinket(0)
 		local trinket1 = player:GetTrinket(1)
 		local data = Mod:GetData(player)
-		if Mod:IsBirthcake(trinket0) then
-			data.EdenCakeRegrantBirthcake0 = trinket0
-			player:TryRemoveTrinket(trinket0)
-		elseif Mod:IsBirthcake(trinket1) then
-			data.EdenCakeRegrantBirthcake1 = trinket1
-			player:TryRemoveTrinket(trinket1)
+		if rng:RandomFloat() > EDEN_CAKE.BIRTHCAKE_REROLL_CHANCE then
+			if Mod:IsBirthcake(trinket0) then
+				data.EdenCakeRegrantBirthcake0 = trinket0
+				player:TryRemoveTrinket(trinket0)
+			elseif Mod:IsBirthcake(trinket1) then
+				data.EdenCakeRegrantBirthcake1 = trinket1
+				player:TryRemoveTrinket(trinket1)
+			end
 		end
 
 		if rng:RandomFloat() <= Mod:GetBalanceApprovedChance(EDEN_CAKE.PREVENT_REROLL_CHANCE, Mod:GetTrinketMult(player)) then
@@ -133,9 +135,6 @@ function EDEN_CAKE:PreventReroll(ent, amount, flags, source, countdownFrames)
 			player:TakeDamage(amount, flags | DamageFlag.DAMAGE_NO_PENALTIES, source, countdownFrames)
 			data.EdenCakePreventLoop = false
 
-			if rng:RandomFloat() <= EDEN_CAKE.BIRTHCAKE_REROLL_CHANCE then
-				EDEN_CAKE:ReturnBirthcake(player)
-			end
 			return false
 		end
 	end

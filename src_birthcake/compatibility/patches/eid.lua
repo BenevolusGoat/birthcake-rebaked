@@ -730,9 +730,9 @@ BIRTHCAKE_EID.Descs = {
 			"% шанс увеличить его длительность на 5 секунд и создать {{HalfHeart}} половину красного сердца"
 		},
 	},
-	[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
 		en_us = {
-			"Sneezing fires out a cluster of 6 tears that deal a portion of Azazel's damage",
+			"Sneezing fires out a cluster of 6 booger tears that deal a portion of Azazel's damage",
 			"#{{Collectible459}} Tears have a ",
 			function(descObj)
 				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.AZAZEL.BOOGER_STICK_CHANCE)
@@ -740,7 +740,7 @@ BIRTHCAKE_EID.Descs = {
 			"% chance to stick onto enemies to damage them over time"
 		},
 		ru = {
-			"При чихании выстреливает скопление из 6 слёз, наносящих часть урона Азазеля ",
+			"При чихании выстреливает скопление из 6 козявка слёз, наносящих часть урона Азазеля ",
 			"#{{Collectible459}} Слёзы имеют ",
 			function(descObj)
 				return BIRTHCAKE_EID:NormalChanceModifier(descObj, Mod.Birthcake.AZAZEL.BOOGER_STICK_CHANCE)
