@@ -411,7 +411,7 @@ local translations = {
 			pt_br = "Cocô duro",
 		},
 		[PlayerType.PLAYER_EVE_B] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
-			en_us = "",
+			en_us = "Polycythemia",
 			ru = "",
 			cs_cz = "",
 			pl = "",
