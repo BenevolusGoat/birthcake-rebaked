@@ -251,7 +251,7 @@ function BIRTHCAKE_EID:NormalChanceModifier(descObj, baseMult)
 end
 
 BIRTHCAKE_EID.Descs = {
-	[PlayerType.PLAYER_ISAAC] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_ISAAC] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [X] | KO_KR [X] | PT_BR [X]
 		---@param descObj EID_DescObj
 		---@param str string
 		_modifier = function(descObj, str, strMult)
@@ -276,9 +276,16 @@ BIRTHCAKE_EID.Descs = {
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "{{Card49}}Осколок Кости", " {{Card49}}Осколка Кости")
 			end,
 			" при подьёме и в стартовой комнате каждого этажа"
-		}
+		},
+		cs_cz = {
+			"Vytvoří ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "{{Card49}}Úlomek Kostky", " {{Card49}}Úlomky Kostky")
+			end,
+			" po zvednutí a ve startovací místnosti každé podlaží",
+		},
 	},
-	[PlayerType.PLAYER_MAGDALENE] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_MAGDALENE] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [X] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"{{Heart}} Heart pickups have a ",
 			function(descObj)
@@ -299,8 +306,18 @@ BIRTHCAKE_EID.Descs = {
 			"#{{HalfHeart}} -> {{Heart}} -> {{Heart}}{{Heart}}",
 			"#{{HalfSoulHeart}} -> {{SoulHeart}}"
 		},
+		cs_cz = {
+			"{{Heart}} Srdce mají ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.MAGDALENE.HEART_REPLACE_CHANCE)
+			end,
+			"% šanci na vylepšení",
+			"#Možná vylepšení jsou:",
+			"#{{HalfHeart}} -> {{Heart}} -> {{Heart}}{{Heart}}",
+			"#{{HalfSoulHeart}} -> {{SoulHeart}}",
+		},
 	},
-	[PlayerType.PLAYER_CAIN] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_CAIN] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [OK] | PL: [X] | KO_KR [X] | PT_BR [X]
 		---@param descObj EID_DescObj
 		---@param baseChance number | fun(player: EntityPlayer): number
 		_modifier = function(descObj, baseChance)
@@ -336,9 +353,20 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% шанс возвратить деньги"
 		},
-
+		cs_cz = {
+			"{{Slotmachine}} Hrací automaty a {{FortuneTeller}} Věštecké automaty mají ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_CAIN]._modifier(descObj, Mod.Birthcake.CAIN.SlotsData[Mod.SlotVariant.SLOT_MACHINE].RefundChance) --used regular slot chance cuz they're the same
+			end,
+			"% šanci na vrácení peněz",
+			"#{{CraneGame}} Jeřábová hra má ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_CAIN]._modifier(descObj, Mod.Birthcake.CAIN.SlotsData[Mod.SlotVariant.CRANE_GAME].RefundChance)
+			end,
+			"% šanci na vrácení peněz",
+		},
 	},
-	[PlayerType.PLAYER_JUDAS] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_JUDAS] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [OK] | PL: [X] | KO_KR [X] | PT_BR [X]
 		---@param descObj EID_DescObj
 		_modifier = function(descObj)
 			local mult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity), descObj.ObjSubType)
@@ -361,6 +389,14 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% множитель урона",
 			"#{{DevilRoom}} Если взятие предмета Дьявольской Сделки убьёт Иуду, то вместо этого будет использован брелок"
+		},
+		cs_cz = {
+			"{{ArrowUp}} {{Damage}} +",
+			function(descObj)
+				return BIRTHCAKE_EID:NormalChanceModifier(descObj, Mod.Birthcake.JUDAS.DAMAGE_MULT_UP)
+			end,
+			"% Násobitel poškození",
+			"#{{DevilRoom}} Jestli by obchod s ďáblem Jidáše zabil, místo toho se zpotřebuje tato cetka",
 		},
 	},
 	[PlayerType.PLAYER_BLUEBABY] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
