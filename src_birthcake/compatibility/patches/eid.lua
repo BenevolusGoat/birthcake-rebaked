@@ -864,6 +864,11 @@ BIRTHCAKE_EID.Descs = {
 		ru = {
 			"Убийство врагов создаст неподвижные осколки костей, наносящие урон врагам при контакте",
 			"#Подбирание {{Player35}}Забытого заставит все осколки костей полететь к {{Player40}}Душе, становясь орбитальными"
+			"#Может иметь до ",
+			function(descObj)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
+			end,
+			" орбитальных осколков костей"
 		},
 	},
 	[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]

@@ -412,7 +412,7 @@ local translations = {
 		},
 		[PlayerType.PLAYER_EVE_B] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
 			en_us = "Polycythemia",
-			ru = "",
+			ru = "Полицитемия",
 			cs_cz = "",
 			pl = "",
 			ko_kr = "",
