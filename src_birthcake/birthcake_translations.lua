@@ -189,12 +189,12 @@ local translations = {
 			ko_kr = "베타니의",
 			pt_br = "da Betânia",
 		},
-		[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [ОК] | SPA: [!] | CS_CZ: [OK] | PL: [!] | KO_KR [!]
+		[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [ОК] | SPA: [!] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
 			en_us = "Jacob & Esau's",
 			ru = "Иакова и Исава",
 			spa = "de Jacob",
 			cs_cz = "Jákobův a Ezauův",
-			pl = "Jakuba",
+			pl = "Jakuba i Ezawa",
 			ko_kr = "야곱의",
 			pt_br = "do Jacó e Esaú",
 		},
@@ -436,12 +436,12 @@ local translations = {
 			ko_kr = "알레르기 증가",
 			pt_br = "Alergia ↑",
 		},
-		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [X]
+		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 			en_us = "Untwined destiny",
 			ru = "Неразрывная судьба",
 			spa = "Destino desatado",
 			cs_cz = "Rozpletený osud",
-			pl = "Powstań z grobu",
+			pl = "Odplętane przeznaczenie",
 			pt_br = "Destino desentrelaçado",
 			ko_kr = "풀려버린 운명",
 		},
@@ -520,139 +520,156 @@ local translations = {
 	},
 
 	TAINTED_TITLES = {
-		[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 			en_us = "The Broken's",
 			spa = "Del Roto",
 			cs_cz = "Zlomeného",
 			ru = "Сломанного",
+			pl = "Złamanego",
 			pt_br = "Do Quebrado",
 			ko_kr = "망가진 자의",
 		},
-		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 			en_us = "The Dauntless's",
 			spa = "de La Intrépida", --Idk if it's like this AT ALL
 			cs_cz = "Nesmělé",
 			ru = "Бесстрашшной",
+			pl = "Nieustraszonej",
 			pt_br = "Da Destemida",
 			ko_kr = "겁없는 자의",
 		},
-		[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 			en_us = "The Hoarder's",
 			spa = "Dell Acumulador",
 			cs_cz = "Hromadiče",
 			ru = "Хранителя (порченного)",
+			pl = "Zbieracza", --mi jakoś tam nie pasuje
 			pt_br = "Do Acumulador",
 			ko_kr = "수집가의",
 		},
-		[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 			en_us = "The Deceiver's",
 			spa = "Del Traidor", --More like "The Traitor" but eh
 			cs_cz = "Šejdíře",
 			ru = "Обманщика",
+			pl = "Fałszywca",
 			pt_br = "Do Enganador",
 			ko_kr = "기만자의",
 		},
-		[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 			en_us = "The Soiled's",
 			spa = "Del Sucio",
 			cs_cz = "Zašpiněného",
 			ru = "Грязного",
+			pl = "Zabrudzonego", --lmao
 			pt_br = "Do Sujo",
 			ko_kr = "역겨운 자의",
 		},
-		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 			en_us = "The Curdled's",
 			spa = "de La Cuajada", --How the hell do I translate this
 			cs_cz = "Zkažené", -- I don't know man
 			ru = "Свернувшейся",
+			pl = "Stężałej", -- to brzmi dziwnie, ale lepsze to niż "zsiadłej"
 			pt_br = "Da Coagulada", -- Dunno if it's like this
 			ko_kr = "응집된 자의",
 		},
-		[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [ОК] | KO_KR [X]
 			en_us = "The Savage's",
 			spa = "Del Salvaje",
 			cs_cz = "Divocha",
 			ru = "Дикаря",
+			pl = "Brutalnego",
 			pt_br = "O Selvagem",
 			ko_kr = "야만적인 자의",
 		},
-		[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 			en_us = "The Benighted's",
 			spa = "Del Ignorante",
 			cs_cz = "Zaostalého", -- I don't feel like this is the right translation...
 			ru = "Мрачного",
+			pl = "Nieoświeconego", --chciałem dać "nieświadomego" ale mam wrażenie, że "Nieoświecony" miał być dosłowny, wiesz, religia itd.
 			pt_br = "Do Ignorante",
 			ko_kr = "우매한 자의",
 		},
-		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 			en_us = "The Enigma's",
 			spa = "Del Enigma",
 			cs_cz = "Záhadného",
 			ru = "Загадки",
+			pl = "Enigmy",
 			pt_br = "Do Enigma",
 			ko_kr = "수수께끼의",
 		},
-		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 			en_us = "The Capricious'",
 			spa = "Del Caprichoso",
 			cs_cz = "Rozmarného",
 			ru = "Непостоянного",
+			pl = "Kapryśnego",
 			pt_br = "Do Caprichoso",
 			ko_kr = "변덕스러운 자의",
 		},
-		[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 			en_us = "The Baleful's",
 			spa = "Del Tétrico", --Is it like this? idk
 			cs_cz = "Zlověstného",
 			ru = "Гибельного",
+			pl = "Zgubnego", --jestem tak w 70% pewny tego tłumaczenia, ale w 30% nie jestem pewien bo brmzi zbyt podobnie do "Zagubionego"
 			pt_br = "Do Maléfico",
 			ko_kr = "불길한 자의",
 		},
-		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 			en_us = "The Harlot's",
 			spa = "da La Prostituta",
 			cs_cz = "Coury",
 			ru = "Блудницы",
+			pl = "Nierządnej", --pomimo, że "ladacznica" jest też tłumaczeniem tego to brzmi strasznie nie poważnie imo
 			pt_br = "Da Prostituta",
 			ko_kr = "대탕녀의",
 		},
-		[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 			en_us = "The Miser's",
 			spa = "Del Avariento",
 			cs_cz = "Skrblíka",
 			ru = "Скупого",
+			pl = "Chciwca",
 			pt_br = "Do Avarento",
 			ko_kr = "구두쇠의",
 		},
-		[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 			en_us = "The Empty's",
 			spa = "de El Vacío",
 			cs_cz = "Prázdného",
 			ru = "Пустого",
+			pl = "Pustego", --takie sobie, ale może być imo
 			pt_br = "Do O Vazio",
 			ko_kr = "공허한 자의",
 		},
-		[PlayerType.PLAYER_THEFORGOTTEN_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_THEFORGOTTEN_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 			en_us = "The Fettered's",
 			spa = "Del Encadenado",
 			cs_cz = "Spoutaného",
-			ru = "Скованных", --the fact that it's in the plural makes sense actually
+			ru = "Скованных", --the fact that it's in the plural makes sense actually --[wons] no it doesn't
+			pl = "Skutego", --"Skropowany" brzmi średnio to dam to, brzmi fajnie
 			pt_br = "Do Acorrentado",
 			ko_kr = "속박된 자의",
 		},
-		[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 			en_us = "The Zealot's",
 			spa = "da La Fanática",
 			cs_cz = "Zfanatizované",
 			ru = "Фанатички",
+			pl = "Fanatyczki",
 			pt_br = "Da Fanática",
 			ko_kr = "광신도의",
 		},
-		[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
 			en_us = "The Deserter's",
 			spa = "Del Desertor",
 			cs_cz = "Zrádce",
 			ru = "Дезертира",
+			pl = "Dezerter", --bardzo kreatywne i oryginalne tłumaczenie
 			pt_br = "Do Desertor",
 			ko_kr = "도망자의",
 		},
@@ -668,6 +685,7 @@ local translations = {
 			--"Alle Werte hoch", (German)
 			spa = "Mejora todas las estadísticas",
 			fr = "Toutes les stats augmentées",
+			pl = "Wszystkie statystyki w górę", --formatowanie EID mnie średnio obchodzi w tym przypadku
 			cs_cz = "Všechny statistiky ↑",
 			pt_br = "Melhoria de todas as estatísticas",
 		},
@@ -690,6 +708,7 @@ local translations = {
 			spa = "Tainted",
 			cs_cz = "Poskvrněný",
 			ru = "Порченый",
+			pl = "Splamione",
 			pt_br = "Contaminado",
 			ko_kr = "더럽혀진",
 		},
@@ -698,6 +717,7 @@ local translations = {
 			ru = "Деньрожденное пироженое", --This translation really sucks, "Праздничное" is better, but not related to birthday that much
 			spa = "Pastel de cumple",
 			cs_cz = "Narozeninový dort",
+			pl = "Urodzinowe ciastko", ---to ssie
 			pt_br = "Bolo de nascimento",
 			ko_kr = "생일 케이크",
 		}
