@@ -234,7 +234,7 @@ end
 
 ---@param descObj EID_DescObj
 ---@param baseMult number
-function BIRTHCAKE_EID:BalanceChanceModifier(descObj, baseMult)
+function BIRTHCAKE_EID:BalancedNumberModifier(descObj, baseMult)
 	local trinketMult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity), descObj.ObjSubType)
 	local chance = Mod:GetBalanceApprovedChance(baseMult, trinketMult)
 	chance = BIRTHCAKE_EID:AdjustNumberValue(chance)
@@ -242,7 +242,7 @@ function BIRTHCAKE_EID:BalanceChanceModifier(descObj, baseMult)
 	return BIRTHCAKE_EID:GoldConditional(chance, trinketMult)
 end
 
-function BIRTHCAKE_EID:NormalChanceModifier(descObj, baseMult)
+function BIRTHCAKE_EID:NormalNumberModifier(descObj, baseMult)
 	local trinketMult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity), descObj.ObjSubType)
 	local chance = baseMult * trinketMult
 	chance = BIRTHCAKE_EID:AdjustNumberValue(chance)
@@ -289,7 +289,7 @@ BIRTHCAKE_EID.Descs = {
 		en_us = {
 			"{{Heart}} Heart pickups have a ",
 			function(descObj)
-				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.MAGDALENE.HEART_REPLACE_CHANCE)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.MAGDALENE.HEART_REPLACE_CHANCE)
 			end,
 			"% chance to be upgraded",
 			"#Possible upgrades are:",
@@ -299,7 +299,7 @@ BIRTHCAKE_EID.Descs = {
 		ru = {
 			"{{Heart}} Подбираемые сердца имеют ",
 			function(descObj)
-				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.MAGDALENE.HEART_REPLACE_CHANCE)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.MAGDALENE.HEART_REPLACE_CHANCE)
 			end,
 			"% шанс улучшиться",
 			"#Возможные улучшения:",
@@ -377,7 +377,7 @@ BIRTHCAKE_EID.Descs = {
 		en_us = {
 			"{{ArrowUp}} {{Damage}} +",
 			function(descObj)
-				return BIRTHCAKE_EID:NormalChanceModifier(descObj, Mod.Birthcake.JUDAS.DAMAGE_MULT_UP)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.JUDAS.DAMAGE_MULT_UP)
 			end,
 			"% damage multiplier",
 			"#{{DevilRoom}} If taking a Devil Deal item were to kill Judas, this trinket is consumed instead"
@@ -385,7 +385,7 @@ BIRTHCAKE_EID.Descs = {
 		ru = {
 			"{{ArrowUp}} {{Damage}} +",
 			function(descObj)
-				return BIRTHCAKE_EID:NormalChanceModifier(descObj, Mod.Birthcake.JUDAS.DAMAGE_MULT_UP)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.JUDAS.DAMAGE_MULT_UP)
 			end,
 			"% множитель урона",
 			"#{{DevilRoom}} Если взятие предмета Дьявольской Сделки убьёт Иуду, то вместо этого будет использован брелок"
@@ -586,7 +586,7 @@ BIRTHCAKE_EID.Descs = {
 		en_us = {
 			"Familiars have a ",
 			function(descObj)
-				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.LILITH.SHARE_TEAR_EFFECTS_CHANCE)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.LILITH.SHARE_TEAR_EFFECTS_CHANCE)
 			end,
 			"% chance to mimic Lilith's tear effects"
 		},
@@ -665,14 +665,14 @@ BIRTHCAKE_EID.Descs = {
 		en_us = {
 			"Using an active item has a ",
 			function(descObj)
-				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.BETHANY.WISP_DUPE_CHANCE)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.BETHANY.WISP_DUPE_CHANCE)
 			end,
 			"% chance to spawn an additional wisp of the same type"
 		},
 		ru = {
 			"Использование активного предмета имеет ",
 			function(descObj)
-				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.BETHANY.WISP_DUPE_CHANCE)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.BETHANY.WISP_DUPE_CHANCE)
 			end,
 			"% шанс создания дополнительного огонька того же типа"
 		},
@@ -737,7 +737,7 @@ BIRTHCAKE_EID.Descs = {
 		en_us = {
 			"Thrown poops have a ",
 			function(descObj)
-				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.BLUEBABY.NO_POOP_DAMAGE_CHANCE)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.BLUEBABY.NO_POOP_DAMAGE_CHANCE)
 			end,
 			"% chance to not be damaged when hit by projectiles"
 		},
@@ -763,7 +763,7 @@ BIRTHCAKE_EID.Descs = {
 		en_us = {
 			"{{Collectible704}} Clearing a room while in Berserk has a ",
 			function(descObj)
-				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.SAMSON.BERSERK_INCREASE_CHANCE)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.SAMSON.BERSERK_INCREASE_CHANCE)
 			end,
 			"% chance to extend its length by 5 seconds and spawn a {{HalfHeart}} half red heart"
 		},
@@ -780,7 +780,7 @@ BIRTHCAKE_EID.Descs = {
 			"Sneezing fires out a cluster of 6 tears that deal a portion of Azazel's damage",
 			"#{{Collectible459}} Tears have a ",
 			function(descObj)
-				return BIRTHCAKE_EID:NormalChanceModifier(descObj, Mod.Birthcake.AZAZEL.BOOGER_STICK_CHANCE)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.AZAZEL.BOOGER_STICK_CHANCE)
 			end,
 			"% chance to stick onto enemies to damage them over time"
 		},
@@ -797,7 +797,7 @@ BIRTHCAKE_EID.Descs = {
 		en_us = {
 			"{{Collectible711}} When using Flip, item pedestals have a ",
 			function(descObj)
-				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.LAZARUS.ITEM_SPLIT_CHANCE)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.LAZARUS.ITEM_SPLIT_CHANCE)
 			end,
 			"% chance to split into both collectibles displayed"
 		},
@@ -813,7 +813,7 @@ BIRTHCAKE_EID.Descs = {
 		en_us = {
 			"Taking damage has a ",
 			function(descObj)
-				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.EDEN.PREVENT_REROLL_CHANCE)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.EDEN.PREVENT_REROLL_CHANCE)
 			end,
 			"% chance to not reroll Eden's items",
 			"#Birthcake is mostly immune to being rerolled, having a "
@@ -834,7 +834,7 @@ BIRTHCAKE_EID.Descs = {
 			"{{Card51}} Spawns a Holy Card when first picked up",
 			"#Cards have another ",
 			function(descObj)
-				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.THELOST.HOLY_CARD_REPLACE_CHANCE)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.THELOST.HOLY_CARD_REPLACE_CHANCE)
 			end,
 			"% chance of becoming a Holy Card"
 
@@ -852,7 +852,7 @@ BIRTHCAKE_EID.Descs = {
 		en_us = {
 			"Whipping out Lilith's Gello has a",
 			function(descObj)
-				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.LILITH.SPAWN_RUNT_CHANCE)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.LILITH.SPAWN_RUNT_CHANCE)
 			end,
 			"chance to spawn another Gello",
 			"#The additional Gello deals 50% damage"
@@ -899,7 +899,12 @@ BIRTHCAKE_EID.Descs = {
 	[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"Killing enemies will spawn stationary bone fragments that damage enemies on contact",
-			"#Holding {{Player35}}The Forgotten will cause all bone fragments to fly towards {{Player40}}The Soul, becoming orbitals"
+			"#Holding {{Player35}}The Forgotten will cause all bone fragments to fly towards {{Player40}}The Soul, becoming orbitals",
+			"#Can have up to ",
+			function(descObj)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
+			end,
+			" orbitals"
 		},
 		ru = {
 			"Убийство врагов создаст неподвижные осколки костей, наносящие урон врагам при контакте",

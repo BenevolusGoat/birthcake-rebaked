@@ -153,7 +153,6 @@ end
 Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, THEFORGOTTEN_CAKE.EntityTakeDamage)
 
 THEFORGOTTEN_CAKE.BONE_ORBITAL_CAP = 6
-THEFORGOTTEN_CAKE.BONE_ORBITAL_MULT_ADD = 3
 
 ---@param npc EntityNPC
 function THEFORGOTTEN_CAKE:OnNPCDeath(npc)
@@ -186,7 +185,7 @@ function THEFORGOTTEN_CAKE:OnForgottenPickup(player)
 		if not data.ForgottenCakeHasBody then
 			data.ForgottenCakeHasBody = true
 			local numOrbitals = 0
-			local cap = THEFORGOTTEN_CAKE.BONE_ORBITAL_CAP + (THEFORGOTTEN_CAKE.BONE_ORBITAL_MULT_ADD * (Mod:GetTrinketMult(forgor) - 1))
+			local cap = THEFORGOTTEN_CAKE.BONE_ORBITAL_CAP * Mod:GetTrinketMult(forgor)
 			for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BONE_ORBITAL)) do
 				local familiar = ent:ToFamiliar() ---@cast familiar EntityFamiliar
 				if GetPtrHash(familiar.Player) == GetPtrHash(player) then
