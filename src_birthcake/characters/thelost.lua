@@ -8,6 +8,8 @@ BirthcakeRebaked.Birthcake.THELOST = THELOST_CAKE
 
 THELOST_CAKE.AP_FIREDELAY_MULT = 2
 THELOST_CAKE.AP_DURATION = 150
+THELOST_CAKE.PETRIFICATION_RADIUS = 150
+THELOST_CAKE.PETRIFICATION_ADD_MULT_RADIUS = 50
 
 local MANTLE_BREAK_SUBTYPE = 11
 
@@ -34,6 +36,13 @@ function THELOST_CAKE:OnLastMantleHit(effect)
 			then
 				ent:Remove()
 				break
+			end
+		end
+		local trinketMult = Mod:GetTrinketMult(player)
+		if Mod:GetTrinketMult(player) > 1 then
+			local source = EntityRef(player)
+			for _, enemy in ipairs(Isaac.FindInRadius(player.Position, THELOST_CAKE.PETRIFICATION_RADIUS + (THELOST_CAKE.PETRIFICATION_ADD_MULT_RADIUS * (trinketMult - 2)), EntityPartition.ENEMY)) do
+				enemy:AddFreeze(source, 150)
 			end
 		end
 		Mod.SFXManager:Stop(SoundEffect.SOUND_ISAAC_HURT_GRUNT)
@@ -69,8 +78,7 @@ Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, THELOST_CAKE.FadingTearsUp, Cach
 
 -- Tainted Lost Birthcake
 
-
-THELOST_CAKE.HOLY_CARD_REPLACE_BASE_CHANCE = 0.1
+THELOST_CAKE.HOLY_CARD_REPLACE_CHANCE = 0.1
 
 function THELOST_CAKE:OnBirthcakeCollect(player, firstTime)
 	if firstTime then
@@ -91,7 +99,7 @@ function THELOST_CAKE:ReplaceWithHolyCard(rng, _, usePlaying, useRunes, onlyRune
 				totalMult = totalMult + Mod:GetTrinketMult(player)
 			end
 		end)
-		if totalMult > 0 and rng:RandomFloat() <= Mod:GetBalanceApprovedChance(THELOST_CAKE.HOLY_CARD_REPLACE_BASE_CHANCE, totalMult) then
+		if totalMult > 0 and rng:RandomFloat() <= THELOST_CAKE.HOLY_CARD_REPLACE_CHANCE * totalMult then
 			Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
 			return Card.CARD_HOLY
 		end

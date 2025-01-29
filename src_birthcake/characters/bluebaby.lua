@@ -133,7 +133,7 @@ function BLUEBABY_CAKE:SpawnPoop(itemID, rng, player, _, _, _)
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_USE_ITEM, BLUEBABY_CAKE.SpawnPoop)
+Mod:AddPriorityCallback(ModCallbacks.MC_USE_ITEM, CallbackPriority.LATE, BLUEBABY_CAKE.SpawnPoop)
 
 ---@param tear EntityTear
 function BLUEBABY_CAKE:OnTearUpdate(tear)

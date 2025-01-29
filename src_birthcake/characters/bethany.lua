@@ -29,12 +29,15 @@ Mod:AddCallback(ModCallbacks.MC_USE_ITEM, BETHANY_CAKE.OnActiveUse)
 
 -- Tainted Bethany Birthcake
 
+BETHANY_CAKE.WISP_HEALTH_UP = 4
+BETHANY_CAKE.WISP_HEALTH_MULT_ADD = 2
+
 ---@param familiar EntityFamiliar
 function BETHANY_CAKE:OnWispInit(familiar)
 	if familiar.FrameCount >= 5 and Mod:PlayerTypeHasBirthcake(familiar.Player, PlayerType.PLAYER_BETHANY_B) then
 		local familiar_run_save = Mod.SaveManager.GetRunSave(familiar)
 		if familiar.MaxHitPoints == 4 and not familiar_run_save.BethanyBirthcakeUpgrade then
-			local maxHp = 6 + (2 * Mod:GetTrinketMult(familiar.Player)) --8 base, 2 for each multiplier
+			local maxHp = familiar.MaxHitPoints + BETHANY_CAKE.WISP_HEALTH_UP + (BETHANY_CAKE.WISP_HEALTH_MULT_ADD * (Mod:GetTrinketMult(familiar.Player) - 1)) --8 base, 2 for each multiplier
 			familiar.MaxHitPoints = maxHp
 			familiar.HitPoints = maxHp
 			familiar_run_save.BethanyBirthcakeUpgrade = true

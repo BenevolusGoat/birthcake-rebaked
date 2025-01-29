@@ -30,7 +30,7 @@ function LILITH_CAKE:EffectShare(tearOrLaser)
 			local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
 			local trinketMult = Mod:GetTrinketMult(player)
 
-			if rng:RandomFloat() <= LILITH_CAKE.SHARE_TEAR_EFFECTS_CHANCE * trinketMult then
+			if rng:RandomFloat() <= Mod:GetBalanceApprovedChance(LILITH_CAKE.SHARE_TEAR_EFFECTS_CHANCE, trinketMult) then
 				local tearParams = player:GetTearHitParams(tearOrLaser:ToTear() and WeaponType.WEAPON_TEARS or WeaponType.WEAPON_LASER, tearOrLaser.CollisionDamage / 3.5, 1, familiar)
 				tearOrLaser:AddTearFlags(tearParams.TearFlags)
 				tearOrLaser:SetColor(tearParams.TearColor, -1, 1, false, true)
