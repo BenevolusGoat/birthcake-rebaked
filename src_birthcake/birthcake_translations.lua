@@ -219,7 +219,7 @@ local translations = {
 			spa = "Intento extra", --kinda had to change it to "Extra attempt"
 			cs_cz = "Bonusový hod", -- Or "Bonusová šance", not sure what fits more
 			pl = "Bonusowa szansa", --Nie wiem, czy lepiej, ale próbowałem.
-			ko_kr = "추가 리롤",
+			ko_kr = "추가 새로고침",
 			pt_br = "Chance bônus",
 		},
 		[PlayerType.PLAYER_MAGDALENE] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
@@ -255,7 +255,7 @@ local translations = {
 			spa = "Caca estreñida",
 			cs_cz = "Řídká stolice",
 			pl = "Erupcja Wezuwiusza", --przepraszam. Nie mogłem się powstrzymać.
-			ko_kr = "설사",
+			ko_kr = "민감한 장",
 			pt_br = "Intestino solto",
 		},
 		[PlayerType.PLAYER_EVE] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
@@ -264,7 +264,7 @@ local translations = {
 			spa = "Asesinato sangriento!",
 			cs_cz = "Krvavá vražda",
 			pl = "Krwawy Morderca",
-			ko_kr = "안전한 출혈",
+			ko_kr = "피투성이 까마귀", --씨발 언어유희 한 번 살리기 힘드네
 			pt_br = "Assasinato sangrento!",
 		},
 		[PlayerType.PLAYER_SAMSON] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
@@ -290,7 +290,7 @@ local translations = {
 			ru = "Восстань снова",
 			cs_cz = "Povstaň znovu",
 			pl = "Powstań z grobu",
-			ko_kr = "동귀어진",
+			ko_kr = "다시 한 번 소생하라",
 			pt_br = "Levante novamente",
 		},
 		[PlayerType.PLAYER_EDEN] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
@@ -443,6 +443,7 @@ local translations = {
 			cs_cz = "Rozpletený osud",
 			pl = "Powstań z grobu",
 			pt_br = "Destino desentrelaçado",
+			ko_kr = "풀려버린 운명",
 		},
 		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
 			en_us = "Anti-Virus, results may vary",
@@ -459,7 +460,7 @@ local translations = {
 			spa = "Baraja bendecida",
 			cs_cz = "Požehnaný balíček",
 			pl = "Święta Talia",
-			ko_kr = "",
+			ko_kr = "축복받은 덱",
 			pt_br = "Baralho abençoado",
 		},
 		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
@@ -468,7 +469,7 @@ local translations = {
 			spa = "Gemelo perdido",
 			cs_cz = "Pohřešované dvojče",
 			pl = "Zaginiony Bliźniak",
-			ko_kr = "",
+			ko_kr = "잃어버린 쌍둥이",
 			pt_br = "Gêmeo desaparecido",
 		},
 		[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK]
@@ -504,7 +505,7 @@ local translations = {
 			spa = "Invocaciones más fuertes",
 			cs_cz = "Silnější vyvolání",
 			pl = "Silniejsze ogniki",
-			ko_kr = "강해진 소환물",
+			ko_kr = "강화된 소환물",
 			pt_br = "Invocações mais fortes",
 		},
 		[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
@@ -513,7 +514,7 @@ local translations = {
 			spa = "Rastro en llamas",
 			cs_cz = "Žhnoucí stopa",
 			pl = "Płonący ślad",
-			ko_kr = "",
+			ko_kr = "타오르는 흔적",
 			pt_br = "Trilha flamejante",
 		},
 	},
@@ -525,6 +526,7 @@ local translations = {
 			cs_cz = "Zlomeného",
 			ru = "Сломанного",
 			pt_br = "Do Quebrado",
+			ko_kr = "망가진 자의",
 		},
 		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Dauntless's",
@@ -532,6 +534,7 @@ local translations = {
 			cs_cz = "Nesmělé",
 			ru = "Бесстрашшной",
 			pt_br = "Da Destemida",
+			ko_kr = "겁없는 자의",
 		},
 		[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Hoarder's",
@@ -539,6 +542,7 @@ local translations = {
 			cs_cz = "Hromadiče",
 			ru = "Хранителя (порченного)",
 			pt_br = "Do Acumulador",
+			ko_kr = "수집가의",
 		},
 		[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Deceiver's",
@@ -546,6 +550,7 @@ local translations = {
 			cs_cz = "Šejdíře",
 			ru = "Обманщика",
 			pt_br = "Do Enganador",
+			ko_kr = "기만자의",
 		},
 		[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Soiled's",
@@ -553,6 +558,7 @@ local translations = {
 			cs_cz = "Zašpiněného",
 			ru = "Грязного",
 			pt_br = "Do Sujo",
+			ko_kr = "역겨운 자의",
 		},
 		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Curdled's",
@@ -560,6 +566,7 @@ local translations = {
 			cs_cz = "Zkažené", -- I don't know man
 			ru = "Свернувшейся",
 			pt_br = "Da Coagulada", -- Dunno if it's like this
+			ko_kr = "응집된 자의",
 		},
 		[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Savage's",
@@ -567,6 +574,7 @@ local translations = {
 			cs_cz = "Divocha",
 			ru = "Дикаря",
 			pt_br = "O Selvagem",
+			ko_kr = "야만적인 자의",
 		},
 		[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Benighted's",
@@ -574,6 +582,7 @@ local translations = {
 			cs_cz = "Zaostalého", -- I don't feel like this is the right translation...
 			ru = "Мрачного",
 			pt_br = "Do Ignorante",
+			ko_kr = "우매한 자의",
 		},
 		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Enigma's",
@@ -581,6 +590,7 @@ local translations = {
 			cs_cz = "Záhadného",
 			ru = "Загадки",
 			pt_br = "Do Enigma",
+			ko_kr = "수수께끼의",
 		},
 		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Capricious'",
@@ -588,6 +598,7 @@ local translations = {
 			cs_cz = "Rozmarného",
 			ru = "Непостоянного",
 			pt_br = "Do Caprichoso",
+			ko_kr = "변덕스러운 자의",
 		},
 		[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Baleful's",
@@ -595,6 +606,7 @@ local translations = {
 			cs_cz = "Zlověstného",
 			ru = "Гибельного",
 			pt_br = "Do Maléfico",
+			ko_kr = "불길한 자의",
 		},
 		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Harlot's",
@@ -602,6 +614,7 @@ local translations = {
 			cs_cz = "Coury",
 			ru = "Блудницы",
 			pt_br = "Da Prostituta",
+			ko_kr = "대탕녀의",
 		},
 		[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Miser's",
@@ -609,6 +622,7 @@ local translations = {
 			cs_cz = "Skrblíka",
 			ru = "Скупого",
 			pt_br = "Do Avarento",
+			ko_kr = "구두쇠의",
 		},
 		[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Empty's",
@@ -616,6 +630,7 @@ local translations = {
 			cs_cz = "Prázdného",
 			ru = "Пустого",
 			pt_br = "Do O Vazio",
+			ko_kr = "공허한 자의",
 		},
 		[PlayerType.PLAYER_THEFORGOTTEN_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Fettered's",
@@ -623,6 +638,7 @@ local translations = {
 			cs_cz = "Spoutaného",
 			ru = "Скованных", --the fact that it's in the plural makes sense actually
 			pt_br = "Do Acorrentado",
+			ko_kr = "속박된 자의",
 		},
 		[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Zealot's",
@@ -630,6 +646,7 @@ local translations = {
 			cs_cz = "Zfanatizované",
 			ru = "Фанатички",
 			pt_br = "Da Fanática",
+			ko_kr = "광신도의",
 		},
 		[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [X]
 			en_us = "The Deserter's",
@@ -637,6 +654,7 @@ local translations = {
 			cs_cz = "Zrádce",
 			ru = "Дезертира",
 			pt_br = "Do Desertor",
+			ko_kr = "도망자의",
 		},
 	},
 
@@ -673,6 +691,7 @@ local translations = {
 			cs_cz = "Poskvrněný",
 			ru = "Порченый",
 			pt_br = "Contaminado",
+			ko_kr = "더럽혀진",
 		},
 		BIRTHCAKE = {
 			en_us = "Birthcake",
@@ -680,6 +699,7 @@ local translations = {
 			spa = "Pastel de cumple",
 			cs_cz = "Narozeninový dort",
 			pt_br = "Bolo de nascimento",
+			ko_kr = "생일 케이크",
 		}
 	}
 }
@@ -703,6 +723,7 @@ function BirthcakeRebaked:PrefixTainted(str, lang)
 		spa = true,
 		pl = true,
 		cs_cz = true,
+		ko_kr = true,
 	}
 	if reverse[lang] then
 		return str .. " " .. translations.ONE_LINERS.TAINTED[lang]
