@@ -90,7 +90,7 @@ local translations = {
 			ko_kr = "???의",
 			pt_br = "do ???",
 		},
-		[PlayerType.PLAYER_EVE] = {					-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+		[PlayerType.PLAYER_EVE] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Eve's",
 			ru = "Евы",
 			spa = "de Eva",
@@ -171,7 +171,7 @@ local translations = {
 			ko_kr = "아폴리온의",
 			pt_br = "do Apolion",
 		},
-		[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+		[PlayerType.PLAYER_THEFORGOTTEN] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "The Forgotten's",
 			ru = "Забытого",
 			spa = "de El Olvidado",
