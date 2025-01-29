@@ -1,7 +1,7 @@
 General additions/changes:
 - Code completely rewritten to be better compatible with mods, co-op, and overall way better optimized
 - Improved EID support
-- Multilingual descriptions! Both EID and the Birthcake names and descriptions support the following languages: English, Russian, Spanish, Czech, Polish, Korean
+- Multilingual descriptions! Both EID and the Birthcake names and descriptions support the following languages: English, Russian, Spanish, Czech, Polish, Korean, Brazilian Portuguese
 - In co-op play, Birthcake will take on its default appearance, and will have its sprite updated when picked up by the player
 - The unique Birthcake sprite for each character now appears on the HUD, powered by Benny's HudHelper
 - A completely different sprite base for the tainted characters, as well as some touchups to vanilla ones, courtesy of the original spriter, damagaz
