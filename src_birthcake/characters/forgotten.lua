@@ -40,11 +40,13 @@ function THEFORGOTTEN_CAKE:OnForgottenBodyUpdate(familiar)
 
 				Mod.SFXManager:Play(SoundEffect.SOUND_BONE_BREAK, 0.5, 0, false)
 
+				local mult = Mod:GetTrinketMult(player)
+
 				if numSoulCharge < THEFORGOTTEN_CAKE.SOUL_CHARGE_EFFECT_CAP then
 					effects:AddTrinketEffect(Mod.Birthcake.ID, false)
 				end
 
-				for _ = 1, player:GetTrinketRNG(Mod.Birthcake.ID):RandomInt(3) + Mod:GetTrinketMult(player) do
+				for _ = 1 * mult, player:GetTrinketRNG(Mod.Birthcake.ID):RandomInt(3 * mult) do
 					local tear = player:FireTear(familiar.Position, RandomVector():Resized(player.ShotSpeed * 10),
 						false, true, false, player, 0.5)
 					tear:ChangeVariant(TearVariant.BONE)

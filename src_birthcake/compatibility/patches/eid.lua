@@ -606,9 +606,20 @@ BIRTHCAKE_EID.Descs = {
 			) end
 		},
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
+		_modifier = function(descObj)
+			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
+			local trinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
+			local baseNum, maxNum = 1 * trinketMult, 3 * trinketMult
+
+			return BIRTHCAKE_EID:GoldConditional(baseNum .. "-" .. maxNum, trinketMult)
+		end,
 		en_us = {
-			"Firing at {{Player16}}The Forgotten's body as {{Player17}}The Soul will cause bone fragment tears to fire out of it in random directions and fill it with \"soul charge\"",
+			"Firing at {{Player16}}The Forgotten's body as {{Player17}}The Soul will cause ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_THEFORGOTTEN]._modifier(descObj)
+			end,
+			" bone fragment tears to fire out of it in random directions and fill it with \"soul charge\"",
 			"#Returning to The Forgotten will grant a fading fire rate increase depending on how much soul charge they were filled with"
 		},
 		ru = {
@@ -618,14 +629,14 @@ BIRTHCAKE_EID.Descs = {
 	},
 	[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
 		en_us = {
-			"Using an active item has a ",
+			"{{Collectible584}} Using an active item has a ",
 			function(descObj)
 				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.BETHANY.WISP_DUPE_CHANCE)
 			end,
 			"% chance to spawn an additional wisp of the same type"
 		},
 		ru = {
-			"Использование активного предмета имеет ",
+			"{{Collectible584}} Использование активного предмета имеет ",
 			function(descObj)
 				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.BETHANY.WISP_DUPE_CHANCE)
 			end,
