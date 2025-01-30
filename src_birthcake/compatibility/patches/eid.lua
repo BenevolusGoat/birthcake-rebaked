@@ -1050,13 +1050,9 @@ EID:addDescriptionModifier(
 					lastRenderedSubType = descObj.ObjSubType
 				end
 			elseif lastRenderedPlayerType ~= playerType or lastRenderedSubType ~= descObj.ObjSubType then
-				local spriteConfig = Mod.BirthcakeSprite[playerType]
-				if spriteConfig then
-					sprite:ReplaceSpritesheet(1, spriteConfig.SpritePath)
-				elseif not spriteConfig and Birthcake.BirthcakeDescs[playerType] then
-					sprite:ReplaceSpritesheet(1, "gfx/items/trinkets/" .. player:GetName():lower() .. "_birthcake.png")
-				end
+				local _, spritePath = Mod:GetBirthcakeSprite(player)
 
+				sprite:ReplaceSpritesheet(1, spritePath)
 				sprite:LoadGraphics()
 				lastRenderedPlayerType = playerType
 				lastRenderedSubType = descObj.ObjSubType
@@ -1070,7 +1066,7 @@ EID:addDescriptionModifier(
 )
 
 EID:addDescriptionModifier(
-	"Apollyon B Bithcake",
+	"Apollyon B Birthcake",
 	---@param descObj EID_DescObj
 	function(descObj)
 		if descObj.ObjVariant == PickupVariant.PICKUP_TRINKET then

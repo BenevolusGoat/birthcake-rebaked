@@ -20,7 +20,12 @@ end)
 
 local trinketPath = "gfx/items/trinkets/"
 
----@type {[PlayerType]: {SpritePath: string, PickupSpritePath: string | nil, Anm2: string | nil}}
+---@class BirthcakeSprite
+---@field SpritePath string
+---@field PickupSpritePath string | nil
+---@field Anm2 string | nil
+
+---@type {[PlayerType]: BirthcakeSprite}
 BirthcakeRebaked.BirthcakeSprite = {
 	[PlayerType.PLAYER_ISAAC] = {
 		SpritePath = trinketPath .. "0_isaac_birthcake.png",
@@ -151,7 +156,7 @@ BirthcakeRebaked.ModCallbacks = {
 	GET_BIRTHCAKE_ITEMTEXT_NAME = "BIRTHCAKE_GET_BIRTHCAKE_ITEMTEXT_NAME",
 	---(player: EntityPlayer, description: string): string, Optional Arg: PlayerType - Called when getting the player-specific description of Birthcake before displayed as item text. Return a string to override it
 	GET_BIRTHCAKE_ITEMTEXT_DESCRIPTION = "BIRTHCAKE_GET_BIRTHCAKE_ITEMTEXT_DESCRIPTION",
-	---(player: EntityPlayer, sprite: Sprite), Optional Arg: PlayerType - Called when loading the player-specific Birthcake sprite. Return a sprite object to override it
+	---(player: EntityPlayer, sprite: Sprite, spritePath: string): Sprite, string, Optional Arg: PlayerType - Called when loading the player-specific Birthcake sprite. Return a sprite object and a sprite path to override it. Sprite path specifically is used for instances like non-repentogon golden Birthcake and EID icon
 	LOAD_BIRTHCAKE_SPRITE = "BIRTHCAKE_LOAD_BIRTHCAKE_SPRITE",
 	---(player: EntityPlayer, pickup: EntityPickup), Optional Arg: PlayerType - Called when the Birthcake pickup spawns and after its sprite has been applied. You can give it a new sprite manually
 	POST_BIRTHCAKE_PICKUP_INIT = "BIRTHCAKE_POST_BIRTHCAKE_PICKUP_INIT",
@@ -317,9 +322,10 @@ function BirthcakeRebaked:GetBirthcakeSprite(player)
 	end
 	sprite:ReplaceSpritesheet(0, spritePath)
 	sprite:LoadGraphics()
-	local spriteResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.LOAD_BIRTHCAKE_SPRITE, playerType, player, sprite)
+	local spriteResult, spritePathResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.LOAD_BIRTHCAKE_SPRITE, playerType, player, sprite, spritePath)
 	sprite = (spriteResult ~= nil and type(spriteResult) == "userdata" and getmetatable(spriteResult).__type == "Sprite" and spriteResult) or
 		sprite
+	spritePath = (spritePathResult ~= nil and type(spritePathResult) == "string" and spritePathResult) or spritePath
 	return sprite, spritePath
 end
 

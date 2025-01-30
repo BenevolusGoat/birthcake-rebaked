@@ -26,6 +26,12 @@ function API:AddBirthcakePickupText(playerType, desc, name)
 	end
 end
 
+---@param playerType PlayerType
+---@param spriteInfo BirthcakeSprite
+function API:AddBirthcakeSprite(playerType, spriteInfo)
+	Mod.BirthcakeSprite[playerType] = spriteInfo
+end
+
 ---Unique description that appears if Accurate Blurbs is enabled
 ---@param playerType PlayerType
 ---@param desc string | table
