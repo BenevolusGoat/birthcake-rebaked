@@ -606,7 +606,7 @@ BIRTHCAKE_EID.Descs = {
 			) end
 		},
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
 		_modifier = function(descObj)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
@@ -623,7 +623,11 @@ BIRTHCAKE_EID.Descs = {
 			"#Returning to The Forgotten will grant a fading fire rate increase depending on how much soul charge they were filled with"
 		},
 		ru = {
-			"Стреляя в тело {{Player16}}Забытого {{Player17}}Душой приведёт к выстреливании из него осколков костей в случайных направлениях и заполнении его \"зарядом души\"",
+			"Стреляя в тело {{Player16}}Забытого {{Player17}}Душой приведёт к выстреливании из него ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_THEFORGOTTEN]._modifier(descObj)
+			end,
+			" осколков костей в случайных направлениях и заполнении его \"зарядом души\"",
 			"#Возращение в Забытого даст убывающее повышение скорострельности в зависимости от того, насколько много заряда души он имеет"
 		},
 	},
@@ -741,7 +745,7 @@ BIRTHCAKE_EID.Descs = {
 			"% шанс увеличить его длительность на 5 секунд и создать {{HalfHeart}} половину красного сердца"
 		},
 	},
-	[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"Sneezing fires out a cluster of 6 booger tears that deal a portion of Azazel's damage",
 			"#{{Collectible459}} Tears have a ",
@@ -751,7 +755,7 @@ BIRTHCAKE_EID.Descs = {
 			"% chance to stick onto enemies to damage them over time"
 		},
 		ru = {
-			"При чихании выстреливает скопление из 6 козявка слёз, наносящих часть урона Азазеля ",
+			"При чихании выстреливает скопление из 6 соплей, наносящих часть урона Азазеля ", --we have word declension in russian, so "козявка" isn't accurate + "сопля" is better
 			"#{{Collectible459}} Слёзы имеют ",
 			function(descObj)
 				return BIRTHCAKE_EID:NormalChanceModifier(descObj, Mod.Birthcake.AZAZEL.BOOGER_STICK_CHANCE)

@@ -302,9 +302,9 @@ local translations = {
 			ko_kr = "다양한 맛",
 			pt_br = "Sabor com variedade",
 		},
-		[PlayerType.PLAYER_THELOST] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
+		[PlayerType.PLAYER_THELOST] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
 			en_us = "Near-death experience",
-			ru = "",
+			ru = "Предсмертный опыт",
 			spa = "",
 			cs_cz = "",
 			pl = "",
@@ -410,7 +410,7 @@ local translations = {
 			ko_kr = "거 똥 한 번 더럽게 단단하네!",
 			pt_br = "Cocô duro",
 		},
-		[PlayerType.PLAYER_EVE_B] = {				-- EN: [X] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
 			en_us = "Polycythemia",
 			ru = "Полицитемия",
 			cs_cz = "",
