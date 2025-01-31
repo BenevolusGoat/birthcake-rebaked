@@ -72,7 +72,7 @@ local translations = {
 			ko_kr = "???의",
 			pt_br = "do ???",
 		},
-		[PlayerType.PLAYER_EVE] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+		[PlayerType.PLAYER_EVE] = {					-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Eve's",
 			ru = "Евы",
 			spa = "de Eva",
@@ -153,7 +153,7 @@ local translations = {
 			ko_kr = "아폴리온의",
 			pt_br = "do Apolion",
 		},
-		[PlayerType.PLAYER_THEFORGOTTEN] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+		[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "The Forgotten's",
 			ru = "Забытого",
 			spa = "de El Olvidado",
@@ -171,7 +171,7 @@ local translations = {
 			ko_kr = "베타니의",
 			pt_br = "da Betânia",
 		},
-		[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [ОК] | SPA: [!] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
+		[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [ОК] | SPA: [!] | CS_CZ: [OK] | PL: [OK] | KO_KR [!] | PT_BR [OK]
 			en_us = "Jacob & Esau's",
 			ru = "Иакова и Исава",
 			spa = "de Jacob",
@@ -180,7 +180,7 @@ local translations = {
 			ko_kr = "야곱의",
 			pt_br = "do Jacó e Esaú",
 		},
-		[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [OK] | KO_KR [!]
+		[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!] | PT_BR [!]
 			en_us = "Tainted Isaac's",
 			ru = "Исаака Порченый",
 			spa = "de Isaac",
@@ -189,7 +189,7 @@ local translations = {
 			ko_kr = "아이작의 더럽혀진",
 			pt_br = "do Isaque Contaminado",
 		},
-		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [OK] | KO_KR [!]
+		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!] | PT_BR [!]
 			en_us = "Tainted Magdelene's",
 			ru = "Магдалины Порченый",
 			spa = "de Magdalena",
@@ -198,7 +198,7 @@ local translations = {
 			ko_kr = "막달레나의 더럽혀진",
 			pt_br = "da Madalena Contaminado",
 		},
-		[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!] | PT_BR [!]
 			en_us = "Tainted Cain's",
 			ru = "Каина Порченый",
 			spa = "de Caín",
@@ -207,7 +207,7 @@ local translations = {
 			ko_kr = "카인의 더럽혀진",
 			pt_br = "do Caim Contaminado",
 		},
-		[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!] | PT_BR [!]
 			en_us = "Tainted Judas'",
 			ru = "Иуды Порченый",
 			spa = "de Judas",
@@ -216,7 +216,7 @@ local translations = {
 			ko_kr = "유다의 더럽혀진",
 			pt_br = "do Judas Contaminado",
 		},
-		[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!] | PT_BR [!]
 			en_us = "Tainted ???'s",
 			ru = "??? Порченый",
 			spa = "de ???",
@@ -225,7 +225,7 @@ local translations = {
 			ko_kr = "???의 더럽혀진",
 			pt_br = "do ??? Contaminado",
 		},
-		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!] | PT_BR [!]
 			en_us = "Tainted Eve's",
 			ru = "Евы Порченый",
 			spa = "de Eva",
@@ -234,7 +234,7 @@ local translations = {
 			ko_kr = "이브의 더럽혀진",
 			pt_br = "da Eva Contaminado",
 		},
-		[PlayerType.PLAYER_SAMSON_B] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!] | PT_BR [!]
 			en_us = "Tainted Samson's",
 			ru = "Самсона Порченый",
 			spa = "de Sansón",
@@ -243,7 +243,7 @@ local translations = {
 			ko_kr = "삼손의 더럽혀진",
 			pt_br = "do Sansão Contaminado",
 		},
-		[PlayerType.PLAYER_AZAZEL_B] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!] | PT_BR [!]
 			en_us = "Tainted Azazel's",
 			ru = "Азазеля Порченый",
 			spa = "de Azazel",
@@ -252,7 +252,7 @@ local translations = {
 			ko_kr = "아자젤의 더럽혀진",
 			pt_br = "do Azazel Contaminado",
 		},
-		[PlayerType.PLAYER_LAZARUS_B] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!] | PT_BR [!]
 			en_us = "Tainted Lazarus'",
 			ru = "Лазаря Порченый",
 			spa = "de Lázaro",
@@ -261,7 +261,7 @@ local translations = {
 			ko_kr = "나사로의 더럽혀진",
 			pt_br = "do Lázaro Contaminado",
 		},
-		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!] | PT_BR [!]
 			en_us = "Tainted Eden's",
 			ru = "Эдема", --official name, but I'd use 2'nd variant "Иден Порченыйа"
 			spa = "de Edén",
@@ -270,7 +270,7 @@ local translations = {
 			ko_kr = "에덴의 더럽혀진",
 			pt_br = "do Éden Contaminado",
 		},
-		[PlayerType.PLAYER_THELOST_B] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!] | PT_BR [!]
 			en_us = "Tainted Lost's",
 			ru = "Потерянного Порченый",
 			spa = "de El Perdido",
@@ -279,7 +279,7 @@ local translations = {
 			ko_kr = "더 로스트의 더럽혀진",
 			pt_br = "do O Perdido Contaminado",
 		},
-		[PlayerType.PLAYER_LILITH_B] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!] | PT_BR [!]
 			en_us = "Tainted Lilith's",
 			ru = "Лилит Порченый",
 			spa = "de Lilith",
@@ -288,7 +288,7 @@ local translations = {
 			ko_kr = "릴리트의 더럽혀진",
 			pt_br = "da Lilith Contaminado",
 		},
-		[PlayerType.PLAYER_KEEPER_B] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!] | PT_BR [!]
 			en_us = "Tainted Keeper's",
 			ru = "Хранителя Порченый",
 			spa = "de Keeper",
@@ -297,7 +297,7 @@ local translations = {
 			ko_kr = "키퍼의 더럽혀진",
 			pt_br = "do Keeper Contaminado",
 		},
-		[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!] | PT_BR [!]
 			en_us = "Tainted Apollyon's",
 			ru = "Апполиона Порченый",
 			spa = "de Apolión",
@@ -306,7 +306,7 @@ local translations = {
 			ko_kr = "아폴리온의 더럽혀진",
 			pt_br = "do Apolion Contaminado",
 		},
-		[PlayerType.PLAYER_THEFORGOTTEN_B] = {			-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!] | PT_BR [!]
 			en_us = "Tainted The Forgotten's",
 			ru = "Забытого Порченый",
 			spa = "de El Olvidado",
@@ -315,7 +315,7 @@ local translations = {
 			ko_kr = "더 포가튼의 더럽혀진",
 			pt_br = "do O Esquecido Contaminado",
 		},
-		[PlayerType.PLAYER_BETHANY_B] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!]
+		[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!] | PT_BR [!]
 			en_us = "Tainted Bethany's",
 			ru = "Вифании", --Бета Порченыйни
 			spa = "de Bethany",
@@ -324,7 +324,7 @@ local translations = {
 			ko_kr = "베타니의 더럽혀진",
 			pt_br = "da Betânia Contaminado",
 		},
-		[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [OK] | PL: [!] | KO_KR [!]
+		[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [!] | PL: [!] | KO_KR [!] | PT_BR [!]
 			en_us = "Tainted Jacob's",
 			ru = "Иакова Порченый",
 			spa = "de Jacob",
@@ -382,7 +382,7 @@ local translations = {
 			ko_kr = "민감한 장",
 			pt_br = "Intestino solto",
 		},
-		[PlayerType.PLAYER_EVE] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
+		[PlayerType.PLAYER_EVE] = {					-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [!] | PT_BR [OK]
 			en_us = "Bloody murder!",
 			ru = "Кровавое убийство!",
 			spa = "Asesinato sangriento!",
@@ -462,7 +462,7 @@ local translations = {
 			ko_kr = "간식 시간이다!",
 			pt_br = "Hora do lanchinho!",
 		},
-		[PlayerType.PLAYER_THEFORGOTTEN] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+		[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Revitalize",
 			ru = "Оживление",
 			spa = "Revitalizar",
@@ -489,7 +489,7 @@ local translations = {
 			ko_kr = "너보다 강해",
 			pt_br = "O que é seu é meu",
 		},
-		[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+		[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [OK]
 			en_us = "Pocket item",
 			ru = "Карманный предмет",
 			spa = "Objeto de bolsillo",
@@ -498,7 +498,7 @@ local translations = {
 			ko_kr = "주머니 아이템",
 			pt_br = "Item de bolso",
 		},
-		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [OK]
 			en_us = "Heart attack",
 			ru = "Сердечный приступ", --i know there's "Инфаркт", but eh
 			spa = "Infarto",
@@ -507,7 +507,7 @@ local translations = {
 			ko_kr = "심장이 터질 것만 같아!", --진짜 터짐 ㅋㅋ
 			pt_br = "Poder de cura",
 		},
-		[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+		[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [OK]
 			en_us = "Repurpose",
 			ru = "Переработка",
 			spa = "Reutilizar",
@@ -516,7 +516,7 @@ local translations = {
 			ko_kr = "재활용",
 			pt_br = "Reutilizar",
 		},
-		[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+		[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [OK]
 			en_us = "Shadow charge",
 			ru = "Теневой заряд",
 			spa = "Carga sombría",
@@ -525,7 +525,7 @@ local translations = {
 			ko_kr = "그림자 충전",
 			pt_br = "Carga sombria",
 		},
-		[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
+		[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR !
 			en_us = "Sturdy turds",
 			ru = "Твёрдые какашки",
 			spa = "Cacas robustas",
@@ -534,7 +534,7 @@ local translations = {
 			ko_kr = "거 똥 한 번 더럽게 단단하네!",
 			pt_br = "Cocô duro",
 		},
-		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X]
+		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [!] | KO_KR [!]
 			en_us = "Polycythemia",
 			ru = "Полицитемия",
 			cs_cz = "Policitemia",
@@ -542,7 +542,7 @@ local translations = {
 			ko_kr = "",
 			pt_br = "",
 		},
-		[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+		[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [OK]
 			en_us = "Unending rampage",
 			ru = "Нескончаемая ярость",
 			spa = "Alboroto interminable", --Probably works??? couldn't find anything better for it
@@ -551,7 +551,7 @@ local translations = {
 			ko_kr = "끝없는 폭주",
 			pt_br = "Raiva sem fim",
 		},
-		[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+		[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [OK]
 			en_us = "Allergy up",
 			ru = "Аллергия ↑",
 			spa = "Alergia ↑",
@@ -560,7 +560,7 @@ local translations = {
 			ko_kr = "알레르기 증가",
 			pt_br = "Alergia ↑",
 		},
-		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
+		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!]
 			en_us = "Untwined destiny",
 			ru = "Неразрывная судьба",
 			spa = "Destino desatado",
@@ -569,7 +569,7 @@ local translations = {
 			pt_br = "Destino desentrelaçado",
 			ko_kr = "풀려버린 운명",
 		},
-		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
+		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR !
 			en_us = "Anti-Virus, results may vary",
 			ru = "Антивирус, результаты могут различаться",
 			spa = "Antivirus, los efectos pueden variar",
@@ -578,7 +578,7 @@ local translations = {
 			ko_kr = "영원한 장신구",
 			pt_br = "Antivírus, resultados talvez variem",
 		},
-		[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
+		[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!]
 			en_us = "Blessed deck",
 			ru = "Благословенная колода",
 			spa = "Baraja bendecida",
@@ -587,7 +587,7 @@ local translations = {
 			ko_kr = "축복받은 덱",
 			pt_br = "Baralho abençoado",
 		},
-		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
+		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!]
 			en_us = "Missing twin",
 			ru = "Пропавший близнец",
 			spa = "Gemelo perdido",
@@ -596,7 +596,7 @@ local translations = {
 			ko_kr = "잃어버린 쌍둥이",
 			pt_br = "Gêmeo desaparecido",
 		},
-		[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+		[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [OK]
 			en_us = "Local business",
 			ru = "Местный бизнес",
 			spa = "Negocio local",
@@ -605,7 +605,7 @@ local translations = {
 			ko_kr = "소상공인",
 			pt_br = "Negócios locais",
 		},
-		[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+		[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [OK]
 			en_us = "Harvest",
 			ru = "Сбор урожая",
 			spa = "Cosecha",
@@ -614,7 +614,7 @@ local translations = {
 			ko_kr = "수확",
 			pt_br = "Colheita",
 		},
-		[PlayerType.PLAYER_THEFORGOTTEN_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+		[PlayerType.PLAYER_THEFORGOTTEN_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [OK]
 			en_us = "Fracture",
 			ru = "Перелом",
 			spa = "Fractura",
@@ -623,7 +623,7 @@ local translations = {
 			ko_kr = "골절",
 			pt_br = "Fratura",
 		},
-		[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+		[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [OK]
 			en_us = "Stronger summons",
 			ru = "Более сильные огоньки", --"Призывы" don't sound very good
 			spa = "Invocaciones más fuertes",
@@ -632,7 +632,7 @@ local translations = {
 			ko_kr = "강화된 소환물",
 			pt_br = "Invocações mais fortes",
 		},
-		[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X]
+		[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [!]
 			en_us = "Blazing trail",
 			ru = "Пылающий след",
 			spa = "Rastro en llamas",
