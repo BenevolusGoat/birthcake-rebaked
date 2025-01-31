@@ -52,7 +52,9 @@ function KEEPER_CAKE:SpawnMiniShop()
 end
 
 function KEEPER_CAKE:FindKeeperB()
-	if BirthcakeRebaked:AnyPlayerTypeHasBirthcake(PlayerType.PLAYER_KEEPER_B) then
+	if BirthcakeRebaked:AnyPlayerTypeHasBirthcake(PlayerType.PLAYER_KEEPER_B)
+		and Mod.Game:GetLevel():GetStage() ~= LevelStage.STAGE1_1
+	then
 		KEEPER_CAKE:SpawnMiniShop()
 		Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
 	end

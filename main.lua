@@ -203,8 +203,8 @@ end
 
 local miscSrc = {
 	"compatibility.birthcake_legacy",
-	"trinket_birthcake",
 	"challenge_birthday_party",
+	"trinket_birthcake",
 	"api"
 }
 for _, path in ipairs(miscSrc) do

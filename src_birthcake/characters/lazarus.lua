@@ -138,16 +138,14 @@ function LAZARUS_CAKE:SpawnSplitPedestals(pickup, player, previousItemID, previo
 		---@cast splitPedestal EntityPickup
 		splitPedestal:SetColor(useAlive and ALIVE_COLOR or DEAD_COLOR, 30, 1, true, false)
 		local price = i == 1 and previousPrice or pickup.Price
-		if price ~= 0 then
-			if price >= 2 then
-				price = math.floor(price / 2)
-			elseif LAZARUS_CAKE.DevilPriceSplit[price] then
-				price = LAZARUS_CAKE.DevilPriceSplit[price]
-			end
-			splitPedestal.Price = price
-			splitPedestal.AutoUpdatePrice = price ~= PickupPrice.PRICE_FREE
-			splitPedestal.ShopItemId = -1
+		if price >= 2 then
+			price = math.floor(price / 2)
+		elseif LAZARUS_CAKE.DevilPriceSplit[price] then
+			price = LAZARUS_CAKE.DevilPriceSplit[price]
 		end
+		splitPedestal.Price = price
+		splitPedestal.AutoUpdatePrice = price ~= PickupPrice.PRICE_FREE
+		splitPedestal.ShopItemId = -1
 	end
 end
 
@@ -159,18 +157,19 @@ function LAZARUS_CAKE:PostFlipPedestals(itemID, rng, player)
 		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)) do
 			local pickup = ent:ToPickup() ---@cast pickup EntityPickup
 			local data = Mod:GetData(pickup)
+			if not data.FlipPedestal then goto continue end
 			local previousItemID = data.FlipPedestal[1]
 			local previousPrice = data.FlipPedestal[2]
 			local randomFloat = player:GetTrinketRNG(Mod.Birthcake.ID):RandomFloat()
 			local randomChance = Mod:GetBalanceApprovedChance(LAZARUS_CAKE.ITEM_SPLIT_CHANCE, Mod:GetTrinketMult(player))
 
-			if previousItemID
-				and pickup.SubType ~= previousItemID
+			if pickup.SubType ~= previousItemID
 				and randomFloat <= randomChance
 			then
 				pickup:Remove()
 				LAZARUS_CAKE:SpawnSplitPedestals(pickup, player, previousItemID, previousPrice)
 			end
+			::continue::
 		end
 	end
 	--If RGON or Birthright, don't bother

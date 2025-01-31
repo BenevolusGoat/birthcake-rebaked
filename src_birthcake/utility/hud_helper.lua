@@ -878,9 +878,29 @@ local function InitFunctions()
 		font:DrawString(text, pos.X, pos.Y, kColor or KColor.White)
 	end
 
-	---@param resourceType HUDResourceType
-	function HudHelper.RenderResource(resourceType)
+	local resourceToYPos = {
+		[HudHelper.ResourceType.DESTINATION_ICON] = 72
+	}
 
+	---@param resourceType HUDResourceType
+	function HudHelper.RenderResource(spr, resourceType)
+		local pos = HudHelper.GetHUDPosition(1)
+		local xPos = 5
+		if resourceType == HudHelper.ResourceType.ACHIEVEMENT_ICON
+			or resourceType == HudHelper.ResourceType.DESTINATION_ICON
+			or resourceType == HudHelper.ResourceType.DIFFICULTY_ICON
+		then
+			if Mod.Game.Difficulty == Difficulty.DIFFICULTY_HARD then
+				xPos = xPos + 12
+			elseif Game():IsGreedMode() then
+				xPos = xPos - 4
+			end
+			if resourceType == HudHelper.ResourceType.DESTINATION_ICON then
+				xPos = xPos + 16
+			end
+		end
+		pos = pos + HudHelper.GetResourcesOffset() + Vector(xPos, resourceToYPos[resourceType] or 30)
+		spr:Render(pos)
 	end
 
 	--#endregion

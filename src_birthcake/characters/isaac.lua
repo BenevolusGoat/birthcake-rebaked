@@ -24,7 +24,7 @@ local delayHorn = false
 function ISAAC_CAKE:SpawnStartingRoomDiceShard()
 	local room = Mod.Game:GetRoom()
 
-	if room:IsFirstVisit() then
+	if room:IsFirstVisit() and Mod.Game:GetLevel():GetStage() ~= LevelStage.STAGE1_1 then
 		Mod:ForEachPlayer(function(player)
 			if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_ISAAC) then
 				for _ = 1, Mod:GetTrinketMult(player) do
@@ -39,14 +39,6 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, ISAAC_CAKE.SpawnStartingRoomDiceShard)
 
----@param player EntityPlayer
-function ISAAC_CAKE:ResetShardsOnNewFloor(player)
-	local effects = player:GetEffects()
-	if effects:HasTrinketEffect(Mod.Birthcake.ID) then
-		effects:RemoveTrinketEffect(Mod.Birthcake.ID, -1)
-	end
-end
-
 function ISAAC_CAKE:PlayPartyHorn()
 	if delayHorn then
 		Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
@@ -55,18 +47,6 @@ function ISAAC_CAKE:PlayPartyHorn()
 end
 
 Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, ISAAC_CAKE.PlayPartyHorn)
-
-if REPENTOGON then
-	Mod:AddCallback(ModCallbacks.MC_POST_PLAYER_NEW_LEVEL, ISAAC_CAKE.ResetShardsOnNewFloor, PlayerType.PLAYER_ISAAC)
-else
-	Mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
-		Mod:ForEachPlayer(function(player)
-			if player:GetPlayerType() == PlayerType.PLAYER_ISAAC then
-				ISAAC_CAKE:ResetShardsOnNewFloor(player)
-			end
-		end)
-	end)
-end
 
 -- Isaac B Birthcake
 

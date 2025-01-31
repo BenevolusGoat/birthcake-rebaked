@@ -5,7 +5,15 @@ General additions/changes:
 - In co-op play, Birthcake will take on its default appearance, and will have its sprite updated when picked up by the player
 - The unique Birthcake sprite for each character now appears on the HUD, powered by Benny's HudHelper
 - A completely different sprite base for the tainted characters, as well as some touchups to vanilla ones, courtesy of the original spriter, damagaz
-- "Isaac's Birthday Party" challenge now randomly selects characters to play as when decending floors as opposed to a set order, as you'd never be able to select every
+
+Isaac's Birthday Party Challenge:
+- Now randomly selects characters to play as when decending floors as opposed to a set order. This is still restricted to vanilla characters
+- Now displays a "defeat goal" icon for The Beast and actually makes The Beast reachable, as the
+- You now start with Dice Shard instead of D6 (to match the effect of Isaac's Birthcake)
+- Treasure Rooms added to the list of blacklisted rooms
+- Trinkets cannot spawn, being replaced with a random heart, coin, bomb, or key pickup instead. Birthcake itself does not apply to this
+- Changed Difficulty from Hard to Normal
+- Changed what characters get free items spawned for them when entering a new floor to match what's required for that character's effect to be properly triggered
 
 Birthcake effect changes:
 - Magdalene's "doubling" effect now affects Scared Hearts and Half Soul Hearts, reduced from 50% to 25%
