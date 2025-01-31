@@ -297,12 +297,12 @@ BIRTHCAKE_EID.Descs = {
 			"% chance to refund money"
 		},
 		ru = {
-			"{{Slotmachine}} Игровые автоматы и {{FortuneTeller}} Автоматы для предсказаний имеют ",
+			"{{Slotmachine}} Игровые Автоматы и {{FortuneTeller}} Автоматы для Предсказаний имеют ",
 			function(descObj)
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_CAIN]._modifier(descObj, Mod.Birthcake.CAIN.SlotsData[Mod.SlotVariant.SLOT_MACHINE].RefundChance)
 			end,
 			"% шанс возвратить деньги",
-			"#{{CraneGame}} Кран-машины имеют ",
+			"#{{CraneGame}} Кран-Машины имеют ",
 			function(descObj)
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_CAIN]._modifier(descObj, Mod.Birthcake.CAIN.SlotsData[Mod.SlotVariant.CRANE_GAME].RefundChance)
 			end,
@@ -456,10 +456,10 @@ BIRTHCAKE_EID.Descs = {
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_SAMSON]._modifier(descObj,
 				"{{Collectible157}} Достижение максимального увеличения урона от Жажды Крови создаёт ",
 				"2 {{Heart}} Красных Сердца",
-				"2 сердца, зависящие от твоего текущего здоровья"
+				"2 сердца, зависящих от твоего текущего здоровья"
 				.. "#{{Heart}} Двойные Красные Сердца при здоровье меньше половины красного сердца, и Красные Сердца при здоровье больше или равному половине красного сердца"
 				.. "#{{SoulHeart}} Иначе создаёт Сердца Души",
-				"#{{Collectible619}} Срабатывает и на 6, и на 10 получении урона"
+				"#{{Collectible619}} Срабатывает и на 6, и на 10 ударе"
 
 			) end
 		},
@@ -503,7 +503,7 @@ BIRTHCAKE_EID.Descs = {
 			function(descObj)
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_EDEN]._modifier(descObj)
 			end,
-			" случайных брелка при подборе",
+			" случайных брелка(ов) при подборе",
 			"#Еффекты брелков пропадают когда Пироженое выбрасывается"
 		},
 	},
@@ -824,11 +824,15 @@ BIRTHCAKE_EID.Descs = {
 			function(descObj)
 				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.LILITH.SPAWN_RUNT_CHANCE)
 			end,
-			"chance to spawn another Gello",
+			"% chance to spawn another Gello",
 			"#The additional Gello deals 50% damage"
 		},
 		ru = {
-			"Выхлёстывание Гелло Лилит имеет шанс создать ещё одного Гелло",
+			"Выхлёстывание Гелло Лилит имеет",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.LILITH.SPAWN_RUNT_CHANCE)
+			end,
+			"% шанс создать ещё одного Гелло",
 			"#Дополнительный Гелло наносит 50% урона"
 		},
 	},
@@ -904,11 +908,11 @@ BIRTHCAKE_EID.Descs = {
 			" hits"
 		},
 		ru = {
-			"{{Collectible712}} Огоньки Лемегетона могут получить ",
+			"{{Collectible712}} Огоньки Лемегетона имеют ",
 			function(descObj)
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_BETHANY_B]._modifier(descObj)
 			end,
-			" дополнительных ударов"
+			" дополнительного здоровья"
 		},
 	},
 	[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
@@ -947,7 +951,7 @@ BIRTHCAKE_EID.ShortDescriptions = {
 			"% ко всем характеристикам"
 		},
 	},
-	APOLLYON_B_APPEND = {						-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
+	APOLLYON_B_APPEND = {						-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
 		_modifier = function(descObj, strNoMult, strMult)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local objTrinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
@@ -965,7 +969,15 @@ BIRTHCAKE_EID.ShortDescriptions = {
 				"Red locust that deals full damage"
 				)
 			end
-		}
+		},
+		ru = {
+			function(descObj)
+				return BIRTHCAKE_EID.ShortDescriptions.APOLLYON_B_APPEND._modifier(descObj,
+				"Серая саранча, наносящая х0.5 урона",
+				"Красная саранча, наносящая полный урон"
+				)
+			end
+		},
 	}
 }
 

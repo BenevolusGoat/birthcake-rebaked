@@ -278,7 +278,7 @@ local translations = {
 		},
 		[PlayerType.PLAYER_AZAZEL] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Deeper breaths",
-			ru = "Дыши глубже...",
+			ru = "Дыши глубже",
 			spa = "Respiración profunda",
 			cs_cz = "Hluboké dýchání",
 			pl = "Daleki wydech", --szczerze to jest takie pół śmiechem pisane
@@ -347,9 +347,9 @@ local translations = {
 			ko_kr = "재활",
 			pt_br = "Revitalizar",
 		},
-		[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [X] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
+		[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
 			en_us = "Soul dualism",
-			ru = "",
+			ru = "Дуализм души",
 			spa = "",
 			cs_cz = "",
 			pl = "",
@@ -358,7 +358,7 @@ local translations = {
 		},
 		[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
 			en_us = "What's mine is yours",
-			ru = "Что мое, то и твое",
+			ru = "Что моё, то твоё",
 			spa = "Lo que es mío es tuyo",
 			cs_cz = "Co je mé je tvé",
 			pl = "Moje, twoje, nasze, wspólne", --Makłowicz
@@ -376,7 +376,7 @@ local translations = {
 		},
 		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Heart attack",
-			ru = "Сердечный приступ",
+			ru = "Сердечный приступ", --i know there's "Инфаркт", but eh
 			spa = "Infarto",
 			cs_cz = "Infarkt",
 			pl = "Zawał",
@@ -403,7 +403,7 @@ local translations = {
 		},
 		[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [!]
 			en_us = "Sturdy turds",
-			ru = "Твердые какашки",
+			ru = "Твёрдые какашки",
 			spa = "Cacas robustas",
 			cs_cz = "Tvrdá hovna",
 			pl = "Kał ze skał",
@@ -542,7 +542,7 @@ local translations = {
 			en_us = "The Hoarder's",
 			spa = "Dell Acumulador",
 			cs_cz = "Hromadiče",
-			ru = "Хранителя (порченного)",
+			ru = "Скопидомца", --official wiki translation sucks, so I translated it like this instead
 			pl = "Zbieracza", --mi jakoś tam nie pasuje
 			pt_br = "Do Acumulador",
 			ko_kr = "수집가의",

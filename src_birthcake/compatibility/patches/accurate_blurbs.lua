@@ -5,7 +5,7 @@ local loader = BirthcakeRebaked.PatchesLoader
 BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 	[PlayerType.PLAYER_ISAAC] = { 					-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!] | KO_KR [OK] | PT_BR [X]
 		en_us = "Dice Shard in Starting Rooms",
-		ru = "Создает Осколок Кости + Осколки Кости в стартовой комнате",
+		ru = "Создаёт Осколок Кости + Осколки Кости в стартовой комнате",
 		pl = "Odłamki Kości w pokojach Skarbów i Bossa",
 		pt_br = "Fragmentos de dado nas salas iniciais",
 		ko_kr = "시작 방에 주사위 조각 생성",
@@ -47,7 +47,7 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 	},
 	[PlayerType.PLAYER_SAMSON] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [!] | KO_KR [OK] | PT_BR [X]
 		en_us = "Drop red hearts at maximum rage",
-		ru = "Роняет красные сердца при максимальном уровне ярости",
+		ru = "Создаёт красные сердца при максимальном уровне ярости",
 		pl = "Tworzy serduszka po osiągnieciu maksymalnego gniewu",
 		pt_br = "Ganhe corações vermelhos quando chegar a raiva máxima",
 		ko_kr = "피의 욕망 누적량 최대치 달성 시 빨간 하트 생성",
@@ -82,7 +82,7 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 	},
 	[PlayerType.PLAYER_LILITH] = { 					-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [X]
 		en_us = "Buddies may copy tear effects",
-		ru = "Спутники могут скопировать эффекты слез",
+		ru = "Спутники могут скопировать эффекты слёз",
 		pl = "Sojusznicy czasami kopiują efekty twoich łez",
 		pt_br = "Amigos talvez copiarão efeitos das lágrimas",
 		ko_kr = "패밀리어들이 가끔 눈물 효과를 복사함",
@@ -172,7 +172,7 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 	},
 	[PlayerType.PLAYER_AZAZEL_B] = { 				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!] | KO_KR [OK] | PT_BR [X]
 		en_us = "Sneeze brimstone-marking booger tears",
-		ru = "Вычихивание прилипающих слез с меткой серы",
+		ru = "Вычихивание соплей с меткой серы",
 		pl = "Kichaj naznaczającymi łzami. Czasami są lepkie",
 		pt_br = "Lágrimas de meleca ao espirrar",
 		ko_kr = "재채기를 하면 혈사포 표식 효과를 부여하는 코딱지도 같이 발사됨",
@@ -185,14 +185,14 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 	},
 	[PlayerType.PLAYER_EDEN_B] = { 					-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!] | KO_KR [OK] | PT_BR [X]
 		en_us = "May not reroll everything when hurt",
-		ru = "Может не поменять все при получении урона",
+		ru = "Может не поменять всё при получении урона",
 		pl = "3 losowe połknięte trynkiety, ciągle zmienne",
 		pt_br = "Talvez não mudará todos os seus items ao sofrer dano",
 		ko_kr = "피격 시 가끔씩 리롤 효과 무시",
 	},
 	[PlayerType.PLAYER_THELOST_B] = { 				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [OK] | PT_BR [X]
 		en_us = "Holy Card + cards may be Holy Card more",
-		ru = "Святая Карта + карты могут стать Святыми Картами больше",
+		ru = "Святая Карта + карты могут стать Святыми Картами чаще",
 		pt_br = "Carta sagrada + Mais chance de cartas sagradas",
 		ko_kr = "성스러운 카드 효과 + 성스러운 카드 변환 확률 증가",
 	},
@@ -211,7 +211,7 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 	},
 	[PlayerType.PLAYER_APOLLYON_B] = { 				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!] | KO_KR [OK] | PT_BR [X]
 		en_us = "Abyss-absorb trinkets for half-DMG locusts",
-		ru = "Поглощение Бездной брелков для саранчи с половиной Урона",
+		ru = "Поглощение Бездной брелков для саранчи с Уроном x0.5",
 		pl = "Pochłaniaj trynkiety, aby dostać szarańcze o połowicznych obrażeniach",
 		pt_br = "Abismo consegue absorber trinkets para ganhar gafanhotos de metade de dano",
 		ko_kr = "무저갱으로 장신구 흡수 가능, 흡수 시 데미지 절반짜리 메뚜기 생성",
@@ -232,7 +232,7 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 	},
 	[PlayerType.PLAYER_JACOB_B] = { 				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [OK] | PT_BR [X]
 		en_us = "Dark Esau leaves a flame-trail",
-		ru = "Темный Исав оставляет огненный след",
+		ru = "Тёмный Исав оставляет огненный след",
 		pt_br = "Esaú sombrio deixa uma trilha de chamas",
 		ko_kr = "검은 에사우가 돌진하면 그 자리에 불꽃을 남김",
 	}
