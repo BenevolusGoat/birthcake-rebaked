@@ -263,7 +263,7 @@ local translations = {
 			ru = "Кровавое убийство!",
 			spa = "Asesinato sangriento!",
 			cs_cz = "Krvavá vražda",
-			pl = "Krwawy Morderca",
+			pl = "Krwawy ptak",
 			ko_kr = "피투성이 까마귀", --씨발 언어유희 한 번 살리기 힘드네
 			pt_br = "Assasinato sangrento!",
 		},
@@ -302,12 +302,12 @@ local translations = {
 			ko_kr = "다양한 맛",
 			pt_br = "Sabor com variedade",
 		},
-		[PlayerType.PLAYER_THELOST] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
+		[PlayerType.PLAYER_THELOST] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 			en_us = "Near-death experience",
 			ru = "Предсмертный опыт",
 			spa = "",
 			cs_cz = "",
-			pl = "",
+			pl = "Otarcie się o śmierć",
 			ko_kr = "",
 			pt_br = "",
 		},
@@ -347,12 +347,12 @@ local translations = {
 			ko_kr = "재활",
 			pt_br = "Revitalizar",
 		},
-		[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
+		[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 			en_us = "Soul dualism",
 			ru = "Дуализм души",
 			spa = "",
 			cs_cz = "",
-			pl = "",
+			pl = "Dwoistość ducha",
 			ko_kr = "",
 			pt_br = "",
 		},
@@ -388,7 +388,7 @@ local translations = {
 			ru = "Переработка",
 			spa = "Reutilizar",
 			cs_cz = "Opětovné použití", -- I struggled with this one a lot, it's kinda weird to translate or my vocabulary is just shit ti-hi
-			pl = "Recykling",
+			pl = "Rozkład",
 			ko_kr = "재활용",
 			pt_br = "Reutilizar",
 		},
@@ -410,11 +410,11 @@ local translations = {
 			ko_kr = "거 똥 한 번 더럽게 단단하네!",
 			pt_br = "Cocô duro",
 		},
-		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X]
+		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [X]
 			en_us = "Polycythemia",
 			ru = "Полицитемия",
 			cs_cz = "",
-			pl = "",
+			pl = "Nadkrwistość", --Tak Wikipedia tłumaczy. Chyba lepszego nie wymyślę
 			ko_kr = "",
 			pt_br = "",
 		},
@@ -633,7 +633,7 @@ local translations = {
 			spa = "Del Avariento",
 			cs_cz = "Skrblíka",
 			ru = "Скупого",
-			pl = "Chciwca",
+			pl = "Skąpca",
 			pt_br = "Do Avarento",
 			ko_kr = "구두쇠의",
 		},
@@ -669,7 +669,7 @@ local translations = {
 			spa = "Del Desertor",
 			cs_cz = "Zrádce",
 			ru = "Дезертира",
-			pl = "Dezerter", --bardzo kreatywne i oryginalne tłumaczenie
+			pl = "Dezertera", --bardzo kreatywne i oryginalne tłumaczenie
 			pt_br = "Do Desertor",
 			ko_kr = "도망자의",
 		},
