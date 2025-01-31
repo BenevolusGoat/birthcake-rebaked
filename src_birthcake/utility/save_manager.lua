@@ -604,7 +604,7 @@ function SaveManager.Load(isLuamod)
 	end
 
 	if game:GetFrameCount() > 0 then
-		currentListIndex = saveData.__SAVEMANAGER_LIST_INDEX or Mod.Game:GetLevel():GetCurrentRoomDesc().ListIndex
+		currentListIndex = saveData.__SAVEMANAGER_LIST_INDEX or game:GetLevel():GetCurrentRoomDesc().ListIndex
 		saveData.__SAVEMANAGER_LIST_INDEX = nil
 	end
 
