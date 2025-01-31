@@ -264,7 +264,7 @@ BIRTHCAKE_EID.Descs = {
 		cs_cz = {
 			"{{Heart}} Srdce mají ",
 			function(descObj)
-				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.MAGDALENE.HEART_REPLACE_CHANCE)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.MAGDALENE.HEART_REPLACE_CHANCE)
 			end,
 			"% šanci na vylepšení",
 			"#Možná vylepšení jsou:",
@@ -548,7 +548,7 @@ BIRTHCAKE_EID.Descs = {
 		ru = {
 			"Спутники имеют ",
 			function(descObj)
-				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.LILITH.SHARE_TEAR_EFFECTS_CHANCE)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.LILITH.SHARE_TEAR_EFFECTS_CHANCE)
 			end,
 			"% шанс скопировать эффекты слёз Лилит"
 		},
@@ -714,7 +714,7 @@ BIRTHCAKE_EID.Descs = {
 		ru = {
 			"Бросаемые какашки имеют ",
 			function(descObj)
-				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.BLUEBABY.NO_POOP_DAMAGE_CHANCE)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.BLUEBABY.NO_POOP_DAMAGE_CHANCE)
 			end,
 			"% шанс не повредиться, когда в них попадают снаряды"
 		},
@@ -740,7 +740,7 @@ BIRTHCAKE_EID.Descs = {
 		ru = {
 			"{{Collectible704}} Зачистка комнаты под действием Берсерка имеет ",
 			function(descObj)
-				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.SAMSON.BERSERK_INCREASE_CHANCE)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.SAMSON.BERSERK_INCREASE_CHANCE)
 			end,
 			"% шанс увеличить его длительность на 5 секунд и создать {{HalfHeart}} половину красного сердца"
 		},
@@ -774,7 +774,7 @@ BIRTHCAKE_EID.Descs = {
 		ru = {
 			"{{Collectible711}} При использовании Переворота пьедесталы с предметами имеют ",
 			function(descObj)
-				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.LAZARUS.ITEM_SPLIT_CHANCE)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.LAZARUS.ITEM_SPLIT_CHANCE)
 			end,
 			"% шанс разделиться на оба отображаемых предмета"
 		},
@@ -804,7 +804,7 @@ BIRTHCAKE_EID.Descs = {
 			"{{Card51}} Spawns a Holy Card when first picked up",
 			"#Cards have another ",
 			function(descObj)
-				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.THELOST.HOLY_CARD_REPLACE_CHANCE)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THELOST.HOLY_CARD_REPLACE_CHANCE)
 			end,
 			"% chance of becoming a Holy Card"
 
@@ -813,7 +813,7 @@ BIRTHCAKE_EID.Descs = {
 			"{{Card51}} Создаёт Святую Карту при первом подборе",
 			"#Карты имеют ещё ",
 			function(descObj)
-				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.THELOST.HOLY_CARD_REPLACE_CHANCE)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THELOST.HOLY_CARD_REPLACE_CHANCE)
 			end,
 			"% шанс стать Святой Картой"
 		},
