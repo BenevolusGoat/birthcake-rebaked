@@ -428,7 +428,7 @@ BIRTHCAKE_EID.Descs = {
 			"#{{DevilRoom}} Gdyby wymiana z Diabłem miała by zabić Judasza, zamiast tego ten trynkiet jest niszczony"
 		},
 	},
-	[PlayerType.PLAYER_BLUEBABY] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_BLUEBABY] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		_modifier = function(descObj, poopStr, activeStr, noActiveStr, invalidActiveStr)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local activeItem = player:GetActiveItem(ActiveSlot.SLOT_PRIMARY)
@@ -467,6 +467,16 @@ BIRTHCAKE_EID.Descs = {
 				"#{{Collectible}} Выстреливает %s снаряд(ов)-какашку(ек) в случайных направлениях, которые создают какашку при столкновении",
 				"#{{Battery}} X - это половина заряда твоего активного предмета, округлённая в меньшую сторону",
 				"{{Collectible}} Нет эффекта для текущего активного предмета"
+			) end
+		},
+		spa = {
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_BLUEBABY]._modifier(descObj,
+				"{{Collectible36}} La Caca genera 2 cacas adicionales en ambos lados de la original al usarse, la orientación basándose en la direccion de la cabeza"
+				.."#{{Collectible}} Tiene un efecto distinto con activos diferentes",
+				"#{{Collectible}} Suelta %s proyectil(es) de caca en direcciones aleatorias que generan una caca al tocatr el suelo",
+				"#{{Battery}} X es la mitad de las cargas máximas de tu acticvo redondeadas hacia abajo",
+				"{{Collectible}} Sin efecto para to activo actual"
 			) end
 		},
 		pl = {
@@ -521,7 +531,7 @@ BIRTHCAKE_EID.Descs = {
 			end
 		},
 	},
-	[PlayerType.PLAYER_SAMSON] = {				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_SAMSON] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		---@param descObj EID_DescObj
 		---@param strNoMult string
 		---@param strMult string
@@ -561,6 +571,17 @@ BIRTHCAKE_EID.Descs = {
 				.. "#{{SoulHeart}} Иначе создаёт Сердца Души",
 				"#{{Collectible619}} Срабатывает и на 6, и на 10 ударе"
 
+			) end
+		},
+		spa = {
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_SAMSON]._modifier(descObj,
+				"{{Collectible157}} Llegar a la máxima mejora de daño con Lujuria de Sangre genera ",
+				"2 {{Heart}} Corazones Rojos",
+				"2 corazones basados en tu vida actual"
+				.. "#{{Heart}} Double Red Hearts below half red health, and Red Hearts above or equal to half red health"
+				.. "#{{SoulHeart}} De lo contrario, suelta Corazones de Alma",
+				"#{{Collectible619}} Se activa a los 6 y 10 golpes"
 			) end
 		},
 		pl = {
@@ -766,7 +787,7 @@ BIRTHCAKE_EID.Descs = {
 			end
 		},
 	},
-	[PlayerType.PLAYER_APOLLYON] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_APOLLYON] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		_modifier = function(descObj, str)
 			local mult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity), descObj.ObjSubType, true)
 			local chance = Mod:GetBalanceApprovedChance(Mod.Birthcake.APOLLYON.DOUBLE_VOID_CHANCE, mult - 1)
@@ -793,6 +814,14 @@ BIRTHCAKE_EID.Descs = {
 				"%s шанс дублировать поглощённый брелок"
 			) end
 		},
+		spa = {
+			"{{Collectible477}} El Vacío puede absorber trinkets",
+			"#Los trinkets absorbidos son tragados, manteniendo sus efectos permanentemente mientras que el jugador tenga el Vacío",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_APOLLYON]._modifier(descObj,
+				"%s de probabilidad de duplicar el trinket absorbido"
+			) end
+		},
 		pl = {
 			"{{Collectible477}} Pustka może niszczyć trynkiety",
 			"#Zniszczone trynkiety są połykane, zachowując swoje efekty, póki Pustka jest trzymana",
@@ -802,7 +831,7 @@ BIRTHCAKE_EID.Descs = {
 			) end
 		},
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_THEFORGOTTEN] = {		-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		_modifier = function(descObj)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
@@ -826,6 +855,14 @@ BIRTHCAKE_EID.Descs = {
 			" осколков костей в случайных направлениях и заполнении его \"зарядом души\"",
 			"#Возращение в Забытого даст убывающее повышение скорострельности в зависимости от того, насколько много заряда души он имеет"
 		},
+		spa = {
+			"Disparar al cuerpo de {{Player16}}El Olvidado como {{Player17}}El Alma causa que ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_THEFORGOTTEN]._modifier(descObj)
+			end,
+			" fragmentos de hueso sean disparados en direcciones aleatorias y llena a El Olvidado con \"carga de alma\"",
+			"#Volver al cuerpo otorga una mejora desvaneciente de lágrimas dependiendo de cúanta carga de alma tuviera"
+		},
 		pl = {
 			"Strzelanie w {{Player16}}Ciało Zapomnianego jako {{Player17}}Dusza wystrzeliwywuje ",
 			function(descObj)
@@ -835,7 +872,7 @@ BIRTHCAKE_EID.Descs = {
 			"#Powrót to Ciała daje zanikający bonus do szybkostrzelności zależnie od ładunku"
 		},
 	},
-	[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"{{Collectible584}} Using an active item has a ",
 			function(descObj)
@@ -849,6 +886,13 @@ BIRTHCAKE_EID.Descs = {
 				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.BETHANY.WISP_DUPE_CHANCE)
 			end,
 			"% шанс создания дополнительного огонька того же типа"
+		},
+		spa = {
+			"{{Collectible584}} Usar un activo tiene una probabilidad del ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.BETHANY.WISP_DUPE_CHANCE)
+			end,
+			"% de generar un fuego adicional del mismo tipo"
 		},
 		pl = {
 			"{{Collectible584}} Użycie aktywnego przedmiotu ma ",
@@ -1000,7 +1044,7 @@ BIRTHCAKE_EID.Descs = {
 			"#Obrażenia i dodatkowe efekty mazi zależą od typu zabitego Zakrzepka"
 		},
 	},
-	[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"{{Collectible704}} Clearing a room while in Berserk has a ",
 			function(descObj)
@@ -1015,6 +1059,13 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% шанс увеличить его длительность на 5 секунд и создать {{HalfHeart}} половину красного сердца"
 		},
+		spa = {
+			"{{Collectible704}} Limpiar una habitación en estado de Berserker tiene una probabilidad del ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.SAMSON.BERSERK_INCREASE_CHANCE)
+			end,
+			"% de extender su duración en 5 segundos y generar {{HalfHeart}} medio Corazón Rojo"
+		},
 		pl = {
 			"{{Collectible704}} Ukończenie pokoju w stanie Berserka ma ",
 			function(descObj)
@@ -1023,7 +1074,7 @@ BIRTHCAKE_EID.Descs = {
 			"% szansy na wydłużenie czasu trwania o 5 sekund i stworzenie {{HalfHeart}} połowy czerwonego serduszka"
 		},
 	},
-	[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"Sneezing fires out a cluster of 6 booger tears that deal a portion of Azazel's damage",
 			"#{{Collectible459}} Tears have a ",
@@ -1040,6 +1091,14 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% шанс прилипнуть к врагам для нанесения урона со временем"
 		},
+		spa = {
+			"Estornudar dispara 6 lágrimas de moco que hacen una porción del daño de Azazel",
+			"#{{Collectible459}} Las lágrimas tienen una probabilidad del ",
+			function(descObj)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.AZAZEL.BOOGER_STICK_CHANCE)
+			end,
+			"% de pegarse a enemigos y hacerles daño con el tiempo"
+		},
 		pl = {
 			"Kichanie wystrzeliwywuje 6 smarków, które zadają ułamek Obrażeń Azazela",
 			"#{{Collectible459}} Smarki mają ",
@@ -1049,7 +1108,7 @@ BIRTHCAKE_EID.Descs = {
 			"% szansy na przyczepienie się do przeciwników, zadając obrażenia rozłożone w czasie"
 		},
 	},
-	[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"{{Collectible711}} When using Flip, item pedestals have a ",
 			function(descObj)
@@ -1064,6 +1123,13 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% шанс разделиться на оба отображаемых предмета"
 		},
+		spa = {
+			"{{Collectible711}} Al usar Flip, los objetos de pedestal tienen una probabilidad del ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.LAZARUS.ITEM_SPLIT_CHANCE)
+			end,
+			"% de dividirse en ambos objetos mostrados"
+		},
 		pl = {
 			"{{Collectible711}} Po użyciu Odwrotu, przedmioty mają ",
 			function(descObj)
@@ -1072,7 +1138,7 @@ BIRTHCAKE_EID.Descs = {
 			"% szansy na rozdzielenie się na oba pokazane przedmioty"
 		},
 	},
-	[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"Taking damage has a ",
 			function(descObj)
@@ -1091,6 +1157,15 @@ BIRTHCAKE_EID.Descs = {
 			"#Пироженое в основном невосприимчиво к изменению и имеет "
 			.. Mod.Birthcake.EDEN.BIRTHCAKE_REROLL_CHANCE .. "% шанс измениться при получении урона"
 		},
+		spa = {
+			"Recibir daño tiene una probabilidad del ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.EDEN.PREVENT_REROLL_CHANCE)
+			end,
+			"% de no rerollear los objetos de Eden",
+			"#Este trinket es casi inmune a ser rerolleado, teniendo una probabilidad del "
+			.. Mod.Birthcake.EDEN.BIRTHCAKE_REROLL_CHANCE .. "% de ser rerolleado al recibir daño"
+		},
 		pl = {
 			"Przy otrzymaniu obrażeń ma ",
 			function(descObj)
@@ -1101,7 +1176,7 @@ BIRTHCAKE_EID.Descs = {
 			.. Mod.Birthcake.EDEN.BIRTHCAKE_REROLL_CHANCE .. "% na przelosowanie przy otrzymaniu obrażeń"
 		},
 	},
-	[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"{{Card51}} Spawns a Holy Card when first picked up",
 			"#Cards have another ",
@@ -1119,6 +1194,15 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% шанс стать Святой Картой"
 		},
+		spa = {
+			"{{Card51}} Genera una Carta Sagrada al recoger el trinket por primera vez",
+			"#Las cartas tienen una probabilidad del ",
+			function(descObj)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THELOST.HOLY_CARD_REPLACE_CHANCE)
+			end,
+			"% de transformarse en una Carta Sagrada"
+
+		},
 		pl = {
 			"{{Card51}} Daje Świętą Kartę po pierwszym podniesieniu",
 			"#Karty mają dodatkowe ",
@@ -1128,7 +1212,7 @@ BIRTHCAKE_EID.Descs = {
 			"% szansy na stanie się Świętą Kartą"
 		},
 	},
-	[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"Whipping out Lilith's Gello has a",
 			function(descObj)
@@ -1144,6 +1228,14 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% шанс создать ещё одного Гелло",
 			"#Дополнительный Гелло наносит 50% урона"
+		},
+		spa = {
+			"Disparar Gello tiene una probabilidad del",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.LILITH.SPAWN_RUNT_CHANCE)
+			end,
+			"% de generar un Gello adicional",
+			"#El Gello adicional hace el 50% de tu daño"
 		},
 		pl = {
 			"Wystrzelenie Gello ma",
@@ -1168,7 +1260,7 @@ BIRTHCAKE_EID.Descs = {
 			"Tworzy przedmiot i dwa pickupy na sprzedaż na początku każdego piętra"
 		},
 	},
-	[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		_modifier = function(descObj)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity), descObj.ObjSubType)
 			local dmg = "50%"
@@ -1193,6 +1285,14 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			" урона"
 		},
+		spa = {
+			"{{Collectible706}} Los trinkets se pueden transformar en langostas usando Abismo",
+			"#Las langostas generadas de trinkets hacen ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_APOLLYON_B]._modifier(descObj)
+			end,
+			" de daño"
+		},
 		pl = {
 			"{{Collectible706}} Czeluść może zamieniać trynkiety w szarańcze",
 			"#Szarańcze stworzone z trynkietów zadają ",
@@ -1202,7 +1302,7 @@ BIRTHCAKE_EID.Descs = {
 			" obrażeń"
 		},
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"Killing enemies will spawn stationary bone fragments that damage enemies on contact",
 			"#Holding {{Player35}}The Forgotten will cause all bone fragments to fly towards {{Player40}}The Soul, becoming orbitals",
@@ -1220,6 +1320,15 @@ BIRTHCAKE_EID.Descs = {
 				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
 			end,
 			" орбитальных осколков костей"
+		},
+		spa = {
+			"Matar enemigos genera fragmentos de hueso inmóviles que hacen daño a los enemigos al entrar en contacto",
+			"#Recoger a {{Player35}}El Olvidado atrae a todos los fragmentos de hueso a {{Player40}}El Alma, convirtiéndose en orbitales",
+			"#Puede tener hasta ",
+			function(descObj)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
+			end,
+			" orbitales"
 		},
 		pl = {
 			"Zabici przeciwnicy zostawiają po sobie lewitujące kości, które zadają obrażenie innym przeciwnikom",
@@ -1321,7 +1430,7 @@ BIRTHCAKE_EID.ShortDescriptions = {
 			"% a todas las estadísticas"
 		},
 	},
-	APOLLYON_B_APPEND = {						-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
+	APOLLYON_B_APPEND = {						-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
 		_modifier = function(descObj, strNoMult, strMult)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local objTrinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
@@ -1345,6 +1454,14 @@ BIRTHCAKE_EID.ShortDescriptions = {
 				return BIRTHCAKE_EID.ShortDescriptions.APOLLYON_B_APPEND._modifier(descObj,
 				"Серая саранча, наносящая х0.5 урона",
 				"Красная саранча, наносящая полный урон"
+				)
+			end
+		},
+		spa = {
+			function(descObj)
+				return BIRTHCAKE_EID.ShortDescriptions.APOLLYON_B_APPEND._modifier(descObj,
+				"Langostas grises que hacen la mitad del daño",
+				"Langostas rojas que hacen el daño entero"
 				)
 			end
 		},
