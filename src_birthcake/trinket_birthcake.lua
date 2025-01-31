@@ -59,9 +59,11 @@ HudHelper.RegisterHUDElement({
 		end
 		local sprite = isGolden and data.GoldenBirthcakeSprite or data.BirthcakeSprite
 		local playerType = player:GetPlayerType()
-		sprite.Scale = Vector(scale, scale)
-		sprite.Color = Color(1,1,1,alpha)
 		Isaac.RunCallbackWithParam(Mod.ModCallbacks.PRE_BIRTHCAKE_RENDER, playerType, player, sprite, pos)
+		sprite.Scale = Vector(scale, scale)
+		sprite.Color = Color(0,0,0,alpha * 0.25)
+		sprite:Render(pos + Vector(2 * scale, 2 * scale))
+		sprite.Color = Color(1,1,1,alpha)
 		sprite:Render(pos)
 		if Isaac.GetFrameCount() % 2 == 0 and not Mod.Game:IsPaused() then
 			sprite:Update()
