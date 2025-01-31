@@ -8,7 +8,7 @@ General additions/changes:
 
 Isaac's Birthday Party Challenge:
 - Now randomly selects characters to play as when decending floors as opposed to a set order. This is still restricted to vanilla characters
-- Now displays a "defeat goal" icon for The Beast and actually makes The Beast reachable, as the
+- Now displays a "defeat goal" icon for The Beast and actually makes The Beast reachable, as the Ascent door never spawned
 - You now start with Dice Shard instead of D6 (to match the effect of Isaac's Birthcake)
 - Treasure Rooms added to the list of blacklisted rooms
 - Trinkets cannot spawn, being replaced with a random heart, coin, bomb, or key pickup instead. Birthcake itself does not apply to this
