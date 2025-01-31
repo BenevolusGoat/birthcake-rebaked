@@ -224,10 +224,7 @@ local languageOptionToEID = {
 	["zh"] = "zh_cn"
 }
 
----@param table table
----@return string, string
-function BirthcakeRebaked:GetTranslatedString(table)
-	if type(table) == "string" then return table, "en_us" end
+function BirthcakeRebaked:GetLanguage()
 	local lang = languageOptionToEID[Options.Language]
 	local langSetting = Mod.GetSetting(Mod.Setting.BirthcakeLanguage)
 	if langSetting == 2 then
@@ -239,6 +236,14 @@ function BirthcakeRebaked:GetTranslatedString(table)
 	elseif langSetting == 5 and EID then
 		lang = EID.getLanguage()
 	end
+	return lang
+end
+
+---@param table table
+---@return string, string
+function BirthcakeRebaked:GetTranslatedString(table)
+	if type(table) == "string" then return table, "en_us" end
+	local lang = BirthcakeRebaked:GetLanguage()
 	local desc = table[lang]
 
 	if not table[lang] or desc == "" then
@@ -277,7 +282,7 @@ function BirthcakeRebaked:GetBirthcakeName(player)
 	local playerType = player:GetPlayerType()
 	local name = player:GetName()
 	local displayName = name
-	local lang = languageOptionToEID[Options.Language]
+	local lang = BirthcakeRebaked:GetLanguage()
 	local nameSetting = Mod.GetSetting(Mod.Setting.TaintedName)
 	local supportedName = Mod.BirthcakeNames[playerType]
 
