@@ -1411,21 +1411,21 @@ BIRTHCAKE_EID.ShortDescriptions = {
 		en_us = {
 			"↑ +",
 			function(descObj)
-				return BIRTHCAKE_EID.DefaultDescription._modifier(descObj)
+				return BIRTHCAKE_EID.ShortDescriptions.DEFAULT_EFFECT._modifier(descObj)
 			end,
 			"% to all stats"
 		},
 		ru = {
 			"↑ +",
 			function(descObj)
-				return BIRTHCAKE_EID.DefaultDescription._modifier(descObj)
+				return BIRTHCAKE_EID.ShortDescriptions.DEFAULT_EFFECT._modifier(descObj)
 			end,
 			"% ко всем характеристикам"
 		},
 		spa = {
 			"↑ +",
 			function(descObj)
-				return BIRTHCAKE_EID.DefaultDescription._modifier(descObj)
+				return BIRTHCAKE_EID.ShortDescriptions.DEFAULT_EFFECT._modifier(descObj)
 			end,
 			"% a todas las estadísticas"
 		},

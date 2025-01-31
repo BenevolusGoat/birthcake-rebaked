@@ -175,7 +175,7 @@ local translations = include("src_birthcake.birthcake_translations")
 BirthcakeRebaked.BirthcakeNames = translations.BIRTHCAKE_NAME
 BirthcakeRebaked.BirthcakeDescriptions = translations.BIRTHCAKE_DESCRIPTION
 BirthcakeRebaked.BirthcakeOneLiners = translations.ONE_LINERS
-BirthcakeRebaked.BirthcakeTaitnedTitles = translations.TAINTED_TITLES
+BirthcakeRebaked.BirthcakeTaintedTitle = translations.TAINTED_TITLES
 BirthcakeRebaked.EID = translations.EID
 
 include("src_birthcake.compatibility.patches.mod_config_menu")
@@ -249,6 +249,29 @@ function BirthcakeRebaked:GetTranslatedString(table)
 	return desc, lang
 end
 
+local taintedToNormal = {
+	[PlayerType.PLAYER_ISAAC_B] = PlayerType.PLAYER_ISAAC,
+	[PlayerType.PLAYER_MAGDALENE_B] = PlayerType.PLAYER_MAGDALENE,
+	[PlayerType.PLAYER_CAIN_B] = PlayerType.PLAYER_CAIN,
+	[PlayerType.PLAYER_JUDAS_B] = PlayerType.PLAYER_JUDAS,
+	[PlayerType.PLAYER_BLUEBABY_B] = PlayerType.PLAYER_BLUEBABY,
+	[PlayerType.PLAYER_EVE_B] = PlayerType.PLAYER_EVE,
+	[PlayerType.PLAYER_SAMSON_B] = PlayerType.PLAYER_SAMSON,
+	[PlayerType.PLAYER_AZAZEL_B] = PlayerType.PLAYER_AZAZEL,
+	[PlayerType.PLAYER_LAZARUS_B] = PlayerType.PLAYER_LAZARUS,
+	[PlayerType.PLAYER_EDEN_B] = PlayerType.PLAYER_EDEN,
+	[PlayerType.PLAYER_THELOST_B] = PlayerType.PLAYER_THELOST,
+	[PlayerType.PLAYER_LILITH_B] = PlayerType.PLAYER_LILITH,
+	[PlayerType.PLAYER_KEEPER_B] = PlayerType.PLAYER_KEEPER,
+	[PlayerType.PLAYER_APOLLYON_B] = PlayerType.PLAYER_APOLLYON,
+	[PlayerType.PLAYER_THEFORGOTTEN_B] = PlayerType.PLAYER_THEFORGOTTEN,
+	[PlayerType.PLAYER_BETHANY_B] = PlayerType.PLAYER_BETHANY,
+	[PlayerType.PLAYER_JACOB_B] = PlayerType.PLAYER_JACOB,
+	[PlayerType.PLAYER_LAZARUS2_B] = PlayerType.PLAYER_LAZARUS,
+	[PlayerType.PLAYER_JACOB2_B] = PlayerType.PLAYER_JACOB,
+	[PlayerType.PLAYER_THESOUL_B] = PlayerType.PLAYER_THEFORGOTTEN,
+}
+
 ---@param player EntityPlayer
 function BirthcakeRebaked:GetBirthcakeName(player)
 	local playerType = player:GetPlayerType()
@@ -256,36 +279,46 @@ function BirthcakeRebaked:GetBirthcakeName(player)
 	local displayName = name
 	local lang = languageOptionToEID[Options.Language]
 	local nameSetting = Mod.GetSetting(Mod.Setting.TaintedName)
+	local supportedName = Mod.BirthcakeNames[playerType]
 
 	if Mod:IsTainted(player) then
-		--Some Tainteds have "B" at the end as their identifier, which is dumb to an extent
+		--Some Modded Tainteds have a "B" at the end as their identifier. Remove it.
 		local stupidTaintedB = string.sub(name, -1, -1) == "B"
-		if stupidTaintedB then
+		if not supportedName and stupidTaintedB then
 			name = string.sub(name, 1, -2)
 			displayName = string.sub(displayName, 1, -2)
 		end
-		if nameSetting == 1
-			and string.find(displayName, "Tainted ")
-		then
-			displayName = string.gsub(displayName, "Tainted ", "")
+		--Remove "Tainted" and we can handle it later if need be
+		if not supportedName and string.find(displayName, "Tainted ") then
+			displayName = string.gsub(displayName, "Tainted", "")
+		end
+		--No "Tainted" prefix. Use Normal if present
+		if nameSetting == 1 then
+			if playerType < PlayerType.NUM_PLAYER_TYPES then
+				if REPENTOGON then
+					supportedName = Mod.BirthcakeNames[player:GetEntityConfigPlayer():GetTaintedCounterpart():GetPlayerType()]
+				else
+					supportedName = Mod.BirthcakeNames[taintedToNormal[playerType]]
+				end
+			end
+		--Supported Tainteds have "Tainted" in their name already by default
 		elseif nameSetting == 2
-			and not string.find(displayName, "Tainted")
+			and not supportedName
+			and playerType >= PlayerType.NUM_PLAYER_TYPES
+			and Isaac.GetPlayerTypeByName(name, false) ~= -1
 		then
-			--If their name is the same as their normal variant
-			if playerType < PlayerType.NUM_PLAYER_TYPES
-				or Isaac.GetPlayerTypeByName(name, false) ~= -1
-			then
-				displayName = Mod:PrefixTainted(displayName, lang)
-			end
-		elseif nameSetting == 3 then
-			local nameTitle = Mod.BirthcakeTaitnedTitles[playerType]
-			if nameTitle then
-				displayName = Mod:GetTranslatedString(nameTitle)
-			end
+			displayName = Mod:PrefixTainted(displayName, lang)
 		end
 	end
-	if Mod.BirthcakeNames[playerType] then
-		local newName, newLang = Mod:GetTranslatedString(Mod.BirthcakeNames[playerType])
+	if supportedName then
+		local nameToUse = supportedName
+		if nameSetting == 3 then
+			local nameTitle = Mod.BirthcakeTaintedTitle[playerType]
+			if nameTitle then
+				nameToUse = nameTitle
+			end
+		end
+		local newName, newLang = Mod:GetTranslatedString(nameToUse)
 		displayName = newName
 		lang = newLang
 	else
@@ -299,7 +332,7 @@ function BirthcakeRebaked:GetBirthcakeName(player)
 		displayName = Mod:AppendCake(displayName, lang)
 	end
 	local nameResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.GET_BIRTHCAKE_ITEMTEXT_NAME, playerType, player,
-	displayName)
+		displayName)
 	displayName = (nameResult ~= nil and tostring(nameResult)) or displayName
 	return displayName
 end
@@ -333,7 +366,8 @@ function BirthcakeRebaked:GetBirthcakeSprite(player)
 	end
 	sprite:ReplaceSpritesheet(0, spritePath)
 	sprite:LoadGraphics()
-	local spriteResult, spritePathResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.LOAD_BIRTHCAKE_SPRITE, playerType, player, sprite, spritePath)
+	local spriteResult, spritePathResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.LOAD_BIRTHCAKE_SPRITE, playerType,
+	player, sprite, spritePath)
 	sprite = (spriteResult ~= nil and type(spriteResult) == "userdata" and getmetatable(spriteResult).__type == "Sprite" and spriteResult) or
 		sprite
 	spritePath = (spritePathResult ~= nil and type(spritePathResult) == "string" and spritePathResult) or spritePath
