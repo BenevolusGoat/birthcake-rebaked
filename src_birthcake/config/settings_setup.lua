@@ -8,3 +8,12 @@ SettingsHelper.AddChoiceSetting("Settings", Mod.Setting.TaintedName,
 		"\"Tainted\" prefix",
 		"Title",
 	}, 1)
+
+SettingsHelper.AddChoiceSetting("Settings", Mod.Setting.BirthcakeLanguage,
+	"The language used when picking up Birthcake", {
+		"Game-selected language",
+		"Polish",
+		"Czech",
+		"Brazillian Portugese",
+		"EID-selected language",
+	}, 1)

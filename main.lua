@@ -228,6 +228,16 @@ local languageOptionToEID = {
 function BirthcakeRebaked:GetTranslatedString(table)
 	if type(table) == "string" then return table, "en_us" end
 	local lang = languageOptionToEID[Options.Language]
+	local langSetting = Mod.GetSetting(Mod.Setting.BirthcakeLanguage)
+	if langSetting == 2 then
+		lang = "pl"
+	elseif langSetting == 3 then
+		lang = "cs_cz"
+	elseif langSetting == 4 then
+		lang = "pl_br"
+	elseif langSetting == 5 and EID then
+		lang = EID.getLanguage()
+	end
 	local desc = table[lang]
 
 	if not table[lang] or desc == "" then

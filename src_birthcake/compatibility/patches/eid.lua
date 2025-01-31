@@ -19,7 +19,7 @@ end
 
 ---@function
 function BIRTHCAKE_EID:GetTranslatedString(strTable)
-	local lang = EID.getLanguage() or "en_us"
+	local lang = EID.getLanguage()
 	--Default to english description if there's no translation
 	local desc = strTable[lang] or strTable["en_us"]
 
