@@ -9,7 +9,7 @@ EDEN_CAKE.HiddenItemGroup = "Eden Birthcake"
 
 ---@param player EntityPlayer
 function EDEN_CAKE:RefreshBirthcakeTrinkets(player)
-	local player_run_save = Mod.SaveManager.GetRunSave(player)
+	local player_run_save = Mod:RunSave(player)
 	local itemPool = Mod.Game:GetItemPool()
 	local trinketList = player_run_save.EdenCakeTrinkets
 	if not trinketList then
@@ -60,7 +60,7 @@ Mod:AddCallback(Mod.ModCallbacks.POST_BIRTHCAKE_COLLECT, EDEN_CAKE.OnAddBirthcak
 
 ---@param player EntityPlayer
 function EDEN_CAKE:ManageTrinkets(player)
-	local player_run_save = Mod.SaveManager.GetRunSave(player)
+	local player_run_save = Mod:RunSave(player)
 	if player_run_save.EdenCakeHasTrinkets and not player:HasTrinket(Mod.Birthcake.ID) then
 		local trinketList = player_run_save.EdenCakeTrinkets
 		if trinketList then
@@ -86,7 +86,7 @@ end
 Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, EDEN_CAKE.ManageTrinkets, PlayerType.PLAYER_EDEN)
 
 function EDEN_CAKE:OnPlayerTypeChange(player)
-	local player_run_save = Mod.SaveManager.GetRunSave(player)
+	local player_run_save = Mod:RunSave(player)
 	if player_run_save.EdenCakeHasTrinkets then
 		local trinketList = player_run_save.EdenCakeTrinkets
 		if trinketList then

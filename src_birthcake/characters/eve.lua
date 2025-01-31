@@ -15,7 +15,7 @@ function EVE_CAKE:BloodBirdInit(familiar)
 		local color = familiar.Color
 		color:SetColorize(1.5, 0.2, 0.2, 1)
 		familiar:SetColor(color, -1, 1, false, true)
-		local familiar_run_save = Mod.SaveManager.GetRunSave(familiar)
+		local familiar_run_save = Mod:RunSave(familiar)
 		familiar_run_save.EveCakeBloodBird = true
 	end
 end
@@ -26,13 +26,14 @@ Mod:AddCallback(ModCallbacks.MC_FAMILIAR_INIT, EVE_CAKE.BloodBirdInit, FamiliarV
 function EVE_CAKE:BloodBirdUpdate(familiar)
 	local player = familiar.Player or familiar.SpawnerEntity and familiar.SpawnerEntity:ToPlayer()
 	if player then
-		local familiar_run_save = Mod.SaveManager.GetRunSave(familiar)
+		local familiar_run_save = Mod:RunSave(familiar)
 		if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_EVE) then
 			if not familiar_run_save.EveCakeBloodBird then
 				EVE_CAKE:BloodBirdInit(familiar)
 			end
 			if familiar.FrameCount % 15 == 0 then
-				local creep = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 0, familiar.Position, Vector.Zero, player)
+				local creep = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 0, familiar.Position,
+					Vector.Zero, player)
 				creep:Update()
 				if not player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS) then
 					creep.SpriteScale = Vector(0.5, 0.5)
@@ -96,12 +97,12 @@ EVE_CAKE.ClotVariantOnDeath = {
 	end,
 	[Mod.BloodClotSubtype.SOUL] = function(clot, creep)
 		creep:GetSprite():Load("gfx/1000.025_creep (white).anm2", true)
-		creep.Color = Color(1,1,1,1,-0.9, -0.725, -0.5)
+		creep.Color = Color(1, 1, 1, 1, -0.9, -0.725, -0.5)
 		creep.CollisionDamage = clot.Player.Damage * 0.35
 	end,
 	[Mod.BloodClotSubtype.BLACK] = function(clot, creep)
 		creep:GetSprite():Load("gfx/1000.025_creep (white).anm2", true)
-		creep.Color = Color(1,1,1,1,-0.9, -0.9, -0.9)
+		creep.Color = Color(1, 1, 1, 1, -0.9, -0.9, -0.9)
 		creep.CollisionDamage = clot.Player.Damage * 0.43
 		local data = Mod:GetData(creep)
 		data.IsEveCakeCreep = true
@@ -117,7 +118,7 @@ EVE_CAKE.ClotVariantOnDeath = {
 	end,
 	[Mod.BloodClotSubtype.GOLD] = function(clot, creep)
 		creep:GetSprite():Load("gfx/1000.025_creep (white).anm2", true)
-		creep.Color = Color(1,1,1,1,-0.05, -0.4, -1)
+		creep.Color = Color(1, 1, 1, 1, -0.05, -0.4, -1)
 		creep.CollisionDamage = clot.Player.Damage * 0.35
 		local data = Mod:GetData(creep)
 		data.IsEveCakeCreep = true
@@ -125,15 +126,16 @@ EVE_CAKE.ClotVariantOnDeath = {
 	end,
 	[Mod.BloodClotSubtype.BONE] = function(clot, creep)
 		creep:GetSprite():Load("gfx/1000.025_creep (white).anm2", true)
-		creep.Color = Color(1,1,1,1,-0.25, -0.27, -0.29)
+		creep.Color = Color(1, 1, 1, 1, -0.25, -0.27, -0.29)
 		creep.CollisionDamage = clot.Player.Damage * 0.35
 		for _ = 1, 3 do
-			Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BONE_ORBITAL, 0, clot.Position, Vector.Zero, clot.Player)
+			Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BONE_ORBITAL, 0, clot.Position, Vector.Zero,
+				clot.Player)
 		end
 	end,
 	[Mod.BloodClotSubtype.ROTTEN] = function(clot, creep)
 		creep:GetSprite():Load("gfx/1000.025_creep (white).anm2", true)
-		creep.Color = Color(1,1,1,1,-0.8, -0.78, -0.87)
+		creep.Color = Color(1, 1, 1, 1, -0.8, -0.78, -0.87)
 		creep.CollisionDamage = clot.Player.Damage * 0.35
 		clot.Player:AddBlueFlies(3, clot.Position, clot.Player)
 	end
@@ -148,7 +150,8 @@ function EVE_CAKE:ClotDeath(ent, dmg, flag, source, cdframe)
 		and ent.Variant == FamiliarVariant.BLOOD_BABY
 	then
 		local clot = ent:ToFamiliar() ---@cast clot EntityFamiliar
-		local creep = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 0, clot.Position, Vector.Zero, clot):ToEffect()
+		local creep = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 0, clot.Position, Vector
+		.Zero, clot):ToEffect()
 		---@cast creep EntityEffect
 		creep:SetTimeout(241)
 		local deathEffect = EVE_CAKE.ClotVariantOnDeath[ent.SubType]

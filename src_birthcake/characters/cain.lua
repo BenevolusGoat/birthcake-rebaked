@@ -61,7 +61,8 @@ function CAIN_BIRTHCAKE:OnSlotInitiate(slot)
 				local player = data.TouchedPlayer
 				local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
 				local roll = rng:RandomFloat()
-				local baseChance = type(slotData.RefundChance) == "function" and slotData.RefundChance(player) or slotData.RefundChance
+				local baseChance = type(slotData.RefundChance) == "function" and slotData.RefundChance(player) or
+				slotData.RefundChance
 				---@cast baseChance number
 				local chance = Mod:GetBalanceApprovedChance(baseChance, Mod:GetTrinketMult(player))
 
@@ -109,11 +110,11 @@ CAIN_BIRTHCAKE.DoublePickupToSingle = {
 
 ---@param pickup EntityPickup
 function CAIN_BIRTHCAKE:SplitPickup(pickup)
-	local pickup_save = Mod.SaveManager.TryGetRoomFloorSave(pickup)
+	local pickup_save = Mod:TryGetNoRerollSave(pickup)
 	if Mod:AnyPlayerTypeHasBirthcake(PlayerType.PLAYER_CAIN_B)
 		and not pickup:IsShopItem()
 		and (not pickup_save
-		or not pickup_save.NoRerollSave.CainCakeSplitPickup)
+			or not pickup_save.NoRerollSave.CainCakeSplitPickup)
 		and pickup.FrameCount == 1
 	then
 		local variant = pickup.Variant
@@ -121,11 +122,12 @@ function CAIN_BIRTHCAKE:SplitPickup(pickup)
 		local splitSubType = CAIN_BIRTHCAKE.DoublePickupToSingle[variant] and
 			CAIN_BIRTHCAKE.DoublePickupToSingle[variant][subType]
 		if splitSubType then
-			pickup_save = Mod.SaveManager.GetRoomFloorSave(pickup).NoRerollSave
+			pickup_save = Mod:GetNoRerollSave(pickup)
 			local pickup2 = Isaac.Spawn(pickup.Type, variant, splitSubType,
-			Isaac.GetFreeNearPosition(pickup.Position + Vector(15, 0), 0), Vector.Zero, pickup.SpawnerEntity):ToPickup()
+			Isaac.GetFreeNearPosition(pickup.Position + Vector(15, 0), 0), Vector.Zero, pickup.SpawnerEntity)
+			:ToPickup()
 			---@cast pickup2 EntityPickup
-			Mod.SaveManager.GetRoomFloorSave(pickup2).NoRerollSave.CainCakeSplitPickup = true
+			Mod:GetNoRerollSave(pickup2).CainCakeSplitPickup = true
 			pickup:Morph(pickup.Type, pickup.Variant, splitSubType, true, true, true)
 			pickup2:Morph(pickup.Type, pickup.Variant, splitSubType, true, true, true)
 			pickup_save.CainCakeSplitPickup = true

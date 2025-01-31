@@ -46,9 +46,9 @@ function KEEPER_CAKE:SpawnMiniShop()
 	local item = BirthcakeRebaked:SpawnFromPool(ItemPoolType.POOL_SHOP, centerPos + Vector(0, -60), -1)
 	local pickup1 = BirthcakeRebaked:SpawnRandomPickup(centerPos + Vector(80, -40), -1)
 	local pickup2 = BirthcakeRebaked:SpawnRandomPickup(centerPos + Vector(-80, -40), -1)
-	Mod.SaveManager.GetRoomFloorSave(item).RerollSave.IsKeeperShop = true
-	Mod.SaveManager.GetRoomFloorSave(pickup1).RerollSave.IsKeeperShop = true
-	Mod.SaveManager.GetRoomFloorSave(pickup2).RerollSave.IsKeeperShop = true
+	Mod:GetRerollSave(item).IsKeeperShop = true
+	Mod:GetRerollSave(pickup1).IsKeeperShop = true
+	Mod:GetRerollSave(pickup2).IsKeeperShop = true
 end
 
 function KEEPER_CAKE:FindKeeperB()
@@ -62,7 +62,7 @@ Mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, KEEPER_CAKE.FindKeeperB)
 
 ---@param pickup EntityPickup
 function KEEPER_CAKE:UpdateShop(pickup)
-	local room_save = Mod.SaveManager.TryGetRoomFloorSave(pickup)
+	local room_save = Mod:TryGetRerollSave(pickup)
 	if not room_save
 		or not room_save.RerollSave.IsKeeperShop
 	then

@@ -99,7 +99,7 @@ function ISAAC_CAKE:PrePickupCollision(pickup, collider)
 		and ISAAC_CAKE:ItemWillFillInventory(pickup.SubType)
 		and ISAAC_CAKE:HasFullInventory(player)
 	then
-		local player_run_save = Mod.SaveManager.GetRunSave(player)
+		local player_run_save = Mod:RunSave(player)
 		local inventory = player_run_save.IsaacBBirthcakeInventory
 		if not inventory then
 			inventory = {}
@@ -128,7 +128,7 @@ function ISAAC_CAKE:ManageBirthrightInventoryCap(player)
 	local effects = player:GetEffects()
 	local cakeEffects = effects:GetTrinketEffectNum(Mod.Birthcake.ID)
 	if cakeEffects > 0 then
-		local player_run_save = Mod.SaveManager.GetRunSave(player)
+		local player_run_save = Mod:RunSave(player)
 		if player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
 			and not player_run_save.IsaacCakeHasBirthright
 		then
@@ -149,7 +149,7 @@ Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, ISAAC_CAKE.ManageBirthright
 
 ---@param player EntityPlayer
 function ISAAC_CAKE:OnPlayerTypeChange(player)
-	local player_run_save = Mod.SaveManager.GetRunSave(player)
+	local player_run_save = Mod:RunSave(player)
 	if player_run_save.IsaacBBirthcakeInventory then
 		for _, itemID in ipairs(player_run_save.IsaacBBirthcakeInventory) do
 			player:AddCollectible(itemID, 0, false)
@@ -188,7 +188,7 @@ HudHelper.RegisterHUDElement({
 	end,
 	OnRender = function(player, playerHUDIndex, _, position)
 		local inventoryCap = player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID)
-		local player_run_save = Mod.SaveManager.GetRunSave(player)
+		local player_run_save = Mod:RunSave(player)
 		local inventory = player_run_save.IsaacBBirthcakeInventory
 		local isAtTop = playerHUDIndex < 2
 		local yOffset = isAtTop and 12 or -12

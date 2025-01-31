@@ -3,6 +3,7 @@ _G.BirthcakeRebaked = RegisterMod("Birthcake: Rebaked", 1)
 local Mod = BirthcakeRebaked
 BirthcakeRebaked.SaveManager = include("src_birthcake.utility.save_manager")
 BirthcakeRebaked.SaveManager.Init(BirthcakeRebaked)
+include("src_birthcake.utility.save_shortcuts")
 BirthcakeRebaked.Game = Game()
 BirthcakeRebaked.SFXManager = SFXManager()
 BirthcakeRebaked.ItemConfig = Isaac.GetItemConfig()

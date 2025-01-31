@@ -17,7 +17,7 @@ MAGDALENE_CAKE.HeartSubTypeConversion = {
 
 ---@param pickup EntityPickup
 function MAGDALENE_CAKE:HeartReplace(pickup)
-	local pickup_save = Mod.SaveManager.TryGetRoomFloorSave(pickup)
+	local pickup_save = Mod:TryGetNoRerollSave(pickup)
 	local player = BirthcakeRebaked:FirstPlayerTypeBirthcakeOwner(PlayerType.PLAYER_MAGDALENE)
 	if not player then return end
 	local newSubType = MAGDALENE_CAKE.HeartSubTypeConversion[pickup.SubType]
@@ -25,9 +25,9 @@ function MAGDALENE_CAKE:HeartReplace(pickup)
 	if player
 		and newSubType
 		and (not pickup_save
-		or not pickup_save.NoRerollSave.MagdaleneCakeUpgradedPickup)
+			or not pickup_save.NoRerollSave.MagdaleneCakeUpgradedPickup)
 	then
-		pickup_save = Mod.SaveManager.GetRoomFloorSave(pickup).NoRerollSave
+		pickup_save = Mod:GetNoRerollSave(pickup)
 		local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
 		if rng:RandomFloat()
 			<= Mod:GetBalanceApprovedChance(MAGDALENE_CAKE.HEART_REPLACE_CHANCE, Mod:GetTrinketMult(player))
@@ -60,7 +60,8 @@ function MAGDALENE_CAKE:HeartExplode(pickup)
 		and trinketMult > 0
 	then
 		pickup:BloodExplode()
-		local damage = (MAGDALENE_CAKE.HeartSubtypeDamage[pickup.SubType] + (0.5 * Mod.Game:GetLevel():GetStage())) * (trinketMult * 0.5)
+		local damage = (MAGDALENE_CAKE.HeartSubtypeDamage[pickup.SubType] + (0.5 * Mod.Game:GetLevel():GetStage())) *
+		(trinketMult * 0.5)
 		for _, ent in ipairs(Isaac.FindInRadius(pickup.Position, pickup.Size * 3, EntityPartition.ENEMY)) do
 			if ent:IsActiveEnemy(false) and ent:IsVulnerableEnemy() then
 				ent:TakeDamage(damage, DamageFlag.DAMAGE_EXPLOSION | DamageFlag.DAMAGE_IGNORE_ARMOR, EntityRef(pickup), 0)
