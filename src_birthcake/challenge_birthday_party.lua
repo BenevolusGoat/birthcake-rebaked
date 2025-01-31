@@ -11,11 +11,11 @@ include("src_birthcake.utility.challenge_util")
 
 local CHARACTER_LIST = {
 	PlayerType.PLAYER_ISAAC,
-	--[[ PlayerType.PLAYER_MAGDALENE,
+	PlayerType.PLAYER_MAGDALENE,
 	PlayerType.PLAYER_CAIN,
-	PlayerType.PLAYER_JUDAS, ]]
+	PlayerType.PLAYER_JUDAS,
 	PlayerType.PLAYER_BLUEBABY,
-	--[[ PlayerType.PLAYER_EVE,
+	PlayerType.PLAYER_EVE,
 	PlayerType.PLAYER_SAMSON,
 	PlayerType.PLAYER_AZAZEL,
 	PlayerType.PLAYER_LAZARUS,
@@ -26,7 +26,7 @@ local CHARACTER_LIST = {
 	PlayerType.PLAYER_APOLLYON,
 	PlayerType.PLAYER_THEFORGOTTEN,
 	PlayerType.PLAYER_BETHANY,
-	PlayerType.PLAYER_JACOB, ]]
+	PlayerType.PLAYER_JACOB,
 }
 
 ---@type {[PlayerType]: fun(player: EntityPlayer)}
