@@ -176,7 +176,10 @@ Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, BIRTHDAY_PARTY.OnPeffectUpd
 
 ---@param pickup EntityPickup
 function BIRTHDAY_PARTY:NoTrinkets(pickup)
-	if pickup.SubType ~= Mod.Birthcake.ID then
+	if Isaac.GetChallenge() == BIRTHDAY_PARTY.ID
+		and pickup.SubType ~= Mod.Birthcake.ID
+		and pickup.SubType ~= TrinketType.TRINKET_NULL
+	then
 		local rng = Mod.GENERIC_RNG
 		pickup:Morph(pickup.Type, (rng:RandomInt(4) + 1) * 10, 0)
 	end
