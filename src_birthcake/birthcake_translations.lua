@@ -305,7 +305,7 @@ local translations = {
 			pt_br = "do Apolion Contaminado",
 		},
 		[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [!] | PL: [!] | KO_KR [!] | PT_BR [!]
-			en_us = "Tainted The Forgotten's",
+			en_us = "Tainted Forgotten's",
 			ru = "Порченого Забытого",
 			spa = "del Tainted Olvidado",
 			cs_cz = "Zapomenutého Poskvrněný",
