@@ -3,26 +3,48 @@ local Mod = BirthcakeRebaked
 local API = {}
 BirthcakeRebaked.API = API
 
+local function assignText(tableName, playerType, tableOrString)
+	if type(playerType) ~= "number" then
+		error("[Birthcake: Rebaked]: Error: Provided PlayerType \"" .. playerType .. "\" type " .. type(playerType) .. "is not valid!")
+	end
+	if type(tableOrString) == "table" then
+		Mod[tableName][playerType] = tableOrString
+	elseif type(tableOrString) == "string" then
+		Mod[tableName][playerType] = {
+			en_us = tableOrString
+		}
+	else
+		error("[Birthcake: Rebaked]: Error: Provided text \"" .. tableOrString .. "\" type " .. type(tableOrString) .. "is not valid!")
+	end
+end
+
 ---Define a description, and optionally a name, for your character's Birthcake.
 ---@param playerType PlayerType
 ---@param desc string | table
 ---@param name? string | table
 function API:AddBirthcakePickupText(playerType, desc, name)
-	if type(desc) == "table" then
-		Mod.BirthcakeDescriptions[playerType] = desc
-	else
-		Mod.BirthcakeDescriptions[playerType] = {
-			en_us = desc
-		}
+	assignText("BirthcakeDescriptions", playerType, desc)
+	if name then
+		assignText("BirthcakeNames", playerType, name)
+	end
+end
+
+---Define a description, and optionally a name, for your character's Birthcake.
+---@param playerType PlayerType
+---@param desc string | table
+---@param nonTaintedPlayerType? PlayerType #Define the normal-side character associated with this character. Used for the "Default name" option for Tainted name pickup text
+---@param name? string | table #Have "Tainted" included in the name by default, if accurate. Used for the "Tainted prefix" option for Tainted name pickup text
+---@param taintedTitle? string | table #Used for the "Tainted Title" option for Tainted name pickup text
+function API:AddTaintedBirthcakePickupText(playerType, desc, nonTaintedPlayerType, name, taintedTitle)
+	assignText("BirthcakeDescriptions", playerType, desc)
+	if nonTaintedPlayerType then
+		Mod.TaintedToNormal[playerType] = nonTaintedPlayerType
 	end
 	if name then
-		if type(name) == "table" then
-			Mod.BirthcakeNames[playerType] = name
-		else
-			Mod.BirthcakeNames[playerType] = {
-				en_us = name
-			}
-		end
+		assignText("BirthcakeNames", playerType, name)
+	end
+	if taintedTitle then
+		assignText("BirthcakeTaintedTitle", playerType, name)
 	end
 end
 

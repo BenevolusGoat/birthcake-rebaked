@@ -224,17 +224,23 @@ local languageOptionToEID = {
 	["zh"] = "zh_cn"
 }
 
+local modSettingToLanguage = {
+	"en_us",
+	"ru",
+	"spa",
+	"cs_cz",
+	"ko_kr",
+	"pl",
+	"pt_br",
+}
+
 function BirthcakeRebaked:GetLanguage()
 	local lang = languageOptionToEID[Options.Language]
 	local langSetting = Mod.GetSetting(Mod.Setting.BirthcakeLanguage)
 	if langSetting == 2 then
-		lang = "pl"
-	elseif langSetting == 3 then
-		lang = "cs_cz"
-	elseif langSetting == 4 then
-		lang = "pl_br"
-	elseif langSetting == 5 and EID then
 		lang = EID.getLanguage()
+	elseif langSetting >= 3 then
+		lang = modSettingToLanguage[langSetting - 2]
 	end
 	return lang
 end
@@ -254,7 +260,7 @@ function BirthcakeRebaked:GetTranslatedString(table)
 	return desc, lang
 end
 
-local taintedToNormal = {
+BirthcakeRebaked.TaintedToNormal = {
 	[PlayerType.PLAYER_ISAAC_B] = PlayerType.PLAYER_ISAAC,
 	[PlayerType.PLAYER_MAGDALENE_B] = PlayerType.PLAYER_MAGDALENE,
 	[PlayerType.PLAYER_CAIN_B] = PlayerType.PLAYER_CAIN,
@@ -281,7 +287,6 @@ local taintedToNormal = {
 function BirthcakeRebaked:GetBirthcakeName(player)
 	local playerType = player:GetPlayerType()
 	local name = player:GetName()
-	local displayName = name
 	local lang = BirthcakeRebaked:GetLanguage()
 	local nameSetting = Mod.GetSetting(Mod.Setting.TaintedName)
 	local supportedName = Mod.BirthcakeNames[playerType]
@@ -291,20 +296,17 @@ function BirthcakeRebaked:GetBirthcakeName(player)
 		local stupidTaintedB = string.sub(name, -1, -1) == "B"
 		if not supportedName and stupidTaintedB then
 			name = string.sub(name, 1, -2)
-			displayName = string.sub(displayName, 1, -2)
 		end
 		--Remove "Tainted" and we can handle it later if need be
-		if not supportedName and string.find(displayName, "Tainted ") then
-			displayName = string.gsub(displayName, "Tainted", "")
+		if not supportedName and string.find(name, "Tainted ") then
+			name = string.gsub(name, "Tainted ", "")
 		end
 		--No "Tainted" prefix. Use Normal if present
 		if nameSetting == 1 then
-			if playerType < PlayerType.NUM_PLAYER_TYPES then
-				if REPENTOGON then
-					supportedName = Mod.BirthcakeNames[player:GetEntityConfigPlayer():GetTaintedCounterpart():GetPlayerType()]
-				else
-					supportedName = Mod.BirthcakeNames[taintedToNormal[playerType]]
-				end
+			if REPENTOGON then
+				supportedName = Mod.BirthcakeNames[player:GetEntityConfigPlayer():GetTaintedCounterpart():GetPlayerType()]
+			elseif Mod.TaintedToNormal[playerType] then
+				supportedName = Mod.BirthcakeNames[Mod.TaintedToNormal[playerType]]
 			end
 		--Supported Tainteds have "Tainted" in their name already by default
 		elseif nameSetting == 2
@@ -312,7 +314,7 @@ function BirthcakeRebaked:GetBirthcakeName(player)
 			and playerType >= PlayerType.NUM_PLAYER_TYPES
 			and Isaac.GetPlayerTypeByName(name, false) ~= -1
 		then
-			displayName = Mod:PrefixTainted(displayName, lang)
+			name = Mod:PrefixTainted(name, "en_us")
 		end
 	end
 	if supportedName then
@@ -324,22 +326,22 @@ function BirthcakeRebaked:GetBirthcakeName(player)
 			end
 		end
 		local newName, newLang = Mod:GetTranslatedString(nameToUse)
-		displayName = newName
+		name = newName
 		lang = newLang
 	else
-		if string.sub(displayName, -1, -1) == "s" then
-			displayName = displayName .. "'"
+		if string.sub(name, -1, -1) == "s" then
+			name = name .. "'"
 		else
-			displayName = displayName .. "'s"
+			name = name .. "'s"
 		end
 	end
-	if not string.find(displayName, "Cake") and not string.find(displayName, BirthcakeRebaked.BirthcakeOneLiners.CAKE[lang]) then
-		displayName = Mod:AppendCake(displayName, lang)
+	if not string.find(name, "Cake") and not string.find(name, BirthcakeRebaked.BirthcakeOneLiners.CAKE[lang]) then
+		name = Mod:AppendCake(name, supportedName and lang or "en_us")
 	end
 	local nameResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.GET_BIRTHCAKE_ITEMTEXT_NAME, playerType, player,
-		displayName)
-	displayName = (nameResult ~= nil and tostring(nameResult)) or displayName
-	return displayName
+		name)
+	name = (nameResult ~= nil and tostring(nameResult)) or name
+	return name
 end
 
 ---@param player EntityPlayer

@@ -113,7 +113,7 @@ function EDEN_CAKE:PreventReroll(ent, amount, flags, source, countdownFrames)
 	if not Mod:HasBitFlags(flags, DamageFlag.DAMAGE_RED_HEARTS | DamageFlag.DAMAGE_NO_PENALTIES)
 		and player
 		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_EDEN_B)
-		and not Mod:GetData(player).EdenCakePreventLoop
+		and not Mod:GetData(player).PreventDamageLoop
 	then
 		local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
 		--We only care about held Birthcakes, not smelted
@@ -131,9 +131,9 @@ function EDEN_CAKE:PreventReroll(ent, amount, flags, source, countdownFrames)
 		end
 
 		if rng:RandomFloat() <= Mod:GetBalanceApprovedChance(EDEN_CAKE.PREVENT_REROLL_CHANCE, Mod:GetTrinketMult(player)) then
-			data.EdenCakePreventLoop = true
+			data.PreventDamageLoop = true
 			player:TakeDamage(amount, flags | DamageFlag.DAMAGE_NO_PENALTIES, source, countdownFrames)
-			data.EdenCakePreventLoop = false
+			data.PreventDamageLoop = false
 
 			return false
 		end

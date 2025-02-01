@@ -3,7 +3,7 @@ local Mod = BirthcakeRebaked
 local SettingsHelper = BirthcakeRebaked.SettingsHelper
 
 SettingsHelper.AddChoiceSetting("Settings", Mod.Setting.TaintedName,
-	"The display name of Tainted characters display when picking up Birthcake", {
+	"The display name of Tainted characters when picking up Birthcake", {
 		"Default name",
 		"\"Tainted\" prefix",
 		"Title",
@@ -12,8 +12,12 @@ SettingsHelper.AddChoiceSetting("Settings", Mod.Setting.TaintedName,
 SettingsHelper.AddChoiceSetting("Settings", Mod.Setting.BirthcakeLanguage,
 	"The language used when picking up Birthcake", {
 		"Game-selected language",
-		"Polish",
-		"Czech",
-		"Brazillian Portugese",
 		"EID-selected language",
+		"English",
+		"Russian",
+		"Spanish",
+		"Czech",
+		"Korean",
+		"Polish",
+		"Brazillian Portugese",
 	}, 1)

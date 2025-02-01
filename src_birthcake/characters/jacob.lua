@@ -29,12 +29,12 @@ function JACOB_ESAU_CAKE:RedirectDamage(ent, amount, flags, source, countdown)
 
 	if JACOB_ESAU_CAKE:CheckJacobEsau(player)
 		and player:GetOtherTwin()
-		and not data.JacobEsauCakePreventLoop
+		and not data.PreventDamageLoop
 	then
 		local otherData = Mod:GetData(player:GetOtherTwin())
-		otherData.JacobEsauCakePreventLoop = true
+		otherData.PreventDamageLoop = true
 		player:GetOtherTwin():TakeDamage(amount, flags, source, countdown)
-		otherData.JacobEsauCakePreventLoop = false
+		otherData.PreventDamageLoop = false
 		return false
 	end
 end
