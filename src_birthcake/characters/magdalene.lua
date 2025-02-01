@@ -60,8 +60,7 @@ function MAGDALENE_CAKE:HeartExplode(pickup)
 		and trinketMult > 0
 	then
 		pickup:BloodExplode()
-		local damage = (MAGDALENE_CAKE.HeartSubtypeDamage[pickup.SubType] + (0.5 * Mod.Game:GetLevel():GetStage())) *
-		(trinketMult * 0.5)
+		local damage = (MAGDALENE_CAKE.HeartSubtypeDamage[pickup.SubType] + (0.5 * Mod.Game:GetLevel():GetStage())) * trinketMult
 		for _, ent in ipairs(Isaac.FindInRadius(pickup.Position, pickup.Size * 3, EntityPartition.ENEMY)) do
 			if ent:IsActiveEnemy(false) and ent:IsVulnerableEnemy() then
 				ent:TakeDamage(damage, DamageFlag.DAMAGE_EXPLOSION | DamageFlag.DAMAGE_IGNORE_ARMOR, EntityRef(pickup), 0)
