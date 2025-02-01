@@ -135,8 +135,6 @@ Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, THEFORGOTTEN_CAKE.SoulChargeFire
 
 -- Tainted Forgotten's Birthcake
 
---TODO: Bone Orbitals float in place. Picking up forgotten will make them come to you. Max of 6
-
 ---@param ent Entity
 ---@param source EntityRef
 function THEFORGOTTEN_CAKE:EntityTakeDamage(ent, _, _, source)

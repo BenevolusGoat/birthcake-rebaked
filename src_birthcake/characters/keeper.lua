@@ -38,8 +38,6 @@ Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, KEEPER_CAKE.PlayPartyHorn)
 
 -- Tainted Keeper Birthcake
 
---TODO: Idea for mults. More shop items/pickups?
-
 function KEEPER_CAKE:SpawnMiniShop()
 	local room = game:GetRoom()
 	local centerPos = room:GetCenterPos()
@@ -64,10 +62,9 @@ Mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, KEEPER_CAKE.FindKeeperB)
 
 ---@param pickup EntityPickup
 function KEEPER_CAKE:UpdateShop(pickup)
-	local room_save = Mod:TryGetRerollSave(pickup)
-	if not room_save
-		or not room_save.RerollSave
-		or not room_save.RerollSave.IsKeeperShop
+	local pickup_save = Mod:TryGetRerollSave(pickup)
+	if not pickup_save
+		or not pickup_save.IsKeeperShop
 	then
 		return
 	end
