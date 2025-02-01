@@ -1087,7 +1087,7 @@ BIRTHCAKE_EID.Descs = {
 			"При чихании выстреливает скопление из 6 соплей, наносящих часть урона Азазеля ", --we have word declension in russian, so "козявка" isn't accurate + "сопля" is better
 			"#{{Collectible459}} Слёзы имеют ",
 			function(descObj)
-				return BIRTHCAKE_EID:NormalChanceModifier(descObj, Mod.Birthcake.AZAZEL.BOOGER_STICK_CHANCE)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.AZAZEL.BOOGER_STICK_CHANCE)
 			end,
 			"% шанс прилипнуть к врагам для нанесения урона со временем"
 		},
@@ -1222,7 +1222,7 @@ BIRTHCAKE_EID.Descs = {
 			"#The additional Gello deals 50% damage"
 		},
 		ru = {
-			"Выхлёстывание Гелло Лилит имеет",
+			"Выхлёстывание Гелло Лилит имеет ",
 			function(descObj)
 				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.LILITH.SPAWN_RUNT_CHANCE)
 			end,

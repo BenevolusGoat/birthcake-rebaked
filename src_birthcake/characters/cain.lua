@@ -114,6 +114,7 @@ function CAIN_BIRTHCAKE:SplitPickup(pickup)
 	if Mod:AnyPlayerTypeHasBirthcake(PlayerType.PLAYER_CAIN_B)
 		and not pickup:IsShopItem()
 		and (not pickup_save
+			or not pickup_save.NoRerollSave 
 			or not pickup_save.NoRerollSave.CainCakeSplitPickup)
 		and pickup.FrameCount == 1
 	then

@@ -66,6 +66,7 @@ Mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, KEEPER_CAKE.FindKeeperB)
 function KEEPER_CAKE:UpdateShop(pickup)
 	local room_save = Mod:TryGetRerollSave(pickup)
 	if not room_save
+		or not room_save.RerollSave
 		or not room_save.RerollSave.IsKeeperShop
 	then
 		return
