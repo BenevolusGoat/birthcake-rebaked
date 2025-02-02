@@ -5,6 +5,8 @@ local game = Mod.Game
 local BIRTHCAKE_EID = {}
 BirthcakeRebaked.EID = BIRTHCAKE_EID
 
+if not EID then return end
+
 function BIRTHCAKE_EID:ClosestPlayerTo(entity) --This seems to error for some people sooo yeah
 	if not entity then return EID.player end
 
