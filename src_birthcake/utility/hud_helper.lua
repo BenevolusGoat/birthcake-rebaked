@@ -282,6 +282,18 @@ local function InitFunctions()
 			(player:GetBrokenHearts() * 2)
 	end
 
+	---@param hudLayout HUDLayout
+	function HudHelper.Utils.GetHeartmaxColumns(hudLayout)
+		if not REPENTANCE_PLUS
+			and (
+				hudLayout == HudHelper.HUDLayout.COOP
+				or hudLayout == HudHelper.HUDLayout.STRAWMAN_HEARTS
+			) then
+			return 3
+		end
+		return 6
+	end
+
 	function HudHelper.Utils.GetBookOffset(player)
 		if player:IsCoopGhost() then return Vector.Zero end
 		if (player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES)
@@ -1160,7 +1172,7 @@ local function InitFunctions()
 				if itemID ~= hud.ItemID then goto continue end
 				hud.OnRender(player, playerHUDIndex, hudLayout, pos, alpha, scale, itemID)
 				HudHelper.LastAppliedHUD[HudHelper.HUDType.ACTIVE_ITEM][playerHUDIndex] = hud
-			else
+			elseif not isItem then
 				---@cast hud HUDInfo_Active
 				if not hud.Condition(player, playerHUDIndex, hudLayout, slot) then goto continue end
 				hud.OnRender(player, playerHUDIndex, hudLayout, pos, alpha, scale, slot)
@@ -1220,15 +1232,8 @@ local function InitFunctions()
 	---@param hud HUDInfo_Health
 	local function renderHeartHUDs(player, playerHUDIndex, hudLayout, pos, hud)
 		if REPENTOGON then return end
-		local maxColumns = 6
+		local maxColumns = HudHelper.Utils.GetHeartmaxColumns(hudLayout)
 
-		if not REPENTANCE_PLUS
-			and (
-				hudLayout == HudHelper.HUDLayout.COOP
-				or hudLayout == HudHelper.HUDLayout.STRAWMAN_HEARTS
-			) then
-			maxColumns = 3
-		end
 		hud.OnRender(player, playerHUDIndex, hudLayout, pos, maxColumns)
 		HudHelper.LastAppliedHUD[HudHelper.HUDType.HEALTH][playerHUDIndex] = hud
 	end
@@ -1250,18 +1255,11 @@ local function InitFunctions()
 			return
 		end
 
-		local maxColumns = 6
 		local playerHUDIndex = HudHelper.Utils.GetHUDPlayerNumberIndex(player)
 		local hudLayout = playerHUDIndex == -1 and HudHelper.HUDLayout.STRAWMAN_HEARTS or
 			HudHelper.Utils.GetHUDLayout(playerHUDIndex)
 
-		if not REPENTANCE_PLUS
-			and (
-				hudLayout == HudHelper.HUDLayout.COOP
-				or hudLayout == HudHelper.HUDLayout.STRAWMAN_HEARTS
-			) then
-			maxColumns = 3
-		end
+		local maxColumns = HudHelper.Utils.GetHeartmaxColumns(hudLayout)
 
 		for _, hud in ipairs(HUD_ELEMENTS[HudHelper.HUDType.HEALTH]) do
 			if (not player:IsCoopGhost() or hud.BypassGhostBaby)
@@ -1723,7 +1721,7 @@ local function InitFunctions()
 		Priority = HudHelper.Priority.VANILLA,
 		XPadding = 0,
 		YPadding = 16,
-		Condition = function(player, playerHUDIndex, hudLayout)
+		Condition = function(_, _, hudLayout)
 			return hudLayout == HudHelper.P1_MAIN_TWIN
 		end,
 		OnRender = function() end, -- handled by the game
@@ -1733,7 +1731,7 @@ local function InitFunctions()
 		Priority = HudHelper.Priority.VANILLA,
 		XPadding = 15,
 		YPadding = 0,
-		Condition = function(player, playerHUDIndex, hudLayout)
+		Condition = function(_, _, hudLayout)
 			return hudLayout == HudHelper.P1_OTHER_TWIN
 		end,
 		OnRender = function() end, -- handled by the game
@@ -1742,14 +1740,24 @@ local function InitFunctions()
 		Name = "Heart Cap",
 		Priority = HudHelper.Priority.VANILLA,
 		XPadding = 0,
-		YPadding = function(player)
-			local rows = math.ceil(HudHelper.Utils.GetEffectiveMaxHealth(player) / 12)
+		YPadding = function(player, _, hudLayout)
+			local heartPerRow = HudHelper.Utils.GetHeartmaxColumns(hudLayout) * 2
+
+			local startAt = (heartPerRow == 12) and 5 or -15
+
+			print(heartPerRow)
+
+			local rows = math.ceil(HudHelper.Utils.GetEffectiveMaxHealth(player) / heartPerRow)
 			if (REPENTOGON and not NoHealthCapModEnabled) and not CustomHealthAPI then
-				rows = math.min(4, rows) --Hearts literally stop rendering after 4 rows legitimately
+				rows = math.min(48/heartPerRow, rows) --Hearts literally stop rendering after 4 rows legitimately
 			end
-			return 5 + (rows - 3) * 10
+			return startAt + (rows - 3) * 10
 		end,
-		Condition = function(player)
+		Condition = function(player, playerHUDIndex)
+			if not REPENTANCE_PLUS and playerHUDIndex > 2 then
+				return false
+			end
+
 			return HudHelper.Utils.GetEffectiveMaxHealth(player) > 24
 		end,
 		OnRender = function() end, -- handled by the game
