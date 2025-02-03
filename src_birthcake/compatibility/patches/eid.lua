@@ -147,7 +147,7 @@ function BIRTHCAKE_EID:TrinketMultiStr(multiplier, ...)
 	return ({ ... })[multiplier] or ""
 end
 
-local DESCRIPTION_SHARE = {
+BIRTHCAKE_EID.SHARED_DESCRIPTIONS = {
 	[PlayerType.PLAYER_BLACKJUDAS] = PlayerType.PLAYER_JUDAS,
 	[PlayerType.PLAYER_ESAU] = PlayerType.PLAYER_JACOB,
 	[PlayerType.PLAYER_LAZARUS2] = PlayerType.PLAYER_LAZARUS,
@@ -1589,12 +1589,19 @@ EID:addDescriptionModifier(
 	---@param descObj EID_DescObj
 	function(descObj)
 		local players = EID.coopMainPlayers
+		local renderedPlayerType = {}
 		for _, player in ipairs(players) do
 			local playerType = player:GetPlayerType()
 			local descTable = BIRTHCAKE_EID.Descs[playerType]
-			if DESCRIPTION_SHARE[playerType] then
-				descTable = BIRTHCAKE_EID.Descs[DESCRIPTION_SHARE[playerType]]
+			local detectedPlayerType = playerType
+			if BIRTHCAKE_EID.SHARED_DESCRIPTIONS[playerType] then
+				descTable = BIRTHCAKE_EID.Descs[BIRTHCAKE_EID.SHARED_DESCRIPTIONS[playerType]]
+				detectedPlayerType = playerType
 			end
+			if renderedPlayerType[detectedPlayerType] then
+				goto skipPlayer
+			end
+			renderedPlayerType[detectedPlayerType] = true
 			local desc = BIRTHCAKE_EID:GetTranslatedString(BIRTHCAKE_EID.ShortDescriptions.DEFAULT_EFFECT)
 			if descTable and BIRTHCAKE_EID:GetTranslatedString(descTable) then
 				desc = BIRTHCAKE_EID:GetTranslatedString(descTable)
@@ -1634,6 +1641,7 @@ EID:addDescriptionModifier(
 			end
 			EID:appendToDescription(descObj, icon .. " {{ColorIsaac}}" .. name .. "{{CR}}#" .. desc.Func(descObj) .. "#")
 			descObj.Name = BIRTHCAKE_EID:GetTranslatedString(BirthcakeRebaked.BirthcakeOneLiners.BIRTHCAKE)
+			::skipPlayer::
 		end
 
 		return descObj

@@ -29,48 +29,24 @@ for _, name in ipairs(characters) do
 	include(characterScriptPath .. name)
 end
 
+local spritePath
+local lastPlayerTypeRendered
+
 HudHelper.RegisterHUDElement({
 	ItemID = Mod.Birthcake.ID,
-	OnRender = function(player, _, _, pos, scale, alpha, trinketID)
-		local data = Mod:GetData(player)
+	OnRender = function(player, _, _, pos, alpha, scale, trinketID)
 		local isGolden = Mod:IsBirthcake(trinketID, true)
-		if isGolden and not data.GoldenBirthcakeSprite then
-			local sprite, spritePath = Mod:GetBirthcakeSprite(player)
-			sprite:Play("Idle")
-			if REPENTOGON then
-				sprite:SetRenderFlags(AnimRenderFlags.GOLDEN)
-			else
-				--Credit to Epiphany for this anm2
-				sprite = Sprite()
-				sprite:Load("gfx/ui/golden_item_hud.anm2")
-				for i = 0, 31 do
-					sprite:ReplaceSpritesheet(i, spritePath)
-				end
-				sprite:LoadGraphics()
-				sprite:Play("GoldenItemHUD")
-				sprite.Offset = Vector(-16, -25)
-			end
-			data.GoldenBirthcakeSprite = sprite
-		end
-		if not isGolden and not data.BirthcakeSprite then
-			local sprite = Mod:GetBirthcakeSprite(player)
-			sprite:Play("Idle")
-			data.BirthcakeSprite = sprite
-		end
-		local sprite = isGolden and data.GoldenBirthcakeSprite or data.BirthcakeSprite
 		local playerType = player:GetPlayerType()
-		Isaac.RunCallbackWithParam(Mod.ModCallbacks.PRE_BIRTHCAKE_RENDER, playerType, player, sprite, pos)
-		sprite.Scale = Vector(scale, scale)
-		sprite.Color = Color(0,0,0,alpha * 0.25)
-		sprite:Render(pos + Vector(2 * scale, 2 * scale))
-		sprite.Color = Color(1,1,1,alpha)
-		sprite:Render(pos)
-		if Isaac.GetFrameCount() % 2 == 0 and not Mod.Game:IsPaused() then
-			sprite:Update()
+		if lastPlayerTypeRendered ~= playerType then
+			lastPlayerTypeRendered = playerType
+			local _, newSpritePath = Mod:GetBirthcakeSprite(player)
+			spritePath = newSpritePath
 		end
-		Isaac.RunCallbackWithParam(Mod.ModCallbacks.POST_BIRTHCAKE_RENDER, playerType, player, sprite, pos)
+		Isaac.RunCallbackWithParam(Mod.ModCallbacks.PRE_BIRTHCAKE_RENDER, playerType, player, pos)
+		HudHelper.RenderHUDItemSprite(spritePath, pos, scale, alpha, isGolden, true)
+		Isaac.RunCallbackWithParam(Mod.ModCallbacks.POST_BIRTHCAKE_RENDER, playerType, player, pos)
 	end
-}, HudHelper.HUDType.TRINKET_ITEM)
+}, HudHelper.HUDType.TRINKET_ID)
 
 function BIRTHCAKE_TRINKET:OnPlayerTypeChange(player)
 	local data = Mod:GetData(player)
@@ -79,4 +55,5 @@ function BIRTHCAKE_TRINKET:OnPlayerTypeChange(player)
 	end
 end
 
-Mod:AddPriorityCallback(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, CallbackPriority.EARLY, BIRTHCAKE_TRINKET.OnPlayerTypeChange)
+Mod:AddPriorityCallback(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, CallbackPriority.EARLY,
+	BIRTHCAKE_TRINKET.OnPlayerTypeChange)
