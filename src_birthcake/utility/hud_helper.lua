@@ -1856,6 +1856,11 @@ local function InitFunctions()
 			local heartPerRow = HudHelper.Utils.GetMaxHeartColumns(hudLayout) * 2
 			local startAt = (heartPerRow == 12) and 5 or -15
 
+			--condensedCoopHUD
+			if REPENTANCE_PLUS and hudLayout == HudHelper.HUDLayout.COOP then
+				startAt = -6
+			end
+
 			local rows = math.ceil(HudHelper.Utils.GetEffectiveMaxHealth(player) / heartPerRow)
 
 			if not (NoHealthCapModEnabled or CustomHealthAPI) then
@@ -1864,7 +1869,7 @@ local function InitFunctions()
 			return startAt + (rows - 3) * 10
 		end,
 		Condition = function(player, playerHUDIndex)
-			if not REPENTANCE_PLUS and playerHUDIndex > 2 then
+			if playerHUDIndex > 2 then
 				return false
 			end
 
