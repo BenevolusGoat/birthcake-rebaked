@@ -1,5 +1,5 @@
-local Mod = HudHelperExample
-local emptyShaderName = "HudHelperEmptyShader"
+local Mod = BirthcakeRebaked
+local emptyShaderName = "Birthcake-EmptyShader"
 
 local VERSION = 1.1 -- do not modify
 local game = Game()
