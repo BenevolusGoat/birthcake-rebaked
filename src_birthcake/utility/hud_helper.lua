@@ -1490,7 +1490,9 @@ local function InitFunctions()
 				---@cast hud HUDInfo_TrinketItem
 				hud.OnRender(player, playerHUDIndex, hudLayout, pos, scale, 1, trinketID)
 				HudHelper.LastAppliedHUD[HudHelper.HUDType.TRINKET_ITEM][playerHUDIndex] = hud
-			elseif hud.Condition and hud.Condition(player, playerHUDIndex, hudLayout, slot) then
+			elseif not isItem
+				and hud.Condition(player, playerHUDIndex, hudLayout, slot)
+			then
 				---@cast hud HUDInfo_Trinket
 				hud.OnRender(player, playerHUDIndex, hudLayout, pos, scale, slot)
 				HudHelper.LastAppliedHUD[HudHelper.HUDType.TRINKET][playerHUDIndex] = hud
