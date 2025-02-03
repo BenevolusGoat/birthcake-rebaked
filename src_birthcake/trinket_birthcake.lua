@@ -43,7 +43,7 @@ HudHelper.RegisterHUDElement({
 			spritePath = newSpritePath
 		end
 		Isaac.RunCallbackWithParam(Mod.ModCallbacks.PRE_BIRTHCAKE_RENDER, playerType, player, pos)
-		HudHelper.RenderHUDItemSprite(spritePath, pos, scale, alpha, isGolden, true)
+		HudHelper.RenderHUDItem(spritePath, pos, scale, alpha, isGolden, true)
 		Isaac.RunCallbackWithParam(Mod.ModCallbacks.POST_BIRTHCAKE_RENDER, playerType, player, pos)
 	end
 }, HudHelper.HUDType.TRINKET_ID)
