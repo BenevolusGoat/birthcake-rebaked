@@ -183,7 +183,7 @@ function BIRTHCAKE_EID:AdjustNumberValue(chance)
 	if floored - chance == 0 then
 		chance = floored
 	end
-	return tostring(chance)
+	return chance
 end
 
 function BIRTHCAKE_EID:GoldConditional(str, mult)
@@ -634,7 +634,7 @@ BIRTHCAKE_EID.Descs = {
 		en_us = {
 			"{{ArrowDown}} {{Damage}} -",
 			function()
-				return BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN)
+				return tostring(BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN))
 			end,
 			"% damage multiplier",
 			"#Brimstone blasts last longer while damaging enemies"
@@ -642,7 +642,7 @@ BIRTHCAKE_EID.Descs = {
 		ru = {
 			"{{ArrowDown}} {{Damage}} -",
 			function()
-				return BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN)
+				return tostring(BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN))
 			end,
 			"% множитель урона",
 			"#Луч Серы длится дольше во время нанесения урона врагам"
@@ -650,7 +650,7 @@ BIRTHCAKE_EID.Descs = {
 		spa = {
 			"{{ArrowDown}} {{Damage}} Multiplicador de daño del ",
 			function()
-				return BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN)
+				return tostring(BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN))
 			end,
 			"%",
 			"#Las ráfagas de Azufre duran más al hacer daño a enemigos"
@@ -658,19 +658,19 @@ BIRTHCAKE_EID.Descs = {
 		pl = {
 			"{{ArrowDown}} {{Damage}} -",
 			function()
-				return BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN)
+				return tostring(BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN))
 			end,
 			"% Násobitel poškození",
 			"#Splunięcie laserem trwa dłużej"
 		},
-		cz_ch = {
+		--[[ cz_ch = {
 			"{{ArrowDown}} {{Damage}} -",
 			function()
-				return BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN)
+				return tostring(BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN))
 			end,
 			"% więcej Obrażeń",
-			"#Splunięcie laserem trwa dłużej"
-		}
+			--"#Splunięcie laserem trwa dłużej"
+		} ]]
 	},
 	[PlayerType.PLAYER_LAZARUS] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {

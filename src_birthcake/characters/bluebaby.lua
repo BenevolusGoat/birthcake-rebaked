@@ -6,8 +6,6 @@ BirthcakeRebaked.Birthcake.BLUEBABY = BLUEBABY_CAKE
 
 -- Blue Baby Birthcake
 
-local max = math.max
-local min = math.min
 local ceil = math.ceil
 
 ---Credit to Epiphany for this luck chance calculation
@@ -25,7 +23,7 @@ function BLUEBABY_CAKE:GetGoldenPoopChance(player)
 		GOLDEN_POOP_CHANCE.MinChance = 0.05
 		GOLDEN_POOP_CHANCE.MaxChance = 0.5
 	end
-	luck = max(GOLDEN_POOP_CHANCE.MinLuck, min(GOLDEN_POOP_CHANCE.MaxLuck, luck))
+	luck = Mod:Clamp(luck, GOLDEN_POOP_CHANCE.MinLuck, GOLDEN_POOP_CHANCE.MaxLuck)
 
 	local deltaX = GOLDEN_POOP_CHANCE.MaxLuck - GOLDEN_POOP_CHANCE.MinLuck
 	local rngRequirement = ((GOLDEN_POOP_CHANCE.MaxChance - GOLDEN_POOP_CHANCE.MinChance) / deltaX) * luck +
