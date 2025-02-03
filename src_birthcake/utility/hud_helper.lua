@@ -1856,7 +1856,7 @@ local function InitFunctions()
 
 			local rows = math.ceil(HudHelper.Utils.GetEffectiveMaxHealth(player) / heartPerRow)
 
-			if REPENTOGON and not (NoHealthCapModEnabled or CustomHealthAPI) then
+			if not (NoHealthCapModEnabled or CustomHealthAPI) then
 				rows = math.min(48 / heartPerRow, rows) --Hearts literally stop rendering after 4 rows legitimately
 			end
 			return startAt + (rows - 3) * 10
