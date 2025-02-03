@@ -1490,7 +1490,7 @@ local function InitFunctions()
 				---@cast hud HUDInfo_TrinketItem
 				hud.OnRender(player, playerHUDIndex, hudLayout, pos, scale, 1, trinketID)
 				HudHelper.LastAppliedHUD[HudHelper.HUDType.TRINKET_ITEM][playerHUDIndex] = hud
-			elseif hud.Condition(player, playerHUDIndex, hudLayout, slot) then
+			elseif hud.Condition and hud.Condition(player, playerHUDIndex, hudLayout, slot) then
 				---@cast hud HUDInfo_Trinket
 				hud.OnRender(player, playerHUDIndex, hudLayout, pos, scale, slot)
 				HudHelper.LastAppliedHUD[HudHelper.HUDType.TRINKET][playerHUDIndex] = hud
@@ -1855,7 +1855,8 @@ local function InitFunctions()
 			local startAt = (heartPerRow == 12) and 5 or -15
 
 			local rows = math.ceil(HudHelper.Utils.GetEffectiveMaxHealth(player) / heartPerRow)
-			if REPENTOGON and not NoHealthCapModEnabled or not CustomHealthAPI then
+
+			if REPENTOGON and not (NoHealthCapModEnabled or CustomHealthAPI) then
 				rows = math.min(48 / heartPerRow, rows) --Hearts literally stop rendering after 4 rows legitimately
 			end
 			return startAt + (rows - 3) * 10
