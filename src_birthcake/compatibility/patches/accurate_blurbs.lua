@@ -38,7 +38,7 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 		pt_br = "Items ativos jogam cocôs dependendo da quantidade de cargas",
 		ko_kr = "액티브 사용 시 충전량에 비례해 똥 생성",
 	},
-	[PlayerType.PLAYER_EVE] = { 					-- EN: [X] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_EVE] = { 					-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 		en_us = "(DMG scaling + blood-creep) for Dead Bird",
 		ru = "(скейлинг Урона + кровавый след) для Мертвой Птицы", --how the f am i supposed to translate "scaling"?
 		pl = "Zdechły Ptak dostaje skalowanie Obrażeń i smugę krwi",
