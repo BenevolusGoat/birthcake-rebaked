@@ -8,8 +8,8 @@ BirthcakeRebaked.Birthcake.AZAZEL = AZAZEL_CAKE
 
 --API SSUUCCKKSS and I can't change the damage of the laser directly, trust me I tried for non-gon
 
-AZAZEL_CAKE.DEFAULT_BONUS_DURATION = 14
-AZAZEL_CAKE.DAMAGE_MULT = 0.9
+AZAZEL_CAKE.DEFAULT_BONUS_DURATION = 7
+AZAZEL_CAKE.DAMAGE_MULT_DOWN = 0.1
 
 ---@param ent Entity
 ---@param amount number
@@ -34,7 +34,7 @@ function AZAZEL_CAKE:OnEntityTakeDamage(ent, amount, flags, source, countdown)
 				and GetPtrHash(laser.Parent) == GetPtrHash(player)
 				and GetPtrHash(laser.SpawnerEntity) == GetPtrHash(player)
 			then
-				local trinketMult = (Mod:GetTrinketMult(player) - 1) * 0.5 --trinket mult has half effect
+				local trinketMult = Mod:GetTrinketMult(player) - 1
 				local bonusDuration = AZAZEL_CAKE.DEFAULT_BONUS_DURATION * trinketMult
 				local data = Mod:GetData(laser)
 				if (data.AzazelBirthcakeExtension or 0) < AZAZEL_CAKE.DEFAULT_BONUS_DURATION + bonusDuration then
@@ -55,7 +55,7 @@ end
 ---@param player EntityPlayer
 function AZAZEL_CAKE:DamageDown(player)
 	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_AZAZEL) then
-		player.Damage = player.Damage * AZAZEL_CAKE.DAMAGE_MULT
+		player.Damage = player.Damage - (player.Damage * AZAZEL_CAKE.DAMAGE_MULT_DOWN)
 	end
 end
 

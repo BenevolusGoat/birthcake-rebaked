@@ -50,10 +50,12 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, EVE_CAKE.BloodBirdUpdate, FamiliarVariant.DEAD_BIRD)
 
+local max = math.max
+
 ---@param player EntityPlayer
 function EVE_CAKE:GetBloodBirdDamageFormula(player)
 	local bffs = player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS)
-	local dmg = math.max(bffs and 4 or 2, 1 + (player.Damage / (2 + (player.Damage * 0.05))))
+	local dmg = max(bffs and 4 or 2, 1 + (player.Damage / (2 + (player.Damage * 0.05))))
 	if bffs then
 		dmg = dmg * 1.5
 	end
@@ -151,7 +153,7 @@ function EVE_CAKE:ClotDeath(ent, dmg, flag, source, cdframe)
 	then
 		local clot = ent:ToFamiliar() ---@cast clot EntityFamiliar
 		local creep = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 0, clot.Position, Vector
-		.Zero, clot):ToEffect()
+			.Zero, clot):ToEffect()
 		---@cast creep EntityEffect
 		creep:SetTimeout(241)
 		local deathEffect = EVE_CAKE.ClotVariantOnDeath[ent.SubType]

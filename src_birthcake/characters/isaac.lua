@@ -152,13 +152,15 @@ inventorySprite:LoadGraphics()
 
 local NUM_COLUMNS = 4
 
+local ceil = math.ceil
+
 HudHelper.RegisterHUDElement({
 	Name = "Isaac B Birthcake Inventory",
 	Priority = 0.5, --Between vanilla and highest, lol
 	XPadding = -4,
 	YPadding = function(player)
 		local inventoryCap = player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID)
-		local numRows = math.ceil(inventoryCap / NUM_COLUMNS)
+		local numRows = ceil(inventoryCap / NUM_COLUMNS)
 		local desiredPadding = 16 + (12 * (numRows - 1))
 		return desiredPadding
 	end,

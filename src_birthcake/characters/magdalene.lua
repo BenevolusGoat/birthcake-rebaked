@@ -50,6 +50,8 @@ MAGDALENE_CAKE.HeartSubtypeDamage = {
 	[HeartSubType.HEART_SCARED] = 5.25,
 }
 
+local random = math.random
+
 ---@param pickup EntityPickup
 function MAGDALENE_CAKE:HeartExplode(pickup)
 	local trinketMult = Mod:GetCombinedTrinketMult(PlayerType.PLAYER_MAGDALENE_B)
@@ -60,7 +62,8 @@ function MAGDALENE_CAKE:HeartExplode(pickup)
 		and trinketMult > 0
 	then
 		pickup:BloodExplode()
-		local damage = (MAGDALENE_CAKE.HeartSubtypeDamage[pickup.SubType] + (0.5 * Mod.Game:GetLevel():GetStage())) * trinketMult
+		local damage = (MAGDALENE_CAKE.HeartSubtypeDamage[pickup.SubType] + (0.5 * Mod.Game:GetLevel():GetStage())) *
+		trinketMult
 		for _, ent in ipairs(Isaac.FindInRadius(pickup.Position, pickup.Size * 3, EntityPartition.ENEMY)) do
 			if ent:IsActiveEnemy(false) and ent:IsVulnerableEnemy() then
 				ent:TakeDamage(damage, DamageFlag.DAMAGE_EXPLOSION | DamageFlag.DAMAGE_IGNORE_ARMOR, EntityRef(pickup), 0)
@@ -68,7 +71,7 @@ function MAGDALENE_CAKE:HeartExplode(pickup)
 		end
 		Mod.SFXManager:Play(SoundEffect.SOUND_EXPLOSION_WEAK)
 		for _ = 1, 10 do
-			local position = Vector(math.random(-25, 25), math.random(-25, 25))
+			local position = Vector(random(-25, 25), random(-25, 25))
 			position = position + pickup.Position
 			Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BLOOD_EXPLOSION, 0, position,
 				Vector.Zero, pickup)

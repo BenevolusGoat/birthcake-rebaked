@@ -8,7 +8,7 @@ BirthcakeRebaked.Birthcake.JUDAS = JUDAS_CAKE
 ---@param player EntityPlayer
 function JUDAS_CAKE:JudasHasBirthcake(player)
 	return (player:GetPlayerType() == PlayerType.PLAYER_JUDAS or player:GetPlayerType() == PlayerType.PLAYER_BLACKJUDAS)
-	and player:HasTrinket(Mod.Birthcake.ID)
+		and player:HasTrinket(Mod.Birthcake.ID)
 end
 
 -- Judas Birthcake
@@ -42,6 +42,9 @@ JUDAS_CAKE.PickupPriceCost = {
 	},
 }
 
+local max = math.max
+local min = math.min
+
 ---@param player EntityPlayer
 ---@param pickup EntityPickup
 function JUDAS_CAKE:IsFatalDeal(player, pickup)
@@ -52,15 +55,15 @@ function JUDAS_CAKE:IsFatalDeal(player, pickup)
 	if not cost then return false end
 	local heartCost = cost.Red or 0
 	local soulCost = cost.Soul or 0
-	hearts = math.max(0, hearts - (heartCost * 2))
-	soulHearts = math.max(0, soulHearts - (soulCost * 2))
+	hearts = max(0, hearts - (heartCost * 2))
+	soulHearts = max(0, soulHearts - (soulCost * 2))
 	return hearts + soulHearts <= 0
 end
 
 ---@param player EntityPlayer
 function JUDAS_CAKE:JudasPickup(player)
 	if JUDAS_CAKE:JudasHasBirthcake(player) then
-		player.Damage = player.Damage * (1 + (JUDAS_CAKE.DAMAGE_MULT_UP * Mod:GetTrinketMult(player)))
+		player.Damage = player.Damage + (player.Damage * JUDAS_CAKE.DAMAGE_MULT_UP * Mod:GetTrinketMult(player))
 	end
 end
 
@@ -81,11 +84,14 @@ function JUDAS_CAKE:OnDevilDealCollision(pickup, collider)
 	end
 end
 
-Mod:AddPriorityCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, CallbackPriority.EARLY, JUDAS_CAKE.OnDevilDealCollision, PickupVariant.PICKUP_COLLECTIBLE)
+Mod:AddPriorityCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, CallbackPriority.EARLY, JUDAS_CAKE.OnDevilDealCollision,
+	PickupVariant.PICKUP_COLLECTIBLE)
 
 -- Tainted Judas Birthcake
 
 JUDAS_CAKE.DARK_ARTS_CHARGE_BONUS = 18
+
+local min = math.min
 
 ---@param player EntityPlayer
 function JUDAS_CAKE:ShadowCharge(player)
@@ -104,10 +110,12 @@ function JUDAS_CAKE:ShadowCharge(player)
 				if ent:IsActiveEnemy(false)
 					and ent.Position:DistanceSquared(player.Position) <= (playerRadius + ent.Size) ^ 2
 					and (not data.JudasCakeEnemyTouch
-					or not data.JudasCakeEnemyTouch[GetPtrHash(ent)])
+						or not data.JudasCakeEnemyTouch[GetPtrHash(ent)])
 				then
 					local chargeBonus = JUDAS_CAKE.DARK_ARTS_CHARGE_BONUS * Mod:GetTrinketMult(player)
-					player:SetActiveCharge(math.min(maxCharge, player:GetActiveCharge(ActiveSlot.SLOT_POCKET) + chargeBonus), ActiveSlot.SLOT_POCKET)
+					player:SetActiveCharge(
+					min(maxCharge, player:GetActiveCharge(ActiveSlot.SLOT_POCKET) + chargeBonus),
+						ActiveSlot.SLOT_POCKET)
 					data.JudasCakeEnemyTouch = data.JudasCakeEnemyTouch or {}
 					data.JudasCakeEnemyTouch[GetPtrHash(ent)] = true
 				end

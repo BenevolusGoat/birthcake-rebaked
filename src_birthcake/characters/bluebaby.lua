@@ -6,6 +6,10 @@ BirthcakeRebaked.Birthcake.BLUEBABY = BLUEBABY_CAKE
 
 -- Blue Baby Birthcake
 
+local max = math.max
+local min = math.min
+local ceil = math.ceil
+
 ---Credit to Epiphany for this luck chance calculation
 ---@param player EntityPlayer
 function BLUEBABY_CAKE:GetGoldenPoopChance(player)
@@ -21,11 +25,12 @@ function BLUEBABY_CAKE:GetGoldenPoopChance(player)
 		GOLDEN_POOP_CHANCE.MinChance = 0.05
 		GOLDEN_POOP_CHANCE.MaxChance = 0.5
 	end
-	luck = math.max(GOLDEN_POOP_CHANCE.MinLuck, math.min(GOLDEN_POOP_CHANCE.MaxLuck, luck))
+	luck = max(GOLDEN_POOP_CHANCE.MinLuck, min(GOLDEN_POOP_CHANCE.MaxLuck, luck))
 
 	local deltaX = GOLDEN_POOP_CHANCE.MaxLuck - GOLDEN_POOP_CHANCE.MinLuck
 	local rngRequirement = ((GOLDEN_POOP_CHANCE.MaxChance - GOLDEN_POOP_CHANCE.MinChance) / deltaX) * luck +
-		(GOLDEN_POOP_CHANCE.MaxLuck * GOLDEN_POOP_CHANCE.MinChance - GOLDEN_POOP_CHANCE.MinLuck * GOLDEN_POOP_CHANCE.MaxChance) / deltaX
+		(GOLDEN_POOP_CHANCE.MaxLuck * GOLDEN_POOP_CHANCE.MinChance - GOLDEN_POOP_CHANCE.MinLuck * GOLDEN_POOP_CHANCE.MaxChance) /
+		deltaX
 
 	return rngRequirement
 end
@@ -35,7 +40,8 @@ BLUEBABY_CAKE.PoopVariantChance = {
 		return BLUEBABY_CAKE:GetGoldenPoopChance(player)
 	end,
 	--[Mod.EntityPoopVariant.CORN] = 0.2,
-	[Mod.EntityPoopVariant.HOLY] = function(player) return player:HasCollectible(CollectibleType.COLLECTIBLE_HALLOWED_GROUND) and 0.05 or 0 end,
+	[Mod.EntityPoopVariant.HOLY] = function(player) return player:HasCollectible(CollectibleType
+		.COLLECTIBLE_HALLOWED_GROUND) and 0.05 or 0 end,
 	[Mod.EntityPoopVariant.BLACK] = function(player) return player:HasTrinket(TrinketType.TRINKET_MECONIUM) and 0.33 or 0 end
 }
 
@@ -94,7 +100,7 @@ function BLUEBABY_CAKE:SpawnPoop(itemID, rng, player, _, _, _)
 			chargeUsed = 1
 		end
 		if chargeUsed == 0 then return end
-		chargeUsed = math.ceil(chargeUsed / 2)
+		chargeUsed = ceil(chargeUsed / 2)
 
 		for _ = 1, chargeUsed do
 			local variant = Mod.EntityPoopVariant.NORMAL
@@ -111,7 +117,8 @@ function BLUEBABY_CAKE:SpawnPoop(itemID, rng, player, _, _, _)
 				end
 			end
 
-			local tear = Isaac.Spawn(EntityType.ENTITY_TEAR, TearVariant.GRIDENT, 0, player.Position, RandomVector():Resized(12), player):ToTear()
+			local tear = Isaac.Spawn(EntityType.ENTITY_TEAR, TearVariant.GRIDENT, 0, player.Position,
+				RandomVector():Resized(12), player):ToTear()
 			---@cast tear EntityTear
 			local sprite = tear:GetSprite()
 			local result = Isaac.RunCallbackWithParam(Mod.ModCallbacks.BLUEBABY_GET_POOP_TEAR_SPRITE, variant, player)

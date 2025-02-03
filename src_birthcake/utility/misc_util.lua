@@ -52,7 +52,7 @@ function BirthcakeRebaked:SpawnFromPool(pool, pos, price)
 	local itemConfig = Mod.ItemConfig:GetCollectible(collectible.SubType)
 
 	if price == -1 then
-		price = math.floor(itemConfig.ShopPrice / 2)
+		price = (itemConfig.ShopPrice / 2) // 1
 	end
 	collectible.Price = price
 	collectible.AutoUpdatePrice = false

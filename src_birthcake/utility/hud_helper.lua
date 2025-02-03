@@ -11,6 +11,11 @@ local CACHED_CALLBACKS
 local CACHED_ELEMENTS
 local CACHED_MOD_CALLBACKS
 
+local min = math.min
+local max = math.max
+local floor = function(x) return x // 1 end
+local ceil = math.ceil
+
 ---Initializes data that should not be reset when a newer version of the mod is loaded.
 local function InitMod()
 	---@class HUDInfo
@@ -517,7 +522,7 @@ local function InitFunctions()
 	---@function
 	---@scope Mod.HudHelper
 	function HudHelper.GetHUDPosition(playerHUDIndex)
-		playerHUDIndex = math.min(4, playerHUDIndex)
+		playerHUDIndex = min(4, playerHUDIndex)
 		local hudOffsetOption = Options.HUDOffset
 		local width, height = Isaac.GetScreenWidth(), Isaac.GetScreenHeight()
 		local cornerOffsets = {
@@ -638,7 +643,7 @@ local function InitFunctions()
 		}
 		local customOffset = REP_EXTRA_OFFSET
 		local hudLayout = HudHelper.Utils.GetHUDLayout(playerHUDIndex)
-		playerHUDIndex = math.min(4, playerHUDIndex)
+		playerHUDIndex = min(4, playerHUDIndex)
 		if REPENTANCE_PLUS then
 			customOffset = REP_PLUS_EXTRA_OFFSET
 			if playerHUDIndex == 1 and #HudHelper.GetHUDPlayers() > 2 then
@@ -684,7 +689,7 @@ local function InitFunctions()
 		local hudLayout = HudHelper.Utils.GetHUDLayout(playerHUDIndex)
 
 		if slot <= ActiveSlot.SLOT_SECONDARY then
-			playerHUDIndex = math.min(4, playerHUDIndex)
+			playerHUDIndex = min(4, playerHUDIndex)
 			local activeOffset = Vector(4, 0)
 			local additionalOffset = Vector.Zero
 			if hudLayout == HudHelper.HUDLayout.P1_OTHER_TWIN then
@@ -736,7 +741,7 @@ local function InitFunctions()
 		if not isAtTop then
 			yPadding = -yPadding
 		end
-		local xPadding = hud.XPadding[math.min(4, playerHUDIndex)] + padding.X
+		local xPadding = hud.XPadding[min(4, playerHUDIndex)] + padding.X
 		local pos = Vector(xPadding, yPadding)
 
 		return pos
@@ -747,7 +752,7 @@ local function InitFunctions()
 	function HudHelper.GetHealthHUDOffset(playerHUDIndex)
 		local healthOffset = Vector(48, 12)
 		local hudLayout = HudHelper.Utils.GetHUDLayout(playerHUDIndex)
-		playerHUDIndex = math.min(4, playerHUDIndex)
+		playerHUDIndex = min(4, playerHUDIndex)
 
 		if hudLayout == HudHelper.HUDLayout.P1_OTHER_TWIN
 		then
@@ -764,7 +769,7 @@ local function InitFunctions()
 		local position = playerPos + heartOffset + flyingOffset
 		local numHearts = (player:GetEffectiveMaxHearts() + player:GetSoulHearts()) / 2
 		local xOffset = 0
-		for i = 1, math.min(6, numHearts) do
+		for i = 1, min(6, numHearts) do
 			xOffset = 5 * (i - 1)
 		end
 		position = position - Vector(xOffset, 0)
@@ -776,7 +781,7 @@ local function InitFunctions()
 	function HudHelper.GetPocketHUDOffset(player)
 		local playerHUDIndex = HudHelper.Utils.GetHUDPlayerNumberIndex(player)
 		local hudLayout = HudHelper.Utils.GetHUDLayout(playerHUDIndex)
-		playerHUDIndex = math.min(4, playerHUDIndex)
+		playerHUDIndex = min(4, playerHUDIndex)
 		local isActive = player:GetCard(0) == 0 and player:GetPill(0) == 0
 		local pocketPosOffset = isActive and Vector(-24, -18) or Vector(-3, 0)
 		if hudLayout == HudHelper.HUDLayout.P1_MAIN_TWIN and not REPENTANCE_PLUS then
@@ -809,7 +814,7 @@ local function InitFunctions()
 				local maxHearts = HudHelper.Utils.GetEffectiveMaxHealth(player)
 				if maxHearts > 18 then
 					local HEARTS_PER_ROW = 6
-					local rows = math.ceil(HudHelper.Utils.GetEffectiveMaxHealth(player) / HEARTS_PER_ROW)
+					local rows = ceil(HudHelper.Utils.GetEffectiveMaxHealth(player) / HEARTS_PER_ROW)
 					local startAt = (rows - 3) * 2
 					pocketPosOffset = pocketPosOffset + Vector(0, startAt + (rows - 3) * 8)
 				end
@@ -823,7 +828,7 @@ local function InitFunctions()
 	function HudHelper.GetTrinketHUDOffset(player, slot)
 		local playerHUDIndex = HudHelper.Utils.GetHUDPlayerNumberIndex(player)
 		local hudLayout = HudHelper.Utils.GetHUDLayout(playerHUDIndex)
-		playerHUDIndex = math.min(4, playerHUDIndex)
+		playerHUDIndex = min(4, playerHUDIndex)
 		local pos = Vector.Zero
 
 		if hudLayout == HudHelper.HUDLayout.P1 or (hudLayout == HudHelper.HUDLayout.P1_MAIN_TWIN and not REPENTANCE_PLUS) then
@@ -874,7 +879,7 @@ local function InitFunctions()
 			return
 		end
 
-		local chargePercent = math.min(charge / maxCharge, 1)
+		local chargePercent = min(charge / maxCharge, 1)
 
 		if chargePercent == 1 then
 			-- ChargedHUD:IsPlaying("StartCharged") and not
@@ -891,7 +896,7 @@ local function InitFunctions()
 			if not HUDSprite:IsPlaying("Charging") then
 				HUDSprite:Play("Charging")
 			end
-			local frame = math.floor(chargePercent * 100)
+			local frame = floor(chargePercent * 100)
 			HUDSprite:SetFrame("Charging", frame)
 		elseif chargePercent == 0 and not HUDSprite:IsPlaying("Disappear") and not HUDSprite:IsFinished("Disappear") then
 			HUDSprite:Play("Disappear", true)
@@ -1265,7 +1270,7 @@ local function InitFunctions()
 	local function renderActiveHUDs(player, playerHUDIndex, hudLayout, pos, hud, i, isItem)
 		if REPENTOGON then return end
 		for slot = ActiveSlot.SLOT_POCKET, ActiveSlot.SLOT_PRIMARY, -1 do
-			local cornerHUD = math.min(4, playerHUDIndex)
+			local cornerHUD = min(4, playerHUDIndex)
 			if slot == ActiveSlot.SLOT_POCKET
 				and playerHUDIndex == 1
 				and hudLayout == HudHelper.HUDLayout.P1
@@ -1467,7 +1472,7 @@ local function InitFunctions()
 	---@param pos Vector
 	---@param hud HUDInfo_Trinket | HUDInfo_TrinketItem
 	local function renderTrinketHUDs(player, playerHUDIndex, hudLayout, pos, hud, i, isItem)
-		local cornerHUD = math.min(4, playerHUDIndex)
+		local cornerHUD = min(4, playerHUDIndex)
 		if hudLayout == HudHelper.HUDLayout.P1 or (hudLayout == HudHelper.HUDLayout.P1_MAIN_TWIN and not REPENTANCE_PLUS) then
 			cornerHUD = 3
 		end
@@ -1584,7 +1589,7 @@ local function InitFunctions()
 						and ((not hud.PreRenderCallback and not isPreCallback) or (hud.PreRenderCallback and isPreCallback))
 					then
 						local xPos = (32 * scale) * ((posIndex - 1) % columns)
-						local yPos = (32 * scale) * (math.ceil(posIndex / columns) - 1)
+						local yPos = (32 * scale) * (ceil(posIndex / columns) - 1)
 						local offset = Vector(xPos, yPos)
 
 						local position = HudHelper.GetHUDPosition(2) + extraHUDOffset + offset
@@ -1804,7 +1809,7 @@ local function InitFunctions()
 
 					EID:addTextPosModifier(
 						"HudHelper",
-						Vector(0, math.max(0, posYModifier))
+						Vector(0, max(0, posYModifier))
 					)
 				end
 			}, HudHelper.HUDType.EXTRA)
@@ -1861,10 +1866,10 @@ local function InitFunctions()
 				startAt = -6
 			end
 
-			local rows = math.ceil(HudHelper.Utils.GetEffectiveMaxHealth(player) / heartPerRow)
+			local rows = ceil(HudHelper.Utils.GetEffectiveMaxHealth(player) / heartPerRow)
 
 			if not (NoHealthCapModEnabled or CustomHealthAPI) then
-				rows = math.min(48 / heartPerRow, rows) --Hearts literally stop rendering after 4 rows legitimately
+				rows = min(48 / heartPerRow, rows) --Hearts literally stop rendering after 4 rows legitimately
 			end
 			return startAt + (rows - 3) * 10
 		end,
