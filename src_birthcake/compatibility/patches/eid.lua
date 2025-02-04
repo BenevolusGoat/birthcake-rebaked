@@ -265,6 +265,13 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			" przy pierwszym podniesieniu i na początku każdego piętra"
 		},
+		pt_br = {
+			"Ganhe ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "um {{Card49}}Dice Shard", " {{Card49}}Dice Shards")
+			end,
+			" ao pegar e na sala inicial de todos os andares"
+			},
 	},
 	[PlayerType.PLAYER_MAGDALENE] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
@@ -314,6 +321,16 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% szansy na ulepszenie",
 			"#Możliwe ulepszenia to:",
+			"#{{HalfHeart}} -> {{Heart}} -> {{Heart}}{{Heart}}",
+			"#{{HalfSoulHeart}} -> {{SoulHeart}}"
+		},
+		pt_br = {
+			"{{Heart}} Corações tem uma ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.MAGDALENE.HEART_REPLACE_CHANCE)
+			end,
+			"% chance de serem melhorados",
+			"#Possiveís melhorias são:",
 			"#{{HalfHeart}} -> {{Heart}} -> {{Heart}}{{Heart}}",
 			"#{{HalfSoulHeart}} -> {{SoulHeart}}"
 		},
@@ -401,6 +418,18 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% szansy na zwrot pieniędzy"
 		},
+		pt_br = {
+			"{{Slotmachine}} Caça-Níqueis e {{FortuneTeller}} máquinas cartomante tem uma ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_CAIN]._modifier(descObj, Mod.Birthcake.CAIN.SlotsData[Mod.SlotVariant.SLOT_MACHINE].RefundChance) 
+			end,
+			"% chance de te dar um reembolso",
+			"#{{CraneGame}} máquinas de ursinho tem ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_CAIN]._modifier(descObj, Mod.Birthcake.CAIN.SlotsData[Mod.SlotVariant.CRANE_GAME].RefundChance)
+			end,
+			"% chance de dar reembolso"
+},
 	},
 	[PlayerType.PLAYER_JUDAS] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		---@param descObj EID_DescObj
@@ -449,6 +478,14 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% więcej Obrażeń",
 			"#{{DevilRoom}} Gdyby wymiana z Diabłem miała by zabić Judasza, zamiast tego ten trynkiet jest niszczony"
+		},
+		pt_br = {
+			"{{ArrowUp}} {{Damage}} +",
+			function(descObj)
+				return BIRTHCAKE_EID:NormalChanceModifier(descObj, Mod.Birthcake.JUDAS.DAMAGE_MULT_UP)
+			end,
+			"% multiplicador de dano",
+			"#{{DevilRoom}} Se pegar um trato com o demônio fosse fatal, esse berloque será consumido no lugar"
 		},
 	},
 	[PlayerType.PLAYER_BLUEBABY] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
@@ -516,6 +553,16 @@ BIRTHCAKE_EID.Descs = {
 				)
 			end
 		},
+		pt_br = {
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_BLUEBABY]._modifier(descObj,
+				"{{Collectible36}} O Cocô invoca 2 cocôs extras nos lados do original ao ser usado, orientação sendo baseada na direção da cabeça"
+				.."#{{Collectible}} Tem um efeito differente com outros ativos",
+				"#{{Collectible}} Atira %s projetéis de cocô em direções aleatórias que viram cocos ao cair no chão",
+				"#{{Battery}} X é metade da carga do seu item ativo, arrendondado para baixo",
+				"{{Collectible}} Nenhum efeito para o ativo atual"
+			) end
+		},
 	},
 	[PlayerType.PLAYER_EVE] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		_modifier = function(descObj, str)
@@ -553,6 +600,14 @@ BIRTHCAKE_EID.Descs = {
 			"{{Collectible117}} Zamienia Zdechłego Ptaka w Krwawego Ptaka",
 			"#Krwawy Ptak zostawia za sobą plamy czerwonej mazi",
 			"#Obrażenia Krwawego Ptaka skalują się z Obrażeniami Ewy",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_EVE]._modifier(descObj, "Double damage")
+			end
+		},
+		pt_br = {
+			"{{Collectible117}} Transforma o Pássaro Morto em o Pássaro de Sangue",
+			"#O Pássaro de Sangue deixa uma pequena trilha de sangue que danifica os inimigos",
+			"#O dano do Pássaro de Sangue escala com o dano de Eva",
 			function(descObj)
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_EVE]._modifier(descObj, "Double damage")
 			end
@@ -629,6 +684,18 @@ BIRTHCAKE_EID.Descs = {
 				)
 			end
 		},
+		pt_br = {
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_SAMSON]._modifier(descObj,
+				"{{Collectible157}} Ao alcançar o máximo de aumento de dano com sede de sangue, você ganha ",
+				"2 {{Heart}} corações vermelhos",
+				"2 corações baseado na sua vida atual"
+				.. "#{{Heart}} Corações Duplos se estiver com menos de meio coração, e Corações Vermelhos se sua vida estiver acima ou igual a meio coração"
+				.. "#{{SoulHeart}} Ganhe corações de alma caso contrário",
+				"#{{Collectible619}} Ativa no 6 e 10 dano"
+		
+			) end
+		},
 	},
 	[PlayerType.PLAYER_AZAZEL] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
@@ -662,6 +729,14 @@ BIRTHCAKE_EID.Descs = {
 			"% Násobitel poškození",
 			"#Splunięcie laserem trwa dłużej"
 		},
+		pt_br = {
+			"{{ArrowDown}} {{Damage}} -",
+			function()
+				return tostring(BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN))
+			end,
+			"% multiplicador de dano",
+			"#Enxofre dura mais tempo se danificando inimigos"
+		},
 		--[[ cz_ch = {
 			"{{ArrowDown}} {{Damage}} -",
 			function()
@@ -687,6 +762,10 @@ BIRTHCAKE_EID.Descs = {
 		pl = {
 			"{{Collectible332}} Jeżeli Wskrzeszony Łazarz umrze, then trynkiet jest niszczony i jest on znowu wskrzeszony",
 			"#Odrodzenie daje kolejny bonus do obrażeń i zabiera kolejne serduszko"
+		},
+		pt_br = {
+			"{{Collectible332}} Se Lazáro Ressucitado morre, esse berloque é consumido e ele é reanimado novamente",
+			"#Essa ressucitação dá um aumento no dano e remove um coração"
 		},
 	},
 	[PlayerType.PLAYER_EDEN] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
@@ -729,6 +808,14 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			" losowe trynkiety po podniesieniu",
 			"#Efekty trynkietów są tracone, jeżeli tenk trynkiet zostanie upuszczony"
+		},
+		pt_br = {
+			"{{Trinket}} Consome ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_EDEN]._modifier(descObj)
+			end,
+			" Berloques aleatórios em quanto segurado",
+			"#Os efeitos dos berloques são perdidos se o bolo de nascimento for removido"
 		},
 	},
 	[PlayerType.PLAYER_THELOST] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
@@ -785,6 +872,16 @@ BIRTHCAKE_EID.Descs = {
 				)
 			end
 		},
+		pt_br = {
+			"{{Collectible677}} Temporariamente faz os inimigos ficarem mais lentos e ganhe um aumento na taxa de disparo que lentamente se perde quando o Manto Sagrado se quebra",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_THELOST]._modifier(descObj,
+				"Também petrifica inimigos %s raio por 5 segundos",
+				"pequeno",
+				"médio",
+				"largo"
+			) end
+		},
 	},
 	[PlayerType.PLAYER_LILITH] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
@@ -815,6 +912,14 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% szansy na skopiowanie efektów łez Lilit"
 		},
+		pt_br = {
+			"Familiares tem uma ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.LILITH.SHARE_TEAR_EFFECTS_CHANCE)
+			end,
+			"% chance de copiar os efeitos de lágrima de Lilith"
+		},
+		
 	},
 	[PlayerType.PLAYER_KEEPER] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		---@param descObj EID_DescObj
@@ -853,6 +958,13 @@ BIRTHCAKE_EID.Descs = {
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_KEEPER]._modifier(descObj, "piątaka", " piątaki")
 			end
 		},
+		pt_br = {
+			"{{Shop}} Lojas e {{DevilRoom}} Salas do demônio contêm ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_KEEPER]._modifier(descObj, "uma níquel", " níqueis")
+			end
+		},
+		
 	},
 	[PlayerType.PLAYER_APOLLYON] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		_modifier = function(descObj, str)
@@ -902,6 +1014,14 @@ BIRTHCAKE_EID.Descs = {
 				)
 			end
 		},
+		pt_br = {
+			"{{Collectible477}} Vazio consegue absorver berloques",
+			"#Berloques consumidos com o Vazio são engolidos, mantendo seu efeitos permanentemente se o Vazio estiver sendo segurado",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_APOLLYON]._modifier(descObj,
+				"%s chance de duplicar o berloque absorvido"
+			) end
+		},
 	},
 	[PlayerType.PLAYER_THEFORGOTTEN] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		_modifier = function(descObj)
@@ -943,6 +1063,14 @@ BIRTHCAKE_EID.Descs = {
 			" odłamków kości w losowych kierunkach i ładuje ciało \"ładunkiem dusz\"",
 			"#Powrót to Ciała daje zanikający bonus do szybkostrzelności zależnie od ładunku"
 		},
+		pt_br = {
+			"Atirar no {{Player16}}corpo do O Esquecido com a {{Player17}}A Alma causará ",
+				function(descObj)
+					return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_THEFORGOTTEN]._modifier(descObj)
+				end,
+			" lágrimas de fragmento de ossos sair do corpo em direções aleatórias e vai enchê-lo com \"carga de alma\"",
+			"#Retornar ao O Esquecido dará um aumento na taixa de disparo que lentamente some dependendo na quantidade de carga de alma que ele foi enchido com"
+		},
 	},
 	[PlayerType.PLAYER_BETHANY] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
@@ -973,6 +1101,13 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% szansy na stworzenie dodatkowego ognika tego samego typu"
 		},
+		pt_br = {
+			"Usar um item ativo tem ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.BETHANY.WISP_DUPE_CHANCE)
+			end,
+			"% chance de invocar uma fumaça do mesmo tipo"
+		},
 	},
 	[PlayerType.PLAYER_JACOB] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
@@ -987,6 +1122,9 @@ BIRTHCAKE_EID.Descs = {
 		pl = {
 			"Właściciel przekierowywuje otrzymane obrażenia do drugiego brata"
 		},
+		pt_br = {
+			"Todo dano que o irmão segurando o bolo de nascimento tomar será direcionado ao outro irmão"
+		},
 	},
 	[PlayerType.PLAYER_ISAAC_B] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
@@ -1000,6 +1138,9 @@ BIRTHCAKE_EID.Descs = {
 		},
 		pl = {
 			"Daje dodatkowe miejsce w ekwipunku"
+		},
+		pt_br = {
+			"Dá um espaço extra no inventário"
 		},
 	},
 	[PlayerType.PLAYER_MAGDALENE_B] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
@@ -1019,6 +1160,11 @@ BIRTHCAKE_EID.Descs = {
 			"Upuszcone serduszka po pewnym czasie wybuchają w kałuże czerwonej mazi",
 			"#Siła eksplozji zależy od typu serduszka i piętra"
 		},
+		pt_br = {
+			"Corações temporários explodem em poças de sangue ao desaparecer",
+			"#Dano da explosão depende no tipo de coração e no andar atual"
+		},
+		
 	},
 	[PlayerType.PLAYER_CAIN_B] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
@@ -1032,6 +1178,9 @@ BIRTHCAKE_EID.Descs = {
 		},
 		pl = {
 			"Podwójne pickupy są dzielone na połówki"
+		},
+		pt_br = {
+			"Captadores duplos são partidos pela metade"
 		},
 	},
 	[PlayerType.PLAYER_JUDAS_B] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
@@ -1067,6 +1216,12 @@ BIRTHCAKE_EID.Descs = {
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_JUDAS_B]._modifier(descObj)
 			end
 		},
+		pt_br = {
+			"{{Collectible705}} Passar por inimigos com Artes Sombrias diminui seu tempo de carga por ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_JUDAS_B]._modifier(descObj)
+			end
+		},
 	},
 	[PlayerType.PLAYER_BLUEBABY_B] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
@@ -1097,6 +1252,13 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% szansy na nie otrzymanie obrażeń po trafieniu"
 		},
+		pt_br = {
+			"Cocôs lançados tem uma chance de ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.BLUEBABY.NO_POOP_DAMAGE_CHANCE)
+			end,
+			"% não sofrerem danos ao serem acertados por projetéis"
+		},
 	},
 	[PlayerType.PLAYER_EVE_B] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
@@ -1115,6 +1277,7 @@ BIRTHCAKE_EID.Descs = {
 			"Zakrzepki zostawiają za sobą mają kałuże mazi po śmierci",
 			"#Obrażenia i dodatkowe efekty mazi zależą od typu zabitego Zakrzepka"
 		},
+		
 	},
 	[PlayerType.PLAYER_SAMSON_B] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
@@ -1145,6 +1308,13 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% szansy na wydłużenie czasu trwania o 5 sekund i stworzenie {{HalfHeart}} połowy czerwonego serduszka"
 		},
+		pt_br = {
+			"{{Collectible704}} Terminar uma sala com o efeito do Berserk ativo tem uma chance de ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalanceChanceModifier(descObj, Mod.Birthcake.SAMSON.BERSERK_INCREASE_CHANCE)
+			end,
+			"% extender sua duração e ganhar um {{HalfHeart}} meio coração vermelho"
+			},
 	},
 	[PlayerType.PLAYER_AZAZEL_B] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
@@ -1179,6 +1349,14 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% szansy na przyczepienie się do przeciwników, zadając obrażenia rozłożone w czasie"
 		},
+		pt_br = {
+			"Espirrar atira 6 lágrimas que dão uma porção de dano de Azazel",
+			"#{{Collectible459}} Lágrimas tem uma chance de ",
+			function(descObj)
+				return BIRTHCAKE_EID:NormalChanceModifier(descObj, Mod.Birthcake.AZAZEL.BOOGER_STICK_CHANCE)
+			end,
+			"% para grudar nos inimigos e danificá-los com o tempo"
+		},
 	},
 	[PlayerType.PLAYER_LAZARUS_B] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [!] | KO_KR [X] | PT_BR [X]
 		en_us = {
@@ -1197,6 +1375,9 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% szansy na rozdzielenie się na oba pokazane przedmioty"
 		},
+		pt_br = {
+			"{{Collectible711}} Quando usar o trocar, items no pedestal irão se dividir em ambos colecionáveis exibidos "
+			},
 	},
 	[PlayerType.PLAYER_EDEN_B] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
