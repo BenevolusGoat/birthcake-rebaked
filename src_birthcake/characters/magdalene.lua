@@ -25,17 +25,17 @@ function MAGDALENE_CAKE:HeartReplace(pickup)
 	if player
 		and newSubType
 		and (not pickup_save
-			or not pickup_save.NoRerollSave.MagdaleneCakeUpgradedPickup)
+			or not pickup_save.MagdaleneCakeRolledForUpgrade)
 	then
 		pickup_save = Mod:GetNoRerollSave(pickup)
 		local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
 		if rng:RandomFloat()
 			<= Mod:GetBalanceApprovedChance(MAGDALENE_CAKE.HEART_REPLACE_CHANCE, Mod:GetTrinketMult(player))
 		then
-			pickup_save.MagdaleneCakeUpgradedPickup = true
 			pickup:Morph(pickup.Type, pickup.Variant, newSubType, true, true)
 			Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
 		end
+		pickup_save.MagdaleneCakeRolledForUpgrade = true
 	end
 end
 
