@@ -3,7 +3,7 @@
 local Mod = BirthcakeRebaked
 
 local BIRTHDAY_PARTY = {}
-BirthcakeRebaked.CHALLENGE_BIRTHDAY_PARTY = BIRTHDAY_PARTY
+BirthcakeRebaked.Challenges.BIRTHDAY_PARTY = BIRTHDAY_PARTY
 
 BIRTHDAY_PARTY.ID = Isaac.GetChallengeIdByName("Isaac's Birthday Party")
 
@@ -34,8 +34,8 @@ function BIRTHDAY_PARTY:GrantSavedHealth(player)
 	local player_run_save = Mod:RunSave(player)
 	if player_run_save.BirthdayPartySavedHealth then
 		local twin = player:GetOtherTwin()
-		local isMainTwin = twin and GetPtrHash(player:GetMainTwin()) == GetPtrHash(player)
-		if isMainTwin then
+		local isMainTwin = GetPtrHash(player:GetMainTwin()) == GetPtrHash(player)
+		if twin and isMainTwin then
 			local splitAmountMainTwin = {}
 			local splitAmountOtherTwin = {}
 			for heartType, amount in pairs(player_run_save.BirthdayPartySavedHealth) do
@@ -65,8 +65,6 @@ function BIRTHDAY_PARTY:GrantSavedHealth(player)
 		player:AddEternalHearts(health.Eternal)
 		player:AddSoulHearts(health.Soul)
 		player:AddBlackHearts(health.Black)
-		player:AddGoldenHearts(health.Gold)
-		player:AddBrokenHearts(health.Broken)
 		if isMainTwin then
 			player_run_save.BirthdayPartySavedHealth = nil
 		end
@@ -140,16 +138,34 @@ BIRTHDAY_PARTY.CharacterRewards = {
 function BIRTHDAY_PARTY:SaveCurrentHealth(player)
 	local player_run_save = Mod:RunSave(player)
 	if not player_run_save.BirthdayPartySavedHealth then
+		local HeartContainers = player:GetMaxHearts()
+		local Red = player:GetHearts()
+		local Bone = player:GetBoneHearts()
+		local Soul = Mod:GetPlayerRealSoulHeartsCount(player)
+		local Black = Mod:GetPlayerRealBlackHeartsCount(player)
+		local Rotten = player:GetRottenHearts()
+		local Eternal = player:GetEternalHearts()
+		local Broken = player:GetBrokenHearts()
+		local twin = player:GetOtherTwin()
+		if twin then
+			HeartContainers = HeartContainers + twin:GetMaxHearts()
+			Red = Red + twin:GetHearts()
+			Bone = Bone + twin:GetBoneHearts()
+			Soul = Soul + Mod:GetPlayerRealSoulHeartsCount(twin)
+			Black = Black + Mod:GetPlayerRealBlackHeartsCount(twin)
+			Rotten = Rotten + twin:GetRottenHearts()
+			Eternal = Eternal + twin:GetEternalHearts()
+			Broken = Broken + twin:GetBrokenHearts()
+		end
+
 		player_run_save.BirthdayPartySavedHealth = {
-			HeartContainers = player:GetMaxHearts(),
-			Red = player:GetHearts(),
-			Bone = player:GetBoneHearts(),
-			Soul = Mod:GetPlayerRealSoulHeartsCount(player),
-			Black = Mod:GetPlayerRealBlackHeartsCount(player),
-			Rotten = player:GetRottenHearts(),
-			Eternal = player:GetEternalHearts(),
-			Gold = player:GetGoldenHearts(),
-			Broken = player:GetBrokenHearts()
+			HeartContainers = HeartContainers,
+			Red = Red,
+			Bone = Bone,
+			Soul = Soul,
+			Black = Black,
+			Rotten = Rotten,
+			Eternal = Eternal,
 		}
 	end
 end
@@ -197,6 +213,9 @@ BIRTHDAY_PARTY.CharacterResets = {
 			player:RemoveCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES)
 			player_run_save.BirthdayPartyGrantedBookofVirtues = nil
 		end
+	end,
+	[PlayerType.PLAYER_LAZARUS2] = function(player)
+		player:RemoveCollectible(CollectibleType.COLLECTIBLE_ANEMIC)
 	end
 }
 
@@ -217,10 +236,10 @@ function BIRTHDAY_PARTY:OnChallengeStart(player)
 	if Isaac.GetChallenge() == BIRTHDAY_PARTY.ID then
 		local level = Mod.Game:GetLevel()
 		if Mod.Game:GetFrameCount() == 0
-		or (level:GetCurrentRoomIndex() == level:GetStartingRoomIndex()
-			and level:GetStage() == LevelStage.STAGE1_1
-			and Mod.Game:GetRoom():IsFirstVisit()
-			and not player:HasTrinket(Mod.Birthcake.ID))
+			or (level:GetCurrentRoomIndex() == level:GetStartingRoomIndex()
+				and level:GetStage() == LevelStage.STAGE1_1
+				and Mod.Game:GetRoom():IsFirstVisit()
+				and not player:HasTrinket(Mod.Birthcake.ID))
 		then
 			player:AddTrinket(Mod.Birthcake.ID, false)
 		end
@@ -236,20 +255,18 @@ function BIRTHDAY_PARTY:SwitchCharacter()
 	then
 		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PLAYER)) do
 			local player = ent:ToPlayer() ---@cast player EntityPlayer
+			if player.Parent then goto skipPlayer end
 			local playerType = player:GetPlayerType()
 			if player:HasTrinket(Mod.Birthcake.ID) then
 				player:TryRemoveTrinket(Mod.Birthcake.ID)
 			end
 			local run_save = Mod:RunSave()
 			if not run_save.BirthdayPartyCharacterList or #run_save.BirthdayPartyCharacterList == 0 then
-				local removeIsaac = run_save.BirthdayPartyCharacterList == nil
 				BIRTHDAY_PARTY:RefreshCharacterList()
-				if removeIsaac then
-					table.remove(run_save.BirthdayPartyCharacterList, 1)
-				end
 			end
 
-			local selectedPlayerType = run_save.BirthdayPartyCharacterList[Mod.GENERIC_RNG:RandomInt(#run_save.BirthdayPartyCharacterList) + 1]
+			local randomIndex = Mod.GENERIC_RNG:RandomInt(#run_save.BirthdayPartyCharacterList) + 1
+			local selectedPlayerType = run_save.BirthdayPartyCharacterList[randomIndex]
 			if selectedPlayerType == PlayerType.PLAYER_BLUEBABY then
 				local maxHearts = player:GetMaxHearts()
 				if maxHearts > 0 then
@@ -265,7 +282,7 @@ function BIRTHDAY_PARTY:SwitchCharacter()
 			end
 
 			player:ChangePlayerType(selectedPlayerType)
-			table.remove(run_save.BirthdayPartyCharacterList, selectedPlayerType)
+			table.remove(run_save.BirthdayPartyCharacterList, randomIndex)
 			playerType = player:GetPlayerType()
 
 			if BIRTHDAY_PARTY.CharacterRewards[playerType] then
@@ -275,6 +292,7 @@ function BIRTHDAY_PARTY:SwitchCharacter()
 				BIRTHDAY_PARTY:GrantSavedHealth(player)
 			end
 			Mod:GetData(player).BirthdayPartyQueueBirthcake = true
+			::skipPlayer::
 		end
 	end
 end

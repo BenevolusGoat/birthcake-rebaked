@@ -1,6 +1,6 @@
 --Technically taken from Epiphany but I (Benny) made this code specifically
 local Mod = BirthcakeRebaked
-local BIRTHDAY_PARTY = Mod.CHALLENGE_BIRTHDAY_PARTY
+local BIRTHDAY_PARTY = Mod.Challenges.BIRTHDAY_PARTY
 
 --#region Beast DefeatGoal icon
 
@@ -36,9 +36,8 @@ end
 function BIRTHDAY_PARTY:IsDepthsII()
 	local level = Mod.Game:GetLevel()
 	return (Mod:HasBitFlags(level:GetCurses(), LevelCurse.CURSE_OF_LABYRINTH) or Mod.Game:IsGreedMode()) and level:GetAbsoluteStage() == LevelStage.STAGE3_1
-			or level:GetAbsoluteStage() == LevelStage.STAGE3_2
-			or level:GetStage() == LevelStage.STAGE3_2
-
+		or level:GetAbsoluteStage() == LevelStage.STAGE3_2
+		or level:GetStage() == LevelStage.STAGE3_2
 end
 
 function BIRTHDAY_PARTY:OnMomDefeat()

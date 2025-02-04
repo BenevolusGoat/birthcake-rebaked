@@ -32,6 +32,9 @@ if ModConfigMenu and not ModConfigMenu.GetCategoryIDByName("Birthcake") then
 				end
 
 				constructedArgs.OnChange = function(currentValue)
+					if info.OnChange then
+						info.OnChange(currentValue)
+					end
 					Mod.SaveSetting(info.Name, currentValue)
 				end
 
