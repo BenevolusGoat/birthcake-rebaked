@@ -22,7 +22,7 @@ SettingsHelper.AddChoiceSetting("Settings", Mod.Setting.BirthcakeLanguage,
 		"Brazillian Portugese",
 	}, 1)
 
-if not REPENTOGON then return end
+--[[ if not REPENTOGON then return end
 
 local pGameData = Isaac.GetPersistentGameData()
 SettingsHelper.AddBooleanSetting("Settings", Mod.Setting.BirthcakeUnlocked,
@@ -48,4 +48,4 @@ function(currentValue)
 	else
 		Isaac.ExecuteCommand("lockachievement " .. Mod.Achievements.ISAACS_BIRTHDAY_PARTY)
 	end
-end)
+end) ]]

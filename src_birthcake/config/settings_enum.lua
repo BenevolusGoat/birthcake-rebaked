@@ -4,6 +4,6 @@
 BirthcakeRebaked.Setting = {
 	BirthcakeLanguage = "Language used on pickup",
 	TaintedName = "Tainted's name on pickup",
-	BirthcakeUnlocked = "Is Birthcake unlocked",
-	ChallengeUnlocked = "Is Isaac's Birthday Party unlocked",
+	--[[ BirthcakeUnlocked = "Is Birthcake unlocked",
+	ChallengeUnlocked = "Is Isaac's Birthday Party unlocked", ]]
 }
