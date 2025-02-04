@@ -284,3 +284,41 @@ function BirthcakeRebaked:Clamp(x, min, max)
 	if x > max then return max end
 	return x
 end
+
+---Credit to Epiphany
+---Returns the actual amount of soul hearts the player has, subtracting black hearts.
+---@param player EntityPlayer
+---@function
+function BirthcakeRebaked:GetPlayerRealSoulHeartsCount(player)
+	local blackCount = 0
+	local soulHearts = player:GetSoulHearts()
+	local blackMask = player:GetBlackHearts()
+
+	for i = 1, soulHearts do
+		local bit = 2 ^ math.floor((i - 1) / 2)
+		if blackMask | bit == blackMask then
+			blackCount = blackCount + 1
+		end
+	end
+
+	return soulHearts - blackCount
+end
+
+---Credit to Epiphany
+---Returns the actual amount of black hearts the player has.
+---@param player EntityPlayer
+---@function
+function BirthcakeRebaked:GetPlayerRealBlackHeartsCount(player)
+	local blackCount = 0
+	local soulHearts = player:GetSoulHearts()
+	local blackMask = player:GetBlackHearts()
+
+	for i = 1, soulHearts do
+		local bit = 2 ^ math.floor((i - 1) / 2)
+		if blackMask | bit == blackMask then
+			blackCount = blackCount + 1
+		end
+	end
+
+	return blackCount
+end
