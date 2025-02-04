@@ -1181,16 +1181,12 @@ BIRTHCAKE_EID.Descs = {
 			"% szansy na przyczepienie się do przeciwników, zadając obrażenia rozłożone w czasie"
 		},
 	},
-	[PlayerType.PLAYER_LAZARUS_B] = { -- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [X] | PL: [!] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_LAZARUS_B] = { -- EN: [OK] | RU: [OK] | SPA: [!] | CS_CZ: [X] | PL: [!] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"{{Collectible711}} When using Flip, item pedestals will split into both collectibles displayed"
 		},
 		ru = {
-			"{{Collectible711}} При использовании Переворота пьедесталы с предметами имеют ",
-			function()
-				return "100%"
-			end,
-			"% шанс разделиться на оба отображаемых предмета"
+			"{{Collectible711}} При использовании Переворота пьедесталы с предметами разделяются на оба отображаемых предмета"
 		},
 		spa = {
 			"{{Collectible711}} Al usar Flip, los objetos de pedestal tienen una probabilidad del ",
