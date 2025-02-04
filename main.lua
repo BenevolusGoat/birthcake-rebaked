@@ -204,6 +204,7 @@ end
 local miscSrc = {
 	"compatibility.birthcake_legacy",
 	"challenge_birthday_party",
+	"achievement_unlock",
 	"trinket_birthcake",
 	"api"
 }

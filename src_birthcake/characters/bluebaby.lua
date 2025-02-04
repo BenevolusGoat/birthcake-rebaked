@@ -89,56 +89,92 @@ end
 
 ---@param rng RNG
 ---@param player EntityPlayer
-function BLUEBABY_CAKE:SpawnPoop(itemID, rng, player, _, _, _)
+---@param flags UseFlag
+---@param slot ActiveSlot
+function BLUEBABY_CAKE:SpawnPoop(itemID, rng, player, flags, slot, _)
 	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_BLUEBABY)
 		and itemID ~= CollectibleType.COLLECTIBLE_POOP
+		and itemID ~= CollectibleType.COLLECTIBLE_NULL
+		and Mod:HasBitFlags(flags, UseFlag.USE_OWNED)
+		and player:GetActiveItem(slot) == itemID
 	then
-		local chargeUsed = player:GetActiveCharge()
-		if chargeUsed > 12 then
-			chargeUsed = 1
-		end
-		if chargeUsed == 0 then return end
-		chargeUsed = ceil(chargeUsed / 2)
-
-		for _ = 1, chargeUsed do
-			local variant = Mod.EntityPoopVariant.NORMAL
-			local roll = rng:RandomFloat()
-			local chanceMult = Mod:GetTrinketMult(player)
-
-			--Loops through all poop variants and selects the rarest
-			for poopVariant, chance in pairs(BLUEBABY_CAKE.PoopVariantChance) do
-				local poopChance = type(chance) == "function" and chance(player) or chance
-				---@cast poopChance number
-
-				if roll <= poopChance * chanceMult then
-					variant = poopVariant
-				end
-			end
-
-			local tear = Isaac.Spawn(EntityType.ENTITY_TEAR, TearVariant.GRIDENT, 0, player.Position,
-				RandomVector():Resized(12), player):ToTear()
-			---@cast tear EntityTear
-			local sprite = tear:GetSprite()
-			local result = Isaac.RunCallbackWithParam(Mod.ModCallbacks.BLUEBABY_GET_POOP_TEAR_SPRITE, variant, player)
-			sprite.Offset = Vector(0, -5)
-			if result ~= nil and type(result) == "userdata" and getmetatable(result).__type == "Sprite" then
-				sprite:Load(result:GetFilename(), true)
-				sprite:SetFrame(result:GetAnimation(), result:GetFrame())
-			else
-				sprite:Load("gfx/tear_poops_birthcake.anm2", true)
-				sprite:SetFrame("Idle", variant)
-			end
-			tear.FallingAcceleration = 0.5
-			Mod:GetData(tear).BluebabyCakeTear = variant
-		end
-		local fart = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.FART, 0, player.Position, Vector.Zero, nil)
-		fart.Color = Color(1.8, 0.7, 1.5)
-		fart.SpriteScale = Vector(0.75, 0.75)
-		Mod.SFXManager:Play(SoundEffect.SOUND_FART)
+		local chargeUsed = player:GetActiveCharge(slot)
+		local data = Mod:GetData(player)
+		data.BluebabyCakeCharges = data.BluebabyCakeCharges or {}
+		table.insert(data.BluebabyCakeCharges, {ItemID = itemID, Slot = slot, Charge = chargeUsed})
 	end
 end
 
 Mod:AddPriorityCallback(ModCallbacks.MC_USE_ITEM, CallbackPriority.LATE, BLUEBABY_CAKE.SpawnPoop)
+
+---@param player EntityPlayer
+function BLUEBABY_CAKE:CheckChargeUsed(player)
+	local data = Mod:GetData(player)
+	if data.BluebabyCakeCharges
+		and #data.BluebabyCakeCharges > 0
+	then
+		for i = #data.BluebabyCakeCharges, 1, -1 do
+			local chargeData = data.BluebabyCakeCharges[i]
+			local previousCharge = chargeData.Charge
+			local itemUsed = chargeData.ItemID
+			local slot = chargeData.Slot
+			local currentItem = player:GetActiveItem(slot)
+			local currentCharge = player:GetActiveCharge(slot)
+
+			if currentItem ~= itemUsed or currentCharge >= previousCharge then table.remove(data.BluebabyCakeCharges, i) goto skipItem end
+			local chargeUsed = previousCharge - currentCharge
+			if chargeUsed > 12 then
+				chargeUsed = 1
+			end
+			if chargeUsed == 0 then return end
+			chargeUsed = ceil(chargeUsed / 2)
+			local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
+
+			for _ = 1, chargeUsed do
+				local variant = Mod.EntityPoopVariant.NORMAL
+				local roll = rng:RandomFloat()
+				local rarestChance
+				local chanceMult = Mod:GetTrinketMult(player)
+
+				--Loops through all poop variants and selects the rarest
+				for poopVariant, chance in pairs(BLUEBABY_CAKE.PoopVariantChance) do
+					local poopChance = type(chance) == "function" and chance(player) or chance
+					---@cast poopChance number
+					local totalPoopChance = poopChance * chanceMult
+
+					if roll <= totalPoopChance and (not rarestChance or totalPoopChance < rarestChance) then
+						variant = poopVariant
+						rarestChance = totalPoopChance
+					end
+				end
+
+				local tear = Isaac.Spawn(EntityType.ENTITY_TEAR, TearVariant.GRIDENT, 0, player.Position,
+					RandomVector():Resized(12), player):ToTear()
+				---@cast tear EntityTear
+				local sprite = tear:GetSprite()
+				local result = Isaac.RunCallbackWithParam(Mod.ModCallbacks.BLUEBABY_GET_POOP_TEAR_SPRITE, variant, player)
+				sprite.Offset = Vector(0, -5)
+				if result ~= nil and type(result) == "userdata" and getmetatable(result).__type == "Sprite" then
+					sprite:Load(result:GetFilename(), true)
+					sprite:SetFrame(result:GetAnimation(), result:GetFrame())
+				else
+					sprite:Load("gfx/tear_poops_birthcake.anm2", true)
+					sprite:SetFrame("Idle", variant)
+				end
+				tear.FallingAcceleration = 0.5
+				Mod:GetData(tear).BluebabyCakeTear = variant
+			end
+			local fart = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.FART, 0, player.Position, Vector.Zero, nil)
+			fart.Color = Color(1.8, 0.7, 1.5)
+			fart.SpriteScale = Vector(0.75, 0.75)
+			Mod.SFXManager:Play(SoundEffect.SOUND_FART)
+			table.remove(data.BluebabyCakeCharges, i)
+			::skipItem::
+		end
+	end
+end
+
+Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, BLUEBABY_CAKE.CheckChargeUsed, PlayerType.PLAYER_BLUEBABY)
 
 ---@param tear EntityTear
 function BLUEBABY_CAKE:OnTearUpdate(tear)

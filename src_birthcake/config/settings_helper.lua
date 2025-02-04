@@ -5,7 +5,7 @@ BirthcakeRebaked.SettingsHelper = SettingsHelper
 BirthcakeRebaked.SettingTypes = {
 	Choice = 0,
 	Keybind = 1,
-	Boolean = 2,
+	Boolean = 2
 }
 
 -- Update this if you add more categories. Case sensitive!!!!!
@@ -126,8 +126,9 @@ end
 ---@param settingDescription any @The description of the setting. This is what will be displayed in the settings menu.
 ---@param defaultValue boolean
 ---@param condition function? @A function that returns a boolean. If this function returns false, the setting will not be displayed.
+---@param onChange? function? @A function that provides the current setting as its parameter.
 ---@function
-function SettingsHelper.AddBooleanSetting(category, settingName, settingDescription, defaultValue, condition)
+function SettingsHelper.AddBooleanSetting(category, settingName, settingDescription, defaultValue, condition, onChange)
 	local group = allSettings[category]
 
 	if group == nil then
@@ -141,6 +142,7 @@ function SettingsHelper.AddBooleanSetting(category, settingName, settingDescript
 		Default = defaultValue,
 		Condition = condition,
 		Type = BirthcakeRebaked.SettingTypes.Boolean,
+		OnChange = onChange
 	})
 end
 

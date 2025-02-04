@@ -1,0 +1,22 @@
+<achievements gfxroot="gfx/ui/achievement/">
+	<achievement name="Isaac's Birthday Party" text="You unlocked Challenge Isaac's Birthday Party" gfx="achievement_challenge_isaacs_birthday_party.png">
+		<!-- All characters in PlayerType order. Maggy, Cain, Judas, ???, etc -->
+		<condition conditiontype="achievement" conditionvalue="1" />
+		<condition conditiontype="achievement" conditionvalue="2" />
+		<condition conditiontype="achievement" conditionvalue="3" />
+		<condition conditiontype="achievement" conditionvalue="32" />
+		<condition conditiontype="achievement" conditionvalue="42" />
+		<condition conditiontype="achievement" conditionvalue="67" />
+		<condition conditiontype="achievement" conditionvalue="79" />
+		<condition conditiontype="achievement" conditionvalue="80" />
+		<condition conditiontype="achievement" conditionvalue="81" />
+		<condition conditiontype="achievement" conditionvalue="82" />
+		<condition conditiontype="achievement" conditionvalue="199" />
+		<condition conditiontype="achievement" conditionvalue="251" />
+		<condition conditiontype="achievement" conditionvalue="340" />
+		<condition conditiontype="achievement" conditionvalue="390" />
+		<condition conditiontype="achievement" conditionvalue="404" />
+		<condition conditiontype="achievement" conditionvalue="405" />
+	</achievement>
+	<achievement name="Birthcake" text='"Birthcake" has appeared in the basement' gfx="achievement_birthcake.png" />
+</achievements>
