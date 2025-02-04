@@ -648,11 +648,10 @@ BIRTHCAKE_EID.Descs = {
 			"#Луч Серы длится дольше во время нанесения урона врагам"
 		},
 		spa = {
-			"{{ArrowDown}} {{Damage}} Multiplicador de daño del ",
+			"{{ArrowDown}} {{Damage}} Multiplicador de daño de -",
 			function()
 				return tostring(BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN))
 			end,
-			"%",
 			"#Las ráfagas de Azufre duran más al hacer daño a enemigos"
 		},
 		pl = {
@@ -1181,7 +1180,7 @@ BIRTHCAKE_EID.Descs = {
 			"% szansy na przyczepienie się do przeciwników, zadając obrażenia rozłożone w czasie"
 		},
 	},
-	[PlayerType.PLAYER_LAZARUS_B] = { -- EN: [OK] | RU: [OK] | SPA: [!] | CS_CZ: [X] | PL: [!] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_LAZARUS_B] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [!] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"{{Collectible711}} When using Flip, item pedestals will split into both collectibles displayed"
 		},
@@ -1189,11 +1188,7 @@ BIRTHCAKE_EID.Descs = {
 			"{{Collectible711}} При использовании Переворота пьедесталы с предметами разделяются на оба отображаемых предмета"
 		},
 		spa = {
-			"{{Collectible711}} Al usar Flip, los objetos de pedestal tienen una probabilidad del ",
-			function()
-				return "100%"
-			end,
-			"% de dividirse en ambos objetos mostrados"
+			"{{Collectible711}} Al usar Flip, los objetos de pedestal se dividen en ambos objetos mostrados"
 		},
 		pl = {
 			"{{Collectible711}} Po użyciu Odwrotu, przedmioty mają ",
