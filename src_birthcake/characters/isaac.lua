@@ -24,7 +24,7 @@ local delayHorn = false
 function ISAAC_CAKE:SpawnStartingRoomDiceShard()
 	local room = Mod.Game:GetRoom()
 
-	if room:IsFirstVisit() then
+	if room:IsFirstVisit() and Mod.Game:GetLevel():GetStage() ~= LevelStage.STAGE1_1 then
 		Mod:ForEachPlayer(function(player)
 			if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_ISAAC) then
 				for _ = 1, Mod:GetTrinketMult(player) do
@@ -39,14 +39,6 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, ISAAC_CAKE.SpawnStartingRoomDiceShard)
 
----@param player EntityPlayer
-function ISAAC_CAKE:ResetShardsOnNewFloor(player)
-	local effects = player:GetEffects()
-	if effects:HasTrinketEffect(Mod.Birthcake.ID) then
-		effects:RemoveTrinketEffect(Mod.Birthcake.ID, -1)
-	end
-end
-
 function ISAAC_CAKE:PlayPartyHorn()
 	if delayHorn then
 		Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
@@ -55,18 +47,6 @@ function ISAAC_CAKE:PlayPartyHorn()
 end
 
 Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, ISAAC_CAKE.PlayPartyHorn)
-
-if REPENTOGON then
-	Mod:AddCallback(ModCallbacks.MC_POST_PLAYER_NEW_LEVEL, ISAAC_CAKE.ResetShardsOnNewFloor, PlayerType.PLAYER_ISAAC)
-else
-	Mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, function()
-		Mod:ForEachPlayer(function(player)
-			if player:GetPlayerType() == PlayerType.PLAYER_ISAAC then
-				ISAAC_CAKE:ResetShardsOnNewFloor(player)
-			end
-		end)
-	end)
-end
 
 -- Isaac B Birthcake
 
@@ -99,7 +79,7 @@ function ISAAC_CAKE:PrePickupCollision(pickup, collider)
 		and ISAAC_CAKE:ItemWillFillInventory(pickup.SubType)
 		and ISAAC_CAKE:HasFullInventory(player)
 	then
-		local player_run_save = Mod.SaveManager.GetRunSave(player)
+		local player_run_save = Mod:RunSave(player)
 		local inventory = player_run_save.IsaacBBirthcakeInventory
 		if not inventory then
 			inventory = {}
@@ -128,7 +108,7 @@ function ISAAC_CAKE:ManageBirthrightInventoryCap(player)
 	local effects = player:GetEffects()
 	local cakeEffects = effects:GetTrinketEffectNum(Mod.Birthcake.ID)
 	if cakeEffects > 0 then
-		local player_run_save = Mod.SaveManager.GetRunSave(player)
+		local player_run_save = Mod:RunSave(player)
 		if player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
 			and not player_run_save.IsaacCakeHasBirthright
 		then
@@ -149,7 +129,7 @@ Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, ISAAC_CAKE.ManageBirthright
 
 ---@param player EntityPlayer
 function ISAAC_CAKE:OnPlayerTypeChange(player)
-	local player_run_save = Mod.SaveManager.GetRunSave(player)
+	local player_run_save = Mod:RunSave(player)
 	if player_run_save.IsaacBBirthcakeInventory then
 		for _, itemID in ipairs(player_run_save.IsaacBBirthcakeInventory) do
 			player:AddCollectible(itemID, 0, false)
@@ -172,13 +152,15 @@ inventorySprite:LoadGraphics()
 
 local NUM_COLUMNS = 4
 
+local ceil = math.ceil
+
 HudHelper.RegisterHUDElement({
 	Name = "Isaac B Birthcake Inventory",
 	Priority = 0.5, --Between vanilla and highest, lol
 	XPadding = -4,
 	YPadding = function(player)
 		local inventoryCap = player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID)
-		local numRows = math.ceil(inventoryCap / NUM_COLUMNS)
+		local numRows = ceil(inventoryCap / NUM_COLUMNS)
 		local desiredPadding = 16 + (12 * (numRows - 1))
 		return desiredPadding
 	end,
@@ -188,7 +170,7 @@ HudHelper.RegisterHUDElement({
 	end,
 	OnRender = function(player, playerHUDIndex, _, position)
 		local inventoryCap = player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID)
-		local player_run_save = Mod.SaveManager.GetRunSave(player)
+		local player_run_save = Mod:RunSave(player)
 		local inventory = player_run_save.IsaacBBirthcakeInventory
 		local isAtTop = playerHUDIndex < 2
 		local yOffset = isAtTop and 12 or -12

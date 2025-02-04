@@ -16,7 +16,7 @@ end
 
 ---@param player EntityPlayer
 function ISAAC_CAKE:TryRemoveBirthcakeItems(player)
-	local player_run_save = Mod.SaveManager.GetRunSave(player)
+	local player_run_save = Mod:RunSave(player)
 	local inventory = player_run_save.IsaacBBirthcakeInventory or {}
 	local expectedCap = player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID)
 	local numItems = #inventory
@@ -39,7 +39,7 @@ function ISAAC_CAKE:OnCollectibleAdd(itemID, charge, firstTime, slot, varData, p
 		and ISAAC_CAKE:ItemWillFillInventory(itemID)
 		and ISAAC_CAKE:HasFullInventory(player)
 	then
-		local player_run_save = Mod.SaveManager.GetRunSave(player)
+		local player_run_save = Mod:RunSave(player)
 		local inventory = player_run_save.IsaacBBirthcakeInventory
 		if not inventory then
 			inventory = {}
@@ -77,4 +77,4 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_POST_TRIGGER_TRINKET_REMOVED, ISAAC_CAKE.OnIsaacBPickupRemove, Mod.Birthcake.ID)
 Mod:AddCallback(ModCallbacks.MC_POST_TRIGGER_TRINKET_REMOVED, ISAAC_CAKE.OnIsaacBPickupRemove,
-Mod.Birthcake.ID + TrinketType.TRINKET_GOLDEN_FLAG)
+	Mod.Birthcake.ID + TrinketType.TRINKET_GOLDEN_FLAG)

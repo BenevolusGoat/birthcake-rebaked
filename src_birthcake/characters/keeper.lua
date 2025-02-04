@@ -38,21 +38,21 @@ Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, KEEPER_CAKE.PlayPartyHorn)
 
 -- Tainted Keeper Birthcake
 
---TODO: Idea for mults. More shop items/pickups?
-
 function KEEPER_CAKE:SpawnMiniShop()
 	local room = game:GetRoom()
 	local centerPos = room:GetCenterPos()
 	local item = BirthcakeRebaked:SpawnFromPool(ItemPoolType.POOL_SHOP, centerPos + Vector(0, -60), -1)
 	local pickup1 = BirthcakeRebaked:SpawnRandomPickup(centerPos + Vector(80, -40), -1)
 	local pickup2 = BirthcakeRebaked:SpawnRandomPickup(centerPos + Vector(-80, -40), -1)
-	Mod.SaveManager.GetRoomFloorSave(item).RerollSave.IsKeeperShop = true
-	Mod.SaveManager.GetRoomFloorSave(pickup1).RerollSave.IsKeeperShop = true
-	Mod.SaveManager.GetRoomFloorSave(pickup2).RerollSave.IsKeeperShop = true
+	Mod:GetRerollSave(item).IsKeeperShop = true
+	Mod:GetRerollSave(pickup1).IsKeeperShop = true
+	Mod:GetRerollSave(pickup2).IsKeeperShop = true
 end
 
 function KEEPER_CAKE:FindKeeperB()
-	if BirthcakeRebaked:AnyPlayerTypeHasBirthcake(PlayerType.PLAYER_KEEPER_B) then
+	if BirthcakeRebaked:AnyPlayerTypeHasBirthcake(PlayerType.PLAYER_KEEPER_B)
+		and Mod.Game:GetLevel():GetStage() ~= LevelStage.STAGE1_1
+	then
 		KEEPER_CAKE:SpawnMiniShop()
 		Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
 	end
@@ -62,9 +62,9 @@ Mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, KEEPER_CAKE.FindKeeperB)
 
 ---@param pickup EntityPickup
 function KEEPER_CAKE:UpdateShop(pickup)
-	local room_save = Mod.SaveManager.TryGetRoomFloorSave(pickup)
-	if not room_save
-		or not room_save.RerollSave.IsKeeperShop
+	local pickup_save = Mod:TryGetRerollSave(pickup)
+	if not pickup_save
+		or not pickup_save.IsKeeperShop
 	then
 		return
 	end

@@ -9,7 +9,7 @@ EDEN_CAKE.HiddenItemGroup = "Eden Birthcake"
 
 ---@param player EntityPlayer
 function EDEN_CAKE:RefreshBirthcakeTrinkets(player)
-	local player_run_save = Mod.SaveManager.GetRunSave(player)
+	local player_run_save = Mod:RunSave(player)
 	local itemPool = Mod.Game:GetItemPool()
 	local trinketList = player_run_save.EdenCakeTrinkets
 	if not trinketList then
@@ -60,7 +60,7 @@ Mod:AddCallback(Mod.ModCallbacks.POST_BIRTHCAKE_COLLECT, EDEN_CAKE.OnAddBirthcak
 
 ---@param player EntityPlayer
 function EDEN_CAKE:ManageTrinkets(player)
-	local player_run_save = Mod.SaveManager.GetRunSave(player)
+	local player_run_save = Mod:RunSave(player)
 	if player_run_save.EdenCakeHasTrinkets and not player:HasTrinket(Mod.Birthcake.ID) then
 		local trinketList = player_run_save.EdenCakeTrinkets
 		if trinketList then
@@ -86,7 +86,7 @@ end
 Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, EDEN_CAKE.ManageTrinkets, PlayerType.PLAYER_EDEN)
 
 function EDEN_CAKE:OnPlayerTypeChange(player)
-	local player_run_save = Mod.SaveManager.GetRunSave(player)
+	local player_run_save = Mod:RunSave(player)
 	if player_run_save.EdenCakeHasTrinkets then
 		local trinketList = player_run_save.EdenCakeTrinkets
 		if trinketList then
@@ -113,29 +113,28 @@ function EDEN_CAKE:PreventReroll(ent, amount, flags, source, countdownFrames)
 	if not Mod:HasBitFlags(flags, DamageFlag.DAMAGE_RED_HEARTS | DamageFlag.DAMAGE_NO_PENALTIES)
 		and player
 		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_EDEN_B)
-		and not Mod:GetData(player).EdenCakePreventLoop
+		and not Mod:GetData(player).PreventDamageLoop
 	then
 		local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
 		--We only care about held Birthcakes, not smelted
 		local trinket0 = player:GetTrinket(0)
 		local trinket1 = player:GetTrinket(1)
 		local data = Mod:GetData(player)
-		if Mod:IsBirthcake(trinket0) then
-			data.EdenCakeRegrantBirthcake0 = trinket0
-			player:TryRemoveTrinket(trinket0)
-		elseif Mod:IsBirthcake(trinket1) then
-			data.EdenCakeRegrantBirthcake1 = trinket1
-			player:TryRemoveTrinket(trinket1)
+		if rng:RandomFloat() > EDEN_CAKE.BIRTHCAKE_REROLL_CHANCE then
+			if Mod:IsBirthcake(trinket0) then
+				data.EdenCakeRegrantBirthcake0 = trinket0
+				player:TryRemoveTrinket(trinket0)
+			elseif Mod:IsBirthcake(trinket1) then
+				data.EdenCakeRegrantBirthcake1 = trinket1
+				player:TryRemoveTrinket(trinket1)
+			end
 		end
 
 		if rng:RandomFloat() <= Mod:GetBalanceApprovedChance(EDEN_CAKE.PREVENT_REROLL_CHANCE, Mod:GetTrinketMult(player)) then
-			data.EdenCakePreventLoop = true
+			data.PreventDamageLoop = true
 			player:TakeDamage(amount, flags | DamageFlag.DAMAGE_NO_PENALTIES, source, countdownFrames)
-			data.EdenCakePreventLoop = false
+			data.PreventDamageLoop = false
 
-			if rng:RandomFloat() <= EDEN_CAKE.BIRTHCAKE_REROLL_CHANCE then
-				EDEN_CAKE:ReturnBirthcake(player)
-			end
 			return false
 		end
 	end

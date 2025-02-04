@@ -40,11 +40,13 @@ function THEFORGOTTEN_CAKE:OnForgottenBodyUpdate(familiar)
 
 				Mod.SFXManager:Play(SoundEffect.SOUND_BONE_BREAK, 0.5, 0, false)
 
+				local mult = Mod:GetTrinketMult(player)
+
 				if numSoulCharge < THEFORGOTTEN_CAKE.SOUL_CHARGE_EFFECT_CAP then
 					effects:AddTrinketEffect(Mod.Birthcake.ID, false)
 				end
 
-				for _ = 1, player:GetTrinketRNG(Mod.Birthcake.ID):RandomInt(3) + Mod:GetTrinketMult(player) do
+				for _ = 1 * mult, player:GetTrinketRNG(Mod.Birthcake.ID):RandomInt(3 * mult) do
 					local tear = player:FireTear(familiar.Position, RandomVector():Resized(player.ShotSpeed * 10),
 						false, true, false, player, 0.5)
 					tear:ChangeVariant(TearVariant.BONE)
@@ -133,8 +135,6 @@ Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, THEFORGOTTEN_CAKE.SoulChargeFire
 
 -- Tainted Forgotten's Birthcake
 
---TODO: Bone Orbitals float in place. Picking up forgotten will make them come to you. Max of 6
-
 ---@param ent Entity
 ---@param source EntityRef
 function THEFORGOTTEN_CAKE:EntityTakeDamage(ent, _, _, source)
@@ -153,7 +153,6 @@ end
 Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, THEFORGOTTEN_CAKE.EntityTakeDamage)
 
 THEFORGOTTEN_CAKE.BONE_ORBITAL_CAP = 6
-THEFORGOTTEN_CAKE.BONE_ORBITAL_MULT_ADD = 3
 
 ---@param npc EntityNPC
 function THEFORGOTTEN_CAKE:OnNPCDeath(npc)
@@ -186,7 +185,7 @@ function THEFORGOTTEN_CAKE:OnForgottenPickup(player)
 		if not data.ForgottenCakeHasBody then
 			data.ForgottenCakeHasBody = true
 			local numOrbitals = 0
-			local cap = THEFORGOTTEN_CAKE.BONE_ORBITAL_CAP + (THEFORGOTTEN_CAKE.BONE_ORBITAL_MULT_ADD * (Mod:GetTrinketMult(forgor) - 1))
+			local cap = THEFORGOTTEN_CAKE.BONE_ORBITAL_CAP * Mod:GetTrinketMult(forgor)
 			for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BONE_ORBITAL)) do
 				local familiar = ent:ToFamiliar() ---@cast familiar EntityFamiliar
 				if GetPtrHash(familiar.Player) == GetPtrHash(player) then

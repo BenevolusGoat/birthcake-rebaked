@@ -2,5 +2,8 @@
 --! so changing the setting name will reset the value of the settings
 
 BirthcakeRebaked.Setting = {
+	BirthcakeLanguage = "Language used on pickup",
 	TaintedName = "Tainted's name on pickup",
+	BirthcakeUnlocked = "Is Birthcake unlocked",
+	ChallengeUnlocked = "Is Isaac's Birthday Party unlocked",
 }

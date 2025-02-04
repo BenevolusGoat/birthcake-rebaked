@@ -1,7 +1,7 @@
 local Mod = BirthcakeRebaked
 local emptyShaderName = "Birthcake-EmptyShader"
 
-local VERSION = 1.04 -- do not modify
+local VERSION = 1.1 -- do not modify
 local game = Game()
 
 -- debug
@@ -10,6 +10,11 @@ local FORCE_VERSION_UPDATE = false
 local CACHED_CALLBACKS
 local CACHED_ELEMENTS
 local CACHED_MOD_CALLBACKS
+
+local min = math.min
+local max = math.max
+local floor = function(x) return x // 1 end
+local ceil = math.ceil
 
 ---Initializes data that should not be reset when a newer version of the mod is loaded.
 local function InitMod()
@@ -28,7 +33,7 @@ local function InitMod()
 	---@class HUDInfo_Health: HUDInfo
 	---@field OnRender fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout, position: Vector, maxColumns: integer) @Runs for each player, if the condition is true.
 
-	---@class HUDInfo_PocketItem: HUDInfo
+	---@class HUDInfo_Pocket: HUDInfo
 	---@field OnRender fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout, position: Vector, alpha: number, scale: number) @Runs for each player, if the condition is true.
 
 	---@class HUDInfo_Trinket: HUDInfo
@@ -39,19 +44,33 @@ local function InitMod()
 	---@field YPadding integer | fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout): integer @The height of the HUD element. This is used to calculate the padding between HUD elements.
 	---@field XPadding integer | table<integer, integer> @The padding between the HUD element and vanilla ui, by player index.
 
-	---@class HUDInfo_ActiveItem: HUDInfo
+	---@class HUDInfo_ActiveID: HUDInfo
 	---@field Name nil
 	---@field Priority nil
-	---@field Condition nil
+	---@field Condition nil | fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout): boolean
 	---@field ItemID CollectibleType
 	---@field OnRender fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout, position: Vector, alpha: number, scale: number, itemID: CollectibleType) @Runs for each player, if the condition is true.
 
-	---@class HUDInfo_TrinketItem: HUDInfo
+	---@class HUDInfo_TrinketID: HUDInfo
 	---@field Name nil
 	---@field Priority nil
-	---@field Condition nil
+	---@field Condition nil | fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout): boolean
 	---@field ItemID TrinketType
-	---@field OnRender fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout, position: Vector, scale: number, alpha: number, trinketID: TrinketType) @Runs for each player, if the condition is true.
+	---@field OnRender fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout, position: Vector, alpha: number, scale: number, trinketID: TrinketType) @Runs for each player, if the condition is true.
+
+	---@class HUDInfo_CardID: HUDInfo
+	---@field Name nil
+	---@field Priority nil
+	---@field Condition nil | fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout): boolean
+	---@field ItemID Card | PillColor
+	---@field OnRender fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout, position: Vector, alpha: number, scale: number, cardID: Card) @Runs for each player, if the condition is true.
+
+	---@class HUDInfo_PillID: HUDInfo
+	---@field Name nil
+	---@field Priority nil
+	---@field Condition nil | fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout): boolean
+	---@field ItemID Card | PillColor
+	---@field OnRender fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout, position: Vector, alpha: number, scale: number, pillID: PillColor) @Runs for each player, if the condition is true.
 
 	---@class HUDCallback
 	---@field Priority integer
@@ -63,26 +82,30 @@ local function InitMod()
 
 	---@enum HUDType
 	HudHelper.HUDType = {
-		BASE = 0, --Top left corner of each HUD
-		ACTIVE = 1, --Renders on every active item
-		HEALTH = 2, --Location of the first heart of each HUD
-		POCKET = 3, --Renders on the primary pocket item slot of each HUD
-		TRINKET = 4, --Renders on every trinket
-		EXTRA = 5, --For any miscellaneous HUD elements per-player. Renders below/above the player's health
-		ACTIVE_ITEM = 6, --Like ACTIVE, but for specific collectible IDs instead of slots
-		TRINKET_ITEM = 7, --Like TRINKET, but for specific trinket IDs instead of slots
-		NUM_TYPES = 8
+		BASE = 0,   		--Top left corner of each HUD
+		ACTIVE = 1, 		--Renders on every active item
+		HEALTH = 2, 		--Location of the first heart of each HUD
+		POCKET = 3, 		--Renders on the primary pocket item slot of each HUD
+		TRINKET = 4,		--Renders on every trinket
+		EXTRA = 5,  		--For any miscellaneous HUD elements per-player. Renders below/above the player's health
+		ACTIVE_ID = 6, 		--Like ACTIVE, but for specific collectible IDs instead of slots
+		TRINKET_ID = 7, 	--Like TRINKET, but for specific trinket IDs instead of slots
+		CARD_ID = 8, 		--Like POCKET, but for specific card IDs instead of slots
+		PILL_ID = 9, 		--Like POCKET, but for specific pill IDs instead of slots
+		NUM_TYPES = 10
 	}
 
 	HudHelper.HUD_ELEMENTS = {
 		[HudHelper.HUDType.BASE] = {}, ---@type HUDInfo[]
 		[HudHelper.HUDType.ACTIVE] = {}, ---@type HUDInfo_Active[]
 		[HudHelper.HUDType.HEALTH] = {}, ---@type HUDInfo_Health[]
-		[HudHelper.HUDType.POCKET] = {}, ---@type HUDInfo_PocketItem[]
+		[HudHelper.HUDType.POCKET] = {}, ---@type HUDInfo_Pocket[]
 		[HudHelper.HUDType.TRINKET] = {}, ---@type HUDInfo_Trinket[]
 		[HudHelper.HUDType.EXTRA] = {}, ---@type HUDInfo_Extra[]
-		[HudHelper.HUDType.ACTIVE_ITEM] = {}, ---@type {[CollectibleType]: HUDInfo_ActiveItem}
-		[HudHelper.HUDType.TRINKET_ITEM] = {}, ---@type{[TrinketType]: HUDInfo_TrinketItem}
+		[HudHelper.HUDType.ACTIVE_ID] = {}, ---@type {[CollectibleType]: HUDInfo_ActiveID}
+		[HudHelper.HUDType.TRINKET_ID] = {}, ---@type{[TrinketType]: HUDInfo_TrinketID}
+		[HudHelper.HUDType.CARD_ID] = {}, ---@type{[Card]: HUDInfo_TrinketID}
+		[HudHelper.HUDType.PILL_ID] = {}, ---@type{[PillColor]: HUDInfo_TrinketID}
 	}
 	--Legacy
 	local legacyStrings = {
@@ -131,13 +154,13 @@ local function InitMod()
 		TWIN_COOP = 6 --Rep+ exclusive
 	}
 
-	---@enum HUDResourceType
-	HudHelper.ResourceType = {
+	---@enum HUDIconType
+	HudHelper.IconType = {
 		COINS = 1,
 		BOMBS = 2,
 		KEYS = 3,
 		DIFFICULTY_ICON = 5,
-		ACHIEVEMENT_ICON = 6,
+		NO_ACHIEVEMENT_ICON = 6,
 		DESTINATION_ICON = 7,
 		MISC_ICON = 8,
 		STAT = 9
@@ -175,6 +198,13 @@ end
 ---Initializes data and functions that get overwritten when a newer version of the mod is loaded.
 local function InitFunctions()
 	local HUD_ELEMENTS = HudHelper.HUD_ELEMENTS
+
+	local isItemIDType = {
+		[HudHelper.HUDType.ACTIVE_ID] = true,
+		[HudHelper.HUDType.TRINKET_ID] = true,
+		[HudHelper.HUDType.CARD_ID] = true,
+		[HudHelper.HUDType.PILL_ID] = true
+	}
 
 	---List of HudHelper.HUDPlayers, indexed by corner of which corner of the HUD they're in.
 	---@type table<integer, EntityPtr[] | nil>
@@ -280,6 +310,25 @@ local function InitFunctions()
 		end
 		return player:GetEffectiveMaxHearts() + player:GetSoulHearts() +
 			(player:GetBrokenHearts() * 2)
+	end
+
+	---@param hudLayout HUDLayout
+	function HudHelper.Utils.GetMaxHeartColumns(hudLayout)
+		if not REPENTANCE_PLUS
+			and (
+				hudLayout == HudHelper.HUDLayout.COOP
+				or hudLayout == HudHelper.HUDLayout.STRAWMAN_HEARTS
+			) then
+			return 3
+		end
+		return 6
+	end
+
+	function HudHelper.Utils.GetCurrentMaxHeartRows(player)
+		local hudLayout = HudHelper.Utils.GetHUDLayout(HudHelper.Utils.GetHUDPlayerNumberIndex(player))
+		local heartPerRow = HudHelper.Utils.GetMaxHeartColumns(hudLayout) * 2
+		local rows = ceil(HudHelper.Utils.GetEffectiveMaxHealth(player) / heartPerRow)
+		return rows
 	end
 
 	function HudHelper.Utils.GetBookOffset(player)
@@ -505,7 +554,7 @@ local function InitFunctions()
 	---@function
 	---@scope Mod.HudHelper
 	function HudHelper.GetHUDPosition(playerHUDIndex)
-		playerHUDIndex = math.min(4, playerHUDIndex)
+		playerHUDIndex = min(4, playerHUDIndex)
 		local hudOffsetOption = Options.HUDOffset
 		local width, height = Isaac.GetScreenWidth(), Isaac.GetScreenHeight()
 		local cornerOffsets = {
@@ -529,6 +578,21 @@ local function InitFunctions()
 
 		local hudOffset = REPENTANCE_PLUS and REP_PLUS_OFFSET or REP_HUD_OFFSET
 		local hudPos = cornerOffsets[playerHUDIndex] + hudOffset[playerHUDIndex]
+
+		if REPENTANCE_PLUS
+			and (playerHUDIndex == 3 or playerHUDIndex == 4)
+			and HudHelper.HUDPlayers[playerHUDIndex]
+			and HudHelper.HUDPlayers[playerHUDIndex][1]
+		then
+			local player = tryGetPlayerFromPtr(HudHelper.HUDPlayers[playerHUDIndex][1])
+			if player
+				and (player:GetPlayerType() == PlayerType.PLAYER_ISAAC_B
+				or player:GetPlayerType() == PlayerType.PLAYER_BLUEBABY_B)
+			then
+				hudPos = Vector(hudPos.X, hudPos.Y - 22)
+			end
+		end
+
 		return hudPos
 	end
 
@@ -575,9 +639,10 @@ local function InitFunctions()
 			end
 		end
 
-		--Keys or Bombs only
 		if specificResource then
-			if specificResource == "Bombs" then
+			if specificResource == "Coins" then
+				return Vector(0, repPlusOffset + p1TwinOffset)
+			elseif specificResource == "Bombs" then
 				local stupidJEOffset = ((offset - p1TwinOffset) > 0 or p1TwinOffset == 0) and 0 or 1
 				return Vector(0, repPlusOffset + p1TwinOffset + (offset > 0 and -1 or 0) + stupidJEOffset)
 			elseif specificResource == "Keys" then
@@ -610,7 +675,7 @@ local function InitFunctions()
 		}
 		local customOffset = REP_EXTRA_OFFSET
 		local hudLayout = HudHelper.Utils.GetHUDLayout(playerHUDIndex)
-		playerHUDIndex = math.min(4, playerHUDIndex)
+		playerHUDIndex = min(4, playerHUDIndex)
 		if REPENTANCE_PLUS then
 			customOffset = REP_PLUS_EXTRA_OFFSET
 			if playerHUDIndex == 1 and #HudHelper.GetHUDPlayers() > 2 then
@@ -656,7 +721,7 @@ local function InitFunctions()
 		local hudLayout = HudHelper.Utils.GetHUDLayout(playerHUDIndex)
 
 		if slot <= ActiveSlot.SLOT_SECONDARY then
-			playerHUDIndex = math.min(4, playerHUDIndex)
+			playerHUDIndex = min(4, playerHUDIndex)
 			local activeOffset = Vector(4, 0)
 			local additionalOffset = Vector.Zero
 			if hudLayout == HudHelper.HUDLayout.P1_OTHER_TWIN then
@@ -708,7 +773,7 @@ local function InitFunctions()
 		if not isAtTop then
 			yPadding = -yPadding
 		end
-		local xPadding = hud.XPadding[math.min(4, playerHUDIndex)] + padding.X
+		local xPadding = hud.XPadding[min(4, playerHUDIndex)] + padding.X
 		local pos = Vector(xPadding, yPadding)
 
 		return pos
@@ -719,7 +784,7 @@ local function InitFunctions()
 	function HudHelper.GetHealthHUDOffset(playerHUDIndex)
 		local healthOffset = Vector(48, 12)
 		local hudLayout = HudHelper.Utils.GetHUDLayout(playerHUDIndex)
-		playerHUDIndex = math.min(4, playerHUDIndex)
+		playerHUDIndex = min(4, playerHUDIndex)
 
 		if hudLayout == HudHelper.HUDLayout.P1_OTHER_TWIN
 		then
@@ -736,7 +801,7 @@ local function InitFunctions()
 		local position = playerPos + heartOffset + flyingOffset
 		local numHearts = (player:GetEffectiveMaxHearts() + player:GetSoulHearts()) / 2
 		local xOffset = 0
-		for i = 1, math.min(6, numHearts) do
+		for i = 1, min(6, numHearts) do
 			xOffset = 5 * (i - 1)
 		end
 		position = position - Vector(xOffset, 0)
@@ -748,7 +813,7 @@ local function InitFunctions()
 	function HudHelper.GetPocketHUDOffset(player)
 		local playerHUDIndex = HudHelper.Utils.GetHUDPlayerNumberIndex(player)
 		local hudLayout = HudHelper.Utils.GetHUDLayout(playerHUDIndex)
-		playerHUDIndex = math.min(4, playerHUDIndex)
+		playerHUDIndex = min(4, playerHUDIndex)
 		local isActive = player:GetCard(0) == 0 and player:GetPill(0) == 0
 		local pocketPosOffset = isActive and Vector(-24, -18) or Vector(-3, 0)
 		if hudLayout == HudHelper.HUDLayout.P1_MAIN_TWIN and not REPENTANCE_PLUS then
@@ -777,6 +842,13 @@ local function InitFunctions()
 				if player:GetTrinket(1) ~= 0 then
 					pocketPosOffset = pocketPosOffset + Vector(16, 0)
 				end
+			else
+				local maxHearts = HudHelper.Utils.GetEffectiveMaxHealth(player)
+				if maxHearts > 18 then
+					local rows = HudHelper.Utils.GetCurrentMaxHeartRows(player)
+					local startAt = (rows - 3) * 2
+					pocketPosOffset = pocketPosOffset + Vector(0, startAt + (rows - 3) * 8)
+				end
 			end
 		end
 		return pocketPosOffset
@@ -787,28 +859,29 @@ local function InitFunctions()
 	function HudHelper.GetTrinketHUDOffset(player, slot)
 		local playerHUDIndex = HudHelper.Utils.GetHUDPlayerNumberIndex(player)
 		local hudLayout = HudHelper.Utils.GetHUDLayout(playerHUDIndex)
-		playerHUDIndex = math.min(4, playerHUDIndex)
+		playerHUDIndex = min(4, playerHUDIndex)
 		local pos = Vector.Zero
 
 		if hudLayout == HudHelper.HUDLayout.P1 or (hudLayout == HudHelper.HUDLayout.P1_MAIN_TWIN and not REPENTANCE_PLUS) then
-			pos = slot == 0 and Vector(28, 26) or Vector(4, 2)
+			pos = slot == 0 and Vector(12, 1) or Vector(-12, -23)
 		elseif hudLayout == HudHelper.HUDLayout.COOP then
 			if REPENTANCE_PLUS then
-				pos = slot == 0 and Vector(46.5, 37.5) or Vector(62.5, 37.5)
+				pos = slot == 0 and Vector(38.5, 25) or Vector(54.5, 25)
 			else
-				pos = slot == 0 and Vector(14, 36.5) or Vector(24, 36.5)
+				pos = slot == 0 and Vector(6, 24) or Vector(16, 24)
 			end
 		elseif hudLayout == HudHelper.HUDLayout.P1_MAIN_TWIN and REPENTANCE_PLUS then
-			pos = slot == 0 and Vector(46.5, 37.5) or Vector(62.5, 37.5)
+			pos = slot == 0 and Vector(38.5, 25) or Vector(54.5, 25)
 		elseif hudLayout == HudHelper.HUDLayout.TWIN_COOP then
-			pos = slot == 0 and Vector(34.5, 35.5) or Vector(50.5, 35.5)
+			pos = slot == 0 and Vector(26.5, 23) or Vector(50.5, 23)
 		elseif hudLayout == HudHelper.HUDLayout.P1_OTHER_TWIN then
 			if REPENTANCE_PLUS then
-				pos = slot == 0 and Vector(133.5, 35.5) or Vector(117.5, 35.5)
+				pos = slot == 0 and Vector(125.5, 23) or Vector(109.5, 23)
 			else
-				pos = slot == 0 and Vector(151, 5) or Vector(123, 5)
+				pos = slot == 0 and Vector(135, -20) or Vector(107, -20)
 			end
 		end
+
 		return pos
 	end
 
@@ -838,7 +911,7 @@ local function InitFunctions()
 			return
 		end
 
-		local chargePercent = math.min(charge / maxCharge, 1)
+		local chargePercent = min(charge / maxCharge, 1)
 
 		if chargePercent == 1 then
 			-- ChargedHUD:IsPlaying("StartCharged") and not
@@ -855,7 +928,7 @@ local function InitFunctions()
 			if not HUDSprite:IsPlaying("Charging") then
 				HUDSprite:Play("Charging")
 			end
-			local frame = math.floor(chargePercent * 100)
+			local frame = floor(chargePercent * 100)
 			HUDSprite:SetFrame("Charging", frame)
 		elseif chargePercent == 0 and not HUDSprite:IsPlaying("Disappear") and not HUDSprite:IsFinished("Disappear") then
 			HUDSprite:Play("Disappear", true)
@@ -878,21 +951,234 @@ local function InitFunctions()
 		font:DrawString(text, pos.X, pos.Y, kColor or KColor.White)
 	end
 
-	---@param resourceType HUDResourceType
-	function HudHelper.RenderResource(resourceType)
+	---@type SeedEffect[]
+	local seedDisablesAchievements = {
+		SeedEffect.SEED_INFINITE_BASEMENT,
+		SeedEffect.SEED_PICKUPS_SLIDE,
+		SeedEffect.SEED_ITEMS_COST_MONEY,
+		SeedEffect.SEED_PACIFIST,
+		SeedEffect.SEED_ENEMIES_RESPAWN,
+		SeedEffect.SEED_POOP_TRAIL,
+		SeedEffect.SEED_INVINCIBLE,
+		SeedEffect.SEED_KIDS_MODE,
+		SeedEffect.SEED_PERMANENT_CURSE_LABYRINTH,
+		SeedEffect.SEED_PREVENT_CURSE_DARKNESS,
+		SeedEffect.SEED_PREVENT_CURSE_LABYRINTH,
+		SeedEffect.SEED_PREVENT_CURSE_LOST,
+		SeedEffect.SEED_PREVENT_CURSE_UNKNOWN,
+		SeedEffect.SEED_PREVENT_CURSE_MAZE,
+		SeedEffect.SEED_PREVENT_CURSE_BLIND,
+		SeedEffect.SEED_PREVENT_ALL_CURSES,
+		SeedEffect.SEED_GLOWING_TEARS,
+		SeedEffect.SEED_ALL_CHAMPIONS,
+		SeedEffect.SEED_ALWAYS_CHARMED,
+		SeedEffect.SEED_ALWAYS_CONFUSED,
+		SeedEffect.SEED_ALWAYS_AFRAID,
+		SeedEffect.SEED_ALWAYS_ALTERNATING_FEAR,
+		SeedEffect.SEED_ALWAYS_CHARMED_AND_AFRAID,
+		SeedEffect.SEED_SUPER_HOT
+	}
 
+	---@param iconType HUDIconType
+	function HudHelper.RenderHUDIcon(spr, iconType)
+		if HudHelper.ShouldHideHUD() then return end
+		local pos = HudHelper.GetHUDPosition(1)
+		local xPos = 0
+		local yPos = 0
+		if iconType == HudHelper.IconType.COINS then
+			yPos = 32 + HudHelper.GetResourcesOffset("Coins").Y
+		elseif iconType == HudHelper.IconType.BOMBS then
+			yPos = 44 + HudHelper.GetResourcesOffset("Bombs").Y
+		elseif iconType == HudHelper.IconType.KEYS then
+			yPos = 56 + HudHelper.GetResourcesOffset("Keys").Y
+		else
+			yPos = 72
+			local hasChallenge = Isaac.GetChallenge() > Challenge.CHALLENGE_NULL
+			local hasNoAchievements = hasChallenge
+			local seeds = game:GetSeeds()
+			if not hasNoAchievements and iconType ~= HudHelper.IconType.DESTINATION_ICON then
+				for _, seed in ipairs(seedDisablesAchievements) do
+					if seeds:HasSeedEffect(seed) then
+						hasNoAchievements = true
+						break
+					end
+				end
+			end
+			local isGreedMode = game:IsGreedMode()
+			local hasDifficulty = isGreedMode or not hasChallenge and game.Difficulty > Difficulty.DIFFICULTY_NORMAL
+
+			if iconType == HudHelper.IconType.MISC_ICON then
+				--1 icon present
+				xPos = 20
+
+				if isGreedMode then
+					if game:GetLevel():GetStage() == LevelStage.STAGE7_GREED then
+						if game:GetRoom():IsCurrentRoomLastBoss() and game:GetRoom():IsClear() then
+							if Isaac.GetPlayer():GetGreedDonationBreakChance() < 10 then
+								xPos = 37
+							else
+								xPos = 45
+							end
+							if hasNoAchievements then
+								xPos = xPos + 4
+							end
+						else
+							xPos = 21
+						end
+					else
+						xPos = 48
+						if hasNoAchievements then
+							xPos = xPos + 4
+						end
+					end
+					if hasNoAchievements then
+						xPos = xPos + 12
+					end
+				--2 or 0 icons present
+				elseif hasChallenge
+					or (hasDifficulty and hasNoAchievements)
+					or (not hasDifficulty and not hasNoAchievements)
+				then
+					xPos = 34
+				end
+				if not hasDifficulty and not hasNoAchievements then
+					yPos = 65
+				end
+			elseif iconType == HudHelper.IconType.DIFFICULTY_ICON then
+				if not hasDifficulty then
+					return
+				elseif isGreedMode then
+					--Greed icon disappears
+					if game:GetLevel():GetStage() == LevelStage.STAGE7_GREED
+						and game:GetRoom():IsCurrentRoomLastBoss()
+						and game:GetRoom():IsClear()
+					then
+						return
+					end
+					xPos = hasNoAchievements and 16 or 0
+				else
+					xPos = hasNoAchievements and 0 or 4
+				end
+			elseif iconType == HudHelper.IconType.NO_ACHIEVEMENT_ICON then
+				if not hasNoAchievements then
+					return
+				elseif isGreedMode then
+					xPos = 0
+				else
+					xPos = hasChallenge and 0 or not hasDifficulty and 4 or 16
+				end
+			elseif iconType == HudHelper.IconType.DESTINATION_ICON then
+				if not hasChallenge then
+					return
+				else
+					xPos = 16
+				end
+			elseif iconType == HudHelper.IconType.STAT then
+				if not Options.FoundHUD then return end
+				local players = HudHelper.GetHUDPlayers()
+				local DUALITY_OFFSET = 15
+				if #players > 1 then
+					yPos = 185
+				else
+					yPos = 170
+				end
+				if REPENTOGON and PlayerManager.AnyoneHasCollectible(CollectibleType.COLLECTIBLE_DUALITY) then
+					yPos = yPos - DUALITY_OFFSET
+				else
+					for _, player in ipairs(players) do
+						if player:HasCollectible(CollectibleType.COLLECTIBLE_DUALITY) then
+							yPos = yPos - DUALITY_OFFSET
+							break
+						end
+					end
+				end
+			end
+			yPos = yPos + HudHelper.GetResourcesOffset().Y
+		end
+		pos = pos + Vector(xPos, yPos)
+		spr:Render(pos)
+	end
+
+	local lastRenderedHUDSprite
+	local lastRenderedGoldenHUDSprite
+	local hudSprite = Sprite()
+	local shadowSprite = Sprite()
+	local goldenHUDSprite = Sprite()
+	if REPENTOGON then
+		goldenHUDSprite:SetRenderFlags(AnimRenderFlags.GOLDEN)
+	end
+
+	---For rendering active items or trinkets
+	---@param spritePath string
+	---@param pos Vector
+	---@param scale number
+	---@param alpha number
+	---@param isGolden? boolean
+	---@param renderShadow? boolean
+	function HudHelper.RenderHUDItem(spritePath, pos, scale, alpha, isGolden, renderShadow)
+		if isGolden and spritePath ~= lastRenderedGoldenHUDSprite then
+			if not goldenHUDSprite:IsLoaded() or not shadowSprite:IsLoaded() then
+				if REPENTOGON then
+					goldenHUDSprite:Load("gfx/ui/hudhelper_hud_item.anm2")
+				else
+					goldenHUDSprite:Load("gfx/ui/hudhelper_hud_golden_item.anm2")
+				end
+				goldenHUDSprite:Play("Idle")
+				shadowSprite:Load("gfx/ui/hudhelper_hud_item.anm2")
+				shadowSprite:Play("Idle")
+			end
+			shadowSprite:ReplaceSpritesheet(0, spritePath)
+			shadowSprite:LoadGraphics()
+			for i = 0, REPENTOGON and 0 or 31 do
+				goldenHUDSprite:ReplaceSpritesheet(i, spritePath)
+			end
+			goldenHUDSprite:LoadGraphics()
+			lastRenderedGoldenHUDSprite = spritePath
+		end
+		if not isGolden and not spritePath ~= lastRenderedHUDSprite then
+			if not hudSprite:IsLoaded() or not shadowSprite:IsLoaded() then
+				hudSprite:Load("gfx/ui/hudhelper_hud_item.anm2")
+				hudSprite:Play("Idle")
+				shadowSprite:Load("gfx/ui/hudhelper_hud_item.anm2")
+				shadowSprite:Play("Idle")
+			end
+			shadowSprite:ReplaceSpritesheet(0, spritePath)
+			shadowSprite:LoadGraphics()
+			hudSprite:ReplaceSpritesheet(0, spritePath)
+			hudSprite:LoadGraphics()
+			lastRenderedHUDSprite = spritePath
+		end
+		if isGolden then
+			if renderShadow then
+				shadowSprite.Color = Color(0,0,0,alpha * 0.25)
+				shadowSprite.Scale = Vector(scale, scale)
+				shadowSprite:Render(pos + (Vector(2,2) * scale))
+			end
+			goldenHUDSprite.Color = Color(1,1,1,alpha)
+			goldenHUDSprite.Scale = Vector(scale, scale)
+			goldenHUDSprite:Render(pos)
+		else
+			if renderShadow then
+				shadowSprite.Color = Color(0,0,0,alpha * 0.25)
+				shadowSprite.Scale = Vector(scale, scale)
+				shadowSprite:Render(pos + (Vector(2,2) * scale))
+			end
+			hudSprite.Color = Color(1,1,1,alpha)
+			hudSprite.Scale = Vector(scale, scale)
+			hudSprite:Render(pos)
+		end
 	end
 
 	--#endregion
 
 	--#region HUD Element Functions
 
-	---@param params HUDInfo | HUDInfo_Active | HUDInfo_Health | HUDInfo_PocketItem | HUDInfo_Trinket | HUDInfo_Extra | HUDInfo_ActiveItem | HUDInfo_TrinketItem
+	---@param params HUDInfo | HUDInfo_Active | HUDInfo_Health | HUDInfo_Pocket | HUDInfo_Trinket | HUDInfo_Extra | HUDInfo_ActiveID | HUDInfo_TrinketID | HUDInfo_CardID | HUDInfo_PillID
 	---@param hudType? HUDType
 	function HudHelper.RegisterHUDElement(params, hudType)
 		local hudElements = HudHelper.HUD_ELEMENTS[hudType]
 		if not hudElements then hudElements = HudHelper.HUD_ELEMENTS[HudHelper.HUDType.BASE] end
-		local useItemID = hudType == HudHelper.HUDType.ACTIVE_ITEM or hudType == HudHelper.HUDType.TRINKET_ITEM
+		local useItemID = isItemIDType[hudType]
 
 		local targetIndex = useItemID and params.ItemID or #hudElements + 1
 		if not useItemID then
@@ -918,7 +1204,7 @@ local function InitFunctions()
 		hudElements[targetIndex] = {
 			Name = checkValueType("Name", params.Name, useItemID and "nil" or "string"),
 			Priority = checkValueType("Priority", params.Priority, useItemID and "nil" or "number"),
-			Condition = checkValueType("Condition", params.Condition, useItemID and "nil" or "function"),
+			Condition = checkValueType("Condition", params.Condition, "function", useItemID and "nil" or nil),
 			OnRender = checkValueType("OnRender", params.OnRender, "function"),
 			XPadding = xPadding,
 			YPadding = checkValueType("YPadding", params.YPadding, "number", "function", "nil"),
@@ -957,11 +1243,13 @@ local function InitFunctions()
 		[HudHelper.HUDType.BASE] = {}, ---@type table<integer, HUDInfo>
 		[HudHelper.HUDType.ACTIVE] = {}, ---@type table<integer, HUDInfo_Active>
 		[HudHelper.HUDType.HEALTH] = {}, ---@type table<integer, HUDInfo_Health>
-		[HudHelper.HUDType.POCKET] = {}, ---@type table<integer, HUDInfo_PocketItem>
+		[HudHelper.HUDType.POCKET] = {}, ---@type table<integer, HUDInfo_Pocket>
 		[HudHelper.HUDType.TRINKET] = {}, ---@type table<integer, HUDInfo_Trinket>
 		[HudHelper.HUDType.EXTRA] = {}, ---@type table<integer, HUDInfo_Extra>
-		[HudHelper.HUDType.ACTIVE_ITEM] = {}, ---@type table<integer, HUDInfo_ActiveItem>
-		[HudHelper.HUDType.TRINKET_ITEM] = {}, ---@type table<integer, HUDInfo_TrinketItem>
+		[HudHelper.HUDType.ACTIVE_ID] = {}, ---@type table<integer, HUDInfo_ActiveID>
+		[HudHelper.HUDType.TRINKET_ID] = {}, ---@type table<integer, HUDInfo_TrinketID>
+		[HudHelper.HUDType.CARD_ID] = {}, ---@type table<integer, HUDInfo_CardID>
+		[HudHelper.HUDType.PILL_ID] = {}, ---@type table<integer, HUDInfo_PillID>
 	}
 
 	local numPlayers = 0
@@ -1031,22 +1319,21 @@ local function InitFunctions()
 			and checkValueType("position", position, "userdata") and getmetatable(position).__type == "Vector"
 		then
 			local hudElements = HudHelper.HUD_ELEMENTS[hudType]
-			local extraParams = {...}
+			local extraParams = { ... }
 			local conditionParam
-			if hudType == HudHelper.HUDType.ACTIVE_ITEM
-				or hudType == HudHelper.HUDType.TRINKET_ITEM
+			local useItemID = isItemIDType[hudType]
+			if useItemID
 				or hudType == HudHelper.HUDType.ACTIVE
 			then
 				conditionParam = extraParams[3]
 			elseif hudType == HudHelper.HUDType.TRINKET then
 				conditionParam = extraParams[2]
 			end
-			if hudType == HudHelper.HUDType.ACTIVE_ITEM
-				or hudType == HudHelper.HUDType.TRINKET_ITEM
-			then
+			if useItemID then
 				local itemID = conditionParam
 				local hud = hudElements[itemID & ~TrinketType.TRINKET_GOLDEN_FLAG]
 				if hud
+					and (not hud.Condition or hud.Condition(player, playerHUDIndex, hudLayout))
 					and (not player:IsCoopGhost() or hud.BypassGhostBaby)
 					and ((not hud.PreRenderCallback and not isPreCallback) or (hud.PreRenderCallback and isPreCallback))
 				then
@@ -1081,11 +1368,11 @@ local function InitFunctions()
 	---@param playerHUDIndex integer
 	---@param hudLayout HUDLayout
 	---@param pos Vector
-	---@param hud HUDInfo_Active | HUDInfo_ActiveItem
+	---@param hud HUDInfo_Active | HUDInfo_ActiveID
 	local function renderActiveHUDs(player, playerHUDIndex, hudLayout, pos, hud, i, isItem)
 		if REPENTOGON then return end
 		for slot = ActiveSlot.SLOT_POCKET, ActiveSlot.SLOT_PRIMARY, -1 do
-			local cornerHUD = math.min(4, playerHUDIndex)
+			local cornerHUD = min(4, playerHUDIndex)
 			if slot == ActiveSlot.SLOT_POCKET
 				and playerHUDIndex == 1
 				and hudLayout == HudHelper.HUDLayout.P1
@@ -1135,18 +1422,21 @@ local function InitFunctions()
 				scale = 0.5
 			end
 			local itemID = player:GetActiveItem(slot)
-			if isItem and HudHelper.ShouldActiveBeDisplayed(player, itemID, slot) then
-				---@cast hud HUDInfo_ActiveItem
-				if itemID ~= hud.ItemID then goto continue end
+			if isItem
+				and itemID == hud.ItemID
+				and HudHelper.ShouldActiveBeDisplayed(player, itemID, slot)
+				and (not hud.Condition or hud.Condition(player, playerHUDIndex, hudLayout))
+			then
+				---@cast hud HUDInfo_ActiveID
 				hud.OnRender(player, playerHUDIndex, hudLayout, pos, alpha, scale, itemID)
-				HudHelper.LastAppliedHUD[HudHelper.HUDType.ACTIVE_ITEM][playerHUDIndex] = hud
-			else
+				HudHelper.LastAppliedHUD[HudHelper.HUDType.ACTIVE_ID][playerHUDIndex] = hud
+			elseif not isItem
+				and hud.Condition(player, playerHUDIndex, hudLayout, slot)
+			then
 				---@cast hud HUDInfo_Active
-				if not hud.Condition(player, playerHUDIndex, hudLayout, slot) then goto continue end
 				hud.OnRender(player, playerHUDIndex, hudLayout, pos, alpha, scale, slot)
 				HudHelper.LastAppliedHUD[HudHelper.HUDType.ACTIVE][playerHUDIndex] = hud
 			end
-			::continue::
 		end
 	end
 
@@ -1182,13 +1472,13 @@ local function InitFunctions()
 		end
 		local itemID = player:GetActiveItem(slot)
 		if HudHelper.ShouldActiveBeDisplayed(player, itemID, slot) then
-			local hud = HUD_ELEMENTS[HudHelper.HUDType.ACTIVE_ITEM][itemID]
+			local hud = HUD_ELEMENTS[HudHelper.HUDType.ACTIVE_ID][itemID]
 			if hud
 				and (not player:IsCoopGhost() or hud.BypassGhostBaby)
 				and ((not hud.PreRenderCallback and not isPreCallback) or (hud.PreRenderCallback and isPreCallback))
 			then
 				hud.OnRender(player, playerHUDIndex, hudLayout, offset, alpha, scale, itemID)
-				HudHelper.LastAppliedHUD[HudHelper.HUDType.ACTIVE_ITEM][playerHUDIndex] = hud
+				HudHelper.LastAppliedHUD[HudHelper.HUDType.ACTIVE_ID][playerHUDIndex] = hud
 			end
 		end
 	end
@@ -1200,15 +1490,8 @@ local function InitFunctions()
 	---@param hud HUDInfo_Health
 	local function renderHeartHUDs(player, playerHUDIndex, hudLayout, pos, hud)
 		if REPENTOGON then return end
-		local maxColumns = 6
+		local maxColumns = HudHelper.Utils.GetMaxHeartColumns(hudLayout)
 
-		if not REPENTANCE_PLUS
-			and (
-				hudLayout == HudHelper.HUDLayout.COOP
-				or hudLayout == HudHelper.HUDLayout.STRAWMAN_HEARTS
-			) then
-			maxColumns = 3
-		end
 		hud.OnRender(player, playerHUDIndex, hudLayout, pos, maxColumns)
 		HudHelper.LastAppliedHUD[HudHelper.HUDType.HEALTH][playerHUDIndex] = hud
 	end
@@ -1230,18 +1513,11 @@ local function InitFunctions()
 			return
 		end
 
-		local maxColumns = 6
 		local playerHUDIndex = HudHelper.Utils.GetHUDPlayerNumberIndex(player)
 		local hudLayout = playerHUDIndex == -1 and HudHelper.HUDLayout.STRAWMAN_HEARTS or
 			HudHelper.Utils.GetHUDLayout(playerHUDIndex)
 
-		if not REPENTANCE_PLUS
-			and (
-				hudLayout == HudHelper.HUDLayout.COOP
-				or hudLayout == HudHelper.HUDLayout.STRAWMAN_HEARTS
-			) then
-			maxColumns = 3
-		end
+		local maxColumns = HudHelper.Utils.GetMaxHeartColumns(hudLayout)
 
 		for _, hud in ipairs(HUD_ELEMENTS[HudHelper.HUDType.HEALTH]) do
 			if (not player:IsCoopGhost() or hud.BypassGhostBaby)
@@ -1258,8 +1534,8 @@ local function InitFunctions()
 	---@param playerHUDIndex integer
 	---@param hudLayout HUDLayout
 	---@param pos Vector
-	---@param hud HUDInfo_PocketItem
-	local function renderPocketItemHUDs(player, playerHUDIndex, hudLayout, pos, hud, i)
+	---@param hud HUDInfo_Pocket | HUDInfo_CardID | HUDInfo_PillID
+	local function renderPocketItemHUDs(player, playerHUDIndex, hudLayout, pos, hud, i, isCard, isPill)
 		local scale = 1
 		local alpha = 1
 
@@ -1288,17 +1564,25 @@ local function InitFunctions()
 			scale = 0.5
 		end
 
-		hud.OnRender(player, playerHUDIndex, hudLayout, pos, alpha, scale)
-		HudHelper.LastAppliedHUD[HudHelper.HUDType.POCKET][playerHUDIndex] = hud
+		if isCard and player:GetCard(0) == hud.ItemID then
+			hud.OnRender(player, playerHUDIndex, hudLayout, pos, alpha, scale)
+			HudHelper.LastAppliedHUD[HudHelper.HUDType.CARD_ID][playerHUDIndex] = hud
+		elseif isPill and player:GetPill(0) == hud.ItemID then
+			hud.OnRender(player, playerHUDIndex, hudLayout, pos, alpha, scale)
+			HudHelper.LastAppliedHUD[HudHelper.HUDType.PILL_ID][playerHUDIndex] = hud
+		else
+			hud.OnRender(player, playerHUDIndex, hudLayout, pos, alpha, scale)
+			HudHelper.LastAppliedHUD[HudHelper.HUDType.POCKET][playerHUDIndex] = hud
+		end
 	end
 
 	---@param player EntityPlayer
 	---@param playerHUDIndex integer
 	---@param hudLayout HUDLayout
 	---@param pos Vector
-	---@param hud HUDInfo_Trinket | HUDInfo_TrinketItem
+	---@param hud HUDInfo_Trinket | HUDInfo_TrinketID
 	local function renderTrinketHUDs(player, playerHUDIndex, hudLayout, pos, hud, i, isItem)
-		local cornerHUD = math.min(4, playerHUDIndex)
+		local cornerHUD = min(4, playerHUDIndex)
 		if hudLayout == HudHelper.HUDLayout.P1 or (hudLayout == HudHelper.HUDLayout.P1_MAIN_TWIN and not REPENTANCE_PLUS) then
 			cornerHUD = 3
 		end
@@ -1314,18 +1598,20 @@ local function InitFunctions()
 				scale = 0.5
 			end
 			local trinketID = player:GetTrinket(slot)
-			if isItem then
-				---@cast hud HUDInfo_TrinketItem
-				if hud.ItemID ~= trinketID & ~TrinketType.TRINKET_GOLDEN_FLAG then goto continue end
-				hud.OnRender(player, playerHUDIndex, hudLayout, pos, scale, 1, trinketID)
-				HudHelper.LastAppliedHUD[HudHelper.HUDType.TRINKET_ITEM][playerHUDIndex] = hud
-			else
+			if isItem
+				and hud.ItemID == trinketID & ~TrinketType.TRINKET_GOLDEN_FLAG
+				and (not hud.Condition or hud.Condition(player, playerHUDIndex, hudLayout))
+			then
+				---@cast hud HUDInfo_TrinketID
+				hud.OnRender(player, playerHUDIndex, hudLayout, pos, 1, scale, trinketID)
+				HudHelper.LastAppliedHUD[HudHelper.HUDType.TRINKET_ID][playerHUDIndex] = hud
+			elseif not isItem
+				and hud.Condition(player, playerHUDIndex, hudLayout, slot)
+			then
 				---@cast hud HUDInfo_Trinket
-				if not hud.Condition(player, playerHUDIndex, hudLayout, slot) then goto continue end
 				hud.OnRender(player, playerHUDIndex, hudLayout, pos, scale, slot)
 				HudHelper.LastAppliedHUD[HudHelper.HUDType.TRINKET][playerHUDIndex] = hud
 			end
-			::continue::
 		end
 	end
 
@@ -1390,6 +1676,7 @@ local function InitFunctions()
 		end
 	end
 
+	--Unused. Is mostly done, but the cutoff for when items stop rendering I don't know how to figure out.
 	function HudHelper.RenderExtraItemHUDTrinkets(isPreCallback)
 		local player = Isaac.GetPlayer()
 		local posIndex = 0
@@ -1398,7 +1685,7 @@ local function InitFunctions()
 		local scale = Options.ExtraHUDStyle == 1 and 1 or 0.5
 		local extraHUDOffset = HudHelper.GetExtraItemHUDOffset()
 		local alpha = 0.5
-		for trinketID, hud in pairs(HudHelper.HUD_ELEMENTS[HudHelper.HUDType.TRINKET_ITEM]) do
+		for trinketID, hud in pairs(HudHelper.HUD_ELEMENTS[HudHelper.HUDType.TRINKET_ID]) do
 			if player:HasTrinket(trinketID) then
 				local collectiblesHistory = player:GetHistory():GetCollectiblesHistory()
 				for i = #collectiblesHistory, 1, -1 do
@@ -1412,7 +1699,7 @@ local function InitFunctions()
 						and ((not hud.PreRenderCallback and not isPreCallback) or (hud.PreRenderCallback and isPreCallback))
 					then
 						local xPos = (32 * scale) * ((posIndex - 1) % columns)
-						local yPos = (32 * scale) * (math.ceil(posIndex / columns) - 1)
+						local yPos = (32 * scale) * (ceil(posIndex / columns) - 1)
 						local offset = Vector(xPos, yPos)
 
 						local position = HudHelper.GetHUDPosition(2) + extraHUDOffset + offset
@@ -1444,13 +1731,13 @@ local function InitFunctions()
 
 				for hudType, hudTable in pairs(HudHelper.HUD_ELEMENTS) do
 					extraYPadding = 0
-					---Separated as ACTIVE_ITEM and TRINKET_ITEM are indexed uniquely by itemIDs instead of a priority order
-					if hudType ~= HudHelper.HUDType.ACTIVE_ITEM and hudType ~= HudHelper.HUDType.TRINKET_ITEM then
+					---Separated as these are indexed uniquely by itemIDs instead of a priority order
+					if not isItemIDType[hudType] then
 						for _, hud in ipairs(hudTable) do
 							if not ((not player:IsCoopGhost() or hud.BypassGhostBaby)
 									and (hudType == HudHelper.HUDType.ACTIVE
-									or hudType == HudHelper.HUDType.TRINKET
-									or hud.Condition(player, playerHUDIndex, hudLayout))
+										or hudType == HudHelper.HUDType.TRINKET
+										or hud.Condition(player, playerHUDIndex, hudLayout))
 									and ((not hud.PreRenderCallback and not isPreCallback) or (hud.PreRenderCallback and isPreCallback))
 								) then
 								goto continue2
@@ -1474,7 +1761,7 @@ local function InitFunctions()
 								end
 								renderHeartHUDs(player, playerHUDIndex, hudLayout, pos, hud)
 							elseif hudType == HudHelper.HUDType.POCKET then
-								---@cast hud HUDInfo_PocketItem
+								---@cast hud HUDInfo_Pocket
 								if hudLayout == HudHelper.HUDLayout.P1 and not condensedCoopHUD then
 									pos = HudHelper.GetHUDPosition(4)
 								end
@@ -1504,12 +1791,17 @@ local function InitFunctions()
 							if i == 2 then
 								pos = pos + TWIN_COOP_OFFSET
 							end
-							if hudType == HudHelper.HUDType.ACTIVE_ITEM then
-								---@cast hud HUDInfo_ActiveItem
+							if hudType == HudHelper.HUDType.ACTIVE_ID then
+								---@cast hud HUDInfo_ActiveID
 								renderActiveHUDs(player, playerHUDIndex, hudLayout, pos, hud, i, true)
-							elseif hudType == HudHelper.HUDType.TRINKET_ITEM then
-								---@cast hud HUDInfo_TrinketItem
+							elseif hudType == HudHelper.HUDType.TRINKET_ID then
+								---@cast hud HUDInfo_TrinketID
 								renderTrinketHUDs(player, playerHUDIndex, hudLayout, pos, hud, i, true)
+							elseif (hudType == HudHelper.HUDType.CARD_ID or hudType == HudHelper.HUDType.PILL_ID)
+								and (not hud.Condition or hud.Condition(player, playerHUDIndex, hudLayout))
+							then
+								---@cast hud HUDInfo_CardID | HUDInfo_PillID
+								renderPocketItemHUDs(player, playerHUDIndex, hudLayout, pos, hud, i, hudType == HudHelper.HUDType.CARD_ID, hudType == HudHelper.HUDType.PILL_ID)
 							end
 							::continue2::
 						end
@@ -1561,6 +1853,12 @@ local function InitFunctions()
 
 	local function postRenderHUDs()
 		HudHelper.RenderHUDs(false)
+	end
+
+	local function updateGoldenItemHUD()
+		if not REPENTOGON and Isaac.GetFrameCount() % 2 == 0 and not game:IsPaused() then
+			goldenHUDSprite:Update()
+		end
 	end
 
 	local function resetHUDPlayersOnLazBBirthrightFlip(_, _, _, player)
@@ -1632,7 +1930,7 @@ local function InitFunctions()
 
 					EID:addTextPosModifier(
 						"HudHelper",
-						Vector(0, math.max(0, posYModifier))
+						Vector(0, max(0, posYModifier))
 					)
 				end
 			}, HudHelper.HUDType.EXTRA)
@@ -1671,11 +1969,41 @@ local function InitFunctions()
 	end
 
 	AddPriorityCallback(ModCallbacks.MC_POST_RENDER, CallbackPriority.LATE, preRenderHUDs)
+	AddCallback(ModCallbacks.MC_POST_RENDER, updateGoldenItemHUD)
 	AddCallback(ModCallbacks.MC_USE_ITEM, resetHUDPlayersOnLazBBirthrightFlip, CollectibleType.COLLECTIBLE_FLIP)
 
 	--#endregion
 
 	--Register HUD elements. Previous versions of these get overwritten.
+	HudHelper.RegisterHUDElement({
+		Name = "Heart Cap",
+		Priority = HudHelper.Priority.VANILLA - 1,
+		XPadding = 0,
+		YPadding = function(player, _, hudLayout)
+			local heartPerRow = HudHelper.Utils.GetMaxHeartColumns(hudLayout) * 2
+			local startAt = (heartPerRow == 12) and 5 or -15
+
+			--condensedCoopHUD
+			if REPENTANCE_PLUS and hudLayout == HudHelper.HUDLayout.COOP then
+				startAt = -6
+			end
+
+			local rows = HudHelper.Utils.GetCurrentMaxHeartRows(player)
+
+			if not (NoHealthCapModEnabled or CustomHealthAPI) then
+				rows = min(48 / heartPerRow, rows) --Hearts literally stop rendering after 4 rows legitimately
+			end
+			return startAt + (rows - 3) * 10
+		end,
+		Condition = function(player, playerHUDIndex)
+			if playerHUDIndex > 2 then
+				return false
+			end
+
+			return HudHelper.Utils.GetEffectiveMaxHealth(player) > 24
+		end,
+		OnRender = function() end, -- handled by the game
+	}, HudHelper.HUDType.EXTRA)
 	HudHelper.RegisterHUDElement({
 		Name = "Tainted Isaac",
 		Priority = HudHelper.Priority.VANILLA,
@@ -1683,7 +2011,7 @@ local function InitFunctions()
 		YPadding = 20,
 		Condition = function(player, playerHUDIndex)
 			return player:GetPlayerType() == PlayerType.PLAYER_ISAAC_B
-				and (REPENTANCE_PLUS or playerHUDIndex == 1)
+				and (REPENTANCE_PLUS and playerHUDIndex <= 2 or playerHUDIndex == 1)
 		end,
 		OnRender = function() end, -- handled by the game
 	}, HudHelper.HUDType.EXTRA)
@@ -1694,7 +2022,7 @@ local function InitFunctions()
 		YPadding = 17,
 		Condition = function(player, playerHUDIndex)
 			return player:GetPlayerType() == PlayerType.PLAYER_BLUEBABY_B
-				and (REPENTANCE_PLUS or playerHUDIndex == 1)
+				and (REPENTANCE_PLUS and playerHUDIndex <= 2 or playerHUDIndex == 1)
 		end,
 		OnRender = function() end, -- handled by the game
 	}, HudHelper.HUDType.EXTRA)
@@ -1703,7 +2031,7 @@ local function InitFunctions()
 		Priority = HudHelper.Priority.VANILLA,
 		XPadding = 0,
 		YPadding = 16,
-		Condition = function(player, playerHUDIndex, hudLayout)
+		Condition = function(_, _, hudLayout)
 			return hudLayout == HudHelper.P1_MAIN_TWIN
 		end,
 		OnRender = function() end, -- handled by the game
@@ -1713,24 +2041,8 @@ local function InitFunctions()
 		Priority = HudHelper.Priority.VANILLA,
 		XPadding = 15,
 		YPadding = 0,
-		Condition = function(player, playerHUDIndex, hudLayout)
+		Condition = function(_, _, hudLayout)
 			return hudLayout == HudHelper.P1_OTHER_TWIN
-		end,
-		OnRender = function() end, -- handled by the game
-	}, HudHelper.HUDType.EXTRA)
-	HudHelper.RegisterHUDElement({
-		Name = "Heart Cap",
-		Priority = HudHelper.Priority.VANILLA,
-		XPadding = 0,
-		YPadding = function(player)
-			local rows = math.ceil(HudHelper.Utils.GetEffectiveMaxHealth(player) / 12)
-			if (REPENTOGON and not NoHealthCapModEnabled) and not CustomHealthAPI then
-				rows = math.min(4, rows) --Hearts literally stop rendering after 4 rows legitimately
-			end
-			return 5 + (rows - 3) * 10
-		end,
-		Condition = function(player)
-			return HudHelper.Utils.GetEffectiveMaxHealth(player) > 24
 		end,
 		OnRender = function() end, -- handled by the game
 	}, HudHelper.HUDType.EXTRA)

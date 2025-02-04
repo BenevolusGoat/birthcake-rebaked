@@ -8,24 +8,26 @@ BETHANY_CAKE.WISP_DUPE_CHANCE = 0.25
 
 -- Bethany Birthcake
 
----@param itemID CollectibleType
----@param rng RNG
----@param player EntityPlayer
----@param flags UseFlag
-function BETHANY_CAKE:OnActiveUse(itemID, rng, player, flags)
-	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_BETHANY)
-		and (Mod:HasBitFlags(flags, UseFlag.USE_ALLOWWISPSPAWN)
-		or player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES))
-	then
-		local chanceMult = Mod:GetTrinketMult(player)
-		if rng:RandomFloat() <= Mod:GetBalanceApprovedChance(BETHANY_CAKE.WISP_DUPE_CHANCE, chanceMult) then
-			player:AddWisp(itemID, player.Position)
-			Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
+---@param familiar EntityFamiliar
+function BETHANY_CAKE:OnWispSpawn(familiar)
+	local player = familiar.Player
+
+	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_BETHANY) and familiar.FrameCount == 5 then
+		local run_save = Mod:RunSave(familiar)
+		if not run_save.BethanyCakeWispSpawned then
+			local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
+			local chanceMult = Mod:GetTrinketMult(player)
+			if rng:RandomFloat() <= Mod:GetBalanceApprovedChance(BETHANY_CAKE.WISP_DUPE_CHANCE, chanceMult) then
+				local newWisp = player:AddWisp(familiar.SubType, player.Position)
+				Mod:RunSave(newWisp).BethanyCakeWispSpawned = true
+				Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
+			end
+			run_save.BethanyCakeWispSpawned = true
 		end
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_USE_ITEM, BETHANY_CAKE.OnActiveUse)
+Mod:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, BETHANY_CAKE.OnWispSpawn, FamiliarVariant.WISP)
 
 -- Tainted Bethany Birthcake
 
@@ -34,13 +36,14 @@ BETHANY_CAKE.WISP_HEALTH_MULT_ADD = 2
 
 ---@param familiar EntityFamiliar
 function BETHANY_CAKE:OnWispInit(familiar)
-	if familiar.FrameCount >= 5 and Mod:PlayerTypeHasBirthcake(familiar.Player, PlayerType.PLAYER_BETHANY_B) then
-		local familiar_run_save = Mod.SaveManager.GetRunSave(familiar)
-		if familiar.MaxHitPoints == 4 and not familiar_run_save.BethanyBirthcakeUpgrade then
-			local maxHp = familiar.MaxHitPoints + BETHANY_CAKE.WISP_HEALTH_UP + (BETHANY_CAKE.WISP_HEALTH_MULT_ADD * (Mod:GetTrinketMult(familiar.Player) - 1)) --8 base, 2 for each multiplier
+	if familiar.FrameCount == 5 and Mod:PlayerTypeHasBirthcake(familiar.Player, PlayerType.PLAYER_BETHANY_B) then
+		local familiar_run_save = Mod:RunSave(familiar)
+		if familiar.MaxHitPoints == 4 and not familiar_run_save.BethanyCakeUpgrade then
+			local maxHp = familiar.MaxHitPoints + BETHANY_CAKE.WISP_HEALTH_UP +
+			(BETHANY_CAKE.WISP_HEALTH_MULT_ADD * (Mod:GetTrinketMult(familiar.Player) - 1)) --8 base, 2 for each multiplier
 			familiar.MaxHitPoints = maxHp
 			familiar.HitPoints = maxHp
-			familiar_run_save.BethanyBirthcakeUpgrade = true
+			familiar_run_save.BethanyCakeUpgrade = true
 		end
 	end
 end

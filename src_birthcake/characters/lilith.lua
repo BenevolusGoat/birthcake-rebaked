@@ -116,7 +116,7 @@ function LILITH_CAKE:NerfGelloRuntDamage(ent, amount, flags, source, countdownFr
 	then
 		local familiar = source.Entity.SpawnerEntity:ToFamiliar() ---@cast familiar EntityFamiliar
 		local data = Mod:GetData(familiar)
-		if data.LilithBirthcakeGello and not data.PreventDaamgeLoop then
+		if data.LilithBirthcakeGello and not data.PreventDamageLoop then
 			data.PreventDamageLoop = true
 			ent:TakeDamage(amount * LILITH_CAKE.RUNT_BASE_DMG_MULT, flags, source, countdownFrames)
 			data.PreventDamageLoop = false

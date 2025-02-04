@@ -29,12 +29,12 @@ function JACOB_ESAU_CAKE:RedirectDamage(ent, amount, flags, source, countdown)
 
 	if JACOB_ESAU_CAKE:CheckJacobEsau(player)
 		and player:GetOtherTwin()
-		and not data.JacobEsauCakePreventLoop
+		and not data.PreventDamageLoop
 	then
 		local otherData = Mod:GetData(player:GetOtherTwin())
-		otherData.JacobEsauCakePreventLoop = true
+		otherData.PreventDamageLoop = true
 		player:GetOtherTwin():TakeDamage(amount, flags, source, countdown)
-		otherData.JacobEsauCakePreventLoop = false
+		otherData.PreventDamageLoop = false
 		return false
 	end
 end
@@ -85,6 +85,8 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_POST_EFFECT_INIT, JACOB_ESAU_CAKE.OnFireInit, JACOB_ESAU_CAKE.DARK_ESAU_FLAME)
 
+local max = math.max
+
 ---@param effect EntityEffect
 function JACOB_ESAU_CAKE:OnFireUpdate(effect)
 	local sprite = effect:GetSprite()
@@ -100,7 +102,7 @@ function JACOB_ESAU_CAKE:OnFireUpdate(effect)
 		for _, ent in ipairs(Isaac.FindInRadius(effect.Position, effect.Size)) do
 			if (ent:ToProjectile() or ent:ToTear()) and not ent:IsDead() then
 				ent:Die()
-				effect.HitPoints = math.max(2, effect.HitPoints - 2)
+				effect.HitPoints = max(2, effect.HitPoints - 2)
 			elseif ent:ToPlayer() or (ent:IsActiveEnemy(false) and ent:IsVulnerableEnemy()) then
 				if not data.HitList or not data.HitList[GetPtrHash(ent)] then
 					data.HitList = data.HitList or {}
