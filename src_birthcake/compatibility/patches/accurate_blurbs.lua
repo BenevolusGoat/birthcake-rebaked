@@ -178,8 +178,8 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 		pt_br = "Lágrimas de meleca ao espirrar",
 		ko_kr = "재채기를 하면 혈사포 표식 효과를 부여하는 코딱지도 같이 발사됨",
 	},
-	[PlayerType.PLAYER_LAZARUS_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
-		en_us = "Flipping items may split items into both sides",
+	[PlayerType.PLAYER_LAZARUS_B] = { 				-- EN: [OK] | RU: [!] | SPA: [X] | CS_CZ: [X] | PL: [!] | KO_KR [!] | PT_BR [!]
+		en_us = "Flipping items splits items into both sides",
 		ru = "Переворачивание предметов может разделить их на обе части",
 		pl = "Odwrót czasami rozdziela przedmioty na obie strony",
 		pt_br = "Trocar o item talvez dividira ambos os lados",

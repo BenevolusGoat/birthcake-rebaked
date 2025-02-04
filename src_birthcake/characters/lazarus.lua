@@ -99,8 +99,6 @@ Mod:AddCallback(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, LAZARUS_CAKE.OnPlayerTy
 
 -- Tainted Lazarus Birthcake
 
-LAZARUS_CAKE.ITEM_SPLIT_CHANCE = 0.33
-
 local ALIVE_COLOR = Color(1, 1, 1, 1, 0.7, 0.9, 1)
 local DEAD_COLOR = Color(1, 1, 1, 1, 1, 0, 0)
 
@@ -160,12 +158,8 @@ function LAZARUS_CAKE:PostFlipPedestals(itemID, rng, player)
 			if not data.FlipPedestal then goto continue end
 			local previousItemID = data.FlipPedestal[1]
 			local previousPrice = data.FlipPedestal[2]
-			local randomFloat = player:GetTrinketRNG(Mod.Birthcake.ID):RandomFloat()
-			local randomChance = Mod:GetBalanceApprovedChance(LAZARUS_CAKE.ITEM_SPLIT_CHANCE, Mod:GetTrinketMult(player))
 
-			if pickup.SubType ~= previousItemID
-				and randomFloat <= randomChance
-			then
+			if pickup.SubType ~= previousItemID then
 				pickup:Remove()
 				LAZARUS_CAKE:SpawnSplitPedestals(pickup, player, previousItemID, previousPrice)
 			end

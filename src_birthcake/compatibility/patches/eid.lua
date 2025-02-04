@@ -266,7 +266,7 @@ BIRTHCAKE_EID.Descs = {
 			" przy pierwszym podniesieniu i na początku każdego piętra"
 		},
 	},
-	[PlayerType.PLAYER_MAGDALENE] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_MAGDALENE] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"{{Heart}} Heart pickups have a ",
 			function(descObj)
@@ -402,7 +402,7 @@ BIRTHCAKE_EID.Descs = {
 			"% szansy na zwrot pieniędzy"
 		},
 	},
-	[PlayerType.PLAYER_JUDAS] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_JUDAS] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		---@param descObj EID_DescObj
 		_modifier = function(descObj)
 			local mult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity), descObj.ObjSubType)
@@ -451,7 +451,7 @@ BIRTHCAKE_EID.Descs = {
 			"#{{DevilRoom}} Gdyby wymiana z Diabłem miała by zabić Judasza, zamiast tego ten trynkiet jest niszczony"
 		},
 	},
-	[PlayerType.PLAYER_BLUEBABY] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_BLUEBABY] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		_modifier = function(descObj, poopStr, activeStr, noActiveStr, invalidActiveStr)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local activeItem = player:GetActiveItem(ActiveSlot.SLOT_PRIMARY)
@@ -517,7 +517,7 @@ BIRTHCAKE_EID.Descs = {
 			end
 		},
 	},
-	[PlayerType.PLAYER_EVE] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_EVE] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		_modifier = function(descObj, str)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			if player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS) then
@@ -558,7 +558,7 @@ BIRTHCAKE_EID.Descs = {
 			end
 		},
 	},
-	[PlayerType.PLAYER_SAMSON] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_SAMSON] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		---@param descObj EID_DescObj
 		---@param strNoMult string
 		---@param strMult string
@@ -630,7 +630,7 @@ BIRTHCAKE_EID.Descs = {
 			end
 		},
 	},
-	[PlayerType.PLAYER_AZAZEL] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_AZAZEL] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"{{ArrowDown}} {{Damage}} -",
 			function()
@@ -672,7 +672,7 @@ BIRTHCAKE_EID.Descs = {
 			--"#Splunięcie laserem trwa dłużej"
 		} ]]
 	},
-	[PlayerType.PLAYER_LAZARUS] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_LAZARUS] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"{{Collectible332}} If Lazarus Risen dies, this trinket is consumed and he is revived again",
 			"#The revive grants another damage increase and removes a heart container"
@@ -690,7 +690,7 @@ BIRTHCAKE_EID.Descs = {
 			"#Odrodzenie daje kolejny bonus do obrażeń i zabiera kolejne serduszko"
 		},
 	},
-	[PlayerType.PLAYER_EDEN] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_EDEN] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		---@param descObj EID_DescObj
 		_modifier = function(descObj)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity),
@@ -732,7 +732,7 @@ BIRTHCAKE_EID.Descs = {
 			"#Efekty trynkietów są tracone, jeżeli tenk trynkiet zostanie upuszczony"
 		},
 	},
-	[PlayerType.PLAYER_THELOST] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_THELOST] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		_modifier = function(descObj, str, ...)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity),
 				descObj.ObjSubType)
@@ -787,7 +787,7 @@ BIRTHCAKE_EID.Descs = {
 			end
 		},
 	},
-	[PlayerType.PLAYER_LILITH] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_LILITH] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"Familiars have a ",
 			function(descObj)
@@ -817,7 +817,7 @@ BIRTHCAKE_EID.Descs = {
 			"% szansy na skopiowanie efektów łez Lilit"
 		},
 	},
-	[PlayerType.PLAYER_KEEPER] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_KEEPER] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		---@param descObj EID_DescObj
 		---@param str string
 		---@param strMult string
@@ -855,7 +855,7 @@ BIRTHCAKE_EID.Descs = {
 			end
 		},
 	},
-	[PlayerType.PLAYER_APOLLYON] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_APOLLYON] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		_modifier = function(descObj, str)
 			local mult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity), descObj.ObjSubType,
 				true)
@@ -904,7 +904,7 @@ BIRTHCAKE_EID.Descs = {
 			end
 		},
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_THEFORGOTTEN] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		_modifier = function(descObj)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
@@ -989,7 +989,7 @@ BIRTHCAKE_EID.Descs = {
 			"Właściciel przekierowywuje otrzymane obrażenia do drugiego brata"
 		},
 	},
-	[PlayerType.PLAYER_ISAAC_B] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_ISAAC_B] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"Grants an additional inventory slot"
 		},
@@ -1021,7 +1021,7 @@ BIRTHCAKE_EID.Descs = {
 			"#Siła eksplozji zależy od typu serduszka i piętra"
 		},
 	},
-	[PlayerType.PLAYER_CAIN_B] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_CAIN_B] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"Double pickups that spawn are split into their halves"
 		},
@@ -1035,7 +1035,7 @@ BIRTHCAKE_EID.Descs = {
 			"Podwójne pickupy są dzielone na połówki"
 		},
 	},
-	[PlayerType.PLAYER_JUDAS_B] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_JUDAS_B] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		_modifier = function(descObj)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
@@ -1069,7 +1069,7 @@ BIRTHCAKE_EID.Descs = {
 			end
 		},
 	},
-	[PlayerType.PLAYER_BLUEBABY_B] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_BLUEBABY_B] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"Thrown poops have a ",
 			function(descObj)
@@ -1117,7 +1117,7 @@ BIRTHCAKE_EID.Descs = {
 			"#Obrażenia i dodatkowe efekty mazi zależą od typu zabitego Zakrzepka"
 		},
 	},
-	[PlayerType.PLAYER_SAMSON_B] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_SAMSON_B] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"{{Collectible704}} Clearing a room while in Berserk has a ",
 			function(descObj)
@@ -1147,7 +1147,7 @@ BIRTHCAKE_EID.Descs = {
 			"% szansy na wydłużenie czasu trwania o 5 sekund i stworzenie {{HalfHeart}} połowy czerwonego serduszka"
 		},
 	},
-	[PlayerType.PLAYER_AZAZEL_B] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_AZAZEL_B] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"Sneezing fires out a cluster of 6 booger tears that deal a portion of Azazel's damage",
 			"#{{Collectible459}} Tears have a ",
@@ -1181,32 +1181,28 @@ BIRTHCAKE_EID.Descs = {
 			"% szansy na przyczepienie się do przeciwników, zadając obrażenia rozłożone w czasie"
 		},
 	},
-	[PlayerType.PLAYER_LAZARUS_B] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_LAZARUS_B] = { -- EN: [OK] | RU: [!] | SPA: [!] | CS_CZ: [X] | PL: [!] | KO_KR [X] | PT_BR [X]
 		en_us = {
-			"{{Collectible711}} When using Flip, item pedestals have a ",
-			function(descObj)
-				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.LAZARUS.ITEM_SPLIT_CHANCE)
-			end,
-			"% chance to split into both collectibles displayed"
+			"{{Collectible711}} When using Flip, item pedestals will split into both collectibles displayed"
 		},
 		ru = {
 			"{{Collectible711}} При использовании Переворота пьедесталы с предметами имеют ",
-			function(descObj)
-				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.LAZARUS.ITEM_SPLIT_CHANCE)
+			function()
+				return "100%"
 			end,
 			"% шанс разделиться на оба отображаемых предмета"
 		},
 		spa = {
 			"{{Collectible711}} Al usar Flip, los objetos de pedestal tienen una probabilidad del ",
-			function(descObj)
-				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.LAZARUS.ITEM_SPLIT_CHANCE)
+			function()
+				return "100%"
 			end,
 			"% de dividirse en ambos objetos mostrados"
 		},
 		pl = {
 			"{{Collectible711}} Po użyciu Odwrotu, przedmioty mają ",
-			function(descObj)
-				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.LAZARUS.ITEM_SPLIT_CHANCE)
+			function()
+				return "100%"
 			end,
 			"% szansy na rozdzielenie się na oba pokazane przedmioty"
 		},
@@ -1249,7 +1245,7 @@ BIRTHCAKE_EID.Descs = {
 			.. Mod.Birthcake.EDEN.BIRTHCAKE_REROLL_CHANCE .. "% na przelosowanie przy otrzymaniu obrażeń"
 		},
 	},
-	[PlayerType.PLAYER_THELOST_B] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_THELOST_B] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"{{Card51}} Spawns a Holy Card when first picked up",
 			"#Cards have another ",
@@ -1376,7 +1372,7 @@ BIRTHCAKE_EID.Descs = {
 			" obrażeń"
 		},
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN_B] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_THEFORGOTTEN_B] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"Killing enemies will spawn stationary bone fragments that damage enemies on contact",
 			"#Holding {{Player35}}The Forgotten will cause all bone fragments to fly towards {{Player40}}The Soul, becoming orbitals",
@@ -1414,7 +1410,7 @@ BIRTHCAKE_EID.Descs = {
 			" kości"
 		},
 	},
-	[PlayerType.PLAYER_BETHANY_B] = { -- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_BETHANY_B] = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		_modifier = function(descObj)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
