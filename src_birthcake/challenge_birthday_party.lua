@@ -263,6 +263,12 @@ function BIRTHDAY_PARTY:SwitchCharacter()
 			local run_save = Mod:RunSave()
 			if not run_save.BirthdayPartyCharacterList or #run_save.BirthdayPartyCharacterList == 0 then
 				BIRTHDAY_PARTY:RefreshCharacterList()
+				for i, availablePlayerType in ipairs(run_save.BirthdayPartyCharacterList) do
+					if playerType == availablePlayerType then
+						table.remove(run_save.BirthdayPartyCharacterList, i)
+						break
+					end
+				end
 			end
 
 			local randomIndex = Mod.GENERIC_RNG:RandomInt(#run_save.BirthdayPartyCharacterList) + 1

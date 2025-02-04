@@ -5,8 +5,7 @@ General additions/changes:
 - In co-op play, Birthcake will take on its default appearance, and will have its sprite updated when picked up by the player
 - The unique Birthcake sprite for each character now appears on the HUD, powered by Benny's HudHelper
 - A completely different sprite base for the tainted characters, as well as some touchups to vanilla ones, courtesy of the original spriter, damagaz
-- (RGON ONLY) Isaac's Birthday Cake challenge is both now actually completeable
-- ModConfigMenu support. Two pickup-text-related settings, and two for managing the mod's two achievements
+- ModConfigMenu support. Has pickup-text-related settings for language and changing the name of tainted characters
 
 Isaac's Birthday Party Challenge:
 - Now randomly selects characters to play as when decending floors as opposed to a set order. This is still restricted to vanilla characters
