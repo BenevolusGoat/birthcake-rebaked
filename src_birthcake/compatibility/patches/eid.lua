@@ -1277,6 +1277,10 @@ BIRTHCAKE_EID.Descs = {
 			"Zakrzepki zostawiają za sobą mają kałuże mazi po śmierci",
 			"#Obrażenia i dodatkowe efekty mazi zależą od typu zabitego Zakrzepka"
 		},
+		pt_br = {
+			"Trombos deixam uma pequena poça de sangue ao morrer",
+			"#O dano e efeito das poças dependem do tipo de trombo"
+		},
 		
 	},
 	[PlayerType.PLAYER_SAMSON_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [OK]
@@ -1416,8 +1420,17 @@ BIRTHCAKE_EID.Descs = {
 			"#Ten trynkiet jest częściowo odporny na przelosowanie, mając "
 			.. Mod.Birthcake.EDEN.BIRTHCAKE_REROLL_CHANCE .. "% na przelosowanie przy otrzymaniu obrażeń"
 		},
+		pt_br = {
+			"Tomar dano tem uma chance de ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.EDEN.PREVENT_REROLL_CHANCE)
+			end,
+			"% de não mudar os items de Éden",
+			"#Bolo de nascimento é quase imune a ser mudado, tendo uma chande de "
+			.. Mod.Birthcake.EDEN.BIRTHCAKE_REROLL_CHANCE .. "% mudar ao sofrer dano"
 	},
-	[PlayerType.PLAYER_THELOST_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+},
+	[PlayerType.PLAYER_THELOST_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [OK]
 		en_us = {
 			"{{Card51}} Spawns a Holy Card when first picked up",
 			"#Cards have another ",
@@ -1452,8 +1465,17 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% szansy na stanie się Świętą Kartą"
 		},
+		pt_br = {
+			"{{Card51}} Ganhe uma Carta Sagrada primeira vez que pegar",
+			"#Cartas tem uma chance de ",
+			function(descObj)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THELOST.HOLY_CARD_REPLACE_CHANCE)
+			end,
+			"% de virar uma Carta Sagrada"
+
+		},
 	},
-	[PlayerType.PLAYER_LILITH_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_LILITH_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [OK]
 		en_us = {
 			"Whipping out Lilith's Gello has a ",
 			function(descObj)
@@ -1486,7 +1508,15 @@ BIRTHCAKE_EID.Descs = {
 			"% szansy na wystrzelenie drugiego Gello",
 			"#Drugi Gello zadaje 50% obrażeń"
 		},
+		pt_br = {
+			"Atirar o Gello tem uma chance de ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.LILITH.SPAWN_RUNT_CHANCE)
+			end,
+			"% de invocar outro Gello",
+			"#O segundo Gello dá 50% do seu dano"
 	},
+},
 	[PlayerType.PLAYER_KEEPER_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
 		en_us = {
 			"Spawns an item and 2 pickups for sale at the start of each floor"
@@ -1499,6 +1529,9 @@ BIRTHCAKE_EID.Descs = {
 		},
 		pl = {
 			"Tworzy przedmiot i dwa pickupy na sprzedaż na początku każdego piętra"
+		},
+		pt_br = {
+			"Invoca um item e 2 captadores a venda no início de todo andar "
 		},
 	},
 	[PlayerType.PLAYER_APOLLYON_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
