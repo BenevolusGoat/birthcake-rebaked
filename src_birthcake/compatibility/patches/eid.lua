@@ -1517,7 +1517,7 @@ BIRTHCAKE_EID.Descs = {
 			"#O segundo Gello dá 50% do seu dano"
 	},
 },
-	[PlayerType.PLAYER_KEEPER_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_KEEPER_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [OK]
 		en_us = {
 			"Spawns an item and 2 pickups for sale at the start of each floor"
 		},
@@ -1534,7 +1534,7 @@ BIRTHCAKE_EID.Descs = {
 			"Invoca um item e 2 captadores a venda no início de todo andar "
 		},
 	},
-	[PlayerType.PLAYER_APOLLYON_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_APOLLYON_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [OK]
 		_modifier = function(descObj)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity),
 				descObj.ObjSubType)
@@ -1576,8 +1576,16 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			" obrażeń"
 		},
+		pt_br = {
+			"{{Collectible706}} Berloques podem ser convertidos em gafanhotos com o Abismo",
+			"#Gafanhotos feitos com o Abismo dão ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_APOLLYON_B]._modifier(descObj)
+			end,
+			" de dano"
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN_B] = { 		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+},
+	[PlayerType.PLAYER_THEFORGOTTEN_B] = { 		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [OK]
 		en_us = {
 			"Killing enemies will spawn stationary bone fragments that damage enemies on contact",
 			"#Holding {{Player35}}The Forgotten will cause all bone fragments to fly towards {{Player40}}The Soul, becoming orbitals",
@@ -1614,8 +1622,17 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			" kości"
 		},
+	    pt_br = {
+			"Matar inimigos invocará fragmentos de ossos que dão dano de contato",
+			"#Segurar {{Player35}}O esquecido causará todos os fragmentos voarem em direção a {{Player40}}A Alma, virando orbitais",
+			"#Pode ter até ",
+			function(descObj)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
+			end,
+			" orbitais"
+		},
 	},
-	[PlayerType.PLAYER_BETHANY_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+	[PlayerType.PLAYER_BETHANY_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [OK]
 		_modifier = function(descObj)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
@@ -1653,8 +1670,15 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			" uderzeń"
 		},
+		pt_br = {
+			"{{Collectible712}} Fumaças do Lemegeton podem tomar mais ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_BETHANY_B]._modifier(descObj)
+			end,
+			" golpes adicionais"
 	},
-	[PlayerType.PLAYER_JACOB_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [X]
+},
+	[PlayerType.PLAYER_JACOB_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [X] | PT_BR [OK]
 		en_us = {
 			"Dark Esau leaves behind small flames when flying, blocking tears and enemy projectiles",
 			"#The flames can damage both Jacob and enemies"
@@ -1671,11 +1695,15 @@ BIRTHCAKE_EID.Descs = {
 			"Mroczny Ezaw zostawia za sobą płomienie, które blokują łzy i wrogie pociski",
 			"#Płomienie są w stanie zranić Jakuba i przeciwników"
 		},
+		pt_br = {
+			"Esaú escuro deixa uma pequena trilha de chamas em quanto estiver atacando, bloqueando lágrimas e projetéis inimigos",
+			"#As chamas podem danificar o Jacó e os inimigos"
+		},
 	},
 }
 
 BIRTHCAKE_EID.ShortDescriptions = {
-	DEFAULT_EFFECT = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
+	DEFAULT_EFFECT = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [OK]
 		_modifier = function(descObj)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity),
 				descObj.ObjSubType)
@@ -1705,8 +1733,15 @@ BIRTHCAKE_EID.ShortDescriptions = {
 			end,
 			"% a todas las estadísticas"
 		},
+		pt_br = {
+			"↑ +",
+			function(descObj)
+				return BIRTHCAKE_EID.ShortDescriptions.DEFAULT_EFFECT._modifier(descObj)
+			end,
+			"% para todas as estatísticas"
+		},
 	},
-	APOLLYON_B_APPEND = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [X]
+	APOLLYON_B_APPEND = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [OK]
 		_modifier = function(descObj, strNoMult, strMult)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local objTrinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
@@ -1738,6 +1773,14 @@ BIRTHCAKE_EID.ShortDescriptions = {
 				return BIRTHCAKE_EID.ShortDescriptions.APOLLYON_B_APPEND._modifier(descObj,
 					"Langostas grises que hacen la mitad del daño",
 					"Langostas rojas que hacen el daño entero"
+				)
+			end
+		},
+		pt_br = {
+			function(descObj)
+				return BIRTHCAKE_EID.ShortDescriptions.APOLLYON_B_APPEND._modifier(descObj,
+					"Gafanhotos cinzas que dão metade de dano",
+					"Gafanhotos vermelhos que podam dar seu dano inteiro"
 				)
 			end
 		},
