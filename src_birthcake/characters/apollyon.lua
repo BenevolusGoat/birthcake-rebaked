@@ -10,7 +10,7 @@ APOLLYON_CAKE.DOUBLE_VOID_CHANCE = 0.25
 function APOLLYON_CAKE:OnPlayerInit(player)
 	if player:GetPlayerType() == PlayerType.PLAYER_APOLLYON then
 		local player_run_save = Mod:RunSave(player)
-		player_run_save.ApollyonBirthcakeHasVoid = player:HasCollectible(CollectibleType.COLLECTIBLE_VOID)
+		player_run_save.ApollyonCakeHasVoid = player:HasCollectible(CollectibleType.COLLECTIBLE_VOID)
 	end
 end
 
@@ -31,16 +31,16 @@ function APOLLYON_CAKE:OnVoidUse(itemID, rng, player, flags, slot, varData)
 			pickup.Timeout = 4
 			local trinketMult = Mod:GetTrinketMult(player, true)
 
-			player_run_save.ApollyonBirthcakeTrinkets = player_run_save.ApollyonBirthcakeTrinkets or {}
+			player_run_save.ApollyonCakeTrinketList = player_run_save.ApollyonCakeTrinketList or {}
 			table.insert(trinketList, { TrinketType = pickup.SubType, FirstTime = pickup.Touched })
-			table.insert(player_run_save.ApollyonBirthcakeTrinkets, pickup.SubType)
+			table.insert(player_run_save.ApollyonCakeTrinketList, pickup.SubType)
 
 			if trinketMult > 1
 				and player:GetTrinketRNG(Mod.Birthcake.ID):RandomFloat()
 				<= Mod:GetBalanceApprovedChance(APOLLYON_CAKE.DOUBLE_VOID_CHANCE, trinketMult - 1)
 			then
 				table.insert(trinketList, { TrinketType = pickup.SubType, FirstTime = pickup.Touched })
-				table.insert(player_run_save.ApollyonBirthcakeTrinkets, pickup.SubType)
+				table.insert(player_run_save.ApollyonCakeTrinketList, pickup.SubType)
 				playHorn = true
 			end
 		end
@@ -59,19 +59,19 @@ Mod:AddCallback(ModCallbacks.MC_USE_ITEM, APOLLYON_CAKE.OnVoidUse, CollectibleTy
 ---@param player EntityPlayer
 function APOLLYON_CAKE:ManageVoidedTrinkets(player)
 	local player_run_save = Mod:RunSave(player)
-	if player_run_save.ApollyonBirthcakeHasVoid and not player:HasCollectible(CollectibleType.COLLECTIBLE_VOID) then
-		player_run_save.ApollyonBirthcakeHasVoid = false
-		local trinketList = player_run_save.ApollyonBirthcakeTrinkets
+	if player_run_save.ApollyonCakeHasVoid and not player:HasCollectible(CollectibleType.COLLECTIBLE_VOID) then
+		player_run_save.ApollyonCakeHasVoid = false
+		local trinketList = player_run_save.ApollyonCakeTrinketList
 		if trinketList then
 			Mod:RemoveSmeltedTrinkets(player, trinketList)
 		end
-		--It's nil if you've never been Apollyon with Void
-	elseif player_run_save.ApollyonBirthcakeHasVoid == false
+	--It's nil if you've never been Apollyon with Void
+	elseif player_run_save.ApollyonCakeHasVoid == false
 		and player:HasCollectible(CollectibleType.COLLECTIBLE_VOID)
 		and not player.QueuedItem.Item
 	then
-		player_run_save.ApollyonBirthcakeHasVoid = true
-		local trinketList = player_run_save.ApollyonBirthcakeTrinkets
+		player_run_save.ApollyonCakeHasVoid = true
+		local trinketList = player_run_save.ApollyonCakeTrinketList
 		if trinketList then
 			Mod:AddSmeltedTrinkets(player, trinketList)
 		end
@@ -79,6 +79,13 @@ function APOLLYON_CAKE:ManageVoidedTrinkets(player)
 end
 
 Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, APOLLYON_CAKE.ManageVoidedTrinkets)
+
+---@param player EntityPlayer
+function APOLLYON_CAKE:CheckApollyonChange(player)
+	APOLLYON_CAKE:OnPlayerInit(player)
+end
+
+Mod:AddCallback(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, APOLLYON_CAKE.CheckApollyonChange)
 
 -- Apollyon B Birthcake
 

@@ -37,8 +37,11 @@ function SAMSON_CAKE:BloodLust(ent, amount, flags, source, dmg)
 	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_SAMSON) then
 		local effects = player:GetEffects()
 		local bloodyLustStack = effects:GetCollectibleEffectNum(CollectibleType.COLLECTIBLE_BLOODY_LUST)
+		local numTimesTriggered = effects:GetTrinketEffectNum(Mod.Birthcake.ID)
 
-		if bloodyLustStack == 5 or (bloodyLustStack == 9 and player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)) then
+		if bloodyLustStack == 5 and numTimesTriggered < 1
+			or (bloodyLustStack == 9 and player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)) and numTimesTriggered < 2
+		then
 			SAMSON_CAKE:SpawnReward(player)
 		end
 	end
