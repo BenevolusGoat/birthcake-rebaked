@@ -272,7 +272,7 @@ function BIRTHDAY_PARTY:SwitchCharacter()
 
 		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PLAYER)) do
 			local player = ent:ToPlayer() ---@cast player EntityPlayer
-			if player.Parent then goto skipPlayer end
+			if player.Parent or GetPtrHash(player:GetMainTwin()) ~= GetPtrHash(player) then goto skipPlayer end
 			local playerType = player:GetPlayerType()
 			if player:HasTrinket(Mod.Birthcake.ID) then
 				player:TryRemoveTrinket(Mod.Birthcake.ID)
@@ -302,9 +302,7 @@ function BIRTHDAY_PARTY:SwitchCharacter()
 			if selectedPlayerType ~= PlayerType.PLAYER_KEEPER and selectedPlayerType ~= PlayerType.PLAYER_THELOST then
 				BIRTHDAY_PARTY:GrantSavedHealth(player)
 			end
-			if GetPtrHash(player:GetMainTwin()) == GetPtrHash(player) then
-				Mod:GetData(player).BirthdayPartyQueueBirthcake = true
-			end
+			Mod:GetData(player).BirthdayPartyQueueBirthcake = true
 			::skipPlayer::
 		end
 	end
