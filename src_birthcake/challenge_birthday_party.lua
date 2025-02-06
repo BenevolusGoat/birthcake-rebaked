@@ -253,6 +253,8 @@ function BIRTHDAY_PARTY:SwitchCharacter()
 	if Isaac.GetChallenge() == BIRTHDAY_PARTY.ID
 		and (level:GetStage() ~= LevelStage.STAGE1_1 or level:IsAscent())
 	then
+		local run_save = Mod:RunSave()
+		if run_save.BirthdayPartyReseeded then return end
 		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PLAYER)) do
 			local player = ent:ToPlayer() ---@cast player EntityPlayer
 			if player.Parent then goto skipPlayer end
@@ -260,7 +262,6 @@ function BIRTHDAY_PARTY:SwitchCharacter()
 			if player:HasTrinket(Mod.Birthcake.ID) then
 				player:TryRemoveTrinket(Mod.Birthcake.ID)
 			end
-			local run_save = Mod:RunSave()
 			if not run_save.BirthdayPartyCharacterList or #run_save.BirthdayPartyCharacterList == 0 then
 				BIRTHDAY_PARTY:RefreshCharacterList()
 				for i, availablePlayerType in ipairs(run_save.BirthdayPartyCharacterList) do
@@ -305,12 +306,19 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, BIRTHDAY_PARTY.SwitchCharacter)
 
+---@param player EntityPlayer
 function BIRTHDAY_PARTY:OnPeffectUpdate(player)
 	if Isaac.GetChallenge() == BIRTHDAY_PARTY.ID then
 		local data = Mod:GetData(player)
 		if data.BirthdayPartyQueueBirthcake then
-			player:QueueItem(Mod.ItemConfig:GetTrinket(Mod.Birthcake.ID))
-			Mod.SFXManager:Play(SoundEffect.SOUND_SHELLGAME)
+			if REPENTANCE_PLUS then --Currently, player:QueueItem crashes the game :)
+				local room = Mod.Game:GetRoom()
+				Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, Mod.Birthcake.ID,
+				room:FindFreePickupSpawnPosition(room:GetCenterPos(), 0, true), Vector.Zero, player)
+			else
+				player:QueueItem(Mod.ItemConfig:GetTrinket(Mod.Birthcake.ID))
+				Mod.SFXManager:Play(SoundEffect.SOUND_SHELLGAME)
+			end
 			data.BirthdayPartyQueueBirthcake = nil
 		end
 	end
