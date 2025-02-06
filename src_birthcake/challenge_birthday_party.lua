@@ -257,7 +257,19 @@ function BIRTHDAY_PARTY:SwitchCharacter()
 		and (level:GetStage() ~= LevelStage.STAGE1_1 or level:IsAscent())
 	then
 		local run_save = Mod:RunSave()
-		if run_save.BirthdayPartyReseeded then return end
+		if not run_save.BirthdayPartyCharacterList or #run_save.BirthdayPartyCharacterList == 0 then
+			BIRTHDAY_PARTY:RefreshCharacterList()
+			for i, availablePlayerType in ipairs(run_save.BirthdayPartyCharacterList) do
+				if Isaac.GetPlayer():GetPlayerType() == availablePlayerType then
+					table.remove(run_save.BirthdayPartyCharacterList, i)
+					break
+				end
+			end
+		end
+		local randomIndex = Mod.GENERIC_RNG:RandomInt(#run_save.BirthdayPartyCharacterList) + 1
+		local selectedPlayerType = run_save.BirthdayPartyCharacterList[randomIndex]
+		table.remove(run_save.BirthdayPartyCharacterList, randomIndex)
+
 		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PLAYER)) do
 			local player = ent:ToPlayer() ---@cast player EntityPlayer
 			if player.Parent then goto skipPlayer end
@@ -265,18 +277,7 @@ function BIRTHDAY_PARTY:SwitchCharacter()
 			if player:HasTrinket(Mod.Birthcake.ID) then
 				player:TryRemoveTrinket(Mod.Birthcake.ID)
 			end
-			if not run_save.BirthdayPartyCharacterList or #run_save.BirthdayPartyCharacterList == 0 then
-				BIRTHDAY_PARTY:RefreshCharacterList()
-				for i, availablePlayerType in ipairs(run_save.BirthdayPartyCharacterList) do
-					if playerType == availablePlayerType then
-						table.remove(run_save.BirthdayPartyCharacterList, i)
-						break
-					end
-				end
-			end
 
-			local randomIndex = Mod.GENERIC_RNG:RandomInt(#run_save.BirthdayPartyCharacterList) + 1
-			local selectedPlayerType = run_save.BirthdayPartyCharacterList[randomIndex]
 			if selectedPlayerType == PlayerType.PLAYER_BLUEBABY then
 				local maxHearts = player:GetMaxHearts()
 				if maxHearts > 0 then
@@ -292,7 +293,7 @@ function BIRTHDAY_PARTY:SwitchCharacter()
 			end
 
 			player:ChangePlayerType(selectedPlayerType)
-			table.remove(run_save.BirthdayPartyCharacterList, randomIndex)
+
 			playerType = player:GetPlayerType()
 
 			if BIRTHDAY_PARTY.CharacterRewards[playerType] then
