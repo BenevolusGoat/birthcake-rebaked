@@ -169,7 +169,9 @@ BirthcakeRebaked.ModCallbacks = {
 	POST_BIRTHCAKE_COLLECT = "BIRTHCAKE_POST_BIRTHCAKE_COLLECT",
 	--(player: EntityPlayer, oldPlayerType: PlayerType): boolean, Optional Arg: PlayerType - Called when your tracked PlayerType changes. This happens regardless of you having Birthcake or not. `player` is your current player with the new PlayerType. `PlayerType` arg is for the previous PlayerType you were. Return `true` to stop the Birthcake TemporaryEffect from being reset on PlayerType change
 	POST_PLAYERTYPE_CHANGE = "BIRTHCAKE_POST_PLAYERTYPE_CHANGE",
-	BLUEBABY_GET_POOP_TEAR_SPRITE = "BIRTHCAKE_BLUEBABY_GET_POOP_TEAR_SPRITE"
+	BLUEBABY_GET_POOP_TEAR_SPRITE = "BIRTHCAKE_BLUEBABY_GET_POOP_TEAR_SPRITE",
+	APOLLYON_VOID_TRINKET = "BIRTHCAKE_APOLLYON_VOID_TRINKET",
+	APOLLYON_B_ABYSS_TRINKET = "BIRTHCAKE_APOLLYON_B_ABYSS_TRINKET"
 }
 local translations = include("src_birthcake.birthcake_translations")
 BirthcakeRebaked.BirthcakeNames = translations.BIRTHCAKE_NAME

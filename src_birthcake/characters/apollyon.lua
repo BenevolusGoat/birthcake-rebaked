@@ -43,6 +43,7 @@ function APOLLYON_CAKE:OnVoidUse(itemID, rng, player, flags, slot, varData)
 				table.insert(player_run_save.ApollyonCakeTrinketList, pickup.SubType)
 				playHorn = true
 			end
+			Isaac.RunCallbackWithParam(Mod.ModCallbacks.APOLLYON_VOID_TRINKET, pickup.SubType, pickup)
 		end
 		if #trinketList > 0 then
 			Mod:AddSmeltedTrinkets(player, trinketList)
@@ -53,7 +54,7 @@ function APOLLYON_CAKE:OnVoidUse(itemID, rng, player, flags, slot, varData)
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_USE_ITEM, APOLLYON_CAKE.OnVoidUse, CollectibleType.COLLECTIBLE_VOID)
+Mod:AddPriorityCallback(ModCallbacks.MC_PRE_USE_ITEM, CallbackPriority.LATE, APOLLYON_CAKE.OnVoidUse, CollectibleType.COLLECTIBLE_VOID)
 
 ---Even if you LOSE Birthcake or are no longer Apollyon, the items are tied to Void, so you should keep the voided trinkets, just can't void any further ones
 ---@param player EntityPlayer
@@ -106,6 +107,7 @@ function APOLLYON_CAKE:TaintedTrinketConsumer(_, _, player, _, _, _)
 			local familiar = Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ABYSS_LOCUST, subType,
 				pickup.Position, Vector.Zero, player)
 			familiar:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
+			Isaac.RunCallbackWithParam(Mod.ModCallbacks.APOLLYON_B_ABYSS_TRINKET, pickup.SubType, pickup)
 		end
 	end
 end
