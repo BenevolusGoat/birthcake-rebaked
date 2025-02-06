@@ -70,7 +70,7 @@ function JACOB_ESAU_CAKE:OnDarkEsauUpdate(npc)
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_NPC_UPDATE, JACOB_ESAU_CAKE.OnDarkEsauUpdate)
+Mod:AddCallback(ModCallbacks.MC_NPC_UPDATE, JACOB_ESAU_CAKE.OnDarkEsauUpdate, EntityType.ENTITY_DARK_ESAU)
 
 ---@param effect EntityEffect
 function JACOB_ESAU_CAKE:OnFireInit(effect)

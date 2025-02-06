@@ -156,7 +156,7 @@ local ceil = math.ceil
 
 HudHelper.RegisterHUDElement({
 	Name = "Isaac B Birthcake Inventory",
-	Priority = 0.5, --Between vanilla and highest, lol
+	Priority = HudHelper.Priority.HIGHEST - 0.5, --Between vanilla and highest, lol
 	XPadding = -4,
 	YPadding = function(player)
 		local inventoryCap = player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID)
