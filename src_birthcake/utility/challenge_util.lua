@@ -46,6 +46,7 @@ function BIRTHDAY_PARTY:OnMomDefeat()
 		Mod.Game:SetStateFlag(GameStateFlag.STATE_BACKWARDS_PATH_INIT, true)
 		Mod.Game:SetStateFlag(GameStateFlag.STATE_SECRET_PATH, true)
 		Mod.Game:StartStageTransition(false, 1, Isaac.GetPlayer())
+		return true
 	end
 end
 
