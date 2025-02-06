@@ -41,7 +41,15 @@ function BIRTHDAY_PARTY:GrantSavedHealth(player)
 			for heartType, amount in pairs(player_run_save.BirthdayPartySavedHealth) do
 				if amount >= 2 then
 					local dividedAmount = amount * 0.5
-					splitAmountMainTwin[heartType] = (dividedAmount % 2 ~= 0) and dividedAmount + 1 or dividedAmount
+					--Allow uneven amounts
+					if heartType == "Red"
+						or heartType == "Soul"
+						or heartType == "Black"
+					then
+						splitAmountMainTwin[heartType] = dividedAmount
+					else
+						splitAmountMainTwin[heartType] = (dividedAmount % 2 ~= 0) and dividedAmount + 1 or dividedAmount
+					end
 					splitAmountOtherTwin[heartType] = amount - splitAmountMainTwin[heartType]
 				else
 					splitAmountMainTwin[heartType] = amount
@@ -63,7 +71,7 @@ function BIRTHDAY_PARTY:GrantSavedHealth(player)
 		if isMainTwin then
 			player_run_save.BirthdayPartySavedHealth = nil
 		elseif Mod:GetAllHearts(player) == 0 then
-			player:AddMaxHearts(1)
+			player:AddMaxHearts(2)
 		end
 	end
 end
