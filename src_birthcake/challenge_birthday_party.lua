@@ -39,34 +39,31 @@ function BIRTHDAY_PARTY:GrantSavedHealth(player)
 			local splitAmountMainTwin = {}
 			local splitAmountOtherTwin = {}
 			for heartType, amount in pairs(player_run_save.BirthdayPartySavedHealth) do
-				if heartType == "Red"
-					and heartType == "Soul"
-					and heartType == "Black"
-				then
-					splitAmountMainTwin[heartType] = math.ceil(amount / 2)
+				if amount >= 2 then
+					local dividedAmount = amount * 0.5
+					splitAmountMainTwin[heartType] = (dividedAmount % 2 ~= 0) and dividedAmount + 1 or dividedAmount
 					splitAmountOtherTwin[heartType] = amount - splitAmountMainTwin[heartType]
-				elseif amount >= 2 then
-					splitAmountMainTwin[heartType] = amount / 2
-					splitAmountOtherTwin[heartType] = amount / 2
 				else
 					splitAmountMainTwin[heartType] = amount
 				end
 			end
 			player_run_save.BirthdayPartySavedHealth = splitAmountMainTwin
-			Mod:RunSave(twin).BirthcakeRebaked = splitAmountOtherTwin
+			Mod:RunSave(twin).BirthdayPartySavedHealth = splitAmountOtherTwin
 			BIRTHDAY_PARTY:GrantSavedHealth(twin)
 		end
 		player:AddMaxHearts(-24)
 		player:AddSoulHearts(-24)
 		local health = player_run_save.BirthdayPartySavedHealth
-		player:AddMaxHearts(health.HeartContainers)
-		player:AddBoneHearts(health.Bone)
-		player:AddHearts(health.Red)
-		player:AddEternalHearts(health.Eternal)
-		player:AddSoulHearts(health.Soul)
-		player:AddBlackHearts(health.Black)
+		player:AddMaxHearts(health.HeartContainers or 0)
+		player:AddBoneHearts(health.Bone or 0)
+		player:AddHearts(health.Red or 0)
+		player:AddEternalHearts(health.Eternal or 0)
+		player:AddSoulHearts(health.Soul or 0)
+		player:AddBlackHearts(health.Black or 0)
 		if isMainTwin then
 			player_run_save.BirthdayPartySavedHealth = nil
+		elseif Mod:GetAllHearts(player) == 0 then
+			player:AddMaxHearts(1)
 		end
 	end
 end
@@ -145,7 +142,6 @@ function BIRTHDAY_PARTY:SaveCurrentHealth(player)
 		local Black = Mod:GetPlayerRealBlackHeartsCount(player)
 		local Rotten = player:GetRottenHearts()
 		local Eternal = player:GetEternalHearts()
-		local Broken = player:GetBrokenHearts()
 		local twin = player:GetOtherTwin()
 		if twin then
 			HeartContainers = HeartContainers + twin:GetMaxHearts()
@@ -155,7 +151,6 @@ function BIRTHDAY_PARTY:SaveCurrentHealth(player)
 			Black = Black + Mod:GetPlayerRealBlackHeartsCount(twin)
 			Rotten = Rotten + twin:GetRottenHearts()
 			Eternal = Eternal + twin:GetEternalHearts()
-			Broken = Broken + twin:GetBrokenHearts()
 		end
 
 		player_run_save.BirthdayPartySavedHealth = {
@@ -298,7 +293,9 @@ function BIRTHDAY_PARTY:SwitchCharacter()
 			if selectedPlayerType ~= PlayerType.PLAYER_KEEPER and selectedPlayerType ~= PlayerType.PLAYER_THELOST then
 				BIRTHDAY_PARTY:GrantSavedHealth(player)
 			end
-			Mod:GetData(player).BirthdayPartyQueueBirthcake = true
+			if GetPtrHash(player:GetMainTwin()) == GetPtrHash(player) then
+				Mod:GetData(player).BirthdayPartyQueueBirthcake = true
+			end
 			::skipPlayer::
 		end
 	end
