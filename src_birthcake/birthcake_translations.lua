@@ -183,7 +183,7 @@ local translations = {
 			ru = "Порченого Исаака",
 			spa = "de Tainted Isaac",
 			cs_cz = "Poskvrněného Izáka",
-			pl = "Izaaka Splamione",
+			pl = "Splamione Izaaka",
 			ko_kr = "더럽혀진 아이작의",
 			pt_br = "do Isaque Contaminado",
 		},
@@ -192,7 +192,7 @@ local translations = {
 			ru = "Порченой Магдалины",
 			spa = "de Tainted Magdalena",
 			cs_cz = "Poskvrněné Magdalény",
-			pl = "Magdaleny Splamione",
+			pl = "Splamione Magdaleny",
 			ko_kr = "더럽혀진 막달레나의",
 			pt_br = "da Madalena Contaminado",
 		},
@@ -201,7 +201,7 @@ local translations = {
 			ru = "Порченого Каина",
 			spa = "de Tainted Caín",
 			cs_cz = "Poskvrněného Kaina",
-			pl = "Kaina Splamione",
+			pl = "Splamione Kaina",
 			ko_kr = "더럽혀진 카인의",
 			pt_br = "do Caim Contaminado",
 		},
@@ -210,7 +210,7 @@ local translations = {
 			ru = "Порченого Иуды",
 			spa = "de Tainted Judas",
 			cs_cz = "Poskvrněného Jidáše",
-			pl = "Judasza Splamione",
+			pl = "Splamione Judasza",
 			ko_kr = "더럽혀진 유다의",
 			pt_br = "do Judas Contaminado",
 		},
@@ -219,7 +219,7 @@ local translations = {
 			ru = "Порченого ???",
 			spa = "de Tainted ???",
 			cs_cz = "Poskvrněného ???",
-			pl = "??? Splamione",
+			pl = Splamione "???",
 			ko_kr = "???더럽혀진 의",
 			pt_br = "do ??? Contaminado",
 		},
@@ -228,7 +228,7 @@ local translations = {
 			ru = "Порченой Евы",
 			spa = "de Tainted Eva",
 			cs_cz = "Poskvrněné Evy",
-			pl = "Ewy Splamione",
+			pl = "Splamione Ewy",
 			ko_kr = "더럽혀진 이브의",
 			pt_br = "da Eva Contaminado",
 		},
@@ -237,7 +237,7 @@ local translations = {
 			ru = "Порченого Самсона",
 			spa = "de Tainted Sansón",
 			cs_cz = "Poskvrněného Samsona",
-			pl = "Samsona Splamione",
+			pl = "Splamione Samsona",
 			ko_kr = "더럽혀진 삼손의",
 			pt_br = "do Sansão Contaminado",
 		},
@@ -246,7 +246,7 @@ local translations = {
 			ru = "Порченого Азазеля",
 			spa = "de Tainted Azazel",
 			cs_cz = "Poskvrněného Azazela",
-			pl = "Azazela Splamione",
+			pl = "Splamione Azazela",
 			ko_kr = "더럽혀진 아자젤의",
 			pt_br = "do Azazel Contaminado",
 		},
@@ -255,7 +255,7 @@ local translations = {
 			ru = "Порченого Лазаря",
 			spa = "de Tainted Lázaro",
 			cs_cz = "Poskvrněného Lazara",
-			pl = "Łazarza Splamione",
+			pl = "Splamione Łazarza",
 			ko_kr = "더럽혀진 나사로의",
 			pt_br = "do Lázaro Contaminado",
 		},
@@ -264,7 +264,7 @@ local translations = {
 			ru = "Порченого Эдема",
 			spa = "de Tainted Edén",
 			cs_cz = "Poskvrněného Edena",
-			pl = "Edena Splamione",
+			pl = "Splamione Edena",
 			ko_kr = "더럽혀진 에덴의",
 			pt_br = "do Éden Contaminado",
 		},
@@ -273,7 +273,7 @@ local translations = {
 			ru = "Порченого Потерянного",
 			spa = "del Tainted Perdido",
 			cs_cz = "Poskvrněného Ztraceného",
-			pl = "Zaginionego",	--kurde niektóre części EID po prostu go zostawiają jako Losta ale jak spolszczamy pełną gębą to idę z ty Splamionem.
+			pl = "Zaginionego",	--kurde niektóre części EID po prostu go zostawiają jako Losta ale jak spolszczamy pełną gębą to idę z Splamione tym.
 			ko_kr = "더 더럽혀진 로스트의",
 			pt_br = "do O Perdido Contaminado",
 		},
@@ -282,7 +282,7 @@ local translations = {
 			ru = "Порченой Лилит",
 			spa = "de Tainted Lilith",
 			cs_cz = "Poskvrněné Lilith", -- Couldn't find a better translation, seems to be called like that in czech anyways t Poskvrněnýho
-			pl = "Lilit", --na polskiej wikipedii jest zapisywana jako "Lilith", ale polskie EID zapisuje jako "Lili Splamionet"
+			pl = "Lilit", --na polskiej wikipedii jest zapisywana jako "Lilith", ale polskie EID zapisuje jako "Splamione Lilit"
 			ko_kr = "더럽혀진 릴리트의",
 			pt_br = "da Lilith Contaminado",
 		},
@@ -291,7 +291,7 @@ local translations = {
 			ru = "Порченого Хранителя",
 			spa = "de Tainted Keeper",
 			cs_cz = "Poskvrněného Držitele", -- In EID he's just called "Keeper", which I just had to czech-i Poskvrněnýfy
-			pl = "Dozorcy", --Polskie EID tak to tłumac Splamionezy
+			pl = "Dozorcy", --Polskie EID tak to Splamione tłumaczy
 			ko_kr = "더럽혀진 키퍼의",
 			pt_br = "do Keeper Contaminado",
 		},
@@ -300,7 +300,7 @@ local translations = {
 			ru = "Порченого Апполиона",
 			spa = "de Tainted Apolión",
 			cs_cz = "Poskvrněného Apollyóna",
-			pl = "Apollyona", --EID nie zmienia mu nazwy. Polska wikipedia nazywa go "Abaddo Splamionen"
+			pl = "Apollyona", --EID nie zmienia mu nazwy. Polska wikipedia nazywa go "Splamione Abaddon"
 			ko_kr = "더럽혀진 아폴리온의",
 			pt_br = "do Apolion Contaminado",
 		},
@@ -309,7 +309,7 @@ local translations = {
 			ru = "Порченого Забытого",
 			spa = "del Tainted Olvidado",
 			cs_cz = "Poskvrněného Zapomenutého",
-			pl = "Zapomnianego Splamione",
+			pl = "Splamione Zapomnianego",
 			ko_kr = "더 더럽혀진 포가튼의",
 			pt_br = "do O Esquecido Contaminado",
 		},
@@ -318,7 +318,7 @@ local translations = {
 			ru = "Порченой Вифании", --idk all russian isaac gamers just use english name "Бетани"
 			spa = "de Tainted Bethany",
 			cs_cz = "Poskvrněné Betánie",
-			pl = "Betanii Splamione",
+			pl = "Splamione Betanii",
 			ko_kr = "더럽혀진 베타니의",
 			pt_br = "da Betânia Contaminado",
 		},
@@ -327,7 +327,7 @@ local translations = {
 			ru = "Порченого Иакова",
 			spa = "de Tainted Jacob",
 			cs_cz = "Poskvrněného Jákoba",
-			pl = "Jakuba Splamione",
+			pl = "Splamione Jakuba",
 			ko_kr = "더럽혀진 야곱의",
 			pt_br = "do Jacó Contaminado",
 		},
@@ -860,18 +860,7 @@ function BirthcakeRebaked:AppendCake(str, lang)
 end
 
 function BirthcakeRebaked:PrefixTainted(str, lang)
-	local reverse = {
-		ru = true,
-		spa = true,
-		pl = true,
-		cs_cz = true,
-		ko_kr = true,
-	}
-	if reverse[lang] then
-		return str .. " " .. translations.ONE_LINERS.TAINTED[lang]
-	else
-		return translations.ONE_LINERS.TAINTED[lang] .. " " .. str
-	end
+	return translations.ONE_LINERS.TAINTED[lang] .. " " .. str
 end
 
 for playerType, sharedType in pairs(NAME_SHARE) do
