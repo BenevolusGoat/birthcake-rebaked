@@ -188,7 +188,7 @@ local translations = {
 			pt_br = "do Isaque Contaminado",
 		},
 		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [!]
-			en_us = "Tainted Magdelene's",
+			en_us = "Tainted Magdalene's",
 			ru = "Порченой Магдалины",
 			spa = "de Tainted Magdalena",
 			cs_cz = "Poskvrněné Magdalény",
