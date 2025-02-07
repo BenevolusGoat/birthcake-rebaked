@@ -169,13 +169,13 @@ local translations = {
 			ko_kr = "베타니의",
 			pt_br = "da Betânia",
 		},
-		[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [!] | PT_BR [OK]
+		[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Jacob & Esau's",
 			ru = "Иакова и Исава",
 			spa = "de Jacob y Esaú",
 			cs_cz = "Jákobův a Ezauův",
 			pl = "Jakuba i Ezawa",
-			ko_kr = "야곱의",
+			ko_kr = "야곱과 에사우의", --병신과 머저리 둘 다 반영
 			pt_br = "do Jacó e Esaú",
 		},
 		[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
@@ -220,7 +220,7 @@ local translations = {
 			spa = "de Tainted ???",
 			cs_cz = "Poskvrněného ???",
 			pl = Splamione "???",
-			ko_kr = "???더럽혀진 의",
+			ko_kr = "더럽혀진 ???의",
 			pt_br = "do ??? Contaminado",
 		},
 		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
@@ -274,7 +274,7 @@ local translations = {
 			spa = "del Tainted Perdido",
 			cs_cz = "Poskvrněného Ztraceného",
 			pl = "Zaginionego",	--kurde niektóre części EID po prostu go zostawiają jako Losta ale jak spolszczamy pełną gębą to idę z Splamione tym.
-			ko_kr = "더 더럽혀진 로스트의",
+			ko_kr = "더럽혀진 더 로스트의",
 			pt_br = "do O Perdido Contaminado",
 		},
 		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
@@ -310,7 +310,57 @@ local translations = {
 			spa = "del Tainted Olvidado",
 			cs_cz = "Poskvrněného Zapomenutého",
 			pl = "Splamione Zapomnianego",
-			ko_kr = "더 더럽혀진 포가튼의",
+			ko_kr = "더럽혀진 더		en_us = "Tainted Eden's",
+			ru = "Порченого Эдема",
+			spa = "de Tainted Edén",
+			cs_cz = "Poskvrněného Edena",
+			pl = "Splamione Edena",
+			ko_kr = "더럽혀진 에덴의",
+			pt_br = "do Éden Contaminado",
+		},
+		[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
+			en_us = "Tainted Lost's",
+			ru = "Порченого Потерянного",
+			spa = "del Tainted Perdido",
+			cs_cz = "Poskvrněného Ztraceného",
+			pl = "Zaginionego",	--kurde niektóre części EID po prostu go zostawiają jako Losta ale jak spolszczamy pełną gębą to idę z Splamione tym.
+			ko_kr = "더럽혀진 더 로스트의", --TWO OF THEM
+			pt_br = "do O Perdido Contaminado",
+		},
+		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
+			en_us = "Tainted Lilith's",
+			ru = "Порченой Лилит",
+			spa = "de Tainted Lilith",
+			cs_cz = "Poskvrněné Lilith", -- Couldn't find a better translation, seems to be called like that in czech anyways t Poskvrněnýho
+			pl = "Lilit", --na polskiej wikipedii jest zapisywana jako "Lilith", ale polskie EID zapisuje jako "Splamione Lilit"
+			ko_kr = "더럽혀진 릴리트의",
+			pt_br = "da Lilith Contaminado",
+		},
+		[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
+			en_us = "Tainted Keeper's",
+			ru = "Порченого Хранителя",
+			spa = "de Tainted Keeper",
+			cs_cz = "Poskvrněného Držitele", -- In EID he's just called "Keeper", which I just had to czech-i Poskvrněnýfy
+			pl = "Dozorcy", --Polskie EID tak to Splamione tłumaczy
+			ko_kr = "더럽혀진 키퍼의",
+			pt_br = "do Keeper Contaminado",
+		},
+		[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
+			en_us = "Tainted Apollyon's",
+			ru = "Порченого Апполиона",
+			spa = "de Tainted Apolión",
+			cs_cz = "Poskvrněného Apollyóna",
+			pl = "Apollyona", --EID nie zmienia mu nazwy. Polska wikipedia nazywa go "Splamione Abaddon"
+			ko_kr = "더럽혀진 아폴리온의",
+			pt_br = "do Apolion Contaminado",
+		},
+		[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
+			en_us = "Tainted Forgotten's",
+			ru = "Порченого Забытого",
+			spa = "del Tainted Olvidado",
+			cs_cz = "Poskvrněného Zapomenutého",
+			pl = "Splamione Zapomnianego",
+			ko_kr = "더럽혀진 더 포가튼의",
 			pt_br = "do O Esquecido Contaminado",
 		},
 		[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
@@ -469,22 +519,22 @@ local translations = {
 			ko_kr = "재활",
 			pt_br = "Revitalizar",
 		},
-		[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X] | PT_BR [OK]
+		[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Soul dualism",
 			ru = "Дуализм души",
 			spa = "Dualidad del alma",
 			cs_cz = "Dualismus duše",
 			pl = "Dwoistość ducha",
-			ko_kr = "",
+			ko_kr = "영혼 이원주의",
 			pt_br = "Dualidade de alma",
 		},
-		[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X] | PT_BR [OK]
+		[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "What's mine is yours",
 			ru = "Что моё, то твоё",
 			spa = "Lo que es mío es tuyo",
 			cs_cz = "Co je mé je tvé",
 			pl = "Moje, twoje, nasze, wspólne", --Makłowicz
-			ko_kr = "",
+			ko_kr = "네 것은 곧곧 나의 것",
 			pt_br = "O que é seu é meu",
 		},
 		[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
@@ -529,15 +579,15 @@ local translations = {
 			spa = "Cacas robustas",
 			cs_cz = "Tvrdá hovna",
 			pl = "Kał ze skał",
-			ko_kr = "거 똥 한 번 더럽게 단단하네!",
+			ko_kr = "더러운 똥맷집",
 			pt_br = "Cocô duro",
 		},
-		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X] | PT_BR [OK]
+		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Polycythemia",
 			ru = "Полицитемия",
 			cs_cz = "Polycytémie",
 			pl = "Nadkrwistość", --Tak Wikipedia tłumaczy. Chyba lepszego nie wymyślę
-			ko_kr = "",
+			ko_kr = "다혈구증증",
 			pt_br = "Policitemia",
 		},
 		[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
@@ -824,6 +874,7 @@ local translations = {
 			--ЭТО ЛОЖЬ
 			--es una MENTIRA
 			--je LEŽ
+			--...는 거짓말이다 (사실 이게 뭔 드립인지 모름)
 		},
 		TAINTED = {							-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Tainted",
