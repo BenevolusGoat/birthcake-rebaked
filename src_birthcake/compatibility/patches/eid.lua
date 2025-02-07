@@ -662,7 +662,7 @@ BIRTHCAKE_EID.Descs = {
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_EVE]._modifier(descObj, "Double damage")
 			end
 		},
-		en_us = {
+		ko_kr = {
 			"{{Collectible117}} 죽은 새가 피투성이 새로 변합니다.",
 			"#피투성이 새는 주기적으로 피해를 주는 피 장판을 생성합니다. ",
 			"#피투성이 새의 피해량은 이브의 공격력에 비례합니다.",
@@ -1033,7 +1033,7 @@ BIRTHCAKE_EID.Descs = {
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_KEEPER]._modifier(descObj, "uma níquel", " níqueis")
 			end
 		},
-		en_us = {
+		ko_kr = {
 			"{{Shop}} 상점과 {{DevilRoom}} 악마방에 입장하면 ",
 			function(descObj)
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_KEEPER]._modifier(descObj, "니켈 하나가 생성됩니다.", "개의의 니켈이 생성됩니다.")
@@ -1334,7 +1334,7 @@ BIRTHCAKE_EID.Descs = {
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_JUDAS_B]._modifier(descObj)
 			end
 		},
-		en_us = {
+		ko_kr = {
 			"{{Collectible705}} 적 관통 시마다 흑마술의 충전 시간이 ",
 			function(descObj)
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_JUDAS_B]._modifier(descObj)
