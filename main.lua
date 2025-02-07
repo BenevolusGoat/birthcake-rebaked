@@ -240,7 +240,7 @@ local modSettingToLanguage = {
 function BirthcakeRebaked:GetLanguage()
 	local lang = languageOptionToEID[Options.Language]
 	local langSetting = Mod.GetSetting(Mod.Setting.BirthcakeLanguage)
-	if langSetting == 2 then
+	if langSetting == 2 and EID then
 		lang = EID.getLanguage()
 	elseif langSetting >= 3 then
 		lang = modSettingToLanguage[langSetting - 2]

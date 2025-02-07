@@ -1305,7 +1305,7 @@ BIRTHCAKE_EID.Descs = {
 			return BIRTHCAKE_EID:GoldConditional(amount, trinketMult) .. "%"
 		end,
 		en_us = {
-			"{{Collectible705}} Passing through enemies with Dark Arts decreases its charge time by ",
+			"{{Collectible705}} Passing through enemies with Dark Arts decreases its recharge time by ",
 			function(descObj)
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_JUDAS_B]._modifier(descObj)
 			end
