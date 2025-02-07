@@ -387,7 +387,7 @@ local translations = {
 			cs_cz = "Krvavá vražda",
 			pl = "Krwawy ptak",
 			ko_kr = "피투성이 까마귀", --씨발 언어유희 한 번 살리기 힘드네
-			pt_br = "Assasinato sangrento!",
+			pt_br = "Turba sangrenta!",
 		},
 		[PlayerType.PLAYER_SAMSON] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Healing rage",
