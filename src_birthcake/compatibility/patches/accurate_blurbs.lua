@@ -5,7 +5,7 @@ local loader = BirthcakeRebaked.PatchesLoader
 BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 	[PlayerType.PLAYER_ISAAC] = { 					-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 		en_us = "Dice Shard in Starting Rooms",
-		ru = "Создаёт Осколок Кости + Осколки Кости в стартовой комнате",
+		ru = "Осколки Кости в стартовой комнате",
 		pl = "Odłamki Kości na początku piętra",
 		pt_br = "Fragmentos de dado nas salas iniciais",
 		ko_kr = "시작 방에 주사위 조각 생성",
@@ -103,7 +103,7 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 	},
 	[PlayerType.PLAYER_THEFORGOTTEN] = { 			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 		en_us = "Shoot bone-body to fill for fading tears up",
-		ru = "Стреляй в скелет, чтобы заполнить его для убывающего повышения скорострельности",
+		ru = "Стреляй в тело-скелет, чтобы заполнить его для убывающего повышения скорострельности",
 		pl = "Strzel w ciało, aby je naładować bonusem do szybkostrzelności",
 		pt_br = "Atire no corpo de esquelto para atirar mais rápido por um tempo",
 		ko_kr = "해골에 눈물을 쏘면 일시적으로 연사력 증가",
@@ -187,7 +187,7 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 	},
 	[PlayerType.PLAYER_EDEN_B] = { 					-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 		en_us = "May not reroll everything when hurt",
-		ru = "Может не поменять всё при получении урона",
+		ru = "Может не изменить всё при получении урона",
 		pl = "Blokuje losowanie przy trafieniu",
 		pt_br = "Talvez não mudará todos os seus items ao sofrer dano",
 		ko_kr = "피격 시 가끔씩 리롤 효과 무시",
@@ -222,7 +222,7 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 	},
 	[PlayerType.PLAYER_THEFORGOTTEN_B] = { 			-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 		en_us = "Kill for bone-orbitals + hold body to gather",
-		ru = "Убивай для орбитальных костей + возьми тело, чтобы собрать",
+		ru = "Убивай для орбитальных костей + возьми тело, чтобы собрать их",
 		pl = "Zabijanie przeciwników tworzy kości + zbieraj podnosząć ciało",
 		pt_br = "Mate para ganhar orbitais de osso + segure o corpo para reunílos",
 		ko_kr = "적 처치 시 뼛조각생성; 해골을 들면 뼛조각이 오비탈이 됨",

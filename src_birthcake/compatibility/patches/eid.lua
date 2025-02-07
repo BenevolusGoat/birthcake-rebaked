@@ -453,7 +453,7 @@ BIRTHCAKE_EID.Descs = {
 				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.JUDAS.DAMAGE_MULT_UP)
 			end,
 			"% множитель урона",
-			"#{{DevilRoom}} Если взятие предмета Дьявольской Сделки убьёт Иуду, то вместо этого будет использован брелок"
+			"#{{DevilRoom}} Если взятие предмета Дьявольской Сделки убьёт Иуду, то будет использован брелок вместо этого"
 		},
 		spa = {
 			"{{ArrowUp}} {{Damage}} Multiplicador de daño del ",
@@ -989,7 +989,7 @@ BIRTHCAKE_EID.Descs = {
 		},
 		ru = {
 			"{{Collectible477}} Пустота может поглощать брелки",
-			"#Поглощённые брелки проглатываются, сохраняя свои еффекты до тех пор, пока Пустота удерживается в руках",
+			"#Поглощённые брелки проглатываются, сохраняя свои эффекты до тех пор, пока Пустота удерживается в руках",
 			function(descObj)
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_APOLLYON]._modifier(descObj,
 					"%s шанс дублировать поглощённый брелок"
@@ -1330,7 +1330,7 @@ BIRTHCAKE_EID.Descs = {
 			"% chance to stick onto enemies to damage them over time"
 		},
 		ru = {
-			"При чихании выстреливает скопление из 6 соплей, наносящих часть урона Азазеля ", --we have word declension in russian, so "козявка" isn't accurate + "сопля" is better
+			"При чихании выстреливает скопление из 6 соплей, наносящих часть урона Азазеля ",
 			"#{{Collectible459}} Слёзы имеют ",
 			function(descObj)
 				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.AZAZEL.BOOGER_STICK_CHANCE)
@@ -1650,11 +1650,11 @@ BIRTHCAKE_EID.Descs = {
 			" hits"
 		},
 		ru = {
-			"{{Collectible712}} Огоньки Лемегетона имеют ",
+			"{{Collectible712}} Огоньки Лемегетона могут получить ",
 			function(descObj)
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_BETHANY_B]._modifier(descObj)
 			end,
-			" дополнительного здоровья"
+			" дополнительных удара(ов)"
 		},
 		spa = {
 			"{{Collectible712}} Los fuegos de Lemegeton pueden tomar ",
