@@ -44,7 +44,8 @@ end
 
 local patches = {
 	"accurate_blurbs",
-	"void_effect"
+	"void_effect",
+	"epiphany"
 }
 
 for _, fileName in ipairs(patches) do
