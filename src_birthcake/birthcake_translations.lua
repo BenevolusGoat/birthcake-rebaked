@@ -35,7 +35,7 @@ local translations = {
 			pt_br = "do Isaque",
 		},
 		[PlayerType.PLAYER_MAGDALENE] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
-			en_us = "Magdelene's",
+			en_us = "Magdalene's",
 			ru = "Магдалины",
 			spa = "de Magdalena",
 			cs_cz = "Magdalénin",
