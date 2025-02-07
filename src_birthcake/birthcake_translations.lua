@@ -424,14 +424,14 @@ local translations = {
 			ko_kr = "다양한 맛",
 			pt_br = "Sabor com variedade",
 		},
-		[PlayerType.PLAYER_THELOST] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X] | PT_BR [X]
+		[PlayerType.PLAYER_THELOST] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X] | PT_BR [OK]
 			en_us = "Near-death experience",
 			ru = "Предсмертный опыт",
 			spa = "Experiencia cercana a la muerte",
 			cs_cz = "Na pokraji smrti",
 			pl = "Otarcie się o śmierć",
 			ko_kr = "",
-			pt_br = "",
+			pt_br = "Experiência muito perto da morte",
 		},
 		[PlayerType.PLAYER_LILITH] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Remember to share!",
@@ -469,14 +469,14 @@ local translations = {
 			ko_kr = "재활",
 			pt_br = "Revitalizar",
 		},
-		[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X] | PT_BR [X]
+		[PlayerType.PLAYER_BETHANY] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X] | PT_BR [OK]
 			en_us = "Soul dualism",
 			ru = "Дуализм души",
 			spa = "Dualidad del alma",
 			cs_cz = "Dualismus duše",
 			pl = "Dwoistość ducha",
 			ko_kr = "",
-			pt_br = "",
+			pt_br = "Dualidade de alma",
 		},
 		[PlayerType.PLAYER_JACOB] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X] | PT_BR [OK]
 			en_us = "What's mine is yours",
@@ -532,13 +532,13 @@ local translations = {
 			ko_kr = "거 똥 한 번 더럽게 단단하네!",
 			pt_br = "Cocô duro",
 		},
-		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X] | PT_BR [X]
+		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X] | PT_BR [OK]
 			en_us = "Polycythemia",
 			ru = "Полицитемия",
 			cs_cz = "Polycytémie",
 			pl = "Nadkrwistość", --Tak Wikipedia tłumaczy. Chyba lepszego nie wymyślę
 			ko_kr = "",
-			pt_br = "",
+			pt_br = "Policitemia",
 		},
 		[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Unending rampage",
