@@ -178,157 +178,157 @@ local translations = {
 			ko_kr = "야곱의",
 			pt_br = "do Jacó e Esaú",
 		},
-		[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [!]
+		[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
 			en_us = "Tainted Isaac's",
 			ru = "Порченого Исаака",
 			spa = "de Tainted Isaac",
 			cs_cz = "Poskvrněného Izáka",
 			pl = "Izaaka Splamione",
-			ko_kr = "아이작의 더럽혀진",
+			ko_kr = "더럽혀진 아이작의",
 			pt_br = "do Isaque Contaminado",
 		},
-		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [!]
+		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
 			en_us = "Tainted Magdelene's",
 			ru = "Порченой Магдалины",
 			spa = "de Tainted Magdalena",
 			cs_cz = "Poskvrněné Magdalény",
 			pl = "Magdaleny Splamione",
-			ko_kr = "막달레나의 더럽혀진",
+			ko_kr = "더럽혀진 막달레나의",
 			pt_br = "da Madalena Contaminado",
 		},
-		[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [!]
+		[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
 			en_us = "Tainted Cain's",
 			ru = "Порченого Каина",
 			spa = "de Tainted Caín",
 			cs_cz = "Poskvrněného Kaina",
 			pl = "Kaina Splamione",
-			ko_kr = "카인의 더럽혀진",
+			ko_kr = "더럽혀진 카인의",
 			pt_br = "do Caim Contaminado",
 		},
-		[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [!]
+		[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
 			en_us = "Tainted Judas'",
 			ru = "Порченого Иуды",
 			spa = "de Tainted Judas",
 			cs_cz = "Poskvrněného Jidáše",
 			pl = "Judasza Splamione",
-			ko_kr = "유다의 더럽혀진",
+			ko_kr = "더럽혀진 유다의",
 			pt_br = "do Judas Contaminado",
 		},
-		[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [!]
+		[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
 			en_us = "Tainted ???'s",
 			ru = "Порченого ???",
 			spa = "de Tainted ???",
 			cs_cz = "Poskvrněného ???",
 			pl = "??? Splamione",
-			ko_kr = "???의 더럽혀진",
+			ko_kr = "???더럽혀진 의",
 			pt_br = "do ??? Contaminado",
 		},
-		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [!]
+		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
 			en_us = "Tainted Eve's",
 			ru = "Порченой Евы",
 			spa = "de Tainted Eva",
 			cs_cz = "Poskvrněné Evy",
 			pl = "Ewy Splamione",
-			ko_kr = "이브의 더럽혀진",
+			ko_kr = "더럽혀진 이브의",
 			pt_br = "da Eva Contaminado",
 		},
-		[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [!]
+		[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
 			en_us = "Tainted Samson's",
 			ru = "Порченого Самсона",
 			spa = "de Tainted Sansón",
 			cs_cz = "Poskvrněného Samsona",
 			pl = "Samsona Splamione",
-			ko_kr = "삼손의 더럽혀진",
+			ko_kr = "더럽혀진 삼손의",
 			pt_br = "do Sansão Contaminado",
 		},
-		[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [!]
+		[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
 			en_us = "Tainted Azazel's",
 			ru = "Порченого Азазеля",
 			spa = "de Tainted Azazel",
 			cs_cz = "Poskvrněného Azazela",
 			pl = "Azazela Splamione",
-			ko_kr = "아자젤의 더럽혀진",
+			ko_kr = "더럽혀진 아자젤의",
 			pt_br = "do Azazel Contaminado",
 		},
-		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [!]
+		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
 			en_us = "Tainted Lazarus'",
 			ru = "Порченого Лазаря",
 			spa = "de Tainted Lázaro",
 			cs_cz = "Poskvrněného Lazara",
 			pl = "Łazarza Splamione",
-			ko_kr = "나사로의 더럽혀진",
+			ko_kr = "더럽혀진 나사로의",
 			pt_br = "do Lázaro Contaminado",
 		},
-		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [!]
+		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
 			en_us = "Tainted Eden's",
 			ru = "Порченого Эдема",
 			spa = "de Tainted Edén",
 			cs_cz = "Poskvrněného Edena",
 			pl = "Edena Splamione",
-			ko_kr = "에덴의 더럽혀진",
+			ko_kr = "더럽혀진 에덴의",
 			pt_br = "do Éden Contaminado",
 		},
-		[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [!]
+		[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
 			en_us = "Tainted Lost's",
 			ru = "Порченого Потерянного",
 			spa = "del Tainted Perdido",
 			cs_cz = "Poskvrněného Ztraceného",
 			pl = "Zaginionego",	--kurde niektóre części EID po prostu go zostawiają jako Losta ale jak spolszczamy pełną gębą to idę z ty Splamionem.
-			ko_kr = "더 로스트의 더럽혀진",
+			ko_kr = "더 더럽혀진 로스트의",
 			pt_br = "do O Perdido Contaminado",
 		},
-		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [!]
+		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
 			en_us = "Tainted Lilith's",
 			ru = "Порченой Лилит",
 			spa = "de Tainted Lilith",
 			cs_cz = "Poskvrněné Lilith", -- Couldn't find a better translation, seems to be called like that in czech anyways t Poskvrněnýho
 			pl = "Lilit", --na polskiej wikipedii jest zapisywana jako "Lilith", ale polskie EID zapisuje jako "Lili Splamionet"
-			ko_kr = "릴리트의 더럽혀진",
+			ko_kr = "더럽혀진 릴리트의",
 			pt_br = "da Lilith Contaminado",
 		},
-		[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [!]
+		[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
 			en_us = "Tainted Keeper's",
 			ru = "Порченого Хранителя",
 			spa = "de Tainted Keeper",
 			cs_cz = "Poskvrněného Držitele", -- In EID he's just called "Keeper", which I just had to czech-i Poskvrněnýfy
 			pl = "Dozorcy", --Polskie EID tak to tłumac Splamionezy
-			ko_kr = "키퍼의 더럽혀진",
+			ko_kr = "더럽혀진 키퍼의",
 			pt_br = "do Keeper Contaminado",
 		},
-		[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [!]
+		[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
 			en_us = "Tainted Apollyon's",
 			ru = "Порченого Апполиона",
 			spa = "de Tainted Apolión",
 			cs_cz = "Poskvrněného Apollyóna",
 			pl = "Apollyona", --EID nie zmienia mu nazwy. Polska wikipedia nazywa go "Abaddo Splamionen"
-			ko_kr = "아폴리온의 더럽혀진",
+			ko_kr = "더럽혀진 아폴리온의",
 			pt_br = "do Apolion Contaminado",
 		},
-		[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [!]
+		[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
 			en_us = "Tainted Forgotten's",
 			ru = "Порченого Забытого",
 			spa = "del Tainted Olvidado",
 			cs_cz = "Poskvrněného Zapomenutého",
 			pl = "Zapomnianego Splamione",
-			ko_kr = "더 포가튼의 더럽혀진",
+			ko_kr = "더 더럽혀진 포가튼의",
 			pt_br = "do O Esquecido Contaminado",
 		},
-		[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [!]
+		[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
 			en_us = "Tainted Bethany's",
 			ru = "Порченой Вифании", --idk all russian isaac gamers just use english name "Бетани"
 			spa = "de Tainted Bethany",
 			cs_cz = "Poskvrněné Betánie",
 			pl = "Betanii Splamione",
-			ko_kr = "베타니의 더럽혀진",
+			ko_kr = "더럽혀진 베타니의",
 			pt_br = "da Betânia Contaminado",
 		},
-		[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [!] | PT_BR [!]
+		[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [ОК] | SPA: [OK] | CS_CZ: [OK] | PL: [!] | KO_KR [OK] | PT_BR [!]
 			en_us = "Tainted Jacob's",
 			ru = "Порченого Иакова",
 			spa = "de Tainted Jacob",
 			cs_cz = "Poskvrněného Jákoba",
 			pl = "Jakuba Splamione",
-			ko_kr = "야곱의 더럽혀진",
+			ko_kr = "더럽혀진 야곱의",
 			pt_br = "do Jacó Contaminado",
 		},
 	},
