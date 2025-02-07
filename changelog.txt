@@ -3,11 +3,13 @@ With the mod released, although this is a separate entity from the original mod,
 General additions/changes:
 - Code completely rewritten to be better compatible with mods, co-op, and overall way better optimized
 - Improved EID support
-- Multilingual descriptions! Both EID and the Birthcake names and descriptions support the following languages: English, Russian, Spanish, Czech, Polish, Korean, Brazilian Portuguese
+- Multilingual descriptions! The following languages are supported: English, Russian, Spanish, Czech, Polish, Korean, and Brazilian Portuguese. Please note that mod support-related translations are not entirely finished and will default to English if not present
 - In co-op play, Birthcake will take on its default appearance, and will have its sprite updated when picked up by the player
 - The unique Birthcake sprite for each character now appears on the HUD, powered by HudHelper
 - A completely different sprite base for the tainted characters, as well as some touchups to vanilla ones, courtesy of the original spriter, damagaz
 - Mod Config Menu support. Has pickup-text-related settings for language and changing the name of tainted characters
+- Compatibility with the Voided Effects mod. Apollyon and Tainted Apollyon's Cakes will have a cool effect (with REPENTOGON) when voiding/abyssing trinkets
+- Compatibility with the Accurate Blurbs mod. Birthcake descriptions will tell you what they do, roughly!
 
 Isaac's Birthday Party Challenge:
 - Now randomly selects characters to play as when decending floors as opposed to a set order. This is still restricted to vanilla characters
@@ -50,13 +52,13 @@ Birthcake effect reworks:
 - Eden's Birthcake grants 3 random gulped trinkets, additional trinkets based on multipliers. The trinkets are tied to Birthcake, meaning dropping it will remove the trinkets, picking it up will re-grant them
 - Tainted Eden has a chance to not reroll their items on hit, scaling with trinket multipliers
 - Lazarus gains an extra Lazarus' Rags revive that has priority over most extra life counters, not counting his own innate revive and the item itself. Upon revive, the cake is consumed, and you'll gain another point to the damage boost you gain as you normally would with a Laz's Rags revive. More damage is added if it was a golden trinket and/or if you have Mom's Box
-- Tainted Lazarus will have a chance to split flipped collectible apart in two
+- Tainted Lazarus will split flippable collectible apart into two pedestals, containing the original item and the ghostly item that was behind it
 - The Lost has an Astral Projection-like effect upon losing all of their Holy Mantle charges, slowing everything in the room down briefly. Trinket multipliers will freeze enemies in a radius for 5 seconds
 - Tainted Lilith has a chance to shoot out a second, smaller Gello that deals 50% damage. It does not shoot out of Lilith like a whip, unlike the main Gello
 - When The Soul shoots through Forgotten's Body, it creates a Compound Fracture effect of 1-3 half-damage bone tears, trinket multipliers adding more bones. Doing this charges The Forgotten's body with "soul charge". When swapping back to The Forgotten, the stored charges convert to a fading firerate up. This stat increase instantly goes away when swapping back to The Soul
 - Tainted Forgotten will spawn bone orbitals when killing enemies, which will orbit around Tainted Soul. When picking up T. Forgotten and throwing them, the bone orbitals are shot forward like tears
 - Bethany will spawn a duplicate wisp of the same type 25% of the time when using an active item. Chance scales with trinket multipliers
-- Tainted Bethany's wisps now have double health when being spawned. This does not affect the Birthright-spawned wisps. They spawn with an additional +2 HP with trinket multipliers
+- Tainted Bethany's wisps now have double health when being spawned. Technically, it's +4 to their existing 4 HP. They spawn with an additional +2 HP with trinket multipliers
 - Jacob & Esau, whichever brother has Birthcake, will reflect their received damage onto the other brother
 - Tainted Jacob will have Dark Esau spawn a trail of flames that block projectiles and tears as well as damage both you and enemies
 
