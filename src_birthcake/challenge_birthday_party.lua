@@ -349,3 +349,19 @@ end
 Mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, BIRTHDAY_PARTY.NoTrinkets, PickupVariant.PICKUP_TRINKET)
 
 --#endregion
+
+--#region Complete challenge
+
+if REPENTOGON then
+	function BIRTHDAY_PARTY:CheckBeastDeath(npc)
+		if npc.Variant == 0
+			and Isaac.GetChallenge() == Mod.Challenges.BIRTHDAY_PARTY.ID
+		then
+			Isaac.ClearChallenge(Mod.Challenges.BIRTHDAY_PARTY.ID)
+		end
+	end
+
+	Mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, BIRTHDAY_PARTY.CheckBeastDeath, EntityType.ENTITY_BEAST)
+end
+
+--#endregion

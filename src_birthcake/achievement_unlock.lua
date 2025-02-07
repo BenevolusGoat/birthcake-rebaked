@@ -32,13 +32,3 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_POST_ACHIEVEMENT_UNLOCK, ACHIEVEMENT.CheckChallengeUnlock)
 Mod.SaveManager.AddCallback(Mod.SaveManager.Utility.CustomCallback.POST_DATA_LOAD, ACHIEVEMENT.CheckChallengeUnlock)
-
-function ACHIEVEMENT:CheckBeastDeath(npc)
-	if npc.Variant == 0
-		and Isaac.GetChallenge() == Mod.Challenges.BIRTHDAY_PARTY.ID
-	then
-		Isaac.ClearChallenge(Mod.Challenges.BIRTHDAY_PARTY.ID)
-	end
-end
-
-Mod:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, ACHIEVEMENT.CheckBeastDeath, EntityType.ENTITY_BEAST)
