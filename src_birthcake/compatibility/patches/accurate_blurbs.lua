@@ -73,7 +73,7 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 		pt_br = "efeitos de três berloques",
 		ko_kr = "무작위 장신구 효과 3개 부여",
 	},
-	[PlayerType.PLAYER_THELOST] = { 				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [!] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_THELOST] = { 				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 		en_us = "Astral Projection on Holy Mantle breakage",
 		ru = "Астральная Проэкция при потери Святой Мантии",
 		pl = "Astralna Projekcja przy utracie tarczy",
@@ -178,7 +178,7 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 		pt_br = "Lágrimas de meleca ao espirrar",
 		ko_kr = "재채기를 하면 혈사포 표식 효과를 부여하는 코딱지도 같이 발사됨",
 	},
-	[PlayerType.PLAYER_LAZARUS_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [!] | KO_KR [!] | PT_BR [OK]
+	[PlayerType.PLAYER_LAZARUS_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [!] | PT_BR [OK]
 		en_us = "Flipping items splits items into both sides",
 		ru = "Переворачивание предметов разделяет их на обе части",
 		pl = "Odwrót czasami rozdziela przedmioty na obie strony",

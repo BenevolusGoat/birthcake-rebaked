@@ -1507,7 +1507,7 @@ BIRTHCAKE_EID.Descs = {
 			"% 확률로 적에게 붙어 지속적으로 피해를 줍니다."
 		},		
 	},
-	[PlayerType.PLAYER_LAZARUS_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [!] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_LAZARUS_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 		en_us = {
 			"{{Collectible711}} When using Flip, item pedestals will split into both collectibles displayed"
 		},
@@ -1518,11 +1518,7 @@ BIRTHCAKE_EID.Descs = {
 			"{{Collectible711}} Al usar Flip, los objetos de pedestal se dividen en ambos objetos mostrados"
 		},
 		pl = {
-			"{{Collectible711}} Po użyciu Odwrotu, przedmioty mają ",
-			function()
-				return "100%"
-			end,
-			"% szansy na rozdzielenie się na oba pokazane przedmioty"
+			"{{Collectible711}} Po użyciu Odwrotu, przedmioty rozdzielają się na oba pokazane przedmioty"
 		},
 		pt_br = {
 			"{{Collectible711}} Quando usar o trocar, items no pedestal irão se dividir em ambos colecionáveis exibidos "
