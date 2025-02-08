@@ -39,6 +39,7 @@ function LAZARUS_CAKE:CheckBirthcake(player)
 			LAZARUS_CAKE.HIDDEN_ITEM_MANAGER_GROUP)
 		local reviveNum = effects:GetNullEffectNum(NullItemID.ID_LAZARUS_BOOST)
 		local reviveTracker = effects:GetTrinketEffectNum(Mod.Birthcake.ID)
+
 		effects:AddTrinketEffect(Mod.Birthcake.ID, false, reviveNum - reviveTracker)
 	elseif not player:HasTrinket(Mod.Birthcake.ID)
 		and Mod.HiddenItemManager:CountStack(player, CollectibleType.COLLECTIBLE_LAZARUS_RAGS, LAZARUS_CAKE.HIDDEN_ITEM_MANAGER_GROUP) > 0
@@ -93,9 +94,22 @@ Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, LAZARUS_CAKE.OnLazRisenPeff
 ---@param player EntityPlayer
 function LAZARUS_CAKE:OnPlayerTypeChange(player)
 	Mod.HiddenItemManager:RemoveAll(player, LAZARUS_CAKE.HIDDEN_ITEM_MANAGER_GROUP)
+	if player:GetPlayerType() == PlayerType.PLAYER_LAZARUS then
+		return true
+	end
 end
 
 Mod:AddCallback(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, LAZARUS_CAKE.OnPlayerTypeChange, PlayerType.PLAYER_LAZARUS2)
+
+---@param player EntityPlayer
+function LAZARUS_CAKE:LazToLazRisen(player)
+	Mod.HiddenItemManager:RemoveAll(player, LAZARUS_CAKE.HIDDEN_ITEM_MANAGER_GROUP)
+	if player:GetPlayerType() == PlayerType.PLAYER_LAZARUS2 then
+		return true
+	end
+end
+
+Mod:AddCallback(Mod.ModCallbacks.POST_PLAYERTYPE_CHANGE, LAZARUS_CAKE.LazToLazRisen, PlayerType.PLAYER_LAZARUS)
 
 -- Tainted Lazarus Birthcake
 
