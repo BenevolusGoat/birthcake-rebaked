@@ -32,7 +32,7 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 		ko_kr = "공격력 배수 적용, 악마 거래 시 체력이 부족하면 이 장신구를 대신 소모",
 	},
 	[PlayerType.PLAYER_BLUEBABY] = { 				-- EN: [OK] | RU: [ОК] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
-		en_us = "Active use drop poops depending on charge",
+		en_us = "Active use drops poops depending on charge",
 		ru = "Использование активных предметов бросает какашки в зависимости от заряда",
 		pl = "Przedmioty aktywne tworzą kupy zależnie od ładunków",
 		pt_br = "Items ativos jogam cocôs dependendo da quantidade de cargas",
@@ -207,7 +207,7 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 		ko_kr = "젤로 투척 시 일정 확률로 젤로 1명이 추가로 튀어나옴",
 	},
 	[PlayerType.PLAYER_KEEPER_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
-		en_us = "Spawn a mini shop every floor",
+		en_us = "Spawn a mini-shop every floor",
 		ru = "Создает мини-магазин каждый этаж",
 		pl = "Mini sklep na każdym piętrze",
 		pt_br = "Invoca uma pequena loja todo andar",
