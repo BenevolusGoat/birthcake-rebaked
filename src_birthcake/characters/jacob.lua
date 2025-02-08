@@ -43,81 +43,87 @@ Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, JACOB_ESAU_CAKE.RedirectDamage,
 
 -- Tainted Jacob
 
-JACOB_ESAU_CAKE.DARK_ESAU_FLAME = Isaac.GetEntityVariantByName("Dark Esau Flame")
-JACOB_ESAU_CAKE.DARK_ESAU_FLAME_DURATION = 100
+JACOB_ESAU_CAKE.DARK_ESAU_FLAME = Isaac.GetEntityTypeByName("Dark Esau Birthcake Flame")
+JACOB_ESAU_CAKE.DARK_ESAU_FLAME_DURATION = 90
 
 ---@param npc EntityNPC
 function JACOB_ESAU_CAKE:OnDarkEsauUpdate(npc)
-	if (not Mod:AnyPlayerTypeHasBirthcake(PlayerType.PLAYER_JACOB_B)
-			and not Mod:AnyPlayerTypeHasBirthcake(PlayerType.PLAYER_JACOB2_B))
+	if not (npc.SpawnerEntity
+		and npc.SpawnerEntity:ToPlayer()
+		and JACOB_ESAU_CAKE:CheckTaintedJacob(npc.SpawnerEntity:ToPlayer()))
 	then
 		return
 	end
 	local sprite = npc:GetSprite()
 	if sprite:IsPlaying("Charge") then
 		if sprite:GetFrame() == 0 then
-			npc:SetColor(Color(1, 1, 1, 1, 0.5, 0, 0), -1, 5, false, true)
-			npc:SetColor(Color.Default, 24, 5, true, true)
+			npc:SetColor(Color(1, 1, 1, 1, 0.5, 0, 0), -1, 1, false, true)
+			npc:SetColor(Color.Default, 24, 1, true, true)
 		end
 	elseif string.find(sprite:GetAnimation(), "Dash") and npc.Velocity:LengthSquared() >= 8 ^ 2 then
 		if sprite:GetFrame() == 0 then
 			npc:SetColor(Color.Default, -1, 5, false, true)
 			npc:SetColor(Color(1, 1, 1, 1, 0.5, 0, 0), 20, 5, true, true)
 		end
-		if npc.FrameCount % 2 == 0 and Mod.Game:GetRoom():IsPositionInRoom(npc.Position, 0) then
-			Isaac.Spawn(EntityType.ENTITY_EFFECT, JACOB_ESAU_CAKE.DARK_ESAU_FLAME, 0, npc.Position, Vector.Zero, npc)
+		if npc.FrameCount % 3 == 0 and Mod.Game:GetRoom():IsPositionInRoom(npc.Position, 0) then
+			local flame = Isaac.Spawn(JACOB_ESAU_CAKE.DARK_ESAU_FLAME, 0, 0, npc.Position, Vector.Zero, npc):ToNPC()
+			---@cast flame EntityNPC
+			Mod:GetData(flame).Duration = JACOB_ESAU_CAKE.DARK_ESAU_FLAME_DURATION
 		end
+	elseif sprite:IsPlaying("Idle") and npc.Color.RO > 0 then
+		npc:SetColor(Color.Default, -1, 1, true, true)
 	end
 end
 
 Mod:AddCallback(ModCallbacks.MC_NPC_UPDATE, JACOB_ESAU_CAKE.OnDarkEsauUpdate, EntityType.ENTITY_DARK_ESAU)
 
----@param effect EntityEffect
-function JACOB_ESAU_CAKE:OnFireInit(effect)
-	effect.Timeout = JACOB_ESAU_CAKE.DARK_ESAU_FLAME_DURATION
-
-	if effect.SpawnerType == EntityType.ENTITY_DARK_ESAU and effect.SpawnerEntity.SubType == 1 then
-		effect:GetSprite():ReplaceSpritesheet(0, "gfx/effects/effect_005_fire_red.png")
-		effect:GetSprite():LoadGraphics()
+---@param flame EntityNPC
+function JACOB_ESAU_CAKE:OnFlameInit(flame)
+	flame:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
+	flame:GetSprite():Play("Appear")
+	if flame.SpawnerType == EntityType.ENTITY_DARK_ESAU and flame.SpawnerEntity.SubType == 1 then
+		flame:GetSprite():ReplaceSpritesheet(0, "gfx/effects/effect_005_fire_red.png")
+		flame:GetSprite():LoadGraphics()
 	end
-	effect.MaxHitPoints = 5
+	flame:AddEntityFlags(
+	EntityFlag.FLAG_NO_TARGET
+	| EntityFlag.FLAG_NO_KNOCKBACK
+	| EntityFlag.FLAG_NO_FLASH_ON_DAMAGE
+	| EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK
+	| EntityFlag.FLAG_NO_REWARD)
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_EFFECT_INIT, JACOB_ESAU_CAKE.OnFireInit, JACOB_ESAU_CAKE.DARK_ESAU_FLAME)
+Mod:AddCallback(ModCallbacks.MC_POST_NPC_INIT, JACOB_ESAU_CAKE.OnFlameInit, JACOB_ESAU_CAKE.DARK_ESAU_FLAME)
 
 local max = math.max
 
----@param effect EntityEffect
-function JACOB_ESAU_CAKE:OnFireUpdate(effect)
-	local sprite = effect:GetSprite()
+---@param flame EntityNPC
+function JACOB_ESAU_CAKE:OnFlameUpdate(flame)
+	local data = Mod:GetData(flame)
+	if data.Duration then
+		if data.Duration > 0 then
+			data.Duration = data.Duration - 1
+		end
+	end
+
+	local sprite = flame:GetSprite()
 	if sprite:IsFinished("Appear") then
 		sprite:Play("Idle")
 	elseif sprite:IsFinished("Disappear") then
-		effect:Remove()
+		flame:Remove()
 		return
 	end
 
 	if sprite:IsPlaying("Idle") then
-		local data = Mod:GetData(effect)
-		for _, ent in ipairs(Isaac.FindInRadius(effect.Position, effect.Size)) do
-			if (ent:ToProjectile() or ent:ToTear()) and not ent:IsDead() then
-				ent:Die()
-				effect.HitPoints = max(2, effect.HitPoints - 2)
-			elseif ent:ToPlayer() or (ent:IsActiveEnemy(false) and ent:IsVulnerableEnemy()) then
-				if not data.HitList or not data.HitList[GetPtrHash(ent)] then
-					data.HitList = data.HitList or {}
-					data.HitList[GetPtrHash(ent)] = 5
-					local ref = EntityRef(effect)
-					if ent:ToPlayer() and not ent:ToPlayer():HasCollectible(CollectibleType.COLLECTIBLE_EVIL_CHARM) then
-						ent:TakeDamage(1, DamageFlag.DAMAGE_FIRE, EntityRef(effect), 0)
-					else
-						ent:TakeDamage(5, DamageFlag.DAMAGE_FIRE, EntityRef(effect), 0)
-						ent:AddBurn(ref, 30, 3.5 * Mod.Game:GetLevel():GetStage())
-					end
-				end
+		for _, proj in ipairs(Isaac.FindInRadius(flame.Position, flame.Size, EntityPartition.BULLET)) do
+			if not proj:IsDead() then
+				proj:Die()
+				flame.HitPoints = max(2, flame.HitPoints - 2)
 			end
 		end
+	end
 
+	if sprite:IsPlaying("Idle") then
 		if data.HitList then
 			for ptrHash, count in pairs(data.HitList) do
 				data.HitList[ptrHash] = count - 1
@@ -126,19 +132,60 @@ function JACOB_ESAU_CAKE:OnFireUpdate(effect)
 				end
 			end
 		end
-		local scale = effect.HitPoints / effect.MaxHitPoints
+		local scale = flame.HitPoints / flame.MaxHitPoints
 		if REPENTOGON then
-			effect:GetSprite():GetLayer(0):SetSize(Vector(scale, scale))
+			flame:GetSprite():GetLayer(0):SetSize(Vector(scale, scale))
 		else
-			effect.SpriteScale = Vector(scale, scale)
+			flame.SpriteScale = Vector(scale, scale)
 		end
-		if effect.HitPoints <= 2 or effect.Timeout == 0 then
-			effect:GetSprite():Play("Disappear")
-			if effect.HitPoints <= 2 then
+		if flame.HitPoints <= 2 or data.Duration == 0 then
+			flame:GetSprite():Play("Disappear")
+			flame.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE
+			if flame.HitPoints <= 2 then
 				Mod.SFXManager:Play(SoundEffect.SOUND_STEAM_HALFSEC)
 			end
 		end
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, JACOB_ESAU_CAKE.OnFireUpdate, JACOB_ESAU_CAKE.DARK_ESAU_FLAME)
+Mod:AddCallback(ModCallbacks.MC_NPC_UPDATE, JACOB_ESAU_CAKE.OnFlameUpdate, JACOB_ESAU_CAKE.DARK_ESAU_FLAME)
+
+---@param flame EntityNPC
+---@param collider Entity
+function JACOB_ESAU_CAKE:OnPreCollision(flame, collider)
+	local data = Mod:GetData(flame)
+	local ref = EntityRef(flame)
+
+	if flame:GetSprite():IsPlaying("Idle") and (collider:ToPlayer() or (collider:IsActiveEnemy(false) and collider:IsVulnerableEnemy())) then
+		if not data.HitList or not data.HitList[GetPtrHash(collider)] then
+			data.HitList = data.HitList or {}
+			data.HitList[GetPtrHash(collider)] = 5
+			if collider:ToPlayer() and not collider:ToPlayer():HasCollectible(CollectibleType.COLLECTIBLE_EVIL_CHARM) then
+				collider:TakeDamage(flame.CollisionDamage, DamageFlag.DAMAGE_FIRE, ref, 0)
+			else
+				collider:TakeDamage(5, DamageFlag.DAMAGE_FIRE, ref, 0)
+				collider:AddBurn(ref, 30, 3.5 + (0.5 * Mod.Game:GetLevel():GetStage()))
+			end
+		end
+	end
+	return true
+end
+
+Mod:AddCallback(ModCallbacks.MC_PRE_NPC_COLLISION, JACOB_ESAU_CAKE.OnPreCollision, JACOB_ESAU_CAKE.DARK_ESAU_FLAME)
+
+---@param flame Entity
+---@param flags DamageFlag
+---@param source EntityRef
+function JACOB_ESAU_CAKE:OnTakeDamage(flame, _, flags, source)
+	if Mod:HasBitFlags(flags, DamageFlag.DAMAGE_EXPLOSION) then
+		flame.HitPoints = 2
+	elseif not Mod:HasBitFlags(flags, DamageFlag.DAMAGE_FIRE | DamageFlag.DAMAGE_POISON_BURN)
+		and (not source.Entity or source.Entity.Type ~= EntityType.ENTITY_DARK_ESAU)
+	then
+		flame.HitPoints = max(2, flame.HitPoints - 2)
+	end
+
+	return false
+end
+
+Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, JACOB_ESAU_CAKE.OnTakeDamage, JACOB_ESAU_CAKE.DARK_ESAU_FLAME)
