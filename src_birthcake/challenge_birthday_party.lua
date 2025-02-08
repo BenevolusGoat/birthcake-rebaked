@@ -29,52 +29,6 @@ local CHARACTER_LIST = {
 	PlayerType.PLAYER_JACOB,
 }
 
----@param player EntityPlayer
-function BIRTHDAY_PARTY:GrantSavedHealth(player)
-	local player_run_save = Mod:RunSave(player)
-	if player_run_save.BirthdayPartySavedHealth then
-		local twin = player:GetOtherTwin()
-		local isMainTwin = GetPtrHash(player:GetMainTwin()) == GetPtrHash(player)
-		if twin and isMainTwin then
-			local splitAmountMainTwin = {}
-			local splitAmountOtherTwin = {}
-			for heartType, amount in pairs(player_run_save.BirthdayPartySavedHealth) do
-				if amount >= 2 then
-					local dividedAmount = amount * 0.5
-					--Allow uneven amounts
-					if heartType == "Red"
-						or heartType == "Soul"
-						or heartType == "Black"
-					then
-						splitAmountMainTwin[heartType] = dividedAmount
-					else
-						splitAmountMainTwin[heartType] = (dividedAmount % 2 ~= 0) and dividedAmount + 1 or dividedAmount
-					end
-					splitAmountOtherTwin[heartType] = amount - splitAmountMainTwin[heartType]
-				else
-					splitAmountMainTwin[heartType] = amount
-				end
-			end
-			player_run_save.BirthdayPartySavedHealth = splitAmountMainTwin
-			Mod:RunSave(twin).BirthdayPartySavedHealth = splitAmountOtherTwin
-			BIRTHDAY_PARTY:GrantSavedHealth(twin)
-		end
-		player:AddMaxHearts(-24)
-		player:AddSoulHearts(-24)
-		local health = player_run_save.BirthdayPartySavedHealth
-		player:AddMaxHearts(health.HeartContainers or 0)
-		player:AddBoneHearts(health.Bone or 0)
-		player:AddHearts(health.Red or 0)
-		player:AddEternalHearts(health.Eternal or 0)
-		player:AddSoulHearts(health.Soul or 0)
-		player:AddBlackHearts(health.Black or 0)
-		if isMainTwin then
-			player_run_save.BirthdayPartySavedHealth = nil
-		elseif Mod:GetAllHearts(player) == 0 then
-			player:AddMaxHearts(2)
-		end
-	end
-end
 
 ---@type {[PlayerType]: fun(player: EntityPlayer)}
 BIRTHDAY_PARTY.CharacterRewards = {
@@ -130,6 +84,7 @@ BIRTHDAY_PARTY.CharacterRewards = {
 		local maxHearts = player:GetMaxHearts()
 		if maxHearts < 6 then
 			player:AddMaxHearts(6 - maxHearts)
+			player:AddHearts(6)
 		end
 	end,
 	[PlayerType.PLAYER_THEFORGOTTEN] = function(player)
@@ -139,39 +94,6 @@ BIRTHDAY_PARTY.CharacterRewards = {
 	end
 }
 
----@param player EntityPlayer
-function BIRTHDAY_PARTY:SaveCurrentHealth(player)
-	local player_run_save = Mod:RunSave(player)
-	if not player_run_save.BirthdayPartySavedHealth then
-		local HeartContainers = player:GetMaxHearts()
-		local Red = player:GetHearts()
-		local Bone = player:GetBoneHearts()
-		local Soul = Mod:GetPlayerRealSoulHeartsCount(player) + player:GetSoulCharge()
-		local Black = Mod:GetPlayerRealBlackHeartsCount(player)
-		local Rotten = player:GetRottenHearts()
-		local Eternal = player:GetEternalHearts()
-		local twin = player:GetOtherTwin()
-		if twin then
-			HeartContainers = HeartContainers + twin:GetMaxHearts()
-			Red = Red + twin:GetHearts()
-			Bone = Bone + twin:GetBoneHearts()
-			Soul = Soul + Mod:GetPlayerRealSoulHeartsCount(twin)
-			Black = Black + Mod:GetPlayerRealBlackHeartsCount(twin)
-			Rotten = Rotten + twin:GetRottenHearts()
-			Eternal = Eternal + twin:GetEternalHearts()
-		end
-
-		player_run_save.BirthdayPartySavedHealth = {
-			HeartContainers = HeartContainers,
-			Red = Red,
-			Bone = Bone,
-			Soul = Soul,
-			Black = Black,
-			Rotten = Rotten,
-			Eternal = Eternal,
-		}
-	end
-end
 
 ---@type {[PlayerType]: fun(player: EntityPlayer)}
 BIRTHDAY_PARTY.CharacterResets = {
@@ -221,6 +143,100 @@ BIRTHDAY_PARTY.CharacterResets = {
 		player:RemoveCollectible(CollectibleType.COLLECTIBLE_ANEMIC)
 	end
 }
+
+--#endregion
+
+--#region Health tracking
+
+---@param player EntityPlayer
+function BIRTHDAY_PARTY:GrantSavedHealth(player)
+	local player_run_save = Mod:RunSave(player)
+	if player_run_save.BirthdayPartySavedHealth then
+		local twin = player:GetOtherTwin()
+		local isMainTwin = GetPtrHash(player:GetMainTwin()) == GetPtrHash(player)
+		if twin and isMainTwin then
+			local splitAmountMainTwin = {}
+			local splitAmountOtherTwin = {}
+			for heartType, amount in pairs(player_run_save.BirthdayPartySavedHealth) do
+				if amount >= 2 then
+					local dividedAmount = amount * 0.5
+					--Allow uneven amounts
+					if heartType == "Red"
+						or heartType == "Soul"
+						or heartType == "Black"
+					then
+						splitAmountMainTwin[heartType] = dividedAmount
+					else
+						splitAmountMainTwin[heartType] = (dividedAmount % 2 ~= 0) and dividedAmount + 1 or dividedAmount
+					end
+					splitAmountOtherTwin[heartType] = amount - splitAmountMainTwin[heartType]
+				else
+					splitAmountMainTwin[heartType] = amount
+				end
+			end
+			player_run_save.BirthdayPartySavedHealth = splitAmountMainTwin
+			Mod:RunSave(twin).BirthdayPartySavedHealth = splitAmountOtherTwin
+			BIRTHDAY_PARTY:GrantSavedHealth(twin)
+		end
+		player:AddMaxHearts(-24)
+		player:AddSoulHearts(-24)
+		local health = player_run_save.BirthdayPartySavedHealth
+		player:AddMaxHearts(health.HeartContainers or 0)
+		player:AddBoneHearts(health.Bone or 0)
+		player:AddHearts(health.Red or 0)
+		player:AddEternalHearts(health.Eternal or 0)
+		player:AddSoulHearts(health.Soul or 0)
+		player:AddBlackHearts(health.Black or 0)
+		if isMainTwin then
+			player_run_save.BirthdayPartySavedHealth = nil
+		elseif Mod:GetAllHearts(player) == 0 then
+			player:AddMaxHearts(2)
+		end
+	end
+end
+
+---@param player EntityPlayer
+function BIRTHDAY_PARTY:SaveCurrentHealth(player)
+	local player_run_save = Mod:RunSave(player)
+	if not player_run_save.BirthdayPartySavedHealth then
+		local HeartContainers = player:GetMaxHearts()
+		local Red = player:GetHearts()
+		local Bone = player:GetBoneHearts()
+		local Soul = Mod:GetPlayerRealSoulHeartsCount(player) + player:GetSoulCharge()
+		local Black = Mod:GetPlayerRealBlackHeartsCount(player)
+		local Rotten = player:GetRottenHearts()
+		local Eternal = player:GetEternalHearts()
+		local twin = player:GetOtherTwin()
+		local otherForgor = player:GetSubPlayer()
+		if twin then
+			HeartContainers = HeartContainers + twin:GetMaxHearts()
+			Red = Red + twin:GetHearts()
+			Bone = Bone + twin:GetBoneHearts()
+			Soul = Soul + Mod:GetPlayerRealSoulHeartsCount(twin)
+			Black = Black + Mod:GetPlayerRealBlackHeartsCount(twin)
+			Rotten = Rotten + twin:GetRottenHearts()
+			Eternal = Eternal + twin:GetEternalHearts()
+		elseif otherForgor then
+			HeartContainers = HeartContainers + otherForgor:GetMaxHearts()
+			Red = Red + otherForgor:GetHearts()
+			Bone = Bone + otherForgor:GetBoneHearts()
+			Soul = Soul + Mod:GetPlayerRealSoulHeartsCount(otherForgor)
+			Black = Black + Mod:GetPlayerRealBlackHeartsCount(otherForgor)
+			Rotten = Rotten + otherForgor:GetRottenHearts()
+			Eternal = Eternal + otherForgor:GetEternalHearts()
+		end
+
+		player_run_save.BirthdayPartySavedHealth = {
+			HeartContainers = HeartContainers,
+			Red = Red,
+			Bone = Bone,
+			Soul = Soul,
+			Black = Black,
+			Rotten = Rotten,
+			Eternal = Eternal,
+		}
+	end
+end
 
 --#endregion
 
@@ -293,7 +309,6 @@ function BIRTHDAY_PARTY:SwitchCharacter()
 			end
 
 			player:ChangePlayerType(selectedPlayerType)
-
 			playerType = player:GetPlayerType()
 
 			if BIRTHDAY_PARTY.CharacterRewards[playerType] then
