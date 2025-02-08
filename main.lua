@@ -186,6 +186,7 @@ local utility = {
 	"hud_helper",
 	"rgon_enums",
 	"misc_util",
+	"players_util",
 	"birthcake_util"
 }
 for _, path in ipairs(utility) do
