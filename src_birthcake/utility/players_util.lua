@@ -27,7 +27,7 @@ function BirthcakeRebaked:ForEachPlayer(func)
 		end
 	else
 		for i = 0, Mod.Game:GetNumPlayers() - 1 do
-			if func(Isaac.GetPlayer(i), i) then
+			if Isaac.GetPlayer(i) and func(Isaac.GetPlayer(i), i) then
 				return true
 			end
 		end

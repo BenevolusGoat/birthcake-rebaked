@@ -24,6 +24,7 @@ function LILITH_CAKE:EffectShare(tearOrLaser)
 		local familiar = tearOrLaser.SpawnerEntity:ToFamiliar()
 		if familiar
 			and (REPENTOGON and not familiar:GetWeapon() or not weaponFamiliars[familiar.Variant])
+			and familiar.Player
 			and Mod:PlayerTypeHasBirthcake(familiar.Player, PlayerType.PLAYER_LILITH)
 		then
 			local player = tearOrLaser.SpawnerEntity:ToFamiliar().Player

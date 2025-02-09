@@ -19,7 +19,7 @@ local SOUL_COLOR = Color(1.5, 1.7, 2, 1, 0.05, 0.12, 0.2)
 function THEFORGOTTEN_CAKE:OnForgottenBodyUpdate(familiar)
 	local player = familiar.Player
 
-	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_THESOUL) then
+	if player and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_THESOUL) then
 		local effects = player:GetEffects()
 		local pData = Mod:GetData(player)
 		if pData.IsForgotten then

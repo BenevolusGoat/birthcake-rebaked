@@ -46,8 +46,7 @@ function CAIN_BIRTHCAKE:MachineInteraction(player, ent, low)
 	end
 end
 
-Mod:AddPriorityCallback(ModCallbacks.MC_PRE_PLAYER_COLLISION, CallbackPriority.EARLY, CAIN_BIRTHCAKE.MachineInteraction,
-	0)
+Mod:AddPriorityCallback(ModCallbacks.MC_PRE_PLAYER_COLLISION, CallbackPriority.EARLY, CAIN_BIRTHCAKE.MachineInteraction, 0)
 
 function CAIN_BIRTHCAKE:OnSlotInitiate(slot)
 	local data = Mod:GetData(slot)
@@ -141,35 +140,3 @@ Mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, CAIN_BIRTHCAKE.SplitPickup, 
 Mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, CAIN_BIRTHCAKE.SplitPickup, PickupVariant.PICKUP_KEY)
 Mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, CAIN_BIRTHCAKE.SplitPickup, PickupVariant.PICKUP_HEART)
 Mod:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, CAIN_BIRTHCAKE.SplitPickup, PickupVariant.PICKUP_COIN)
-
---[[ local BAG_OF_CRAFTING = KnifeVariant and KnifeVariant.BAG_OF_CRAFTING or 4
-local CLUB_HITBOX = KnifeSubType and KnifeSubType.CLUB_HITBOX or 4
-
----@param knife EntityKnife
----@param collider Entity
-function CAIN_BIRTHCAKE:AddPickup(knife, collider)
-	local player = knife.SpawnerEntity and knife.SpawnerEntity:ToPlayer()
-	if player
-		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_CAIN_B)
-		and knife.Variant == BAG_OF_CRAFTING
-		and knife.SubType == CLUB_HITBOX
-		and collider:ToPickup()
-	then
-		local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BAG_OF_CRAFTING)
-		local roll = rng:RandomFloat()
-		local pickup = collider:ToPickup()
-		---@cast pickup EntityPickup
-
-		if roll <= 0.05 then
-			local dupePickup = Isaac.Spawn(pickup.Type, pickup.Variant, pickup.SubType, player.Position, Vector.Zero,
-				pickup.SpawnerEntity):ToPickup()
-			---@cast dupePickup EntityPickup
-			dupePickup:GetSprite():Play("Idle", true)
-			dupePickup.EntityCollisionClass = EntityCollisionClass.ENTCOLL_PLAYERONLY
-			dupePickup.Timeout = 1
-			dupePickup.Visible = false
-		end
-	end
-end
-
-Mod:AddCallback(ModCallbacks.MC_PRE_KNIFE_COLLISION, CAIN_BIRTHCAKE.AddPickup) ]]

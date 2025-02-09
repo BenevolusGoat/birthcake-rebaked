@@ -12,7 +12,7 @@ BETHANY_CAKE.WISP_DUPE_CHANCE = 0.25
 function BETHANY_CAKE:OnWispSpawn(familiar)
 	local player = familiar.Player
 
-	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_BETHANY) and familiar.FrameCount == 5 then
+	if player and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_BETHANY) and familiar.FrameCount == 5 then
 		local run_save = Mod:RunSave(familiar)
 		if not run_save.BethanyCakeWispSpawned then
 			local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
@@ -36,7 +36,7 @@ BETHANY_CAKE.WISP_HEALTH_MULT_ADD = 2
 
 ---@param familiar EntityFamiliar
 function BETHANY_CAKE:OnWispInit(familiar)
-	if familiar.FrameCount == 5 and Mod:PlayerTypeHasBirthcake(familiar.Player, PlayerType.PLAYER_BETHANY_B) then
+	if familiar.FrameCount == 5 and familiar.Player and Mod:PlayerTypeHasBirthcake(familiar.Player, PlayerType.PLAYER_BETHANY_B) then
 		local familiar_run_save = Mod:RunSave(familiar)
 		if familiar.MaxHitPoints == 4 and not familiar_run_save.BethanyCakeUpgrade then
 			local maxHp = familiar.MaxHitPoints + BETHANY_CAKE.WISP_HEALTH_UP +

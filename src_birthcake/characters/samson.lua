@@ -33,8 +33,8 @@ end
 
 ---@param ent Entity
 function SAMSON_CAKE:BloodLust(ent, amount, flags, source, dmg)
-	local player = ent:ToPlayer() ---@cast player EntityPlayer
-	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_SAMSON) then
+	local player = ent:ToPlayer()
+	if player and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_SAMSON) then
 		local effects = player:GetEffects()
 		local bloodyLustStack = effects:GetCollectibleEffectNum(CollectibleType.COLLECTIBLE_BLOODY_LUST)
 		local numTimesTriggered = effects:GetTrinketEffectNum(Mod.Birthcake.ID)
