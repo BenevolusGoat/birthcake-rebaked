@@ -5,6 +5,7 @@ local APOLLYON_CAKE = {}
 BirthcakeRebaked.Birthcake.APOLLYON = APOLLYON_CAKE
 
 APOLLYON_CAKE.DOUBLE_VOID_CHANCE = 0.25
+APOLLYON_CAKE.BIRTHRIGHT_SPAWN_CHANCE = 0.05
 
 ---@param player EntityPlayer
 function APOLLYON_CAKE:OnPlayerInit(player)
@@ -23,43 +24,50 @@ function APOLLYON_CAKE:OnVoidUse(_, _, player, _, _, _)
 		local player_run_save = Mod:RunSave(player)
 		local trinketList = {}
 		local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
+		local trinketMult = Mod:GetTrinketMult(player, true)
+
+		if player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
+			and player_run_save.ApollyonCakeTrinketList
+			and #player_run_save.ApollyonCakeTrinketList > 0
+			and rng:RandomFloat() <= APOLLYON_CAKE.BIRTHRIGHT_SPAWN_CHANCE * trinketMult
+		then
+			local trinketID = player_run_save.ApollyonCakeTrinketList[rng:RandomInt(#player_run_save.ApollyonCakeTrinketList) + 1]
+			local trinket = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, trinketID,
+			Mod.Game:GetRoom():FindFreePickupSpawnPosition(player.Position, 40, true, false), Vector.Zero, nil)
+			Mod:GetData(trinket).ApollyonCakeTempIgnoreVoid = true
+		end
 		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET)) do
 			local pickup = ent:ToPickup()
 			---@cast pickup EntityPickup
-			local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, pickup.Position, Vector.Zero, nil)
-			poof.SpriteScale = Vector(0.5, 0.5)
-			poof.Color = Color(0.6, 0.35, 0.6)
-			pickup.Timeout = 4
-			local trinketMult = Mod:GetTrinketMult(player, true)
+			local data = Mod:GetData(pickup)
+			if data.ApollyonCakeTempIgnoreVoid then
+				data.ApollyonCakeTempIgnoreVoid = nil
+			else
+				local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, pickup.Position, Vector.Zero, nil)
+				poof.SpriteScale = Vector(0.5, 0.5)
+				poof.Color = Color(0.6, 0.35, 0.6)
+				pickup.Timeout = 4
 
-			player_run_save.ApollyonCakeTrinketList = player_run_save.ApollyonCakeTrinketList or {}
-			table.insert(trinketList, { TrinketType = pickup.SubType, FirstTime = pickup.Touched })
-			table.insert(player_run_save.ApollyonCakeTrinketList, pickup.SubType)
-
-			if trinketMult > 1
-				and rng:RandomFloat()
-				<= Mod:GetBalanceApprovedChance(APOLLYON_CAKE.DOUBLE_VOID_CHANCE, trinketMult - 1)
-			then
+				player_run_save.ApollyonCakeTrinketList = player_run_save.ApollyonCakeTrinketList or {}
 				table.insert(trinketList, { TrinketType = pickup.SubType, FirstTime = pickup.Touched })
 				table.insert(player_run_save.ApollyonCakeTrinketList, pickup.SubType)
-				playHorn = true
+
+				if trinketMult > 1
+					and rng:RandomFloat()
+					<= Mod:GetBalanceApprovedChance(APOLLYON_CAKE.DOUBLE_VOID_CHANCE, trinketMult - 1)
+				then
+					table.insert(trinketList, { TrinketType = pickup.SubType, FirstTime = pickup.Touched })
+					table.insert(player_run_save.ApollyonCakeTrinketList, pickup.SubType)
+					playHorn = true
+				end
+				Isaac.RunCallbackWithParam(Mod.ModCallbacks.APOLLYON_VOID_TRINKET, pickup.SubType, pickup)
 			end
-			Isaac.RunCallbackWithParam(Mod.ModCallbacks.APOLLYON_VOID_TRINKET, pickup.SubType, pickup)
 		end
 		if #trinketList > 0 then
 			Mod:AddSmeltedTrinkets(player, trinketList)
 			if playHorn then
 				Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
 			end
-		end
-		if player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
-			and player_run_save.ApollyonCakeTrinketList
-			and #player_run_save.ApollyonCakeTrinketList > 0
-			and rng:RandomFloat() <= 0.1
-		then
-			local trinketID = player_run_save.ApollyonCakeTrinketList[rng:RandomInt(#player_run_save.ApollyonCakeTrinketList) + 1]
-			Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, trinketID,
-			Mod.Game:GetRoom():FindFreePickupSpawnPosition(player.Position, 40, true, false), Vector.Zero, nil)
 		end
 	end
 end
