@@ -17,11 +17,12 @@ end
 Mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, APOLLYON_CAKE.OnPlayerInit)
 
 ---@param player EntityPlayer
-function APOLLYON_CAKE:OnVoidUse(itemID, rng, player, flags, slot, varData)
+function APOLLYON_CAKE:OnVoidUse(_, _, player, _, _, _)
 	local playHorn = false
 	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_APOLLYON) then
 		local player_run_save = Mod:RunSave(player)
 		local trinketList = {}
+		local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
 		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET)) do
 			local pickup = ent:ToPickup()
 			---@cast pickup EntityPickup
@@ -36,7 +37,7 @@ function APOLLYON_CAKE:OnVoidUse(itemID, rng, player, flags, slot, varData)
 			table.insert(player_run_save.ApollyonCakeTrinketList, pickup.SubType)
 
 			if trinketMult > 1
-				and player:GetTrinketRNG(Mod.Birthcake.ID):RandomFloat()
+				and rng:RandomFloat()
 				<= Mod:GetBalanceApprovedChance(APOLLYON_CAKE.DOUBLE_VOID_CHANCE, trinketMult - 1)
 			then
 				table.insert(trinketList, { TrinketType = pickup.SubType, FirstTime = pickup.Touched })
@@ -50,6 +51,15 @@ function APOLLYON_CAKE:OnVoidUse(itemID, rng, player, flags, slot, varData)
 			if playHorn then
 				Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
 			end
+		end
+		if player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
+			and player_run_save.ApollyonCakeTrinketList
+			and #player_run_save.ApollyonCakeTrinketList > 0
+			and rng:RandomFloat() <= 0.1
+		then
+			local trinketID = player_run_save.ApollyonCakeTrinketList[rng:RandomInt(#player_run_save.ApollyonCakeTrinketList) + 1]
+			Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, trinketID,
+			Mod.Game:GetRoom():FindFreePickupSpawnPosition(player.Position, 40, true, false), Vector.Zero, nil)
 		end
 	end
 end
