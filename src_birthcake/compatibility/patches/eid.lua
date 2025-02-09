@@ -1045,13 +1045,10 @@ BIRTHCAKE_EID.Descs = {
 		_modifier = function(descObj, str)
 			local mult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity), descObj.ObjSubType,
 				true)
-			local chance = Mod:GetBalanceApprovedChance(Mod.Birthcake.APOLLYON.DOUBLE_VOID_CHANCE, mult - 1)
+			local chance = Mod:GetBalanceApprovedChance(Mod.Birthcake.APOLLYON.DOUBLE_VOID_CHANCE, mult)
 			chance = BIRTHCAKE_EID:AdjustNumberValue(chance)
-
-			if mult > 1 then
-				return "#" .. BIRTHCAKE_EID:GoldConditional(str:format(chance .. "%"), mult)
-			end
-			return str
+			
+			return "#" .. str:format(BIRTHCAKE_EID:GoldConditional(chance .. "%", mult))
 		end,
 		en_us = {
 			"{{Collectible477}} Void can absorb trinkets",
