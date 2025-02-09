@@ -1045,7 +1045,7 @@ BIRTHCAKE_EID.Descs = {
 		_modifier = function(descObj, str)
 			local mult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity), descObj.ObjSubType,
 				true)
-			local chance = Mod:GetBalanceApprovedChance(Mod.Birthcake.APOLLYON.DOUBLE_VOID_CHANCE, mult)
+			local chance = Mod:GetBalanceApprovedChance(Mod.Birthcake.APOLLYON.DOUBLE_VOID_CHANCE, mult - 1)
 			chance = BIRTHCAKE_EID:AdjustNumberValue(chance)
 
 			if mult > 1 then
