@@ -19,6 +19,8 @@ local function assignText(tableName, playerType, tableOrString)
 end
 
 ---Define a description, and optionally a name, for your character's Birthcake.
+---
+---Keep in mind that for names, they're said as "Name's" rather than "Name" as to append "Cake" automatically
 ---@param playerType PlayerType
 ---@param desc string | table
 ---@param name? string | table
@@ -30,11 +32,13 @@ function API:AddBirthcakePickupText(playerType, desc, name)
 end
 
 ---Define a description, and optionally a name, for your character's Birthcake.
+---
+---Keep in mind that for names, they're said as "Name's" rather than "Name" as to append "Cake" automatically.
 ---@param playerType PlayerType
 ---@param desc string | table
----@param nonTaintedPlayerType? PlayerType #Define the normal-side character associated with this character. Used for the "Default name" option for Tainted name pickup text
+---@param nonTaintedPlayerType? PlayerType #Define the normal-side character associated with this character. Used for the "Default name" option for Tainted name pickup text. REPENTOGON detects this automatically, but is needed for non-RGON
 ---@param name? string | table #Have "Tainted" included in the name by default, if accurate. Used for the "Tainted prefix" option for Tainted name pickup text
----@param taintedTitle? string | table #Used for the "Tainted Title" option for Tainted name pickup text
+---@param taintedTitle? string | table #Used for the "Tainted Title" option for Tainted name pickup text (i.e. "The Broken's")
 function API:AddTaintedBirthcakePickupText(playerType, desc, nonTaintedPlayerType, name, taintedTitle)
 	assignText("BirthcakeDescriptions", playerType, desc)
 	if nonTaintedPlayerType then

@@ -1581,7 +1581,7 @@ BIRTHCAKE_EID.Descs = {
 			"#생일 케이크는 대부분의 경우 리롤에 면역이며 "
 			.. Mod.Birthcake.EDEN.BIRTHCAKE_REROLL_CHANCE .. "% 의 확률로 피격 시 리롤됩니다."
 		},		
-},
+	},
 	[PlayerType.PLAYER_THELOST_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 		en_us = {
 			"{{Card51}} Spawns a Holy Card when first picked up",
@@ -1685,7 +1685,7 @@ BIRTHCAKE_EID.Descs = {
 			"% 확률로 젤로가 1명 더 튀어나옵니다.",
 			"#추가 생성된 젤로의 피해량은 기존 젤로의 절반입니다."
 		},		
-},
+	},
 	[PlayerType.PLAYER_KEEPER_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 		en_us = {
 			"Spawns an item and 2 pickups for sale at the start of each floor"
@@ -1764,7 +1764,7 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"의 피해를 줍니다."
 		},		
-},
+	},
 	[PlayerType.PLAYER_THEFORGOTTEN_B] = { 		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 		en_us = {
 			"Killing enemies will spawn stationary bone fragments that damage enemies on contact",
@@ -1873,7 +1873,7 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"증가"
 		},		
-},
+	},
 	[PlayerType.PLAYER_JACOB_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 		en_us = {
 			"Dark Esau leaves behind small flames when flying, blocking tears and enemy projectiles",
@@ -1946,9 +1946,9 @@ BIRTHCAKE_EID.ShortDescriptions = {
 				return BIRTHCAKE_EID.ShortDescriptions.DEFAULT_EFFECT._modifier(descObj)
 			end,
 			"%"
-		},		
+		},
 	},
-	APOLLYON_B_APPEND = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [X] | PT_BR [OK]
+	APOLLYON_B_APPEND = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [OK] | PT_BR [OK]
 		_modifier = function(descObj, strNoMult, strMult)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local objTrinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
@@ -1998,7 +1998,7 @@ BIRTHCAKE_EID.ShortDescriptions = {
 					"온전한 피해를 입히는 빨간 메뚜기"
 				)
 			end
-		},		
+		},
 	}
 }
 
