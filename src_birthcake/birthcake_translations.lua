@@ -1,7 +1,7 @@
 --EID.Languages = {"en_us", "fr", "pt", "pt_br", "ru", "spa", "it", "bul", "pl", "de", "tr_tr", "ko_kr", "zh_cn", "ja_jp", "cs_cz", "nl_nl", "uk_ua", "el_gr"}
 
 -- !TRANSLATION PROGRESS
--- EN: 68/68 | RU: 68/68 | SPA: 68/68 | CS_CZ: 68/68 | PL: 68/68 | KO_KR 67/68 | PT_BR 51/68
+-- EN: 68/68 | RU: 68/68 | SPA: 68/68 | CS_CZ: 68/68 | PL: 68/68 | KO_KR 67/68 | PT_BR 68/68
 
 local NAME_SHARE        = {
 	[PlayerType.PLAYER_BLACKJUDAS] = PlayerType.PLAYER_JUDAS,
@@ -181,7 +181,7 @@ local translations = {
 			ko_kr = "야곱과 에사우의", --병신과 머저리 둘 다 반영
 			pt_br = "do Jacó e Esaú",
 		},
-		[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [!]
+		[PlayerType.PLAYER_ISAAC_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Tainted Isaac's",
 			ru = "Порченого Исаака",
 			spa = "de Tainted Isaac",
@@ -190,7 +190,7 @@ local translations = {
 			ko_kr = "더럽혀진 아이작의",
 			pt_br = "do Isaque Contaminado",
 		},
-		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [!]
+		[PlayerType.PLAYER_MAGDALENE_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Tainted Magdalene's",
 			ru = "Порченой Магдалины",
 			spa = "de Tainted Magdalena",
@@ -199,7 +199,7 @@ local translations = {
 			ko_kr = "더럽혀진 막달레나의",
 			pt_br = "da Madalena Contaminado",
 		},
-		[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [!]
+		[PlayerType.PLAYER_CAIN_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Tainted Cain's",
 			ru = "Порченого Каина",
 			spa = "de Tainted Caín",
@@ -208,7 +208,7 @@ local translations = {
 			ko_kr = "더럽혀진 카인의",
 			pt_br = "do Caim Contaminado",
 		},
-		[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [!]
+		[PlayerType.PLAYER_JUDAS_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Tainted Judas'",
 			ru = "Порченого Иуды",
 			spa = "de Tainted Judas",
@@ -217,7 +217,7 @@ local translations = {
 			ko_kr = "더럽혀진 유다의",
 			pt_br = "do Judas Contaminado",
 		},
-		[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [!]
+		[PlayerType.PLAYER_BLUEBABY_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Tainted ???'s",
 			ru = "Порченого ???",
 			spa = "de Tainted ???",
@@ -226,7 +226,7 @@ local translations = {
 			ko_kr = "더럽혀진 ???의",
 			pt_br = "do ??? Contaminado",
 		},
-		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [!]
+		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Tainted Eve's",
 			ru = "Порченой Евы",
 			spa = "de Tainted Eva",
@@ -235,7 +235,7 @@ local translations = {
 			ko_kr = "더럽혀진 이브의",
 			pt_br = "da Eva Contaminado",
 		},
-		[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [!]
+		[PlayerType.PLAYER_SAMSON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Tainted Samson's",
 			ru = "Порченого Самсона",
 			spa = "de Tainted Sansón",
@@ -244,7 +244,7 @@ local translations = {
 			ko_kr = "더럽혀진 삼손의",
 			pt_br = "do Sansão Contaminado",
 		},
-		[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [!]
+		[PlayerType.PLAYER_AZAZEL_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Tainted Azazel's",
 			ru = "Порченого Азазеля",
 			spa = "de Tainted Azazel",
@@ -253,7 +253,7 @@ local translations = {
 			ko_kr = "더럽혀진 아자젤의",
 			pt_br = "do Azazel Contaminado",
 		},
-		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [!]
+		[PlayerType.PLAYER_LAZARUS_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Tainted Lazarus'",
 			ru = "Порченого Лазаря",
 			spa = "de Tainted Lázaro",
@@ -262,7 +262,7 @@ local translations = {
 			ko_kr = "더럽혀진 나사로의",
 			pt_br = "do Lázaro Contaminado",
 		},
-		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [!]
+		[PlayerType.PLAYER_EDEN_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Tainted Eden's",
 			ru = "Порченого Эдема",
 			spa = "de Tainted Edén",
@@ -271,7 +271,7 @@ local translations = {
 			ko_kr = "더럽혀진 에덴의",
 			pt_br = "do Éden Contaminado",
 		},
-		[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [!]
+		[PlayerType.PLAYER_THELOST_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Tainted Lost's",
 			ru = "Порченого Потерянного",
 			spa = "del Tainted Perdido",
@@ -280,7 +280,7 @@ local translations = {
 			ko_kr = "더럽혀진 더 로스트의",
 			pt_br = "do O Perdido Contaminado",
 		},
-		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [!]
+		[PlayerType.PLAYER_LILITH_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Tainted Lilith's",
 			ru = "Порченой Лилит",
 			spa = "de Tainted Lilith",
@@ -289,7 +289,7 @@ local translations = {
 			ko_kr = "더럽혀진 릴리트의",
 			pt_br = "da Lilith Contaminado",
 		},
-		[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [!]
+		[PlayerType.PLAYER_KEEPER_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Tainted Keeper's",
 			ru = "Порченого Хранителя",
 			spa = "de Tainted Keeper",
@@ -298,7 +298,7 @@ local translations = {
 			ko_kr = "더럽혀진 키퍼의",
 			pt_br = "do Keeper Contaminado",
 		},
-		[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [!]
+		[PlayerType.PLAYER_APOLLYON_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Tainted Apollyon's",
 			ru = "Порченого Апполиона",
 			spa = "de Tainted Apolión",
@@ -307,7 +307,7 @@ local translations = {
 			ko_kr = "더럽혀진 아폴리온의",
 			pt_br = "do Apolion Contaminado",
 		},
-		[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [!]
+		[PlayerType.PLAYER_THEFORGOTTEN_B] = {		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Tainted Forgotten's",
 			ru = "Порченого Забытого",
 			spa = "del Tainted Olvidado",
@@ -315,7 +315,7 @@ local translations = {
 			pl = "Splamionego Zapomnianego",
 			ko_kr = "더럽혀진 더",
 		},
-		[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [!]
+		[PlayerType.PLAYER_BETHANY_B] = {			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Tainted Bethany's",
 			ru = "Порченой Вифании", --idk all russian isaac gamers just use english name "Бетани"
 			spa = "de Tainted Bethany",
@@ -324,7 +324,7 @@ local translations = {
 			ko_kr = "더럽혀진 베타니의",
 			pt_br = "da Betânia Contaminado",
 		},
-		[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [!]
+		[PlayerType.PLAYER_JACOB_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Tainted Jacob's",
 			ru = "Порченого Иакова",
 			spa = "de Tainted Jacob",
