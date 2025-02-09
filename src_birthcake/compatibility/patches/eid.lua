@@ -1047,8 +1047,10 @@ BIRTHCAKE_EID.Descs = {
 				true)
 			local chance = Mod:GetBalanceApprovedChance(Mod.Birthcake.APOLLYON.DOUBLE_VOID_CHANCE, mult)
 			chance = BIRTHCAKE_EID:AdjustNumberValue(chance)
-			
-			return "#" .. str:format(BIRTHCAKE_EID:GoldConditional(chance .. "%", mult))
+
+			if mult > 1 then
+				return "#" .. BIRTHCAKE_EID:GoldConditional(str:format(chance .. "%"), mult)
+			end
 		end,
 		en_us = {
 			"{{Collectible477}} Void can absorb trinkets",
