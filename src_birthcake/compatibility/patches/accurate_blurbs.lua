@@ -1,6 +1,9 @@
 local Mod = BirthcakeRebaked
 local loader = BirthcakeRebaked.PatchesLoader
 
+-- !TRANSLATION PROGRESS
+-- EN: 34/34 | RU: 34/34 | SPA: 0/34 | CS_CZ: 0/34 | PL: 34/34 | KO_KR 34/34 | PT_BR 34/34
+
 ---Any empty descriptions are for characters that I may change the effect of, or ones I do want but haven't thought of an idea yet
 BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 	[PlayerType.PLAYER_ISAAC] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
