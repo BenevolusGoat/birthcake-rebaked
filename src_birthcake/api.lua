@@ -73,7 +73,10 @@ function API:AddAccurateBlurbcake(playerType, desc)
 end
 
 ---EID description for your character's birthcake
+---
 ---You can follow the "if not table" example below or the existing descriptions in the compatibility/patches/eid.lua file to learn how to make a description
+---
+---You cannot re-use the same description as it directly modifies it for later. Use API:ShareEIDDescription instead
 ---@param playerType PlayerType
 ---@param desc string | table
 function API:AddEIDDescription(playerType, desc)
@@ -92,4 +95,11 @@ function API:AddEIDDescription(playerType, desc)
 	end
 
 	Mod.EID.Descs[playerType] = descTable
+end
+
+---For any PlayerTypes that have an identical description to another. This will prevent it rendering twice if both characters are present
+---@param playerType PlayerType #The PlayerType that copies from the other
+---@param parentPlayerType PlayerType #The PlayerType to copy from
+function API:ShareEIDDescription(playerType, parentPlayerType)
+	Mod.EID.SHARED_DESCRIPTIONS[playerType] = parentPlayerType
 end
