@@ -5,7 +5,7 @@ local APOLLYON_CAKE = {}
 BirthcakeRebaked.Birthcake.APOLLYON = APOLLYON_CAKE
 
 APOLLYON_CAKE.DOUBLE_VOID_CHANCE = 0.25
-APOLLYON_CAKE.BIRTHRIGHT_SPAWN_CHANCE = 0.05
+--APOLLYON_CAKE.BIRTHRIGHT_SPAWN_CHANCE = 0.05
 
 ---@param player EntityPlayer
 function APOLLYON_CAKE:OnPlayerInit(player)
@@ -26,7 +26,7 @@ function APOLLYON_CAKE:OnVoidUse(_, _, player, _, _, _)
 		local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
 		local trinketMult = Mod:GetTrinketMult(player, true)
 
-		if player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
+		--[[ if player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
 			and player_run_save.ApollyonCakeTrinketList
 			and #player_run_save.ApollyonCakeTrinketList > 0
 			and rng:RandomFloat() <= APOLLYON_CAKE.BIRTHRIGHT_SPAWN_CHANCE * trinketMult
@@ -35,7 +35,7 @@ function APOLLYON_CAKE:OnVoidUse(_, _, player, _, _, _)
 			local trinket = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, trinketID,
 			Mod.Game:GetRoom():FindFreePickupSpawnPosition(player.Position, 40, true, false), Vector.Zero, nil)
 			Mod:GetData(trinket).ApollyonCakeTempIgnoreVoid = true
-		end
+		end ]]
 		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET)) do
 			local pickup = ent:ToPickup()
 			---@cast pickup EntityPickup
