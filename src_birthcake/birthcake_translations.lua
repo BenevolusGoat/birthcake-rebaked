@@ -1,7 +1,7 @@
 --EID.Languages = {"en_us", "fr", "pt", "pt_br", "ru", "spa", "it", "bul", "pl", "de", "tr_tr", "ko_kr", "zh_cn", "ja_jp", "cs_cz", "nl_nl", "uk_ua", "el_gr"}
 
 -- !TRANSLATION PROGRESS
--- EN: 68/68 | RU: 68/68 | SPA: 68/68 | CS_CZ: 68/68 | PL: 68/68 | KO_KR 67/68 | PT_BR 68/68
+-- EN: 68/68 | RU: 68/68 | SPA: 68/68 | CS_CZ: 68/68 | PL: 68/68 | KO_KR 68/68 | PT_BR 68/68
 
 local NAME_SHARE        = {
 	[PlayerType.PLAYER_BLACKJUDAS] = PlayerType.PLAYER_JUDAS,
@@ -426,13 +426,13 @@ local translations = {
 			ko_kr = "다양한 맛",
 			pt_br = "Sabor com variedade",
 		},
-		[PlayerType.PLAYER_THELOST] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [X] | PT_BR [OK]
+		[PlayerType.PLAYER_THELOST] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
 			en_us = "Near-death experience",
 			ru = "Предсмертный опыт",
 			spa = "Experiencia cercana a la muerte",
 			cs_cz = "Na pokraji smrti",
 			pl = "Otarcie się o śmierć",
-			ko_kr = "",
+			ko_kr = "임사 체험",
 			pt_br = "Experiência muito perto da morte",
 		},
 		[PlayerType.PLAYER_LILITH] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
