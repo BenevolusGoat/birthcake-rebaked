@@ -18,7 +18,7 @@ local function assignText(tableName, playerType, tableOrString)
 	end
 end
 
----Define a description, and optionally a name, for your character's Birthcake.
+---Define a description, and optionally a name, for your character's Birthcake. Having a description will prevent the mod from applying its "default effect" of an all stats up
 ---
 ---Keep in mind that for names, they're said as "Name's" rather than "Name" as to append "Cake" automatically
 ---@param playerType PlayerType
