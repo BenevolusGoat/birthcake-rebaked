@@ -75,7 +75,8 @@ function ISAAC_CAKE:PrePickupCollision(pickup, collider)
 	if player
 		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_ISAAC_B)
 		and pickup.SubType ~= CollectibleType.COLLECTIBLE_NULL
-		and player:IsExtraAnimationFinished()
+		and pickup.Wait == 0
+		and Mod:CanPlayerBuyShopItem(player, pickup)
 		and ISAAC_CAKE:ItemWillFillInventory(pickup.SubType)
 		and ISAAC_CAKE:HasFullInventory(player)
 	then

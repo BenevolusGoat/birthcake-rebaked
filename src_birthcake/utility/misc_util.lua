@@ -87,7 +87,7 @@ end
 function BirthcakeRebaked:AwardPedestalItem(pickup, player)
 	local itemId = pickup.SubType
 	if itemId ~= CollectibleType.COLLECTIBLE_NULL then
-		local configitem = Mod.ItemConfig:GetCollectible(itemId)
+		--local configitem = Mod.ItemConfig:GetCollectible(itemId)
 		player:AnimateCollectible(itemId)
 		--[[player:QueueItem(configitem, pickup.Charge, pickup.Touched)
 		player.QueuedItem.Item = configitem]]
@@ -95,9 +95,13 @@ function BirthcakeRebaked:AwardPedestalItem(pickup, player)
 		pickup.Touched = true
 		pickup.SubType = 0
 		local sprite = pickup:GetSprite()
-		sprite:Play("Empty", true)
-		sprite:ReplaceSpritesheet(4, "blank")
-		sprite:LoadGraphics()
+		if pickup:IsShopItem() then
+			pickup:Remove()
+		else
+			sprite:Play("Empty", true)
+			sprite:ReplaceSpritesheet(4, "blank")
+			sprite:LoadGraphics()
+		end
 		Mod.Game:GetHUD():ShowItemText(player, Isaac:GetItemConfig():GetCollectible(itemId))
 		Mod:KillChoice(pickup)
 	end
