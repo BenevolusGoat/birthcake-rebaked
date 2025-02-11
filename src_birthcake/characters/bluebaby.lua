@@ -128,6 +128,9 @@ function BLUEBABY_CAKE:CheckChargeUsed(player)
 			end
 			if chargeUsed == 0 then return end
 			chargeUsed = ceil(chargeUsed / 2)
+			if player:HasCollectible(CollectibleType.COLLECTIBLE_CAR_BATTERY) then
+				chargeUsed = chargeUsed * 2
+			end
 			local rng = player:GetTrinketRNG(Mod.Birthcake.ID)
 
 			for _ = 1, chargeUsed do
