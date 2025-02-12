@@ -1,7 +1,7 @@
 local Mod = BirthcakeRebaked
 local emptyShaderName = "Birthcake-EmptyShader"
 
-local VERSION = 1.1 -- do not modify
+local VERSION = 1.11 -- (v1.1.1) do not modify
 local game = Game()
 
 -- debug
@@ -49,14 +49,14 @@ local function InitMod()
 	---@field Priority nil
 	---@field Condition nil | fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout): boolean
 	---@field ItemID CollectibleType
-	---@field OnRender fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout, position: Vector, alpha: number, scale: number, itemID: CollectibleType) @Runs for each player, if the condition is true.
+	---@field OnRender fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout, position: Vector, alpha: number, scale: number, itemID: CollectibleType, slot: ActiveSlot?) @Runs for each player, if the condition is true.
 
 	---@class HUDInfo_TrinketID: HUDInfo
 	---@field Name nil
 	---@field Priority nil
 	---@field Condition nil | fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout): boolean
 	---@field ItemID TrinketType
-	---@field OnRender fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout, position: Vector, alpha: number, scale: number, trinketID: TrinketType) @Runs for each player, if the condition is true.
+	---@field OnRender fun(player: EntityPlayer, playerHUDIndex: integer, hudLayout: HUDLayout, position: Vector, alpha: number, scale: number, trinketID: TrinketType, slot: integer?) @Runs for each player, if the condition is true.
 
 	---@class HUDInfo_CardID: HUDInfo
 	---@field Name nil
@@ -277,7 +277,7 @@ local function InitFunctions()
 			return false
 		end
 
-		if twinPlayer                                             --You have a twin player
+		if twinPlayer											 --You have a twin player
 			and GetPtrHash(player:GetMainTwin()) == GetPtrHash(player) --Are the main of the 2 twins
 			and not HudHelper.HUDTwinBlacklist[twinPlayer:GetPlayerType()] --Ensure your twin is allowed a HUD
 		then
@@ -585,11 +585,16 @@ local function InitFunctions()
 			and HudHelper.HUDPlayers[playerHUDIndex][1]
 		then
 			local player = tryGetPlayerFromPtr(HudHelper.HUDPlayers[playerHUDIndex][1])
-			if player
-				and (player:GetPlayerType() == PlayerType.PLAYER_ISAAC_B
-				or player:GetPlayerType() == PlayerType.PLAYER_BLUEBABY_B)
-			then
-				hudPos = Vector(hudPos.X, hudPos.Y - 22)
+			if player then
+				if player:GetPlayerType() == PlayerType.PLAYER_ISAAC_B
+					or player:GetPlayerType() == PlayerType.PLAYER_BLUEBABY_B
+				then
+					hudPos = Vector(hudPos.X, hudPos.Y - 32 + 10 * hudOffsetOption)
+				elseif player:GetPlayerType() == PlayerType.PLAYER_CAIN_B then
+					hudPos = Vector(hudPos.X, hudPos.Y - 28 + 10 * hudOffsetOption)
+				elseif HudHelper.Utils.GetHUDLayout(playerHUDIndex) == HudHelper.HUDLayout.TWIN_COOP then
+					hudPos = Vector(hudPos.X, hudPos.Y - 32 + 16 * hudOffsetOption)
+				end
 			end
 		end
 
@@ -786,9 +791,8 @@ local function InitFunctions()
 		local hudLayout = HudHelper.Utils.GetHUDLayout(playerHUDIndex)
 		playerHUDIndex = min(4, playerHUDIndex)
 
-		if hudLayout == HudHelper.HUDLayout.P1_OTHER_TWIN
-		then
-			healthOffset = Vector(119, 12)
+		if hudLayout == HudHelper.HUDLayout.P1_OTHER_TWIN then
+			healthOffset = REPENTANCE_PLUS and Vector(135, 12) or Vector(119, 12)
 		end
 		return healthOffset
 	end
@@ -1391,7 +1395,7 @@ local function InitFunctions()
 				or hudLayout == HudHelper.HUDLayout.P1_OTHER_TWIN
 				or hudLayout == HudHelper.HUDLayout.TWIN_COOP
 			then
-				if REPENTANCE_PLUS then
+				if hudLayout == HudHelper.HUDLayout.TWIN_COOP then
 					if slot == ActiveSlot.SLOT_SECONDARY then
 						scale = 0.245
 					else
@@ -1406,7 +1410,12 @@ local function InitFunctions()
 					and player.ControlsEnabled
 					and Input.IsActionPressed(ButtonAction.ACTION_DROP, player.ControllerIndex)
 				if Options.JacobEsauControls and Options.JacobEsauControls == 1 then
-					alpha = i == 1 and 1 or 0.25
+					if hudLayout == HudHelper.HUDLayout.TWIN_COOP then
+						alpha = (i == 1) and 1 or 0.25
+					else
+						alpha = (i == 1) and 0.25 or 1
+					end
+
 					if dropTrigger then
 						alpha = i == 1 and 0.25 or 1
 					end
@@ -1428,7 +1437,7 @@ local function InitFunctions()
 				and (not hud.Condition or hud.Condition(player, playerHUDIndex, hudLayout))
 			then
 				---@cast hud HUDInfo_ActiveID
-				hud.OnRender(player, playerHUDIndex, hudLayout, pos, alpha, scale, itemID)
+				hud.OnRender(player, playerHUDIndex, hudLayout, pos, alpha, scale, itemID, slot)
 				HudHelper.LastAppliedHUD[HudHelper.HUDType.ACTIVE_ID][playerHUDIndex] = hud
 			elseif not isItem
 				and hud.Condition(player, playerHUDIndex, hudLayout, slot)
@@ -1476,8 +1485,9 @@ local function InitFunctions()
 			if hud
 				and (not player:IsCoopGhost() or hud.BypassGhostBaby)
 				and ((not hud.PreRenderCallback and not isPreCallback) or (hud.PreRenderCallback and isPreCallback))
+				and (not hud.Condition or hud.Condition(player, playerHUDIndex, hudLayout))
 			then
-				hud.OnRender(player, playerHUDIndex, hudLayout, offset, alpha, scale, itemID)
+				hud.OnRender(player, playerHUDIndex, hudLayout, offset, alpha, scale, itemID, slot)
 				HudHelper.LastAppliedHUD[HudHelper.HUDType.ACTIVE_ID][playerHUDIndex] = hud
 			end
 		end
@@ -1603,7 +1613,7 @@ local function InitFunctions()
 				and (not hud.Condition or hud.Condition(player, playerHUDIndex, hudLayout))
 			then
 				---@cast hud HUDInfo_TrinketID
-				hud.OnRender(player, playerHUDIndex, hudLayout, pos, 1, scale, trinketID)
+				hud.OnRender(player, playerHUDIndex, hudLayout, pos, 1, scale, trinketID, slot)
 				HudHelper.LastAppliedHUD[HudHelper.HUDType.TRINKET_ID][playerHUDIndex] = hud
 			elseif not isItem
 				and hud.Condition(player, playerHUDIndex, hudLayout, slot)
@@ -1979,13 +1989,32 @@ local function InitFunctions()
 		Name = "Heart Cap",
 		Priority = HudHelper.Priority.VANILLA - 1,
 		XPadding = 0,
-		YPadding = function(player, _, hudLayout)
+		YPadding = function(player, playerHUDIndex, hudLayout)
 			local heartPerRow = HudHelper.Utils.GetMaxHeartColumns(hudLayout) * 2
 			local startAt = (heartPerRow == 12) and 5 or -15
+			local taintedOffsets = 0
 
 			--condensedCoopHUD
 			if REPENTANCE_PLUS and hudLayout == HudHelper.HUDLayout.COOP then
-				startAt = -6
+				startAt = startAt - 11
+			end
+
+			for _, hud in ipairs(HudHelper.HUD_ELEMENTS[HudHelper.HUDType.EXTRA]) do
+				if hud.Priority >= HudHelper.Priority.HIGHEST then
+					break
+				end
+
+				if hud.Name == "Tainted Blue Baby" or hud.Name == "Tainted Isaac" then
+					if hud.Condition(player, playerHUDIndex, hudLayout) then
+						taintedOffsets = taintedOffsets + processFuncOrValue(hud.YPadding, player, playerHUDIndex, hudLayout) + 5
+
+						if startAt == -6 then
+							taintedOffsets = taintedOffsets + 6
+						end
+
+						break
+					end
+				end
 			end
 
 			local rows = HudHelper.Utils.GetCurrentMaxHeartRows(player)
@@ -1993,10 +2022,11 @@ local function InitFunctions()
 			if not (NoHealthCapModEnabled or CustomHealthAPI) then
 				rows = min(48 / heartPerRow, rows) --Hearts literally stop rendering after 4 rows legitimately
 			end
-			return startAt + (rows - 3) * 10
+
+			return max(-6, startAt + (rows - 3) * 10 - taintedOffsets)
 		end,
 		Condition = function(player, playerHUDIndex)
-			if playerHUDIndex > 2 then
+			if playerHUDIndex > 2 or game:GetLevel():GetCurses() & LevelCurse.CURSE_OF_THE_UNKNOWN == LevelCurse.CURSE_OF_THE_UNKNOWN then
 				return false
 			end
 
@@ -2026,6 +2056,21 @@ local function InitFunctions()
 		end,
 		OnRender = function() end, -- handled by the game
 	}, HudHelper.HUDType.EXTRA)
+
+	if REPENTANCE_PLUS then
+		HudHelper.RegisterHUDElement({
+			Name = "Bag of Crafting",
+			Priority = HudHelper.Priority.VANILLA,
+			XPadding = 0,
+			YPadding = 7,
+			Condition = function(player, playerHUDIndex, hudLayout)
+				return player:GetActiveItem(ActiveSlot.SLOT_POCKET) == CollectibleType.COLLECTIBLE_BAG_OF_CRAFTING
+					and hudLayout == HudHelper.HUDLayout.COOP and playerHUDIndex <= 2
+			end,
+			OnRender = function() end, -- handled by the game
+		}, HudHelper.HUDType.EXTRA)
+	end
+
 	HudHelper.RegisterHUDElement({
 		Name = "P1 Main Twin",
 		Priority = HudHelper.Priority.VANILLA,
