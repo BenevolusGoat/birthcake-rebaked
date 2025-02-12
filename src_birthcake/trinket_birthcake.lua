@@ -37,8 +37,11 @@ HudHelper.RegisterHUDElement({
 	OnRender = function(player, _, _, pos, alpha, scale, trinketID)
 		local isGolden = Mod:IsBirthcake(trinketID, true)
 		local playerType = player:GetPlayerType()
-		if lastPlayerTypeRendered ~= playerType then
-			lastPlayerTypeRendered = playerType
+		local useDefaultSprite = Mod.GetSetting(Mod.Setting.UniqueSprite) == false
+		if lastPlayerTypeRendered ~= playerType
+			or useDefaultSprite and lastPlayerTypeRendered ~= PlayerType.PLAYER_ISAAC
+		then
+			lastPlayerTypeRendered = useDefaultSprite and PlayerType.PLAYER_ISAAC or playerType
 			local _, newSpritePath = Mod:GetBirthcakeSprite(player)
 			spritePath = newSpritePath
 		end

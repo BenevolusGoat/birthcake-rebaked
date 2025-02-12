@@ -370,18 +370,20 @@ function BirthcakeRebaked:GetBirthcakeSprite(player)
 	local sprite = Sprite()
 	sprite:Load("gfx/005.350_trinket.anm2", false)
 	local spritePath = trinketPath .. "0_isaac_birthcake.png"
-	if spriteConfig then
-		spritePath = spriteConfig.SpritePath
-	elseif not spriteConfig and Birthcake.BirthcakeDescs[playerType] then
-		spritePath = trinketPath .. player:GetName():lower() .. "_birthcake.png"
+	if Mod.GetSetting(Mod.Setting.UniqueSprite) == true then
+		if spriteConfig then
+			spritePath = spriteConfig.SpritePath
+		elseif not spriteConfig and Birthcake.BirthcakeDescs[playerType] then
+			spritePath = trinketPath .. player:GetName():lower() .. "_birthcake.png"
+		end
+		local spriteResult, spritePathResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.LOAD_BIRTHCAKE_SPRITE, playerType,
+		player, sprite, spritePath)
+		sprite = (spriteResult ~= nil and type(spriteResult) == "userdata" and getmetatable(spriteResult).__type == "Sprite" and spriteResult) or
+		sprite
+		spritePath = (spritePathResult ~= nil and type(spritePathResult) == "string" and spritePathResult) or spritePath
 	end
 	sprite:ReplaceSpritesheet(0, spritePath)
 	sprite:LoadGraphics()
-	local spriteResult, spritePathResult = Isaac.RunCallbackWithParam(Mod.ModCallbacks.LOAD_BIRTHCAKE_SPRITE, playerType,
-	player, sprite, spritePath)
-	sprite = (spriteResult ~= nil and type(spriteResult) == "userdata" and getmetatable(spriteResult).__type == "Sprite" and spriteResult) or
-		sprite
-	spritePath = (spritePathResult ~= nil and type(spritePathResult) == "string" and spritePathResult) or spritePath
 	return sprite, spritePath
 end
 
@@ -458,7 +460,7 @@ end
 ---@param pickup EntityPickup
 function BirthcakeRebaked:ChangeSpritePickup(pickup)
 	if Mod:IsBirthcake(pickup.SubType) then
-		local isCoopPlay = Mod:IsCoopPlay()
+		local useDefaultSprite = Mod.GetSetting(Mod.Setting.UniqueSprite) == false or Mod:IsCoopPlay()
 
 		local player = Isaac.GetPlayer()
 		local playerType = player:GetPlayerType()
@@ -467,7 +469,7 @@ function BirthcakeRebaked:ChangeSpritePickup(pickup)
 		local anim = sprite:GetAnimation()
 		local spritePath = trinketPath .. "0_isaac_birthcake.png"
 
-		if not isCoopPlay then
+		if not useDefaultSprite then
 			if spriteConfig and spriteConfig.Anm2 then
 				sprite:Load(spriteConfig.Anm2, true)
 				sprite:Play(anim)

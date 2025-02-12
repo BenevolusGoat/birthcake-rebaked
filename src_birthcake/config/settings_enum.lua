@@ -4,6 +4,7 @@
 BirthcakeRebaked.Setting = {
 	BirthcakeLanguage = "Language",
 	TaintedName = "Tainted Name",
+	UniqueSprite = "Unique Sprite"
 	--[[ BirthcakeUnlocked = "Is Birthcake unlocked",
 	ChallengeUnlocked = "Is Isaac's Birthday Party unlocked", ]]
 }

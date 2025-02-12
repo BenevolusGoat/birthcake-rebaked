@@ -22,6 +22,9 @@ SettingsHelper.AddChoiceSetting("Settings", Mod.Setting.BirthcakeLanguage,
 		"Brazillian Portugese",
 	}, 1)
 
+SettingsHelper.AddBooleanSetting("Settings", Mod.Setting.UniqueSprite,
+	"If Birthcake has a unique per-character sprite", true)
+
 --[[ if not REPENTOGON then return end
 
 local pGameData = Isaac.GetPersistentGameData()

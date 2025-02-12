@@ -2086,7 +2086,7 @@ EID:addDescriptionModifier(
 
 			local sprite = descObj.Icon[7]
 
-			if #players > 1 or (not Mod.BirthcakeSprite[playerType] and not Birthcake.BirthcakeDescs[playerType]) then
+			if Mod.GetSetting(Mod.Setting.UniqueSprite) == false or #players > 1 or (not Mod.BirthcakeSprite[playerType] and not Birthcake.BirthcakeDescs[playerType]) then
 				if lastRenderedPlayerType ~= PlayerType.PLAYER_ISAAC or lastRenderedSubType ~= descObj.ObjSubType then
 					sprite:ReplaceSpritesheet(1, "gfx/items/trinkets/0_isaac_birthcake.png")
 					sprite:LoadGraphics()
