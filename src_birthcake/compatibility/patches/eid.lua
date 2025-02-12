@@ -215,7 +215,7 @@ end
 -- EN: 36/36 | RU: 36/36 | SPA: 36/36 | CS_CZ: 4/36 | PL: 34/36 | KO_KR 36/36 | PT_BR 36/36
 
 BIRTHCAKE_EID.Descs = {
-	[PlayerType.PLAYER_ISAAC] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_ISAAC] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		---@param descObj EID_DescObj
 		---@param str string
 		_modifier = function(descObj, str, strMult)
@@ -282,8 +282,16 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			" 를 생성합니다."
 			},
+		zh_cn = {
+			"拾取后+进入新楼层时，生成",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "一个{{Card49}}骰子碎片",
+					" {{Card49}}骰子碎片")
+			end,
+			""
+			},
 	},
-	[PlayerType.PLAYER_MAGDALENE] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_MAGDALENE] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"{{Heart}} Heart pickups have a ",
 			function(descObj)
@@ -354,8 +362,18 @@ BIRTHCAKE_EID.Descs = {
 			"#{{HalfHeart}} -> {{Heart}} -> {{Heart}}{{Heart}}",
 			"#{{HalfSoulHeart}} -> {{SoulHeart}}"
 		},
+		zh_cn = {
+			"{{Heart}} 心掉落物有",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.MAGDALENE.HEART_REPLACE_CHANCE)
+			end,
+			"%的概率被升级",
+			"#示例:",
+			"#{{HalfHeart}} -> {{Heart}} -> {{Heart}}{{Heart}}",
+			"#{{HalfSoulHeart}} -> {{SoulHeart}}"
+		},	
 	},
-	[PlayerType.PLAYER_CAIN] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_CAIN] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		---@param descObj EID_DescObj
 		---@param baseChance number | fun(player: EntityPlayer): number
 		_modifier = function(descObj, baseChance)
@@ -464,8 +482,22 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"%의 확률로 돈을 반환합니다."
 		},
+		zh_cn = {
+			"{{Slotmachine}}抽奖机和{{FortuneTeller}}占卜机有",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_CAIN]._modifier(descObj,
+					Mod.Birthcake.CAIN.SlotsData[Mod.SlotVariant.SLOT_MACHINE].RefundChance)
+			end,
+			"%的概率返还钱币",
+			"#{{CraneGame}}抓娃娃机有",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_CAIN]._modifier(descObj,
+					Mod.Birthcake.CAIN.SlotsData[Mod.SlotVariant.CRANE_GAME].RefundChance)
+			end,
+			"%的概率返还钱币"
+		},
 	},
-	[PlayerType.PLAYER_JUDAS] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_JUDAS] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		---@param descObj EID_DescObj
 		_modifier = function(descObj)
 			local mult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity), descObj.ObjSubType)
@@ -529,8 +561,16 @@ BIRTHCAKE_EID.Descs = {
 			"% 공격력 배수 적용 ",
 			"#{{DevilRoom}} 악마 거래용으로 하트가 충분치 않을 경우, 유다가 사망하는 대신 이 장신구가 소모됩니다."
 		},
+		zh_cn = {
+			"{{ArrowUp}} {{Damage}} +",
+			function(descObj)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.JUDAS.DAMAGE_MULT_UP)
+			end,
+			"%伤害倍率",
+			"#{{DevilRoom}} 进行可能致死的恶魔交易时，改为消耗这个饰品换取道具"
+		},
 	},
-	[PlayerType.PLAYER_BLUEBABY] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_BLUEBABY] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		_modifier = function(descObj, poopStr, activeStr, noActiveStr, invalidActiveStr)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local activeItem = player:GetActiveItem(ActiveSlot.SLOT_PRIMARY)
@@ -616,8 +656,20 @@ BIRTHCAKE_EID.Descs = {
 				)
 			end
 		},
+		zh_cn = {
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_BLUEBABY]._modifier(descObj,
+					"{{Collectible36}} 大便会额外生成2个大便以组成屎墙"
+					.. "#{{Collectible}} 与其他主动道具具有不同兼容",
+					"#{{Collectible}} 朝随机方向发射 %s 个大便泪弹，落地生成大便",
+					"#{{Battery}} X =主动充能数的一半向下取整",
+					"{{Collectible}} 与当前主动无效果"
+				)
+			end
+		},
+
 	},
-	[PlayerType.PLAYER_EVE] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_EVE] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		_modifier = function(descObj, str)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			if player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS) then
@@ -673,8 +725,16 @@ BIRTHCAKE_EID.Descs = {
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_EVE]._modifier(descObj, "피해량 2배")
 			end
 		},
+		zh_cn = {
+			"{{Collectible117}} 将死鸟变成血鸟",
+			"#血鸟会持续留下小片伤害血迹",
+			"#血鸟的伤害受面板攻击力影响",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_EVE]._modifier(descObj, "伤害翻倍")
+			end
+		},
 	},
-	[PlayerType.PLAYER_SAMSON] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_SAMSON] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		---@param descObj EID_DescObj
 		---@param strNoMult string
 		---@param strMult string
@@ -770,8 +830,20 @@ BIRTHCAKE_EID.Descs = {
 				)
 			end
 		},
-	},
-	[PlayerType.PLAYER_AZAZEL] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+		zh_cn = {
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_SAMSON]._modifier(descObj,
+					"{{Collectible157}} 嗜血提供的伤害达到最大值时",
+					"掉落2 {{Heart}} 红心",
+					"根据角色当前的血量掉落2个心"
+					.. "#{{Heart}} 少于半血生成双红心, 大于半血生成整红心"
+					.. "#{{SoulHeart}} 满血则生成魂心",
+					"#{{Collectible619}} 可以在第6和第10次触发嗜血时生效"
+
+				)
+			end
+		},	},
+	[PlayerType.PLAYER_AZAZEL] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CH [OK]
 		en_us = {
 			"{{ArrowDown}} {{Damage}} -",
 			function()
@@ -788,8 +860,15 @@ BIRTHCAKE_EID.Descs = {
 			"% множитель урона",
 			"#Луч Серы длится дольше во время нанесения урона вра의 지속 시간이 증가합니다."
 		},
-	},
-	[PlayerType.PLAYER_LAZARUS] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+		zh_cn = {
+			"{{ArrowDown}} {{Damage}} -",
+			function()
+				return tostring(BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN))
+			end,
+			"% 伤害倍率",
+			"#血激光柱在造成伤害后会持续更长时间"
+		},	},
+	[PlayerType.PLAYER_LAZARUS] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"{{Collectible332}} If Lazarus Risen dies, this trinket is consumed and he is revived again",
 			"#The revive grants another damage increase and removes a heart container"
@@ -813,8 +892,12 @@ BIRTHCAKE_EID.Descs = {
 		ko_kr = {
 			"{{Collectible332}} 부활한 나사로가 죽으면 이 장신구를 소모하고 나사로의 부활 후 효과를 1번 더 발동합니다.", --참 쉽죠?
 		},
+		zh_cn = {
+			"{{Collectible332}} 复活的拉撒路死亡后, 消耗这个饰品再复活一次",
+			"#同样提供攻击力加成并失去1心之容器"
+		},
 	},
-	[PlayerType.PLAYER_EDEN] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_EDEN] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		---@param descObj EID_DescObj
 		_modifier = function(descObj)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity),
@@ -871,8 +954,16 @@ BIRTHCAKE_EID.Descs = {
 			"개의 무작위 장신구가 흡수됩니다.",
 			"#{{Warning}} 케이크를 내려놓으면 흡수된 장신구의 효과도 없어집니다."
 		},
+		zh_cn = {
+			"{{Trinket}} 持有时, 吞下",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_EDEN]._modifier(descObj)
+			end,
+			" 个随机饰品",
+			"#丢弃蛋糕会失去这些饰品的效果"
+		},
 	},
-	[PlayerType.PLAYER_THELOST] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_THELOST] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		_modifier = function(descObj, str, ...)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity),
 				descObj.ObjSubType)
@@ -947,8 +1038,19 @@ BIRTHCAKE_EID.Descs = {
 				)
 			end
 		},
+		zh_cn = {
+			"{{Collectible677}} 护盾破碎后, 暂时停止时间, 并获得临时的射速提升",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_THELOST]._modifier(descObj,
+					"额外石化 %s 内的敌人5s",
+					"小范围",
+					"中等范围",
+					"大范围"
+				)
+			end
+		},
 	},
-	[PlayerType.PLAYER_LILITH] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_LILITH] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"Familiars have a ",
 			function(descObj)
@@ -991,9 +1093,15 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% 확률로 릴리트의 눈물 효과를 따라합니다."
 		},
-
+		zh_cn = {
+			"跟班有",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.LILITH.SHARE_TEAR_EFFECTS_CHANCE)
+			end,
+			"% 的概率模仿角色的泪弹特效"
+		},
 	},
-	[PlayerType.PLAYER_KEEPER] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_KEEPER] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		---@param descObj EID_DescObj
 		---@param str string
 		---@param strMult string
@@ -1042,9 +1150,14 @@ BIRTHCAKE_EID.Descs = {
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_KEEPER]._modifier(descObj, "니켈 하나가 생성됩니다.", "개의의 니켈이 생성됩니다.")
 			end
 		},
-
+		zh_cn = {
+			"{{Shop}} 商店和 {{DevilRoom}} 恶魔房会有",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_KEEPER]._modifier(descObj, "一镍币", " 镍币")
+			end
+		},
 	},
-	[PlayerType.PLAYER_APOLLYON] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_APOLLYON] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		_modifier = function(descObj, str)
 			local mult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity), descObj.ObjSubType,
 				true)
@@ -1108,8 +1221,17 @@ BIRTHCAKE_EID.Descs = {
 				)
 			end
 		},
+		zh_cn = {
+			"{{Collectible477}} 虚空可以吞噬饰品",
+			"#持有虚空时, 被吞噬的饰品也会生效",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_APOLLYON]._modifier(descObj,
+					"%s 的概率复制被吞噬的饰品"
+				)
+			end
+		},
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN] = { 		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_THEFORGOTTEN] = { 		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		_modifier = function(descObj)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
@@ -1165,8 +1287,16 @@ BIRTHCAKE_EID.Descs = {
 			"개의 뼛조각 눈물이 해골에서 발사되며 \"영혼 충전량\"이 시체에 충전됩니다.",
 			"#충전량에 비례해 포가튼의 연사력이 일시적으로 증가합니다"
 		},
+		zh_cn = {
+			"{{Player17}}遗骸之魂的泪弹命中 {{Player16}}遗骸的身体会朝随机方向发射",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_THEFORGOTTEN]._modifier(descObj)
+			end,
+			" 个骨头泪弹, 并提供 \"灵能充能\"",
+			"#切换会遗骸会根据灵能充能获得临时的射速提升"
+		},
 	},
-	[PlayerType.PLAYER_BETHANY] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_BETHANY] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"{{Collectible584}} Using an active item has a ",
 			function(descObj)
@@ -1209,8 +1339,15 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% 확률로 같은 종류의 위습 1개가 추가로 생성됩니다."
 		},
+		zh_cn = {
+			"{{Collectible584}} 使用主动技能有 ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.BETHANY.WISP_DUPE_CHANCE)
+			end,
+			"% 的概率额外生成一个相同的魂火"
+		},
 	},
-	[PlayerType.PLAYER_JACOB] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_JACOB] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"The holder will reflect all damage they take onto the other brother"
 		},
@@ -1229,8 +1366,11 @@ BIRTHCAKE_EID.Descs = {
 		ko_kr = {
 			"이 장신구를 지닌 쪽이 데미지를 입는 대신 다른 쪽이 그 피해를 대신 입습니다." --병신이네 이거
 		},
+		zh_cn = {
+			"持有者会将受到的伤害反馈到兄弟身上"
+		},
 	},
-	[PlayerType.PLAYER_ISAAC_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_ISAAC_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"Grants an additional inventory slot"
 		},
@@ -1249,8 +1389,11 @@ BIRTHCAKE_EID.Descs = {
 		ko_kr = {
 			"인벤토리 슬롯 +1개" --와! 발라트로! 와! 반물질 바우처!
 		},
+		zh_cn = {
+			"一个额外的物品栏"
+		},
 	},
-	[PlayerType.PLAYER_MAGDALENE_B] = { 		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_MAGDALENE_B] = { 		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"Dropped hearts eventually explode into pools of red creep",
 			"#Explosion damage depends on the heart type and the current stage"
@@ -1275,9 +1418,12 @@ BIRTHCAKE_EID.Descs = {
 			"떨어진 빨간 하트가 피 장판을 생성하며 터져버립니다.",
 			"#터질 때의 피해량은 하트 종류와 현재 스테이지에 따라 달라집니다."
 		},
-
+		zh_cn = {
+			"心掉落物若未能拾取会炸成一滩伤害血迹",
+			"#爆炸伤害取决于心的种类和当前楼层"
+		},
 	},
-	[PlayerType.PLAYER_CAIN_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_CAIN_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"Double pickups that spawn are split into their halves"
 		},
@@ -1296,8 +1442,11 @@ BIRTHCAKE_EID.Descs = {
 		ko_kr = {
 			"이중중 픽업이 단일 픽업 2개로 분해됩니다."
 		},
+		zh_cn = {
+			"将双掉落物一分为二"
+		},
 	},
-	[PlayerType.PLAYER_JUDAS_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_JUDAS_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		_modifier = function(descObj)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
@@ -1343,8 +1492,14 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			" 감소합니다."
 		},
+		zh_cn = {
+			"{{Collectible705}} 暗仪刺刀标记敌人可以令其冷却减少",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_JUDAS_B]._modifier(descObj)
+			end
+		},
 	},
-	[PlayerType.PLAYER_BLUEBABY_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_BLUEBABY_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"Thrown poops have a ",
 			function(descObj)
@@ -1387,8 +1542,15 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% 확률로 발사체 피해를 무시합니다. "
 		},
+		zh_cn = {
+			"丢出的大便有",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.BLUEBABY.NO_POOP_DAMAGE_CHANCE)
+			end,
+			"% 的概率不会受到子弹的伤害"
+		},
 	},
-	[PlayerType.PLAYER_EVE_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_EVE_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"Blood clots leave behind a small pool of damaging creep on death",
 			"#The damage and effects of the creep depend on the type of clot killed"
@@ -1413,9 +1575,12 @@ BIRTHCAKE_EID.Descs = {
 			"핏덩이 패밀리어가 죽으면 피해를 주는 장판을 남깁니다.",
 			"#핏덩이 종류에 따라 장판의 피해와 효과가 달라집니다."
 		},
-
+		zh_cn = {
+			"血团死亡后会留下一小摊伤害血迹",
+			"#不同的血团留下的血迹有不同的伤害和效果"
+		},
 	},
-	[PlayerType.PLAYER_SAMSON_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_SAMSON_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"{{Collectible704}} Clearing a room while in Berserk has a ",
 			function(descObj)
@@ -1458,8 +1623,15 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% 확률로 폭주시간을 5초 연장하고  {{HalfHeart}} 빨간 하트 반 개를 생성합니다."
 		},
+		zh_cn = {
+			"{{Collectible704}} 在狂战状态下清理房间有",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.SAMSON.BERSERK_INCREASE_CHANCE)
+			end,
+			"% 的概率获得5s持续时间并生成1 {{HalfHeart}} 半红心"
+		},
 	},
-	[PlayerType.PLAYER_AZAZEL_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_AZAZEL_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"Sneezing fires out a cluster of 6 booger tears that deal a portion of Azazel's damage",
 			"#{{Collectible459}} Tears have a ",
@@ -1508,8 +1680,16 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% 확률로 적에게 붙어 지속적으로 피해를 줍니다."
 		},
+		zh_cn = {
+			"咳血会额外发射6个鼻涕泪弹, 造成角色的部分伤害",
+			"#{{Collectible459}} 泪弹有",
+			function(descObj)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.AZAZEL.BOOGER_STICK_CHANCE)
+			end,
+			"% 的概率粘在敌人身上"
+		},
 	},
-	[PlayerType.PLAYER_LAZARUS_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_LAZARUS_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"{{Collectible711}} When using Flip, item pedestals will split into both collectibles displayed"
 		},
@@ -1528,8 +1708,11 @@ BIRTHCAKE_EID.Descs = {
 		ko_kr = {
 			"{{Collectible711}} 뒤집기 사용 시 뚜렷한 아이템과 흐릿한 아이템이 뚜렷한 아이템 2개로 분해됩니다."
 		},
+		zh_cn = {
+			"{{Collectible711}} 生死逆转的效果改为将道具和虚影一分为二"
+		},
 	},
-	[PlayerType.PLAYER_EDEN_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_EDEN_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"Taking damage has a ",
 			function(descObj)
@@ -1584,8 +1767,17 @@ BIRTHCAKE_EID.Descs = {
 			"#생일 케이크는 대부분의 경우 리롤에 면역이며 "
 			.. Mod.Birthcake.EDEN.BIRTHCAKE_REROLL_CHANCE .. "% 의 확률로 피격 시 리롤됩니다."
 		},
+		zh_cn = {
+			"受到伤害有",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.EDEN.PREVENT_REROLL_CHANCE)
+			end,
+			"% 的概率不会重随角色",
+			"#蛋糕本身基本不会被重随, 受到伤害时只有"
+			.. Mod.Birthcake.EDEN.BIRTHCAKE_REROLL_CHANCE .. "% 的概率被重随"
+		},
 	},
-	[PlayerType.PLAYER_THELOST_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_THELOST_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"{{Card51}} Spawns a Holy Card when first picked up",
 			"#Cards have another ",
@@ -1638,8 +1830,16 @@ BIRTHCAKE_EID.Descs = {
 			"% 확률로 홀리 카드가 됩니다."
 
 		},
+		zh_cn = {
+			"{{Card51}} 首次拾取时生成一张神圣卡",
+			"#卡牌被重随为神圣卡的概率增加 ",
+			function(descObj)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THELOST.HOLY_CARD_REPLACE_CHANCE)
+			end,
+			"%"
+		},
 	},
-	[PlayerType.PLAYER_LILITH_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_LILITH_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"Whipping out Lilith's Gello has a ",
 			function(descObj)
@@ -1688,8 +1888,16 @@ BIRTHCAKE_EID.Descs = {
 			"% 확률로 젤로가 1명 더 튀어나옵니다.",
 			"#추가 생성된 젤로의 피해량은 기존 젤로의 절반입니다."
 		},
+		zh_cn = {
+			"打出格罗时有 ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.LILITH.SPAWN_RUNT_CHANCE)
+			end,
+			"% 的概率再生成一个小格罗",
+			"#小格罗造成50%的伤害"
+		},
 	},
-	[PlayerType.PLAYER_KEEPER_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_KEEPER_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"Spawns an item and 2 pickups for sale at the start of each floor"
 		},
@@ -1708,8 +1916,11 @@ BIRTHCAKE_EID.Descs = {
 		ko_kr = {
 			"매 층 시작 지점에 아이템 1개와 픽업 2개를 판매하는 소형 상점이 생성됩니다. "
 		},
+		zh_cn = {
+			"进入下一层时生成打折出售的一个道具和2个掉落物"
+		},
 	},
-	[PlayerType.PLAYER_APOLLYON_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_APOLLYON_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		_modifier = function(descObj)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity),
 				descObj.ObjSubType)
@@ -1767,8 +1978,16 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"의 피해를 줍니다."
 		},
+		zh_cn = {
+			"{{Collectible706}} 无底洞可以吞噬饰品",
+			"#饰品生成的蝗虫造成",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_APOLLYON_B]._modifier(descObj)
+			end,
+			" 伤害"
+		},
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN_B] = { 		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_THEFORGOTTEN_B] = { 		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"Killing enemies will spawn stationary bone fragments that damage enemies on contact",
 			"#Holding {{Player35}}The Forgotten will cause all bone fragments to fly towards {{Player40}}The Soul, becoming orbitals",
@@ -1823,8 +2042,17 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"개까지 가질 수 있습니다."
 		},
+		zh_cn = {
+			"杀死敌人会生成造成碰撞伤害的骨片",
+			"#举起 {{Player35}}堕化遗骸会让所有骨片飞向{{Player40}}遗骸之魂并变成环绕物",
+			"#至多能拥有 ",
+			function(descObj)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
+			end,
+			" 个环绕物"
+		},
 	},
-	[PlayerType.PLAYER_BETHANY_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_BETHANY_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		_modifier = function(descObj)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
@@ -1876,8 +2104,15 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"증가"
 		},
+		zh_cn = {
+			"{{Collectible712}} 所罗门魔典的魂火可以额外承受",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_BETHANY_B]._modifier(descObj)
+			end,
+			" 次攻击"
+		},
 	},
-	[PlayerType.PLAYER_JACOB_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+	[PlayerType.PLAYER_JACOB_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"Dark Esau leaves behind small flames when flying, blocking tears and enemy projectiles",
 			"#The flames can damage both Jacob and enemies"
@@ -1902,11 +2137,15 @@ BIRTHCAKE_EID.Descs = {
 			"검은 에사우가 돌진하면 그 자리에 야곱과 적의 발사체를 막는 불꽃이 생깁니다.",
 			"#불꽃은 야곱과 적들 모두에게 피해를 줍니다."
 		},
+		zh_cn = {
+			"堕化以扫冲刺时会留下火墙, 阻挡泪弹和敌弹",
+			"#火焰可以伤害以扫和怪物"
+		},
 	},
 }
 
 BIRTHCAKE_EID.ShortDescriptions = {
-	DEFAULT_EFFECT = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [OK] | PT_BR [OK]
+	DEFAULT_EFFECT = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		_modifier = function(descObj)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity),
 				descObj.ObjSubType)
@@ -1950,8 +2189,15 @@ BIRTHCAKE_EID.ShortDescriptions = {
 			end,
 			"%"
 		},
+		zh_cn = {
+			"↑ 所有属性+",
+			function(descObj)
+				return BIRTHCAKE_EID.ShortDescriptions.DEFAULT_EFFECT._modifier(descObj)
+			end,
+			"% "
+		},
 	},
-	APOLLYON_B_APPEND = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [OK] | PT_BR [OK]
+	APOLLYON_B_APPEND = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		_modifier = function(descObj, strNoMult, strMult)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local objTrinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
@@ -1999,6 +2245,14 @@ BIRTHCAKE_EID.ShortDescriptions = {
 				return BIRTHCAKE_EID.ShortDescriptions.APOLLYON_B_APPEND._modifier(descObj,
 					"절반의 피해를 주는 회색 메뚜기",
 					"온전한 피해를 입히는 빨간 메뚜기"
+				)
+			end
+		},
+		zh_cn = {
+			function(descObj)
+				return BIRTHCAKE_EID.ShortDescriptions.APOLLYON_B_APPEND._modifier(descObj,
+					"造成50%伤害的灰色蝗虫",
+					"造成100%伤害的红色蝗虫"
 				)
 			end
 		},
