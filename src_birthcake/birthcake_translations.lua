@@ -1,7 +1,7 @@
 --EID.Languages = {"en_us", "fr", "pt", "pt_br", "ru", "spa", "it", "bul", "pl", "de", "tr_tr", "ko_kr", "zh_cn", "ja_jp", "cs_cz", "nl_nl", "uk_ua", "el_gr"}
 
 -- !TRANSLATION PROGRESS
--- EN: 68/68 | RU: 68/68 | SPA: 68/68 | CS_CZ: 68/68 | PL: 68/68 | KO_KR 68/68 | PT_BR 68/68
+-- EN: 89/89 | RU: 89/89 | SPA: 89/89 | CS_CZ: 89/89 | PL: 89/89 | KO_KR 89/89 | PT_BR 89/89 | ZH_CN 89/89
 
 local NAME_SHARE        = {
 	[PlayerType.PLAYER_BLACKJUDAS] = PlayerType.PLAYER_JUDAS,
@@ -98,7 +98,7 @@ local translations = {
 			pt_br = "do Sansão",
 			zh_cn = "参孙的",
 		},
-		[PlayerType.PLAYER_AZAZEL] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK]
+		[PlayerType.PLAYER_AZAZEL] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 			en_us = "Azazel's",
 			ru = "Азазеля",
 			spa = "de Azazel",
@@ -449,7 +449,7 @@ local translations = {
 			pl = "Daleki wydech", --szczerze to jest takie pół śmiechem pisane
 			ko_kr = "깊어진 숨결",
 			pt_br = "Respirações profundas",
-			zh_cn = "绵延之息"， --change into "Longer breaths", cause I think is more direct and much cooler
+			zh_cn = "绵延之息", --change into "Longer breaths", cause I think is more direct and much cooler
 		},
 		[PlayerType.PLAYER_LAZARUS] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 			en_us = "Rise again",
