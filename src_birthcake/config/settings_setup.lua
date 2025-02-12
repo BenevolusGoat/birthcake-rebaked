@@ -21,7 +21,7 @@ SettingsHelper.AddChoiceSetting("Settings", Mod.Setting.BirthcakeLanguage,
 		"Polish",
 		"Brazillian Portugese",
 		"Chinese"
-	}, 1)
+	}, 2)
 
 SettingsHelper.AddBooleanSetting("Settings", Mod.Setting.UniqueSprite,
 	"If Birthcake has a unique per-character sprite", true)
