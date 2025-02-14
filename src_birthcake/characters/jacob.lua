@@ -44,6 +44,7 @@ Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, JACOB_ESAU_CAKE.RedirectDamage,
 -- Tainted Jacob
 
 JACOB_ESAU_CAKE.DARK_ESAU_FLAME = Isaac.GetEntityTypeByName("Dark Esau Birthcake Flame")
+JACOB_ESAU_CAKE.DARK_ESAU_FLAME_VARIANT = Isaac.GetEntityVariantByName("Dark Esau Birthcake Flame")
 JACOB_ESAU_CAKE.DARK_ESAU_FLAME_DURATION = 90
 
 ---@param npc EntityNPC
@@ -66,7 +67,7 @@ function JACOB_ESAU_CAKE:OnDarkEsauUpdate(npc)
 			npc:SetColor(Color(1, 1, 1, 1, 0.5, 0, 0), 20, 5, true, true)
 		end
 		if npc.FrameCount % 3 == 0 and Mod.Game:GetRoom():IsPositionInRoom(npc.Position, 0) then
-			local flame = Isaac.Spawn(JACOB_ESAU_CAKE.DARK_ESAU_FLAME, 0, 0, npc.Position, Vector.Zero, npc):ToNPC()
+			local flame = Isaac.Spawn(JACOB_ESAU_CAKE.DARK_ESAU_FLAME, JACOB_ESAU_CAKE.DARK_ESAU_FLAME_VARIANT, 0, npc.Position, Vector.Zero, npc):ToNPC()
 			---@cast flame EntityNPC
 			Mod:GetData(flame).Duration = JACOB_ESAU_CAKE.DARK_ESAU_FLAME_DURATION
 		end
@@ -79,6 +80,7 @@ Mod:AddCallback(ModCallbacks.MC_NPC_UPDATE, JACOB_ESAU_CAKE.OnDarkEsauUpdate, En
 
 ---@param flame EntityNPC
 function JACOB_ESAU_CAKE:OnFlameInit(flame)
+	if flame.Variant ~= JACOB_ESAU_CAKE.DARK_ESAU_FLAME_VARIANT then return end
 	flame:ClearEntityFlags(EntityFlag.FLAG_APPEAR)
 	flame:GetSprite():Play("Appear")
 	if flame.SpawnerType == EntityType.ENTITY_DARK_ESAU and flame.SpawnerEntity.SubType == 1 then
@@ -99,6 +101,7 @@ local max = math.max
 
 ---@param flame EntityNPC
 function JACOB_ESAU_CAKE:OnFlameUpdate(flame)
+	if flame.Variant ~= JACOB_ESAU_CAKE.DARK_ESAU_FLAME_VARIANT then return end
 	local data = Mod:GetData(flame)
 	if data.Duration then
 		if data.Duration > 0 then
@@ -153,6 +156,7 @@ Mod:AddCallback(ModCallbacks.MC_NPC_UPDATE, JACOB_ESAU_CAKE.OnFlameUpdate, JACOB
 ---@param flame EntityNPC
 ---@param collider Entity
 function JACOB_ESAU_CAKE:OnPreCollision(flame, collider)
+	if flame.Variant ~= JACOB_ESAU_CAKE.DARK_ESAU_FLAME_VARIANT then return end
 	local data = Mod:GetData(flame)
 	local ref = EntityRef(flame)
 
@@ -177,6 +181,7 @@ Mod:AddCallback(ModCallbacks.MC_PRE_NPC_COLLISION, JACOB_ESAU_CAKE.OnPreCollisio
 ---@param flags DamageFlag
 ---@param source EntityRef
 function JACOB_ESAU_CAKE:OnTakeDamage(flame, _, flags, source)
+	if flame.Variant ~= JACOB_ESAU_CAKE.DARK_ESAU_FLAME_VARIANT then return end
 	if Mod:HasBitFlags(flags, DamageFlag.DAMAGE_EXPLOSION) then
 		flame.HitPoints = 2
 	elseif not Mod:HasBitFlags(flags, DamageFlag.DAMAGE_FIRE | DamageFlag.DAMAGE_POISON_BURN)
