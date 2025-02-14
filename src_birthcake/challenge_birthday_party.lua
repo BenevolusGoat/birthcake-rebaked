@@ -330,14 +330,8 @@ function BIRTHDAY_PARTY:OnPeffectUpdate(player)
 	if Isaac.GetChallenge() == BIRTHDAY_PARTY.ID then
 		local data = Mod:GetData(player)
 		if data.BirthdayPartyQueueBirthcake then
-			if REPENTANCE_PLUS then --Currently, player:QueueItem crashes the game :)
-				local room = Mod.Game:GetRoom()
-				Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, Mod.Birthcake.ID,
-				room:FindFreePickupSpawnPosition(room:GetCenterPos(), 0, true), Vector.Zero, player)
-			else
-				player:QueueItem(Mod.ItemConfig:GetTrinket(Mod.Birthcake.ID))
+			player:QueueItem(Mod.ItemConfig:GetTrinket(Mod.Birthcake.ID))
 				Mod.SFXManager:Play(SoundEffect.SOUND_SHELLGAME)
-			end
 			data.BirthdayPartyQueueBirthcake = nil
 		end
 	end
