@@ -1,7 +1,7 @@
 local Mod = BirthcakeRebaked
 local emptyShaderName = "Birthcake-EmptyShader"
 
-local VERSION = 1.2 -- (v1.2) do not modify
+local VERSION = 1.12 -- (v1.1.2) do not modify
 local game = Game()
 
 -- debug
