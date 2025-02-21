@@ -237,7 +237,7 @@ local modSettingToLanguage = {
 	"pl",
 	"pt_br",
 	"zh_cn",
-	"uk_ua"
+	"uk_ua",
 }
 
 function BirthcakeRebaked:GetLanguage()
