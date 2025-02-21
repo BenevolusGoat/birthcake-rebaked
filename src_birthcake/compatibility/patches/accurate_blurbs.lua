@@ -168,45 +168,50 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 		zh_cn = "额外的物品栏",
 		uk_ua = "Додатковий слот для інвентарю",
 	},
-	[PlayerType.PLAYER_MAGDALENE_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_MAGDALENE_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Temp. hearts ejected from enemies explode",
 		ru = "Временные сердца, падающие с врагов, взрываются",
 		pl = "Serduszka z przeciwników wybuchają",
 		pt_br = "Corações ejetados dos inimigos explodem",
 		ko_kr = "적이 드랍하는 하트가 폭발을 일으킴",
 		zh_cn = "怪物产生的临时心会爆炸",
+		uk_ua = "Тимчасові серця із ворогів взриваються"
 	},
-	[PlayerType.PLAYER_CAIN_B] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_CAIN_B] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Double pickups are split apart",
 		ru = "Двойные подбираемые предметы распадаются на части",
 		pl = "Rozdziela podwójne pickupy",
 		pt_br = "Captadores duplos são separados",
 		ko_kr = "2중 픽업이 두 개의 단일 픽업으로 분해됨",
 		zh_cn = "双掉落物分解",
+		uk_ua = "Подвійні витратні роздвоєні", --EID використовує "розхідники", але то, здається, є русизмом; хоча не знаю, що було б краще використати
 	},
-	[PlayerType.PLAYER_JUDAS_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_JUDAS_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Pass through with Dark Arts for active charge",
 		ru = "Прохождение сквозь врагов под Темными Искусствами заряжает активный предмет",
 		pl = "Mroczne Techniki ładują się szybciej, gdy trafiają przeciwników",
 		pt_br = "Passe por inimigos com Artes Sombrias para ganhar cargas",
 		ko_kr = "흑마술로 적 관통 시 액티브 충전",
 		zh_cn = "暗仪刺刀标记敌人获得冷却缩减",
+		uk_ua = "Проходь крізь ворогів за допомогою Темним мистецтвом для заряду",
 	},
-	[PlayerType.PLAYER_BLUEBABY_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_BLUEBABY_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Poops may not be hurt",
 		ru = "Какашки могут не повредиться",
 		pl = "Kupy są niezniszczalne",
 		pt_br = "Cocôs talvez não sofrerão danos",
 		ko_kr = "똥이 적으로부터의 피해를 무시함",
 		zh_cn = "大便概率不受到伤害",
+		uk_ua = "Какашки можуть не пошкодитись",
 	},
-	[PlayerType.PLAYER_EVE_B] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_EVE_B] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Clots drop creep on death",
 		ru = "Сгустки оставляют лужу при смерти",
 		pl = "Zakrzepki zostawiają maź po śmierci",
 		pt_br = "Coágulos deixam uma trilha de sangue ao morrer",
 		ko_kr = "핏덩이 사망 시 피 장판 생성",
 		zh_cn = "血团死亡后留下血迹",
+		uk_ua = "Згустки залишають калюжу при вмиранні",
 	},
 	[PlayerType.PLAYER_SAMSON_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = "Room clear may (extend Berserk + drop heart)",
