@@ -1,4 +1,4 @@
-BirthcakeRebaked.SlotVariant = SlotVariant or {
+BirthcakeRebaked.SlotVariant = REPENTOGON and SlotVariant or {
     SLOT_MACHINE = 1,
     BLOOD_DONATION_MACHINE = 2,
     FORTUNE_TELLING_MACHINE = 3,
@@ -19,7 +19,7 @@ BirthcakeRebaked.SlotVariant = SlotVariant or {
     ROTTEN_BEGGAR = 18,
 }
 
-BirthcakeRebaked.KnifeVariant = KnifeVariant or {
+BirthcakeRebaked.KnifeVariant = REPENTOGON and KnifeVariant or {
     MOMS_KNIFE = 0,
     BONE_CLUB = 1,
     BONE_SCYTHE = 2,
@@ -31,12 +31,12 @@ BirthcakeRebaked.KnifeVariant = KnifeVariant or {
     TECH_SWORD = 11,
 }
 
-BirthcakeRebaked.KnifeSubType = KnifeSubType or {
+BirthcakeRebaked.KnifeSubType = REPENTOGON and KnifeSubType or {
     PROJECTILE = 1,
     CLUB_HITBOX = 4,
 }
 
-BirthcakeRebaked.EntityPoopVariant = EntityPoopVariant or {
+BirthcakeRebaked.EntityPoopVariant = REPENTOGON and EntityPoopVariant or {
     NORMAL = 0,
     GOLDEN = 1,
     STONE = 11,
