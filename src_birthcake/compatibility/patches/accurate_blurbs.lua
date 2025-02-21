@@ -320,9 +320,9 @@ local function accurateBlurbsPatch()
 		[PlayerType.PLAYER_ESAU] = PlayerType.PLAYER_JACOB,
 		[PlayerType.PLAYER_LAZARUS2] = PlayerType.PLAYER_LAZARUS,
 		[PlayerType.PLAYER_LAZARUS2_B] = PlayerType.PLAYER_LAZARUS_B,
-		[PlayerType.PLAYER_JACOB2_B] = PlayerType.PLAYER_JACOB,
+		[PlayerType.PLAYER_JACOB2_B] = PlayerType.PLAYER_JACOB_B,
 		[PlayerType.PLAYER_THESOUL] = PlayerType.PLAYER_THEFORGOTTEN,
-		[PlayerType.PLAYER_THESOUL_B] = PlayerType.PLAYER_THEFORGOTTEN,
+		[PlayerType.PLAYER_THESOUL_B] = PlayerType.PLAYER_THEFORGOTTEN_B,
 	}
 
 	for sharedDescription, copyDescription in pairs(DESCRIPTION_SHARE) do
