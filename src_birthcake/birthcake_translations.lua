@@ -1,7 +1,7 @@
 --EID.Languages = {"en_us", "fr", "pt", "pt_br", "ru", "spa", "it", "bul", "pl", "de", "tr_tr", "ko_kr", "zh_cn", "ja_jp", "cs_cz", "nl_nl", "uk_ua", "el_gr"}
 
 -- !TRANSLATION PROGRESS
--- EN: 89/89 | RU: 89/89 | SPA: 89/89 | CS_CZ: 89/89 | PL: 89/89 | KO_KR 89/89 | PT_BR 89/89 | ZH_CN 89/89 | UK_UA  85/89
+-- EN: 89/89 | RU: 89/89 | SPA: 89/89 | CS_CZ: 89/89 | PL: 89/89 | KO_KR 89/89 | PT_BR 89/89 | ZH_CN 89/89 | UK_UA  89/89
 
 local NAME_SHARE        = {
 	[PlayerType.PLAYER_BLACKJUDAS] = PlayerType.PLAYER_JUDAS,
