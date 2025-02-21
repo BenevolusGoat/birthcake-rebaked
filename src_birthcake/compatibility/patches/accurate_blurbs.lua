@@ -2,41 +2,45 @@ local Mod = BirthcakeRebaked
 local loader = BirthcakeRebaked.PatchesLoader
 
 -- !TRANSLATION PROGRESS
--- EN: 34/34 | RU: 34/34 | SPA: 0/34 | CS_CZ: 0/34 | PL: 34/34 | KO_KR 34/34 | PT_BR 34/34
+-- EN: 34/34 | RU: 34/34 | SPA: 0/34 | CS_CZ: 0/34 | PL: 34/34 | KO_KR 34/34 | PT_BR 34/34 | UK_UA 18/34
 
 ---Any empty descriptions are for characters that I may change the effect of, or ones I do want but haven't thought of an idea yet
 BirthcakeRebaked.BirthcakeAccurateBlurbs = {
-	[PlayerType.PLAYER_ISAAC] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_ISAAC] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Dice Shard in Starting Rooms",
 		ru = "Осколки Кости в стартовой комнате",
 		pl = "Odłamki Kości na początku piętra",
 		pt_br = "Fragmentos de dado nas salas iniciais",
 		ko_kr = "시작 방에 주사위 조각 생성",
 		zh_cn = "在初始房间生成骰子碎片",
+		uk_ua = "Уламок кубика в стартовій кімнаті" --в EID використовується "стартова кімната" єдиний раз (або я неуважний), інші описи просто пишуть "на початку кожного поверху"
 	},
-	[PlayerType.PLAYER_MAGDALENE] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_MAGDALENE] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Heart pickups may double",
 		ru = "Подбираемые сердца могут удвоиться",
 		pl = "Serca są czasami podwojone",
 		pt_br = "Corações talvez dobrem",
 		ko_kr = "하트 픽업이 더블 픽업으로 가끔 대체됨",
 		zh_cn = "强化的心掉落物",
+		uk_ua = "Серця можуть подвоюватись",
 	},
-	[PlayerType.PLAYER_CAIN] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_CAIN] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Machines may refund",
 		ru = "Автоматы могут возвратить деньги",
 		pl = "Automaty do Gier czasami zwracają pieniądze",
 		pt_br = "Máquinas provavelmente darão reembolsos",
 		ko_kr = "슬롯 머신이 가끔씩 돈을 돌려줌",
-		zh_cn = "抽奖机概率回本"
+		zh_cn = "抽奖机概率回本",
+		uk_ua = "Автомати можуть відшкодувати",
 	},
-	[PlayerType.PLAYER_JUDAS] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OD] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_JUDAS] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OD] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "DMG multiplier + exchange for lethal Deal",
 		ru = "Множитель Урона ↑ + обмен на летальную Сделку",
 		pl = "Mnożnik obrażeń + chroni przed zabójczą wymianą z Diabłem",
 		pt_br = "Multiplicador de dano + troca por trato letal",
 		ko_kr = "공격력 배수 적용, 악마 거래 시 체력이 부족하면 이 장신구를 대신 소모",
 		zh_cn = "伤害上升 + 抵消致命交易",
+		uk_ua = "Множник Шкоди ↑ + обмін на смертельну угоду",
 	},
 	[PlayerType.PLAYER_BLUEBABY] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = "Active use drops poops depending on charge",
@@ -45,110 +49,124 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 		pt_br = "Items ativos jogam cocôs dependendo da quantidade de cargas",
 		ko_kr = "액티브 사용 시 충전량에 비례해 똥 생성",
 		zh_cn = "根据主动充能生成额外大便",
+		uk_ua = "Викакування при використанні активних предметів залежно від заряду", --довгеньке, не знаю, чи можна скоротити
 	},
-	[PlayerType.PLAYER_EVE] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_EVE] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "(DMG scaling + blood-creep) for Dead Bird",
 		ru = "(скейлинг Урона + кровавый след) для Мертвой Птицы", --how the f am i supposed to translate "scaling"?
 		pl = "Zdechły Ptak dostaje skalowanie Obrażeń i smugę krwi",
 		pt_br = "Mais dano + trilha de sangue para o pássaro morto",
 		ko_kr = "죽은 새가 피 장판 생성, 공격력 능력치 비례 피해량 증가",
 		zh_cn = "(死鸟的) 伤害上升 + 血迹蔓延",
+		uk_ua = "(Зростання Шкоди + кривавий слід) для Мертвого птаха",
 	},
-	[PlayerType.PLAYER_SAMSON] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_SAMSON] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Drop red hearts at maximum rage",
 		ru = "Создаёт красные сердца при максимальном уровне ярости",
 		pl = "Tworzy serduszka po osiągnieciu maksymalnego gniewu",
 		pt_br = "Ganhe corações vermelhos quando chegar a raiva máxima",
 		ko_kr = "피의 욕망 누적량 최대치 달성 시 빨간 하트 생성",
 		zh_cn = "嗜血最大时生成心掉落物",
+		uk_ua = "Створює червоні серця при досягненні максимальної злості",
 	},
-	[PlayerType.PLAYER_AZAZEL] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_AZAZEL] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "DMG down + extended Brimstone duration",
 		ru = "Урон ↓ + увеличенная длительность Серы",
 		pl = "OBR ↓ + laser trwa dłużej",
 		pt_br = "Dano ↓ + laser dura mais tempo",
 		ko_kr = "공격력 하락 + 혈사포 지속 시간 증가",
 		zh_cn = "伤害下降 + 可拓张的硫磺火",
+		uk_ua = "Шкода ↓ + подовжена тривалість Сірки",
 	},
-	[PlayerType.PLAYER_LAZARUS] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_LAZARUS] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Extra Lazarus' Rags revive",
 		ru = "Дополнительное возрождение от Лохмотьев Лазаря",
 		pl = "Dodatkowe życie",
 		pt_br = "Vida extra",
 		ko_kr = "나사로의 누더기 부활 횟수 1회 추가",
 		zh_cn = "额外的复活次数",
+		uk_ua = "Додаткове воскресіння від Ганчір'я Лазаря",
 	},
-	[PlayerType.PLAYER_EDEN] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_EDEN] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "3 unchanging random trinket effects",
 		ru = "3 случайных неизменных эффектов брелков",
 		pl = "Efekty 3 losowych trynkietów",
 		pt_br = "efeitos de três berloques",
 		ko_kr = "무작위 장신구 효과 3개 부여",
 		zh_cn = "+3 随机饰品",
+		uk_ua = "3 незмінні випадкові ефекти брелоків",
 	},
-	[PlayerType.PLAYER_THELOST] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_THELOST] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Astral Projection on Holy Mantle breakage",
 		ru = "Астральная Проэкция при потери Святой Мантии",
 		pl = "Astralna Projekcja przy utracie tarczy",
 		pt_br = "Projeção Astral quando o Manto Sagrado quebrar",
 		ko_kr = "성스러운 망토 보호막 파괴 시 시간이 느려짐",
 		zh_cn = "护盾破碎, 时间骤停",
+		uk_ua = "Астральна проекція при поломці Святої Мантії",
 	},
-	[PlayerType.PLAYER_LILITH] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_LILITH] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Buddies may copy tear effects",
 		ru = "Спутники могут скопировать эффекты слёз",
 		pl = "Sojusznicy czasami kopiują efekty twoich łez",
 		pt_br = "Amigos talvez copiarão efeitos das lágrimas",
 		ko_kr = "패밀리어들이 가끔 눈물 효과를 복사함",
 		zh_cn = "跟班概率复制泪弹特效",
+		uk_ua = "Друзяки можуть копіювати ефекти сліз",
 	},
-	[PlayerType.PLAYER_KEEPER] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_KEEPER] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Nickel in Shop and Devil Rooms",
 		ru = "Пятак в Магазине и комнате Сделки с Дьяволом",
 		pl = "Piątak w sklepach i pokojach Diabła",
 		pt_br = "Níquel nas lojas e salas do demônio",
 		ko_kr = "상점, 악마 방에 5센트 주화 생성",
 		zh_cn = "在商店和恶魔房嫖点镍币",
+		uk_ua = "П'ятак в магазинах та кімнатах Диявола",
 	},
-	[PlayerType.PLAYER_APOLLYON] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_APOLLYON] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Trinkets can be absorbed with Void",
 		ru = "Брелки могут быть поглощены Пустотой",
 		pl = "Pustka może pochłaniać trynkiety",
 		pt_br = "Berloques podem ser absorvidos com o Vazio",
 		ko_kr = "공허 아이템으로 장신구도 흡수 가능",
 		zh_cn = "虚空可以吞噬饰品",
+		uk_ua = "Порожнеча може поглинати брелоки",
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN] = { 			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_THEFORGOTTEN] = { 			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Shoot bone-body to fill for fading tears up",
 		ru = "Стреляй в тело-скелет, чтобы заполнить его для убывающего повышения скорострельности",
 		pl = "Strzel w ciało, aby je naładować bonusem do szybkostrzelności",
 		pt_br = "Atire no corpo de esquelto para atirar mais rápido por um tempo",
 		ko_kr = "해골에 눈물을 쏘면 일시적으로 연사력 증가",
 		zh_cn = "攻击遗骸填充射速增益",
+		uk_ua = "Стріляй в тіло-скелет щоб наповнювати спадаючий темп стрільби",
 	},
-	[PlayerType.PLAYER_BETHANY] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_BETHANY] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "May spawn additional wisp on active use",
 		ru = "При использовании активируемого предмета может появиться дополнительный огонек",
 		pl = "Użyte przedmioty czasami dają dodatkowe ogniki",
 		pt_br = "Talvez invoque outra fumaça ao usar o item ativo",
 		ko_kr = "액티브 사용 시 가끔씩 추가 위습 생성",
 		zh_cn = "主动概率生成额外魂火",
+		uk_ua = "Можливі додаткові вогники при використанні активних предметів",
 	},
-	[PlayerType.PLAYER_JACOB] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_JACOB] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "All damage hurts the other brother instead",
 		ru = "Весь урон получает другой брат вместо этого",
 		pl = "Przenosi krzywdę do brata",
 		pt_br = "Todo dano tomado é direcionado ao outro irmão",
 		ko_kr = "소지 시 피해를 무시하지만 그 때마다 나머지 형제가 대신 피격됨",
 		zh_cn = "受到的伤害转移到兄弟身上",
+		uk_ua = "Вся шкода завдається іншому братові",
 	},
-	[PlayerType.PLAYER_ISAAC_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_ISAAC_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Extra inventory slot",
 		ru = "Дополнительный слот инвентаря",
 		pl = "Dodatkowe miejsce w ekwipunku",
 		pt_br = "Extra espaço no inventário",
 		ko_kr = "인벤토리 슬롯 +1",
 		zh_cn = "额外的物品栏",
+		uk_ua = "Додатковий слот для інвентарю",
 	},
 	[PlayerType.PLAYER_MAGDALENE_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = "Temp. hearts ejected from enemies explode",
