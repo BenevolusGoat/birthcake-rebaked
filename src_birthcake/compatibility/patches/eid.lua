@@ -212,10 +212,10 @@ function BIRTHCAKE_EID:NormalNumberModifier(descObj, baseMult)
 end
 
 -- !TRANSLATION PROGRESS
--- EN: 36/36 | RU: 36/36 | SPA: 36/36 | CS_CZ: 4/36 | PL: 34/36 | KO_KR 36/36 | PT_BR 36/36 | ZH_CN 36/36
+-- EN: 36/36 | RU: 36/36 | SPA: 36/36 | CS_CZ: 4/36 | PL: 34/36 | KO_KR 36/36 | PT_BR 36/36 | ZH_CN 36/36 | UK_UA 3/36
 
 BIRTHCAKE_EID.Descs = {
-	[PlayerType.PLAYER_ISAAC] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_ISAAC] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		---@param descObj EID_DescObj
 		---@param str string
 		_modifier = function(descObj, str, strMult)
@@ -290,8 +290,16 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			""
 			},
+		uk_ua = {
+			"Створює ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "{{Card49}} Уламок кубика",
+					" {{Card49}} Уламки кубика")
+			end,
+			" при піднятті цього брелока та на початку кожного наступного поверху"
+			}
 	},
-	[PlayerType.PLAYER_MAGDALENE] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_MAGDALENE] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = {
 			"{{Heart}} Heart pickups have a ",
 			function(descObj)
@@ -372,8 +380,18 @@ BIRTHCAKE_EID.Descs = {
 			"#{{HalfHeart}} -> {{Heart}} -> {{Heart}}{{Heart}}",
 			"#{{HalfSoulHeart}} -> {{SoulHeart}}"
 		},
+		uk_ua = {
+			"{{Heart}} Серця мають ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.MAGDALENE.HEART_REPLACE_CHANCE)
+			end,
+			"% шанс покращитись",
+			"#Можливі покращення:",
+			"#{{HalfHeart}} -> {{Heart}} -> {{Heart}}{{Heart}}",
+			"#{{HalfSoulHeart}} -> {{SoulHeart}}"
+		}
 	},
-	[PlayerType.PLAYER_CAIN] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_CAIN] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		---@param descObj EID_DescObj
 		---@param baseChance number | fun(player: EntityPlayer): number
 		_modifier = function(descObj, baseChance)
@@ -496,6 +514,20 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"%的概率返还钱币"
 		},
+		uk_ua = {
+			"{{Slotmachine}} Ігрові Автомати та {{FortuneTeller}} Автомати з Передбаченнями мають ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_CAIN]._modifier(descObj,
+					Mod.Birthcake.CAIN.SlotsData[Mod.SlotVariant.SLOT_MACHINE].RefundChance)
+			end,
+			"% шанс повернути гроші",
+			"#{{CraneGame}} Кран-Машини мають ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_CAIN]._modifier(descObj,
+					Mod.Birthcake.CAIN.SlotsData[Mod.SlotVariant.CRANE_GAME].RefundChance)
+			end,
+			"% шанс повернути гроші"
+		}
 	},
 	[PlayerType.PLAYER_JUDAS] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		---@param descObj EID_DescObj

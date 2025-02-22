@@ -184,7 +184,7 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 		pt_br = "Captadores duplos são separados",
 		ko_kr = "2중 픽업이 두 개의 단일 픽업으로 분해됨",
 		zh_cn = "双掉落物分解",
-		uk_ua = "Подвійні витратні роздвоєні", --EID використовує "розхідники", але то, здається, є русизмом; хоча не знаю, що було б краще використати
+		uk_ua = "Подвійні витратники роздвоєні", --EID використовує "розхідники", але то, здається, є русизмом
 	},
 	[PlayerType.PLAYER_JUDAS_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Pass through with Dark Arts for active charge",
