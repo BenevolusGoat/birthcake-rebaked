@@ -212,7 +212,7 @@ function BIRTHCAKE_EID:NormalNumberModifier(descObj, baseMult)
 end
 
 -- !TRANSLATION PROGRESS
--- EN: 36/36 | RU: 36/36 | SPA: 36/36 | CS_CZ: 4/36 | PL: 34/36 | KO_KR 36/36 | PT_BR 36/36 | ZH_CN 36/36 | UK_UA 7/36
+-- EN: 36/36 | RU: 36/36 | SPA: 36/36 | CS_CZ: 4/36 | PL: 34/36 | KO_KR 36/36 | PT_BR 36/36 | ZH_CN 36/36 | UK_UA 12/36
 
 BIRTHCAKE_EID.Descs = {
 	[PlayerType.PLAYER_ISAAC] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
@@ -790,9 +790,9 @@ BIRTHCAKE_EID.Descs = {
 			function(descObj)
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_EVE]._modifier(descObj, "Шкода подвоюється")
 			end
-		}
+		},
 	},
-	[PlayerType.PLAYER_SAMSON] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_SAMSON] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		---@param descObj EID_DescObj
 		---@param strNoMult string
 		---@param strMult string
@@ -914,8 +914,9 @@ BIRTHCAKE_EID.Descs = {
 
 				)
 			end
-		}	},
-	[PlayerType.PLAYER_AZAZEL] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+		},	
+	},
+	[PlayerType.PLAYER_AZAZEL] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
 			"{{ArrowDown}} {{Damage}} -",
 			function()
@@ -939,8 +940,17 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% 伤害倍率",
 			"#血激光柱在造成伤害后会持续更长时间"
-		},	},
-	[PlayerType.PLAYER_LAZARUS] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+		},
+		uk_ua = {
+			"{{ArrowDown}} {{Damage}} -",
+			function()
+				return tostring(BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN))
+			end,
+			"% множник шкоди",
+			"#Промені Сірки тривають довше поки завдає шкоду ворогам"
+		},	
+	},
+	[PlayerType.PLAYER_LAZARUS] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
 			"{{Collectible332}} If Lazarus Risen dies, this trinket is consumed and he is revived again",
 			"#The revive grants another damage increase and removes a heart container"
@@ -968,8 +978,12 @@ BIRTHCAKE_EID.Descs = {
 			"{{Collectible332}} 复活的拉撒路死亡后, 消耗这个饰品再复活一次",
 			"#同样提供攻击力加成并失去1心之容器"
 		},
+		uk_ua = {
+			"{{Collectible332}} Якщо Воскреслий Лазар вмре, то брелок буде використаним, і він відновлеться знову",
+			"#Воскресіння також дає додаткове увеличення шкоди та забирає контейнер Червоного серця"
+		},
 	},
-	[PlayerType.PLAYER_EDEN] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_EDEN] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		---@param descObj EID_DescObj
 		_modifier = function(descObj)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity),
@@ -1034,8 +1048,16 @@ BIRTHCAKE_EID.Descs = {
 			" 个随机饰品",
 			"#丢弃蛋糕会失去这些饰品的效果"
 		},
+		uk_ua = {
+			"{{Trinket}} Поглинає ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_EDEN]._modifier(descObj)
+			end,
+			" випадкових брелоків при піднятті",
+			"#Ефекти брелоків зникають, коли Тортик викидається"
+		},
 	},
-	[PlayerType.PLAYER_THELOST] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_THELOST] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		_modifier = function(descObj, str, ...)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity),
 				descObj.ObjSubType)
@@ -1121,8 +1143,19 @@ BIRTHCAKE_EID.Descs = {
 				)
 			end
 		},
+		uk_ua = {
+			"{{Collectible677}} Тимчасово сповільнюється час та дає спадаюче увеличення темпу стрільби при при поломці Святої Мантії",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_THELOST]._modifier(descObj,
+					"Також паралізує ворогів у %s радіусі на 5 секунд",
+					"маленькому",
+					"середньому",
+					"великому"
+				)
+			end
+		},
 	},
-	[PlayerType.PLAYER_LILITH] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_LILITH] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
 			"Familiars have a ",
 			function(descObj)
@@ -1171,6 +1204,13 @@ BIRTHCAKE_EID.Descs = {
 				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.LILITH.SHARE_TEAR_EFFECTS_CHANCE)
 			end,
 			"% 的概率模仿角色的泪弹特效"
+		},
+		uk_ua = {
+			"Компаньйони мають ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.LILITH.SHARE_TEAR_EFFECTS_CHANCE)
+			end,
+			"% шанс копіювати ефекти сліз Ліліт"
 		},
 	},
 	[PlayerType.PLAYER_KEEPER] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
