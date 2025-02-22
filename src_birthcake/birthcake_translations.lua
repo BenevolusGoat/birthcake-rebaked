@@ -646,7 +646,7 @@ local translations = {
 			ko_kr = "더러운 똥맷집",
 			pt_br = "Cocô duro",
 			zh_cn = "硬粪",
-			uk_ua = "Міцніші какашки", --EID використовує "какашки"
+			uk_ua = "Міцні какашки",
 		},
 		[PlayerType.PLAYER_EVE_B] = {				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 			en_us = "Polycythemia",

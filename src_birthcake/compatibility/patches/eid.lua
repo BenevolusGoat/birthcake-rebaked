@@ -212,7 +212,7 @@ function BIRTHCAKE_EID:NormalNumberModifier(descObj, baseMult)
 end
 
 -- !TRANSLATION PROGRESS
--- EN: 36/36 | RU: 36/36 | SPA: 36/36 | CS_CZ: 4/36 | PL: 34/36 | KO_KR 36/36 | PT_BR 36/36 | ZH_CN 36/36 | UK_UA 3/36
+-- EN: 36/36 | RU: 36/36 | SPA: 36/36 | CS_CZ: 4/36 | PL: 34/36 | KO_KR 36/36 | PT_BR 36/36 | ZH_CN 36/36 | UK_UA 7/36
 
 BIRTHCAKE_EID.Descs = {
 	[PlayerType.PLAYER_ISAAC] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
@@ -297,7 +297,7 @@ BIRTHCAKE_EID.Descs = {
 					" {{Card49}} Уламки кубика")
 			end,
 			" при піднятті цього брелока та на початку кожного наступного поверху"
-			}
+			},
 	},
 	[PlayerType.PLAYER_MAGDALENE] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = {
@@ -389,7 +389,7 @@ BIRTHCAKE_EID.Descs = {
 			"#Можливі покращення:",
 			"#{{HalfHeart}} -> {{Heart}} -> {{Heart}}{{Heart}}",
 			"#{{HalfSoulHeart}} -> {{SoulHeart}}"
-		}
+		},
 	},
 	[PlayerType.PLAYER_CAIN] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		---@param descObj EID_DescObj
@@ -527,9 +527,9 @@ BIRTHCAKE_EID.Descs = {
 					Mod.Birthcake.CAIN.SlotsData[Mod.SlotVariant.CRANE_GAME].RefundChance)
 			end,
 			"% шанс повернути гроші"
-		}
+		},
 	},
-	[PlayerType.PLAYER_JUDAS] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_JUDAS] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		---@param descObj EID_DescObj
 		_modifier = function(descObj)
 			local mult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity), descObj.ObjSubType)
@@ -601,8 +601,16 @@ BIRTHCAKE_EID.Descs = {
 			"%伤害倍率",
 			"#{{DevilRoom}} 进行可能致死的恶魔交易时，改为消耗这个饰品换取道具"
 		},
+		uk_ua = {
+			"{{ArrowUp}} {{Damage}} +",
+			function(descObj)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.JUDAS.DAMAGE_MULT_UP)
+			end,
+			"% множник шкоди",
+			"#{{DevilRoom}} Якщо Диявольська угода вб'є Юду, то брелок використана інакше"
+		},
 	},
-	[PlayerType.PLAYER_BLUEBABY] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_BLUEBABY] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		_modifier = function(descObj, poopStr, activeStr, noActiveStr, invalidActiveStr)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local activeItem = player:GetActiveItem(ActiveSlot.SLOT_PRIMARY)
@@ -699,9 +707,19 @@ BIRTHCAKE_EID.Descs = {
 				)
 			end
 		},
-
+		uk_ua = {
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_BLUEBABY]._modifier(descObj,
+					"{{Collectible36}} Використання Какашки створює 2 додаткові какашки, орієнтація яких залежить від напряму голови"
+					.. "#{{Collectible}} Має інший ефект з іншими предметами",
+					"#{{Collectible}} Випускає %s снаряд(ів)-какашку(ок) в різним напрямах, які створюють какашку при зіткненні",
+					"#{{Battery}} X є половиною заряду твого активного предмета, округленим у менший бік",
+					"{{Collectible}} Не має ефекту для поточного предмету"
+				)
+			end
+		},
 	},
-	[PlayerType.PLAYER_EVE] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_EVE] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		_modifier = function(descObj, str)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			if player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS) then
@@ -765,6 +783,14 @@ BIRTHCAKE_EID.Descs = {
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_EVE]._modifier(descObj, "伤害翻倍")
 			end
 		},
+		uk_ua = {
+			"{{Collectible117}} Перетворює Мертвого птаха на Кривавого птаха",
+			"#Кривавий птах періодично залишає після себе калюжі крові, що завдають шкоди",
+			"#Шкода Кровавого птаха залежить від шкоди Єви",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_EVE]._modifier(descObj, "Шкода подвоюється")
+			end
+		}
 	},
 	[PlayerType.PLAYER_SAMSON] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		---@param descObj EID_DescObj
@@ -874,7 +900,21 @@ BIRTHCAKE_EID.Descs = {
 
 				)
 			end
-		},	},
+		},
+		uk_ua = {
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_SAMSON]._modifier(descObj,
+					"{{Collectible157}} Досагнення максимального рівня шкоди від Кривавої жаги створює ",
+					"2 {{Heart}} червоні серця",
+					"2 серця залежно від твого здоров'я"
+					..
+					"#{{Heart}} Подвійні червоні серця при менше половини червоного здоров'я, червоні серця при більше половини"
+					.. "#{{SoulHeart}} інакше створює серця душі",
+					"#{{Collectible619}} Працює і при 6, і при 10 ударів"
+
+				)
+			end
+		}	},
 	[PlayerType.PLAYER_AZAZEL] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"{{ArrowDown}} {{Damage}} -",
