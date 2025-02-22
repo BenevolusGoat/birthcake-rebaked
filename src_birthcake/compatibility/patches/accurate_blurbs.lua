@@ -2,7 +2,7 @@ local Mod = BirthcakeRebaked
 local loader = BirthcakeRebaked.PatchesLoader
 
 -- !TRANSLATION PROGRESS
--- EN: 34/34 | RU: 34/34 | SPA: 0/34 | CS_CZ: 0/34 | PL: 34/34 | KO_KR 34/34 | PT_BR 34/34 | UK_UA 18/34
+-- EN: 34/34 | RU: 34/34 | SPA: 0/34 | CS_CZ: 0/34 | PL: 34/34 | KO_KR 34/34 | PT_BR 34/34 | UK_UA 34/34
 
 ---Any empty descriptions are for characters that I may change the effect of, or ones I do want but haven't thought of an idea yet
 BirthcakeRebaked.BirthcakeAccurateBlurbs = {
@@ -213,93 +213,104 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 		zh_cn = "血团死亡后留下血迹",
 		uk_ua = "Згустки залишають калюжу при вмиранні",
 	},
-	[PlayerType.PLAYER_SAMSON_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_SAMSON_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Room clear may (extend Berserk + drop heart)",
 		ru = "Зачистка комнат может (продлить действие Берсерка + создать сердце)",
 		pl = "Kończenie pokojów czasami wydłuża stan Berserka i tworzy serduszko",
 		pt_br = "Terminar salas talvez extenda Berserk + dar um coração",
 		ko_kr = "방 클리어 시 폭주 지속 시간이 증가하고 빨간 하트를 생성할 수도 있음",
 		zh_cn = "清理房间有概率掉落红心 + 延长狂战",
+		uk_ua = "При зачистки кімнати можливе (продовження Берсерк! + випадання серця)",
 	},
-	[PlayerType.PLAYER_AZAZEL_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_AZAZEL_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Sneeze brimstone-marking booger tears",
 		ru = "Вычихивание соплей с меткой серы",
 		pl = "Kichaj naznaczającymi smarkami",
 		pt_br = "Lágrimas de meleca ao espirrar",
 		ko_kr = "재채기를 하면 혈사포 표식 효과를 부여하는 코딱지도 같이 발사됨",
 		zh_cn = "咳血发射鼻涕泪弹",
+		uk_ua = "Чхай соплі з міткою сірки",
 	},
-	[PlayerType.PLAYER_LAZARUS_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_LAZARUS_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Flipping items splits items into both sides",
 		ru = "Переворачивание предметов разделяет их на обе части",
 		pl = "Odwrót czasami rozdziela przedmioty na obie strony",
 		pt_br = "Trocar o item dividirá ambos os lados",
 		ko_kr = "아이템에 뒤집기 사용 시 아이템 2개로 분리됨",
 		zh_cn = "将可逆转的道具一分为二",
+		uk_ua = "Перевернення предметів роздвоює їх на обидві сторони",
 	},
-	[PlayerType.PLAYER_EDEN_B] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_EDEN_B] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "May not reroll everything when hurt",
 		ru = "Может не изменить всё при получении урона",
 		pl = "Blokuje losowanie przy trafieniu",
 		pt_br = "Talvez não mudará todos os seus items ao sofrer dano",
 		ko_kr = "피격 시 가끔씩 리롤 효과 무시",
 		zh_cn = "受伤也不一定等于重随一切",
+		uk_ua = "Шанс не реролити все при шкоді",
 	},
-	[PlayerType.PLAYER_THELOST_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_THELOST_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Holy Card + cards may be Holy Card more",
 		ru = "Святая Карта + карты могут стать Святыми Картами чаще",
 		pl = "Święta Karta + więcej Świętych Kart",
 		pt_br = "Carta sagrada + Mais chance de cartas sagradas",
 		ko_kr = "성스러운 카드 효과 + 성스러운 카드 변환 확률 증가",
 		zh_cn = "神圣卡 + 更多神圣卡",
+		uk_ua = "Свята картка + більший шанс, що карти будуть Святими Картками",
 	},
-	[PlayerType.PLAYER_LILITH_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_LILITH_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Chance for additional Gello on birth",
 		ru = "Шанс на дополнительного Гелло при рождении", --"on birth"? maybe just "on shoot", but ok
 		pl = "Czasami rodzisz dwa bachory",
 		pt_br = "Chance de invocar outro Gello ao atirar",
 		ko_kr = "젤로 투척 시 일정 확률로 젤로 1명이 추가로 튀어나옴",
 		zh_cn = "有概率额外生出一个格罗",
+		uk_ua = "Шанс на додатковий Гелло при народженні",
 	},
-	[PlayerType.PLAYER_KEEPER_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_KEEPER_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Spawn a mini-shop every floor",
 		ru = "Создает мини-магазин каждый этаж",
 		pl = "Mini sklep na każdym piętrze",
 		pt_br = "Invoca uma pequena loja todo andar",
 		ko_kr = "매 층마다 소형 상점 생성",
 		zh_cn = "每层生成一个打折地摊",
+		uk_ua = "Створює міні-магазин в кожному поверсі",
 	},
-	[PlayerType.PLAYER_APOLLYON_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_APOLLYON_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Abyss-absorb trinkets for half-DMG locusts",
 		ru = "Поглощение Бездной брелков для саранчи с Уроном x0.5",
 		pl = "Pochłaniaj trynkiety, aby dostać szarańcze o połowicznych obrażeniach",
 		pt_br = "Abismo consegue absorber trinkets para ganhar gafanhotos de metade de dano",
 		ko_kr = "무저갱으로 장신구 흡수 가능, 흡수 시 데미지 절반짜리 메뚜기 생성",
 		zh_cn = "无底洞可以吞噬饰品换取一半伤害的蝗虫",
+		uk_ua = "Поглинай брелоки Безоднею для сарани із пів-Шкодою", --EID для Безодні називає їх мухами чогось???
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_THEFORGOTTEN_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Kill for bone-orbitals + hold body to gather",
 		ru = "Убивай для орбитальных костей + возьми тело, чтобы собрать их",
 		pl = "Zabijanie przeciwników tworzy kości + zbieraj podnosząć ciało",
 		pt_br = "Mate para ganhar orbitais de osso + segure o corpo para reunílos",
 		ko_kr = "적 처치 시 뼛조각생성; 해골을 들면 뼛조각이 오비탈이 됨",
 		zh_cn = "杀死敌人获取骨片 + 举起遗骸聚集骨片",
+		uk_ua = "Вбивай для уламок кісток + тримай тіло, щоб збирати",
 	},
-	[PlayerType.PLAYER_BETHANY_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_BETHANY_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Wisps have double health",
 		ru = "Двойное здоровье у огоньков",
 		pl = "Ogniki mają podwojone zdrowie",
 		pt_br = "Fumaças tem o dobro de vida",
 		ko_kr = "위습 체력 2배",
 		zh_cn = "魂火获得双倍生命",
+		uk_ua = "Вогники мають подвійне здоров'я",
 	},
-	[PlayerType.PLAYER_JACOB_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_JACOB_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Dark Esau leaves a flame-trail",
 		ru = "Тёмный Исав оставляет огненный след",
 		pl = "Mroczny Ezaw zostawia ognisty ślad",
 		pt_br = "Esaú sombrio deixa uma trilha de chamas",
 		ko_kr = "검은 에사우가 돌진하면 그 자리에 불꽃을 남김",
 		zh_cn = "堕化以扫会留下火墙",
+		uk_ua = "Темний Ісав залишає вогняний слід",
 	}
 }
 
