@@ -212,7 +212,7 @@ function BIRTHCAKE_EID:NormalNumberModifier(descObj, baseMult)
 end
 
 -- !TRANSLATION PROGRESS
--- EN: 36/36 | RU: 36/36 | SPA: 36/36 | CS_CZ: 4/36 | PL: 34/36 | KO_KR 36/36 | PT_BR 36/36 | ZH_CN 36/36 | UK_UA 36/36
+-- EN: 36/36 | RU: 36/36 | SPA: 36/36 | CS_CZ: 36/36 | PL: 34/36 | KO_KR 36/36 | PT_BR 36/36 | ZH_CN 36/36 | UK_UA 36/36
 
 BIRTHCAKE_EID.Descs = {
 	[PlayerType.PLAYER_ISAAC] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
@@ -1771,7 +1771,7 @@ BIRTHCAKE_EID.Descs = {
 			end
 		},
 		cs_cz = {
-			"{{Collectible705}} Procházení nepřáteli s Temným uměním snižuje jeho dobu nabíjení o ",
+			"{{Collectible705}} Procházení nepřáteli s Temným Uměním snižuje jeho dobu nabíjení o ",
 			function(descObj)
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_JUDAS_B]._modifier(descObj)
 			end
