@@ -994,14 +994,6 @@ BIRTHCAKE_EID.Descs = {
 			"% multiplicador de dano",
 			"#Enxofre dura mais tempo se danificando inimigos"
 		},
-		zh_cn = {
-			"{{ArrowDown}} {{Damage}} -",
-			function()
-				return tostring(BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN))
-			end,
-			"% 伤害倍率",
-			"#血激光柱在造成伤害后会持续更长时间"
-		},
 		uk_ua = {
 			"{{ArrowDown}} {{Damage}} -",
 			function()
@@ -1015,8 +1007,16 @@ BIRTHCAKE_EID.Descs = {
 			function()
 				return tostring(BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN))
 			end,
-			"% násobitel poškození",
-			"#Brimstone vydrží déle při poškozování nepřátel"
+			"% multiplicador de dano",
+			"#Enxofre dura mais tempo se danificando inimigos"
+		},
+		zh_cn = {
+			"{{ArrowDown}} {{Damage}} -",
+			function()
+				return tostring(BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN))
+			end,
+			"% 伤害倍率",
+			"#血激光柱在造成伤害后会持续更长时间"
 		},
 	},
 	[PlayerType.PLAYER_LAZARUS] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
