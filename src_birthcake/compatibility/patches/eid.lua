@@ -247,46 +247,46 @@ BIRTHCAKE_EID.Descs = {
 		spa = {
 			"Genera ",
 			function(descObj)
-				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "un {{Card49}}Fragmento de Dado",
-					" {{Card49}}Fragmentos de Dado")
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "un {{Card49}} Fragmento de Dado",
+					" {{Card49}} Fragmentos de Dado")
 			end,
 			" Al recogerlo y en la habitación inicial de cada piso"
 		},
 		cs_cz = {
 			"Vytvoří ",
 			function(descObj)
-				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "{{Card49}}Úlomek Kostky",
-					" {{Card49}}Úlomky Kostky")
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "{{Card49}} Úlomek Kostky",
+					" {{Card49}} Úlomky Kostky")
 			end,
 			" po zvednutí a ve startovací místnosti každé podlaží",
 		},
 		pl = {
 			"Tworzy ",
 			function(descObj)
-				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, " {{Card49}}Odłamek Kości",
-					" {{Card49}}Odłamki Kości")
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, " {{Card49}} Odłamek Kości",
+					" {{Card49}} Odłamki Kości")
 			end,
 			" przy pierwszym podniesieniu i na początku każdego piętra"
 		},
 		pt_br = {
 			"Ganhe ",
 			function(descObj)
-				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "um {{Card49}}Dice Shard", " {{Card49}}Dice Shards")
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "um {{Card49}} Dice Shard", " {{Card49}} Dice Shards")
 			end,
 			" ao pegar e na sala inicial de todos os andares"
 			},
 		ko_kr = {
 			"습득 시, 그리고 새로운 층에 진입 시 ",
 			function(descObj)
-				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "um {{Card49}}주사위 조각", " {{Card49}}주사위 조각 여러 개")
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "um {{Card49}} 주사위 조각", " {{Card49}} 주사위 조각 여러 개")
 			end,
 			" 를 생성합니다."
 			},
 		zh_cn = {
 			"拾取后+进入新楼层时，生成",
 			function(descObj)
-				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "一个{{Card49}}骰子碎片",
-					" {{Card49}}骰子碎片")
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_ISAAC]._modifier(descObj, "一个{{Card49}} 骰子碎片",
+					" {{Card49}} 骰子碎片")
 			end,
 			""
 			},
@@ -861,21 +861,8 @@ BIRTHCAKE_EID.Descs = {
 				)
 			end
 		},
-		cs_cz = {
-			function(descObj)
-				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_SAMSON]._modifier(descObj,
-					"{{Collectible157}} Dosažení maximálního poškození s Krvavým Chtíčem vytvoří ",
-					"2 {{Heart}} Červená Srdce",
-					"2 srdce která záleží na tvém aktuálním zdraví"
-					.. "#{{Heart}} Dvojitá červená srdce pod půlkou červeného zdraví, a červená srdce nad nebo rovno půlce červeného zdraví"
-					.. "#{{SoulHeart}} Jinak vytvoří Duševní Srdce",
-					"#{{Collectible619}} Spustí se na 6 a 10 zásazích"
-
-				)
-			end
-		},
 	},
-	[PlayerType.PLAYER_AZAZEL] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_AZAZEL] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"{{ArrowDown}} {{Damage}} -",
 			function()
@@ -890,7 +877,38 @@ BIRTHCAKE_EID.Descs = {
 				return tostring(BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN))
 			end,
 			"% множитель урона",
-			"#Луч Серы длится дольше во время нанесения урона вра의 지속 시간이 증가합니다."
+			"#Луч Серы длится дольше во время нанесения урона врагам"
+		},
+		spa = {
+			"{{ArrowDown}} {{Damage}} Multiplicador de daño de -",
+			function()
+				return tostring(BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN))
+			end,
+			"#Las ráfagas de Azufre duran más al hacer daño a enemigos"
+		},
+		pl = {
+			"{{ArrowDown}} {{Damage}} -",
+			function()
+				return tostring(BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN))
+			end,
+			"% Násobitel poškození",
+			"#Splunięcie laserem trwa dłużej"
+		},
+		ko_kr = {
+			"{{ArrowDown}} {{Damage}} 공격력 배수",
+			function()
+				return tostring(BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN))
+			end,
+			"%",
+			"#아자젤이 발사하는 혈사포의 지속 시간이 증가합니다"
+		},
+		pt_br = {
+			"{{ArrowDown}} {{Damage}} -",
+			function()
+				return tostring(BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN))
+			end,
+			"% multiplicador de dano",
+			"#Enxofre dura mais tempo se danificando inimigos"
 		},
 		zh_cn = {
 			"{{ArrowDown}} {{Damage}} -",
@@ -899,17 +917,9 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% 伤害倍率",
 			"#血激光柱在造成伤害后会持续更长时间"
-		},	
-		cs_cz = {
-			"{{ArrowDown}} {{Damage}} -",
-			function()
-				return tostring(BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN))
-			end,
-			"% násobitel poškození",
-			"#Brimstone vydrží déle při poškozování nepřátel"
 		},
 	},
-	[PlayerType.PLAYER_LAZARUS] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_LAZARUS] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
 			"{{Collectible332}} If Lazarus Risen dies, this trinket is consumed and he is revived again",
 			"#The revive grants another damage increase and removes a heart container"
