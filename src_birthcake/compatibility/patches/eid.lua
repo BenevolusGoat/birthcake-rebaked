@@ -212,7 +212,7 @@ function BIRTHCAKE_EID:NormalNumberModifier(descObj, baseMult)
 end
 
 -- !TRANSLATION PROGRESS
--- EN: 36/36 | RU: 36/36 | SPA: 36/36 | CS_CZ: 4/36 | PL: 34/36 | KO_KR 36/36 | PT_BR 36/36 | ZH_CN 36/36 | UK_UA 17/36
+-- EN: 36/36 | RU: 36/36 | SPA: 36/36 | CS_CZ: 4/36 | PL: 34/36 | KO_KR 36/36 | PT_BR 36/36 | ZH_CN 36/36 | UK_UA 27/36
 
 BIRTHCAKE_EID.Descs = {
 	[PlayerType.PLAYER_ISAAC] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
@@ -914,7 +914,7 @@ BIRTHCAKE_EID.Descs = {
 
 				)
 			end
-		},	
+		},
 	},
 	[PlayerType.PLAYER_AZAZEL] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
@@ -948,7 +948,7 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% множник шкоди",
 			"#Промені Сірки тривають довше поки завдає шкоду ворогам"
-		},	
+		},
 	},
 	[PlayerType.PLAYER_LAZARUS] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
@@ -1273,7 +1273,7 @@ BIRTHCAKE_EID.Descs = {
 			function(descObj)
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_KEEPER]._modifier(descObj, "п'ятак", " п'ятаки")
 			end
-		}
+		},
 	},
 	[PlayerType.PLAYER_APOLLYON] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		_modifier = function(descObj, str)
@@ -1427,9 +1427,9 @@ BIRTHCAKE_EID.Descs = {
 			function(descObj)
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_THEFORGOTTEN]._modifier(descObj)
 			end,
-			" уламок кістків у випадкових напрямах і поповнює його \"заряд душі\"",
+			" уламок кісткок у випадкових напрямах і поповнює його \"заряд душі\"",
 			"#Повернення в Забутого дає спадаюче підвищення темпу стрільби залежно від заряду душі"
-		}
+		},
 	},
 	[PlayerType.PLAYER_BETHANY] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
@@ -1489,7 +1489,7 @@ BIRTHCAKE_EID.Descs = {
 			"% шанс створити додаткового вогника однакового типу"
 		},
 	},
-	[PlayerType.PLAYER_JACOB] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
+	[PlayerType.PLAYER_JACOB] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
 			"The holder will reflect all damage they take onto the other brother"
 		},
@@ -1513,9 +1513,9 @@ BIRTHCAKE_EID.Descs = {
 		},
 		uk_ua = {
 			"Тримач буде перенаправляти всю отриману шкоду на іншого брата"
-		}
+		},
 	},
-	[PlayerType.PLAYER_ISAAC_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_ISAAC_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
 			"Grants an additional inventory slot"
 		},
@@ -1537,8 +1537,11 @@ BIRTHCAKE_EID.Descs = {
 		zh_cn = {
 			"一个额外的物品栏"
 		},
+		uk_ua = {
+			"Дає додаткове місце для інвентарю"
+		},
 	},
-	[PlayerType.PLAYER_MAGDALENE_B] = { 		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_MAGDALENE_B] = { 		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
 			"Dropped hearts eventually explode into pools of red creep",
 			"#Explosion damage depends on the heart type and the current stage"
@@ -1567,8 +1570,12 @@ BIRTHCAKE_EID.Descs = {
 			"心掉落物若未能拾取会炸成一滩伤害血迹",
 			"#爆炸伤害取决于心的种类和当前楼层"
 		},
+		uk_ua = {
+			"Серця, що випали, зрештою вибухають у калюжі крові",
+			"#Шкода вибухів залежить від виду серця та поточного поверху"
+		},
 	},
-	[PlayerType.PLAYER_CAIN_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_CAIN_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
 			"Double pickups that spawn are split into their halves"
 		},
@@ -1590,8 +1597,11 @@ BIRTHCAKE_EID.Descs = {
 		zh_cn = {
 			"将双掉落物一分为二"
 		},
+		uk_ua = {
+			"Подвійні витратники Double pickups that spawn are розділені на їхні половини"
+		},
 	},
-	[PlayerType.PLAYER_JUDAS_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_JUDAS_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		_modifier = function(descObj)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
@@ -1643,8 +1653,14 @@ BIRTHCAKE_EID.Descs = {
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_JUDAS_B]._modifier(descObj)
 			end
 		},
+		uk_ua = {
+			"{{Collectible705}} Прохід через ворогів під Темними Мистецтвами зменшує час заряду на",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_JUDAS_B]._modifier(descObj)
+			end
+		},
 	},
-	[PlayerType.PLAYER_BLUEBABY_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_BLUEBABY_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
 			"Thrown poops have a ",
 			function(descObj)
@@ -1694,8 +1710,15 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% 的概率不会受到子弹的伤害"
 		},
+		uk_ua = {
+			"Кидані какашки мають ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.BLUEBABY.NO_POOP_DAMAGE_CHANCE)
+			end,
+			"% шанс не пошкодитися, коли в них попадають снаряди"
+		},
 	},
-	[PlayerType.PLAYER_EVE_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_EVE_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
 			"Blood clots leave behind a small pool of damaging creep on death",
 			"#The damage and effects of the creep depend on the type of clot killed"
@@ -1724,8 +1747,12 @@ BIRTHCAKE_EID.Descs = {
 			"血团死亡后会留下一小摊伤害血迹",
 			"#不同的血团留下的血迹有不同的伤害和效果"
 		},
+		uk_ua = {
+			"Кров'яні згустки залишають після себе малу калюжу, що завдає шкоду, при смерті",
+			"#Шкода та ефекти калюжі залежать від виду померлої згустки"
+		},
 	},
-	[PlayerType.PLAYER_SAMSON_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_SAMSON_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
 			"{{Collectible704}} Clearing a room while in Berserk has a ",
 			function(descObj)
@@ -1775,8 +1802,15 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% 的概率获得5s持续时间并生成1 {{HalfHeart}} 半红心"
 		},
+		uk_ua = {
+			"{{Collectible704}} Зачистки кімнати під дією Берсерка має ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.SAMSON.BERSERK_INCREASE_CHANCE)
+			end,
+			"% шанс продовжити тривалість на 5 секунд та створити {{HalfHeart}} половину червоного серця"
+		},
 	},
-	[PlayerType.PLAYER_AZAZEL_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_AZAZEL_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
 			"Sneezing fires out a cluster of 6 booger tears that deal a portion of Azazel's damage",
 			"#{{Collectible459}} Tears have a ",
@@ -1833,8 +1867,16 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% 的概率粘在敌人身上"
 		},
+		uk_ua = {
+			"Пчихання вистрілює групи 6 соплів, які наносять частину шкоди Азазеля ",
+			"#{{Collectible459}} Соплі мають ",
+			function(descObj)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.AZAZEL.BOOGER_STICK_CHANCE)
+			end,
+			"% шанс прилипнути до ворогів, щоб наносити шкоду з часом"
+		},
 	},
-	[PlayerType.PLAYER_LAZARUS_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_LAZARUS_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
 			"{{Collectible711}} When using Flip, item pedestals will split into both collectibles displayed"
 		},
@@ -1856,8 +1898,11 @@ BIRTHCAKE_EID.Descs = {
 		zh_cn = {
 			"{{Collectible711}} 生死逆转的效果改为将道具和虚影一分为二"
 		},
+		uk_ua = {
+			"{{Collectible711}} При використанні Перевернись п'єдестали с предметами розділяються на обидва відображені предмети"
+		},
 	},
-	[PlayerType.PLAYER_EDEN_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_EDEN_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
 			"Taking damage has a ",
 			function(descObj)
@@ -1921,8 +1966,17 @@ BIRTHCAKE_EID.Descs = {
 			"#蛋糕本身基本不会被重随, 受到伤害时只有"
 			.. Mod.Birthcake.EDEN.BIRTHCAKE_REROLL_CHANCE .. "% 的概率被重随"
 		},
+		uk_ua = {
+			"При завданні шкоди є ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.EDEN.PREVENT_REROLL_CHANCE)
+			end,
+			"% шанс не реролити предмети Едема",
+			"#Тортик переважно захищений від реролів і має "
+			.. Mod.Birthcake.EDEN.BIRTHCAKE_REROLL_CHANCE .. "% шанс реролитись при завданні шкоди"
+		},
 	},
-	[PlayerType.PLAYER_THELOST_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_THELOST_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
 			"{{Card51}} Spawns a Holy Card when first picked up",
 			"#Cards have another ",
@@ -1983,8 +2037,16 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"%"
 		},
+		uk_ua = {
+			"{{Card51}} Створює Святу картку при першому підбиранні",
+			"#Карти мають додатковий ",
+			function(descObj)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THELOST.HOLY_CARD_REPLACE_CHANCE)
+			end,
+			"% шанс стати Святою Карткою"
+		},
 	},
-	[PlayerType.PLAYER_LILITH_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_LILITH_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
 			"Whipping out Lilith's Gello has a ",
 			function(descObj)
@@ -2041,8 +2103,16 @@ BIRTHCAKE_EID.Descs = {
 			"% 的概率再生成一个小格罗",
 			"#小格罗造成50%的伤害"
 		},
+		uk_ua = {
+			"Шмагання Гелло Ліліт має ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.LILITH.SPAWN_RUNT_CHANCE)
+			end,
+			"% шанс створити додаткового Гелло",
+			"#Додатковий Гелло завдає 50% шкоди"
+		},
 	},
-	[PlayerType.PLAYER_KEEPER_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_KEEPER_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
 			"Spawns an item and 2 pickups for sale at the start of each floor"
 		},
@@ -2064,8 +2134,11 @@ BIRTHCAKE_EID.Descs = {
 		zh_cn = {
 			"进入下一层时生成打折出售的一个道具和2个掉落物"
 		},
+		uk_ua = {
+			"Створює предмет та 2 витратники для продажу на початку нового поверху"
+		},
 	},
-	[PlayerType.PLAYER_APOLLYON_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_APOLLYON_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		_modifier = function(descObj)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity),
 				descObj.ObjSubType)
@@ -2131,8 +2204,16 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			" 伤害"
 		},
+		uk_ua = {
+			"{{Collectible706}} Брелоки можуть бути перетвориними у сарани із Безоднею",
+			"#Сарана, отримана із брелока, завдає ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_APOLLYON_B]._modifier(descObj)
+			end,
+			" шкоди"
+		},
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN_B] = { 		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_THEFORGOTTEN_B] = { 		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
 			"Killing enemies will spawn stationary bone fragments that damage enemies on contact",
 			"#Holding {{Player35}}The Forgotten will cause all bone fragments to fly towards {{Player40}}The Soul, becoming orbitals",
@@ -2196,8 +2277,17 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			" 个环绕物"
 		},
+		uk_ua = {
+			"Вбивання ворогів створює стаціонарні уламки кісткок які завдають шкоду ворогам при дотиканні",
+			"#Підбір {{Player35}}Забутого змушує всіх уламок кісток прилетіти до {{Player40}}Душі, перетворюючись в орбіталів",
+			"#Можуть існувати до ",
+			function(descObj)
+				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
+			end,
+			" уламок-орбіталів"
+		},
 	},
-	[PlayerType.PLAYER_BETHANY_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_BETHANY_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		_modifier = function(descObj)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
@@ -2256,8 +2346,15 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			" 次攻击"
 		},
+		uk_ua = {
+			"{{Collectible712}} Вогники Лемегетона можуть отримати ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_BETHANY_B]._modifier(descObj)
+			end,
+			" додаткових ударів"
+		}
 	},
-	[PlayerType.PLAYER_JACOB_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_JACOB_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
 			"Dark Esau leaves behind small flames when flying, blocking tears and enemy projectiles",
 			"#The flames can damage both Jacob and enemies"
@@ -2286,11 +2383,15 @@ BIRTHCAKE_EID.Descs = {
 			"堕化以扫冲刺时会留下火墙, 阻挡泪弹和敌弹",
 			"#火焰可以伤害以扫和怪物"
 		},
+		uk_ua = {
+			"Темний Ісав залишає після себе вогонь при польоті, які блокують сльози та снаряди ворогів",
+			"#Вогонь може завдавати шкоду та Якову, та ворогам"
+		},
 	},
 }
 
 BIRTHCAKE_EID.ShortDescriptions = {
-	DEFAULT_EFFECT = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	DEFAULT_EFFECT = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		_modifier = function(descObj)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity),
 				descObj.ObjSubType)
@@ -2341,8 +2442,15 @@ BIRTHCAKE_EID.ShortDescriptions = {
 			end,
 			"% "
 		},
+		uk_ua = {
+			"↑ +",
+			function(descObj)
+				return BIRTHCAKE_EID.ShortDescriptions.DEFAULT_EFFECT._modifier(descObj)
+			end,
+			"% всім характеристам"
+		},
 	},
-	APOLLYON_B_APPEND = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	APOLLYON_B_APPEND = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [X] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		_modifier = function(descObj, strNoMult, strMult)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local objTrinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
@@ -2398,6 +2506,14 @@ BIRTHCAKE_EID.ShortDescriptions = {
 				return BIRTHCAKE_EID.ShortDescriptions.APOLLYON_B_APPEND._modifier(descObj,
 					"造成50%伤害的灰色蝗虫",
 					"造成100%伤害的红色蝗虫"
+				)
+			end
+		},
+		uk_ua = {
+			function(descObj)
+				return BIRTHCAKE_EID.ShortDescriptions.APOLLYON_B_APPEND._modifier(descObj,
+					"Сірі сарани, які завдають x0.5 шкоди",
+					"Червони сарани, які завдають повну шкоду"
 				)
 			end
 		},

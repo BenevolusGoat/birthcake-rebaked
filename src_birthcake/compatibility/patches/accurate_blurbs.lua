@@ -175,7 +175,7 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 		pt_br = "Corações ejetados dos inimigos explodem",
 		ko_kr = "적이 드랍하는 하트가 폭발을 일으킴",
 		zh_cn = "怪物产生的临时心会爆炸",
-		uk_ua = "Тимчасові серця із ворогів взриваються"
+		uk_ua = "Тимчасові серця із ворогів вибухають"
 	},
 	[PlayerType.PLAYER_CAIN_B] = { 					-- EN: [OK] | RU: [OK] | SPA: [X] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = "Double pickups are split apart",
