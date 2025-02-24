@@ -212,7 +212,7 @@ function BIRTHCAKE_EID:NormalNumberModifier(descObj, baseMult)
 end
 
 -- !TRANSLATION PROGRESS
--- EN: 36/36 | RU: 36/36 | SPA: 36/36 | CS_CZ: 4/36 | PL: 34/36 | KO_KR 36/36 | PT_BR 36/36 | ZH_CN 36/36 | UK_UA 12/36
+-- EN: 36/36 | RU: 36/36 | SPA: 36/36 | CS_CZ: 4/36 | PL: 34/36 | KO_KR 36/36 | PT_BR 36/36 | ZH_CN 36/36 | UK_UA 17/36
 
 BIRTHCAKE_EID.Descs = {
 	[PlayerType.PLAYER_ISAAC] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
@@ -1213,7 +1213,7 @@ BIRTHCAKE_EID.Descs = {
 			"% шанс копіювати ефекти сліз Ліліт"
 		},
 	},
-	[PlayerType.PLAYER_KEEPER] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_KEEPER] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		---@param descObj EID_DescObj
 		---@param str string
 		---@param strMult string
@@ -1268,8 +1268,14 @@ BIRTHCAKE_EID.Descs = {
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_KEEPER]._modifier(descObj, "一镍币", " 镍币")
 			end
 		},
+		uk_ua = {
+			"{{Shop}} Магазини та кімнати {{DevilRoom}} Диявола мають ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_KEEPER]._modifier(descObj, "п'ятак", " п'ятаки")
+			end
+		}
 	},
-	[PlayerType.PLAYER_APOLLYON] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_APOLLYON] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		_modifier = function(descObj, str)
 			local mult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity), descObj.ObjSubType,
 				true)
@@ -1342,8 +1348,17 @@ BIRTHCAKE_EID.Descs = {
 				)
 			end
 		},
+		uk_ua = {
+			"{{Collectible477}} Порожнеча може поглинати брелоки",
+			"#Поглинання брелоків додаються до твого інвентарю, зберігаючи свої ефекти поки Порожнеча утримується в руках",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_APOLLYON]._modifier(descObj,
+					"%s шанс подвоїти поглинений брелок"
+				)
+			end
+		},
 	},
-	[PlayerType.PLAYER_THEFORGOTTEN] = { 		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_THEFORGOTTEN] = { 		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		_modifier = function(descObj)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
@@ -1407,8 +1422,16 @@ BIRTHCAKE_EID.Descs = {
 			" 个骨头泪弹, 并提供 \"灵能充能\"",
 			"#切换会遗骸会根据灵能充能获得临时的射速提升"
 		},
+		uk_ua = {
+			"Стріляння в тіло {{Player16}} Забутого {{Player17}} Душею вистрілює ",
+			function(descObj)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_THEFORGOTTEN]._modifier(descObj)
+			end,
+			" уламок кістків у випадкових напрямах і поповнює його \"заряд душі\"",
+			"#Повернення в Забутого дає спадаюче підвищення темпу стрільби залежно від заряду душі"
+		}
 	},
-	[PlayerType.PLAYER_BETHANY] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_BETHANY] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
 			"{{Collectible584}} Using an active item has a ",
 			function(descObj)
@@ -1458,8 +1481,15 @@ BIRTHCAKE_EID.Descs = {
 			end,
 			"% 的概率额外生成一个相同的魂火"
 		},
+		uk_ua = {
+			"{{Collectible584}} Використання активного предмету має ",
+			function(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.BETHANY.WISP_DUPE_CHANCE)
+			end,
+			"% шанс створити додаткового вогника однакового типу"
+		},
 	},
-	[PlayerType.PLAYER_JACOB] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_JACOB] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA[OK]
 		en_us = {
 			"The holder will reflect all damage they take onto the other brother"
 		},
@@ -1481,6 +1511,9 @@ BIRTHCAKE_EID.Descs = {
 		zh_cn = {
 			"持有者会将受到的伤害反馈到兄弟身上"
 		},
+		uk_ua = {
+			"Тримач буде перенаправляти всю отриману шкоду на іншого брата"
+		}
 	},
 	[PlayerType.PLAYER_ISAAC_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
