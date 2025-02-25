@@ -607,7 +607,7 @@ BIRTHCAKE_EID.Descs = {
 				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.JUDAS.DAMAGE_MULT_UP)
 			end,
 			"% множник шкоди",
-			"#{{DevilRoom}} Якщо Диявольська угода вб'є Юду, то брелок використана інакше"
+			"#{{DevilRoom}} Якщо Диявольська угода вб'є Юду, то брелок буде використано"
 		},
 	},
 	[PlayerType.PLAYER_BLUEBABY] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
@@ -979,8 +979,8 @@ BIRTHCAKE_EID.Descs = {
 			"#同样提供攻击力加成并失去1心之容器"
 		},
 		uk_ua = {
-			"{{Collectible332}} Якщо Воскреслий Лазар вмре, то брелок буде використаним, і він відновлеться знову",
-			"#Воскресіння також дає додаткове увеличення шкоди та забирає контейнер Червоного серця"
+			"{{Collectible332}} Якщо Воскреслий Лазар вмре, то брелок буде використано, і він воскресе знову",
+			"#Воскресіння також дає додаткове збільшення шкоди та забирає контейнер Червоного серця"
 		},
 	},
 	[PlayerType.PLAYER_EDEN] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
@@ -1350,7 +1350,7 @@ BIRTHCAKE_EID.Descs = {
 		},
 		uk_ua = {
 			"{{Collectible477}} Порожнеча може поглинати брелоки",
-			"#Поглинання брелоків додаються до твого інвентарю, зберігаючи свої ефекти поки Порожнеча утримується в руках",
+			"#Поглинені брелоки додаються до твого інвентарю, зберігаючи свої ефекти, поки Порожнеча утримується в руках",
 			function(descObj)
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_APOLLYON]._modifier(descObj,
 					"%s шанс подвоїти поглинений брелок"
@@ -1598,7 +1598,7 @@ BIRTHCAKE_EID.Descs = {
 			"将双掉落物一分为二"
 		},
 		uk_ua = {
-			"Подвійні витратники Double pickups that spawn are розділені на їхні половини"
+			"Подвійні витратники розділені на їхні половини"
 		},
 	},
 	[PlayerType.PLAYER_JUDAS_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
@@ -1654,7 +1654,7 @@ BIRTHCAKE_EID.Descs = {
 			end
 		},
 		uk_ua = {
-			"{{Collectible705}} Прохід через ворогів під Темними Мистецтвами зменшує час заряду на",
+			"{{Collectible705}} Прохід через ворогів під Темними Мистецтвами зменшує час заряду на ",
 			function(descObj)
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_JUDAS_B]._modifier(descObj)
 			end
@@ -1749,7 +1749,7 @@ BIRTHCAKE_EID.Descs = {
 		},
 		uk_ua = {
 			"Кров'яні згустки залишають після себе малу калюжу, що завдає шкоду, при смерті",
-			"#Шкода та ефекти калюжі залежать від виду померлої згустки"
+			"#Шкода та ефекти калюжі залежать від виду омерлого згустка"
 		},
 	},
 	[PlayerType.PLAYER_SAMSON_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
@@ -1868,7 +1868,7 @@ BIRTHCAKE_EID.Descs = {
 			"% 的概率粘在敌人身上"
 		},
 		uk_ua = {
-			"Пчихання вистрілює групи 6 соплів, які наносять частину шкоди Азазеля ",
+			"Пчихання вистрілює групи з 6 соплів, які завдають частину шкоди Азазеля",
 			"#{{Collectible459}} Соплі мають ",
 			function(descObj)
 				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.AZAZEL.BOOGER_STICK_CHANCE)
@@ -1899,7 +1899,7 @@ BIRTHCAKE_EID.Descs = {
 			"{{Collectible711}} 生死逆转的效果改为将道具和虚影一分为二"
 		},
 		uk_ua = {
-			"{{Collectible711}} При використанні Перевернись п'єдестали с предметами розділяються на обидва відображені предмети"
+			"При використанні Перевернись, п'єдестали з предметами розділяються на обидва відображені предмети"
 		},
 	},
 	[PlayerType.PLAYER_EDEN_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
@@ -1967,13 +1967,13 @@ BIRTHCAKE_EID.Descs = {
 			.. Mod.Birthcake.EDEN.BIRTHCAKE_REROLL_CHANCE .. "% 的概率被重随"
 		},
 		uk_ua = {
-			"При завданні шкоди є ",
+			"При отриманні шкоди є ",
 			function(descObj)
-				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.EDEN.PREVENT_REROLL_CHANCE)
+			return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.EDEN.PREVENT_REROLL_CHANCE)
 			end,
 			"% шанс не реролити предмети Едема",
 			"#Тортик переважно захищений від реролів і має "
-			.. Mod.Birthcake.EDEN.BIRTHCAKE_REROLL_CHANCE .. "% шанс реролитись при завданні шкоди"
+			.. Mod.Birthcake.EDEN.BIRTHCAKE_REROLL_CHANCE .. "% шанс реролитись при отриманні шкоди"
 		},
 	},
 	[PlayerType.PLAYER_THELOST_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
@@ -2135,7 +2135,7 @@ BIRTHCAKE_EID.Descs = {
 			"进入下一层时生成打折出售的一个道具和2个掉落物"
 		},
 		uk_ua = {
-			"Створює предмет та 2 витратники для продажу на початку нового поверху"
+			"Створює предмет та 2 витратники для продажу на початку кожного нового поверху"
 		},
 	},
 	[PlayerType.PLAYER_APOLLYON_B] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
@@ -2205,7 +2205,7 @@ BIRTHCAKE_EID.Descs = {
 			" 伤害"
 		},
 		uk_ua = {
-			"{{Collectible706}} Брелоки можуть бути перетвориними у сарани із Безоднею",
+			"{{Collectible706}} Брелоки можуть бути перетвориними у сарани за допомогою Безодні",
 			"#Сарана, отримана із брелока, завдає ",
 			function(descObj)
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_APOLLYON_B]._modifier(descObj)
@@ -2278,11 +2278,11 @@ BIRTHCAKE_EID.Descs = {
 			" 个环绕物"
 		},
 		uk_ua = {
-			"Вбивання ворогів створює стаціонарні уламки кісткок які завдають шкоду ворогам при дотиканні",
-			"#Підбір {{Player35}}Забутого змушує всіх уламок кісток прилетіти до {{Player40}}Душі, перетворюючись в орбіталів",
+			"Вбивство ворогів створює стаціонарні уламки кісток, які завдають шкоди ворогам при дотику",
+			"#Підбір {{Player35}}Забутого змушує всі уламки кісток прилетіти до {{Player40}}Душі, перетворюючись в орбіталів",
 			"#Можуть існувати до ",
 			function(descObj)
-				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
+			return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
 			end,
 			" уламок-орбіталів"
 		},
@@ -2384,8 +2384,8 @@ BIRTHCAKE_EID.Descs = {
 			"#火焰可以伤害以扫和怪物"
 		},
 		uk_ua = {
-			"Темний Ісав залишає після себе вогонь при польоті, які блокують сльози та снаряди ворогів",
-			"#Вогонь може завдавати шкоду та Якову, та ворогам"
+			"Темний Ісав залишає після себе вогонь при польоті, який блокує сльози та снаряди ворогів",
+			"#Вогонь може завдавати шкоду Якову та ворогам"
 		},
 	},
 }
