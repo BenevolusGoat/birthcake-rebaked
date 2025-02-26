@@ -1010,6 +1010,14 @@ BIRTHCAKE_EID.Descs = {
 			"% множник шкоди",
 			"#Промені Сірки тривають довше поки завдає шкоду ворогам"
 		},
+		cs_cz = {
+			"{{ArrowDown}} {{Damage}} -",
+			function()
+				return tostring(BIRTHCAKE_EID:AdjustNumberValue(Mod.Birthcake.AZAZEL.DAMAGE_MULT_DOWN))
+			end,
+			"% násobitel poškození",
+			"#Brimstone vydrží déle při poškozování nepřátel"
+		},
 	},
 	[PlayerType.PLAYER_LAZARUS] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
 		en_us = {
