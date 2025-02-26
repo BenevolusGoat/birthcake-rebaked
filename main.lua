@@ -225,7 +225,7 @@ local languageOptionToEID = {
 	["fr"] = "fr",
 	["ru"] = "ru",
 	["kr"] = "ko_kr",
-	["zh"] = "zh_cn"
+	["zh"] = "zh_cn",
 }
 
 local modSettingToLanguage = {
@@ -236,7 +236,8 @@ local modSettingToLanguage = {
 	"ko_kr",
 	"pl",
 	"pt_br",
-	"zh_cn"
+	"zh_cn",
+	"uk_ua",
 }
 
 function BirthcakeRebaked:GetLanguage()

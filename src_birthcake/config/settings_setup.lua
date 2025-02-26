@@ -20,7 +20,8 @@ SettingsHelper.AddChoiceSetting("Settings", Mod.Setting.BirthcakeLanguage,
 		"Korean",
 		"Polish",
 		"Brazillian Portugese",
-		"Chinese"
+		"Chinese",
+		"Ukrainian"
 	}, 2)
 
 SettingsHelper.AddBooleanSetting("Settings", Mod.Setting.UniqueSprite,
