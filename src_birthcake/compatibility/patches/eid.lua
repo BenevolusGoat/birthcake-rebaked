@@ -2627,7 +2627,7 @@ BIRTHCAKE_EID.Descs = {
 }
 
 BIRTHCAKE_EID.ShortDescriptions = {
-	DEFAULT_EFFECT = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
+	DEFAULT_EFFECT = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		_modifier = function(descObj)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity),
 				descObj.ObjSubType)
@@ -2664,6 +2664,13 @@ BIRTHCAKE_EID.ShortDescriptions = {
 			end,
 			"% para todas as estatísticas"
 		},
+		pl = {
+			"↑ +",
+			function(descObj)
+				return BIRTHCAKE_EID.ShortDescriptions.DEFAULT_EFFECT._modifier(descObj)
+			end,
+			"% do wszystkich statystyk"
+		},
 		ko_kr = {
 			"↑ 모든 능력치 +",
 			function(descObj)
@@ -2693,7 +2700,7 @@ BIRTHCAKE_EID.ShortDescriptions = {
 			"% všem atributům"
 		},
 	},
-	APOLLYON_B_APPEND = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [X] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
+	APOLLYON_B_APPEND = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		_modifier = function(descObj, strNoMult, strMult)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local objTrinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
@@ -2733,6 +2740,14 @@ BIRTHCAKE_EID.ShortDescriptions = {
 				return BIRTHCAKE_EID.ShortDescriptions.APOLLYON_B_APPEND._modifier(descObj,
 					"Gafanhotos cinzas que dão metade de dano",
 					"Gafanhotos vermelhos que podam dar seu dano inteiro"
+				)
+			end
+		},
+		pl = {
+			function(descObj)
+				return BIRTHCAKE_EID.ShortDescriptions.APOLLYON_B_APPEND._modifier(descObj,
+					"Szare szarańcze zadają połowę obrażeń",
+					"Czerwone szarańcze zadają pełne obrażenia"
 				)
 			end
 		},
