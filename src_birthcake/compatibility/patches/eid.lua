@@ -1017,7 +1017,7 @@ BIRTHCAKE_EID.Descs = {
 			" 个随机饰品",
 			"#丢弃蛋糕会失去这些饰品的效果"
 		},
-		en_us = {
+		cs_cz = {
 			"{{Trinket}} Spolkne ",
 			function(descObj)
 				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_EDEN]._modifier(descObj)
@@ -1884,7 +1884,7 @@ BIRTHCAKE_EID.Descs = {
 		ru = {
 			"Получение урона имеет ",
 			function(descObj)
-				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_EDEN_B]._modifier(descObj)
+				return BIRTHCAKE_EID:BalancedNumberModifier(descObj, Mod.Birthcake.EDEN.PREVENT_REROLL_CHANCE)
 			end,
 			"% шанс не изменить предметы Эдема",
 			"#Пироженое в основном невосприимчиво к изменению и имеет "
