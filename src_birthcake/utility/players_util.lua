@@ -55,8 +55,12 @@ function BirthcakeRebaked:AddSmeltedTrinkets(player, trinketList)
 	local trinket0 = player:GetTrinket(0)
 	local trinket1 = player:GetTrinket(1)
 	if not REPENTOGON then
-		player:TryRemoveTrinket(trinket0)
-		player:TryRemoveTrinket(trinket1)
+		if trinket0 ~= TrinketType.TRINKET_NULL then
+			player:TryRemoveTrinket(trinket0)
+		end
+		if trinket1 ~= TrinketType.TRINKET_NULL then
+			player:TryRemoveTrinket(trinket1)
+		end
 	end
 	for _, trinketData in ipairs(trinketList) do
 		local trinketID = type(trinketData) == "table" and trinketData.TrinketType or trinketData
@@ -72,8 +76,12 @@ function BirthcakeRebaked:AddSmeltedTrinkets(player, trinketList)
 		end
 	end
 	if not REPENTOGON then
-		player:AddTrinket(trinket0)
-		player:AddTrinket(trinket1)
+		if trinket0 ~= TrinketType.TRINKET_NULL then
+			player:AddTrinket(trinket0)
+		end
+		if trinket1 ~= TrinketType.TRINKET_NULL then
+			player:AddTrinket(trinket1)
+		end
 	end
 end
 
