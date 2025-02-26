@@ -1019,7 +1019,7 @@ BIRTHCAKE_EID.Descs = {
 			"#血激光柱在造成伤害后会持续更长时间"
 		},
 	},
-	[PlayerType.PLAYER_LAZARUS] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
+	[PlayerType.PLAYER_LAZARUS] = { 			-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [X] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		en_us = {
 			"{{Collectible332}} If Lazarus Risen dies, this trinket is consumed and he is revived again",
 			"#The revive grants another damage increase and removes a heart container"
@@ -2627,7 +2627,7 @@ BIRTHCAKE_EID.Descs = {
 }
 
 BIRTHCAKE_EID.ShortDescriptions = {
-	DEFAULT_EFFECT = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
+	DEFAULT_EFFECT = { 							-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		_modifier = function(descObj)
 			local trinketMult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity),
 				descObj.ObjSubType)
@@ -2700,7 +2700,7 @@ BIRTHCAKE_EID.ShortDescriptions = {
 			"% všem atributům"
 		},
 	},
-	APOLLYON_B_APPEND = { -- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
+	APOLLYON_B_APPEND = { 						-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
 		_modifier = function(descObj, strNoMult, strMult)
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
 			local objTrinketMult = BIRTHCAKE_EID:TrinketMulti(player, descObj.ObjSubType)
