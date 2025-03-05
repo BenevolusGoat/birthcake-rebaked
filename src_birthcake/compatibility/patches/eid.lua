@@ -2430,12 +2430,18 @@ BIRTHCAKE_EID.Descs = {
 		},
 	},
 	[PlayerType.PLAYER_THEFORGOTTEN_B] = { 		-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK] | UK_UA [OK]
+		_modifier = function(descObj, num)
+			local trinketMult = BIRTHCAKE_EID:TrinketMulti(BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity), descObj.ObjSubType)
+			local chance = num * trinketMult
+
+			return BIRTHCAKE_EID:GoldConditional(chance, trinketMult)
+		end,
 		en_us = {
 			"Killing enemies will spawn stationary bone fragments that damage enemies on contact",
 			"#Holding {{Player35}}The Forgotten will cause all bone fragments to fly towards {{Player40}}The Soul, becoming orbitals",
 			"#Can have up to ",
 			function(descObj)
-				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_THEFORGOTTEN_B]._modifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
 			end,
 			" orbitals"
 		},
@@ -2444,7 +2450,7 @@ BIRTHCAKE_EID.Descs = {
 			"#Подбирание {{Player35}}Забытого заставит все осколки костей полететь к {{Player40}}Душе, становясь орбитальными",
 			"#Может иметь до ",
 			function(descObj)
-				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_THEFORGOTTEN_B]._modifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
 			end,
 			" орбитальных осколков костей"
 		},
@@ -2453,7 +2459,7 @@ BIRTHCAKE_EID.Descs = {
 			"#Recoger a {{Player35}}El Olvidado atrae a todos los fragmentos de hueso a {{Player40}}El Alma, convirtiéndose en orbitales",
 			"#Puede tener hasta ",
 			function(descObj)
-				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_THEFORGOTTEN_B]._modifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
 			end,
 			" orbitales"
 		},
@@ -2462,7 +2468,7 @@ BIRTHCAKE_EID.Descs = {
 			"#Podniesienie {{Player35}}Ciała przyciąga wszystkie kości do {{Player40}}Duszy, po czym zaczynają ją orbitować",
 			"#Można mieć maksymalnie ",
 			function(descObj)
-				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_THEFORGOTTEN_B]._modifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
 			end,
 			" kości"
 		},
@@ -2471,7 +2477,7 @@ BIRTHCAKE_EID.Descs = {
 			"#Segurar {{Player35}}O esquecido causará todos os fragmentos voarem em direção a {{Player40}}A Alma, virando orbitais",
 			"#Pode ter até ",
 			function(descObj)
-				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_THEFORGOTTEN_B]._modifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
 			end,
 			" orbitais"
 		},
@@ -2480,7 +2486,7 @@ BIRTHCAKE_EID.Descs = {
 			"{{Player35}}포가튼을 들어올리면 뼛조각들이 오비탈이 되어 {{Player40}}더 소울의 주위를 돌게 됩니다.",
 			"#뼛조각 오비탈은 최대 ",
 			function(descObj)
-				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_THEFORGOTTEN_B]._modifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
 			end,
 			"개까지 가질 수 있습니다."
 		},
@@ -2489,7 +2495,7 @@ BIRTHCAKE_EID.Descs = {
 			"#举起 {{Player35}}堕化遗骸会让所有骨片飞向{{Player40}}遗骸之魂并变成环绕物",
 			"#至多能拥有 ",
 			function(descObj)
-				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_THEFORGOTTEN_B]._modifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
 			end,
 			" 个环绕物"
 		},
@@ -2498,7 +2504,7 @@ BIRTHCAKE_EID.Descs = {
 			"#Підбір {{Player35}}Забутого змушує всі уламки кісток прилетіти до {{Player40}}Душі, перетворюючись в орбіталів",
 			"#Можуть існувати до ",
 			function(descObj)
-			return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
+			return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_THEFORGOTTEN_B]._modifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
 			end,
 			" уламок-орбіталів"
 		},
@@ -2507,7 +2513,7 @@ BIRTHCAKE_EID.Descs = {
 			"#Držení {{Player35}}Zapomenutého způsobí že všechny kostěné úlomky poletí k {{Player40}}Duši a stanou se orbitálními",
 			"#Lze mít až ",
 			function(descObj)
-				return BIRTHCAKE_EID:NormalNumberModifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
+				return BIRTHCAKE_EID.Descs[PlayerType.PLAYER_THEFORGOTTEN_B]._modifier(descObj, Mod.Birthcake.THEFORGOTTEN.BONE_ORBITAL_CAP)
 			end,
 			" orbitálů"
 		},

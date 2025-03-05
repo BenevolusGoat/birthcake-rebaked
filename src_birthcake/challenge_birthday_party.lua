@@ -331,7 +331,7 @@ function BIRTHDAY_PARTY:OnPeffectUpdate(player)
 		local data = Mod:GetData(player)
 		if data.BirthdayPartyQueueBirthcake then
 			player:QueueItem(Mod.ItemConfig:GetTrinket(Mod.Birthcake.ID))
-				Mod.SFXManager:Play(SoundEffect.SOUND_SHELLGAME)
+			Mod.SFXManager:Play(SoundEffect.SOUND_SHELLGAME)
 			data.BirthdayPartyQueueBirthcake = nil
 		end
 	end
