@@ -271,7 +271,7 @@ BirthcakeRebaked.BirthcakeAccurateBlurbs = {
 		uk_ua = "При зачистки кімнати можливе (продовження Берсерк! + випадання серця)",
 	},
 	[PlayerType.PLAYER_AZAZEL_B] = { 				-- EN: [OK] | RU: [OK] | SPA: [OK] | CS_CZ: [OK] | PL: [OK] | KO_KR [OK] | PT_BR [OK] | ZH_CN [OK]
-		en_us = "Sneeze brimstone-marking booger tears",
+		en_us = "Sneeze Brimstone-marking booger tears",
 		ru = "Вычихивание соплей с меткой серы",
 		spa = "El estornudo de brimstone suleta mocos",
 		pl = "Kichaj naznaczającymi smarkami",
