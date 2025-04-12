@@ -189,7 +189,8 @@ function BIRTHDAY_PARTY:GrantSavedHealth(player)
 		player:AddBlackHearts(health.Black or 0)
 		if isMainTwin then
 			player_run_save.BirthdayPartySavedHealth = nil
-		elseif Mod:GetAllHearts(player) == 0 then
+		end
+		if Mod:GetAllHearts(player) == 0 then
 			player:AddMaxHearts(2)
 		end
 	end
