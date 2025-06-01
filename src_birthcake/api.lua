@@ -80,6 +80,7 @@ end
 ---@param playerType PlayerType
 ---@param desc string | table
 function API:AddEIDDescription(playerType, desc)
+	if not EID then return end
 	local descTable = desc
 	if type(descTable) ~= "table" then
 		descTable = {

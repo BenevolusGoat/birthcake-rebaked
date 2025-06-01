@@ -59,7 +59,12 @@ end
 ---@param player EntityPlayer
 ---@param playerType PlayerType
 function BirthcakeRebaked:PlayerTypeHasBirthcake(player, playerType)
-	return player and player:ToPlayer() and playerType and player:ToPlayer():GetPlayerType() == playerType and player:ToPlayer():HasTrinket(Mod.Birthcake.ID)
+	return player
+		and player:ToPlayer()
+		and playerType
+		and player:ToPlayer():GetPlayerType() == playerType
+		and player:ToPlayer():HasTrinket(Mod.Birthcake.ID)
+		and player.Variant == PlayerVariant.PLAYER
 end
 
 --- Returns true if any players have given trinket
