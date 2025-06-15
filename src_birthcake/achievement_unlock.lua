@@ -31,4 +31,4 @@ function ACHIEVEMENT:CheckChallengeUnlock()
 end
 
 Mod:AddCallback(ModCallbacks.MC_POST_ACHIEVEMENT_UNLOCK, ACHIEVEMENT.CheckChallengeUnlock)
-Mod.SaveManager.AddCallback(Mod.SaveManager.Utility.CustomCallback.POST_DATA_LOAD, ACHIEVEMENT.CheckChallengeUnlock)
+Mod:AddCallback(Mod.SaveManager.SaveCallbacks.POST_DATA_LOAD, ACHIEVEMENT.CheckChallengeUnlock)
