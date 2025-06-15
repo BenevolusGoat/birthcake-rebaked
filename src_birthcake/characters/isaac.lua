@@ -76,6 +76,7 @@ function ISAAC_CAKE:PrePickupCollision(pickup, collider)
 		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_ISAAC_B)
 		and pickup.SubType ~= CollectibleType.COLLECTIBLE_NULL
 		and pickup.Wait == 0
+		and player.ItemHoldCooldown == 0
 		and Mod:CanPlayerBuyShopItem(player, pickup)
 		and ISAAC_CAKE:ItemWillFillInventory(pickup.SubType)
 		and ISAAC_CAKE:HasFullInventory(player)
@@ -89,8 +90,9 @@ function ISAAC_CAKE:PrePickupCollision(pickup, collider)
 		if #inventory < player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID) then
 			inventory[#inventory + 1] = pickup.SubType
 			Mod.HiddenItemManager:Add(player, pickup.SubType, -1, 1, ISAAC_CAKE.HIDDEN_ITEM_MANAGER_GROUP)
-			Mod:AwardPedestalItem(pickup, player)
-			return false
+			Mod:PricedPickup(player, pickup)
+			local itemConfig = Mod.ItemConfig:GetCollectible(pickup.SubType)
+			Mod.Game:GetHUD():ShowItemText(player, itemConfig)
 		end
 	end
 end

@@ -7,11 +7,14 @@ local ISAAC_CAKE = BirthcakeRebaked.Birthcake.ISAAC
 function ISAAC_CAKE:HasFullInventory(player)
 	local numPassives = 0
 	for itemID = 1, #Mod.ItemConfig:GetCollectibles() do
-		if ISAAC_CAKE:ItemWillFillInventory(itemID) then
+		if player:HasCollectible(itemID) and ISAAC_CAKE:ItemWillFillInventory(itemID) then
 			numPassives = numPassives + 1
+			if numPassives >= ISAAC_CAKE:GetMaxInventorySpace(player) then
+				return true
+			end
 		end
 	end
-	return numPassives >= ISAAC_CAKE:GetMaxInventorySpace(player)
+	return false
 end
 
 ---@param player EntityPlayer
