@@ -21,6 +21,7 @@ local characters = {
 	"azazel",
 	"forgotten",
 	"lilith",
+	"found_soul",
 	"default_effect"
 }
 local characterScriptPath = "src_birthcake.characters."
