@@ -64,7 +64,7 @@ function BirthcakeRebaked:PlayerTypeHasBirthcake(player, playerType)
 		and playerType
 		and player:ToPlayer():GetPlayerType() == playerType
 		and player:ToPlayer():HasTrinket(Mod.Birthcake.ID)
-		and player.Variant == PlayerVariant.PLAYER
+		and player.Variant == Mod.PlayerVariant.PLAYER
 end
 
 --- Returns true if any players have given trinket

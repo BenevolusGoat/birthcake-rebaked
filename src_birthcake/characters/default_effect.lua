@@ -14,7 +14,7 @@ end
 function DEFAULT_EFFECT:AllStatsUp(player, flag)
 	local playerType = player:GetPlayerType()
 	if player:HasTrinket(Mod.Birthcake.ID)
-		and player.Variant == PlayerVariant.PLAYER
+		and player.Variant == Mod.PlayerVariant.PLAYER
 		and not Mod.BirthcakeDescriptions[playerType]
 		and not Birthcake.BirthcakeDescs[playerType]
 	then

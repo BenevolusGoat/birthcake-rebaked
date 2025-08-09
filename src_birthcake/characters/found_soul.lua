@@ -17,11 +17,11 @@ function FOUND_SOUL_CAKE:CheckBirthcake(player)
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, FOUND_SOUL_CAKE.CheckBirthcake, PlayerVariant.FOUND_SOUL)
+Mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, FOUND_SOUL_CAKE.CheckBirthcake, Mod.PlayerVariant.FOUND_SOUL)
 
 function FOUND_SOUL_CAKE:PlayPartyHorn()
 	if delayHorn then
-		Mod:ForEachPlayer(function (player)
+		Mod:ForEachPlayer(function(player)
 			if player:GetData().CheckCoopBabyBirthcake and player:HasTrinket(Mod.Birthcake.ID) then
 				Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
 				player:SetColor(FOUND_SOUL_CAKE.BIRTHCAKE_COLOR, 15, 1, true, false)
@@ -38,7 +38,7 @@ Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, FOUND_SOUL_CAKE.PlayPartyHorn)
 ---@param flag CacheFlag
 function FOUND_SOUL_CAKE:AllStatsUp(player, flag)
 	if player:HasTrinket(Mod.Birthcake.ID)
-		and player.Variant == PlayerVariant.FOUND_SOUL
+		and player.Variant == Mod.PlayerVariant.FOUND_SOUL
 		and player.BabySkin == BabySubType.BABY_FOUND_SOUL
 	then
 		local parent = player.Parent and player.Parent:ToPlayer()

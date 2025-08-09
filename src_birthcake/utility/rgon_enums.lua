@@ -63,3 +63,9 @@ BirthcakeRebaked.BloodClotSubtype = {
 	BONE = 5,
 	ROTTEN = 6
 }
+
+BirthcakeRebaked.PlayerVariant = {
+	PLAYER = 0,
+	FOUND_SOUL = 1,
+	CO_OP_BABY = 1
+}
