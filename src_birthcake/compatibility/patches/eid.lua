@@ -2800,6 +2800,8 @@ BIRTHCAKE_EID.ShortDescriptions = {
 	FOUND_SOUL = {
 		en_us = {
 			"Deals 100% of Isaac's damage"
+		},zh_cn={
+			"造成100%角色伤害"
 		}
 	}
 }
@@ -2937,3 +2939,4 @@ EID:addDescriptionModifier(
 		return descObj
 	end
 )
+
