@@ -1,18 +1,17 @@
 local Mod = BirthcakeRebaked
 
---Although categorized under Lost Soul, this technically extends to any "co-op baby player"
---And also because its exclusive to co-op babies/Lost Soul theres no need for a name, sprite, etc :P
-
 local FOUND_SOUL_CAKE = {}
 
 BirthcakeRebaked.Birthcake.LOST_SOUL = FOUND_SOUL_CAKE
 
 FOUND_SOUL_CAKE.BIRTHCAKE_COLOR = Color(1, 1, 1, 1, 0.5, 0.2, 0.21)
+FOUND_SOUL_CAKE.DAMAGE_MULT_UP = 0.50
 
 local delayHorn = false
 
+---@param player EntityPlayer
 function FOUND_SOUL_CAKE:CheckBirthcake(player)
-	if Mod.Game:GetRoom():GetFrameCount() > 0 then
+	if Mod.Game:GetRoom():GetFrameCount() > 0 and player.BabySkin == BabySubType.BABY_FOUND_SOUL then
 		player:GetData().CheckCoopBabyBirthcake = true
 		delayHorn = true
 	end
@@ -25,7 +24,7 @@ function FOUND_SOUL_CAKE:PlayPartyHorn()
 		Mod:ForEachPlayer(function (player)
 			if player:GetData().CheckCoopBabyBirthcake and player:HasTrinket(Mod.Birthcake.ID) then
 				Mod.SFXManager:Play(Mod.SFX.PARTY_HORN)
-				player:SetColor(FOUND_SOUL_CAKE.BIRTHCAKE_COLOR, -1, 1, false, false)
+				player:SetColor(FOUND_SOUL_CAKE.BIRTHCAKE_COLOR, 15, 1, true, false)
 				player:GetData().CheckCoopBabyBirthcake = nil
 			end
 		end)
@@ -35,14 +34,17 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_POST_UPDATE, FOUND_SOUL_CAKE.PlayPartyHorn)
 
----@param tear EntityTear
-function FOUND_SOUL_CAKE:PostFireTear(tear)
-	local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
-	if player and player.Variant == PlayerVariant.FOUND_SOUL then
-		local bc = FOUND_SOUL_CAKE.BIRTHCAKE_COLOR
-		local c = tear:GetColor()
-		tear:SetColor(Color(c.R, c.G, c.B, c.A, bc.RO, bc.GO, bc.BO), -1, 1, false, true)
+---@param player EntityPlayer
+---@param flag CacheFlag
+function FOUND_SOUL_CAKE:AllStatsUp(player, flag)
+	if player:HasTrinket(Mod.Birthcake.ID)
+		and player.Variant == PlayerVariant.FOUND_SOUL
+		and player.BabySkin == BabySubType.BABY_FOUND_SOUL
+	then
+		local parent = player.Parent and player.Parent:ToPlayer()
+		if not parent then return end
+		player.Damage = player.Damage + (parent.Damage * FOUND_SOUL_CAKE.DAMAGE_MULT_UP)
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, FOUND_SOUL_CAKE.PostFireTear)
+Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, FOUND_SOUL_CAKE.AllStatsUp, CacheFlag.CACHE_DAMAGE)

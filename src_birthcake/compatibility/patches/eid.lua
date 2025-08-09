@@ -48,6 +48,13 @@ EID:setModIndicatorIcon("Birthcake: Rebaked ModIcon")
 
 --#region Icons
 
+local birthcakeSprite = Sprite()
+birthcakeSprite:Load("gfx/eid_inline_icons.anm2", true)
+birthcakeSprite:ReplaceSpritesheet(0, "")
+birthcakeSprite:ReplaceSpritesheet(1, "gfx/items/trinkets/0_isaac_birthcake.png")
+birthcakeSprite:LoadGraphics()
+EID:addIcon("Birthcake", "ItemIcon", 0, 11, 8, -2, -2, birthcakeSprite)
+
 --#endregion
 
 --#region Snipped Dynamic Description stuff from Epiphany
@@ -2789,6 +2796,11 @@ BIRTHCAKE_EID.ShortDescriptions = {
 				)
 			end
 		},
+	},
+	FOUND_SOUL = {
+		en_us = {
+			"Deals 100% of Isaac's damage"
+		}
 	}
 }
 
@@ -2898,20 +2910,30 @@ EID:addDescriptionModifier(
 )
 
 EID:addDescriptionModifier(
-	"Apollyon B Birthcake",
+	"Birthcake Trinket Append",
 	---@param descObj EID_DescObj
 	function(descObj)
 		if descObj.ObjVariant == PickupVariant.PICKUP_TRINKET then
 			local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
-			if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_APOLLYON_B) then
+			if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_APOLLYON_B)
+				or (descObj.ObjSubType == TrinketType.TRINKET_FOUND_SOUL and player:HasTrinket(Mod.Birthcake.ID))
+			then
 				return true
 			end
 		end
 	end,
 	---@param descObj EID_DescObj
 	function(descObj)
-		local desc = BIRTHCAKE_EID:GetTranslatedString(BIRTHCAKE_EID.ShortDescriptions.APOLLYON_B_APPEND)
-		EID:appendToDescription(descObj, "#" .. desc.Func(descObj))
+		local desc
+		local append = ""
+		local player = BIRTHCAKE_EID:ClosestPlayerTo(descObj.Entity)
+		if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_APOLLYON_B) then
+			desc = BIRTHCAKE_EID:GetTranslatedString(BIRTHCAKE_EID.ShortDescriptions.APOLLYON_B_APPEND)
+		else
+			append = "{{Birthcake}} "
+			desc = BIRTHCAKE_EID:GetTranslatedString(BIRTHCAKE_EID.ShortDescriptions.FOUND_SOUL)
+		end
+		EID:appendToDescription(descObj, "#" .. append .. desc.Func(descObj))
 		return descObj
 	end
 )
