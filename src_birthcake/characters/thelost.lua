@@ -27,7 +27,7 @@ function THELOST_CAKE:OnLastMantleHit(effect)
 		and player:GetEffects():GetCollectibleEffectNum(CollectibleType.COLLECTIBLE_HOLY_MANTLE) == 0
 	then
 		player:AddCollectible(CollectibleType.COLLECTIBLE_ASTRAL_PROJECTION)
-		player:TakeDamage(0, DamageFlag.DAMAGE_FAKE, EntityRef(player), 0)
+		player:TakeDamage(0, DamageFlag.DAMAGE_FAKE | DamageFlag.DAMAGE_NO_PENALTIES, EntityRef(player), 0)
 		player:RemoveCollectible(CollectibleType.COLLECTIBLE_ASTRAL_PROJECTION)
 		player:GetEffects():AddTrinketEffect(Mod.Birthcake.ID, false, THELOST_CAKE.AP_DURATION)
 		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.DEVIL)) do
