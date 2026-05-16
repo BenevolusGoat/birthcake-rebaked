@@ -9,6 +9,8 @@ BIRTHDAY_PARTY.ID = Isaac.GetChallengeIdByName("Isaac's Birthday Party")
 
 include("src_birthcake.utility.challenge_util")
 
+local FORCED_CHARACTER = -1
+
 local CHARACTER_LIST = {
 	PlayerType.PLAYER_ISAAC,
 	PlayerType.PLAYER_MAGDALENE,
@@ -268,6 +270,10 @@ end
 
 Mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, BIRTHDAY_PARTY.OnChallengeStart)
 
+function BirthcakeRebaked:ForcePartyChar(playerType)
+	FORCED_CHARACTER = playerType
+end
+
 function BIRTHDAY_PARTY:SwitchCharacter()
 	local level = Mod.Game:GetLevel()
 	if Isaac.GetChallenge() == BIRTHDAY_PARTY.ID
@@ -285,6 +291,9 @@ function BIRTHDAY_PARTY:SwitchCharacter()
 		end
 		local randomIndex = Mod.GENERIC_RNG:RandomInt(#run_save.BirthdayPartyCharacterList) + 1
 		local selectedPlayerType = run_save.BirthdayPartyCharacterList[randomIndex]
+		if FORCED_CHARACTER ~= -1 then
+			selectedPlayerType = FORCED_CHARACTER
+		end
 		table.remove(run_save.BirthdayPartyCharacterList, randomIndex)
 
 		for _, ent in ipairs(Isaac.FindByType(EntityType.ENTITY_PLAYER)) do

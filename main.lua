@@ -19,7 +19,7 @@ Mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
 	BirthcakeRebaked.GENERIC_RNG:SetSeed(Mod.Game:GetSeeds():GetStartSeed(), 35)
 end)
 
-BirthcakeRebaked.VERSION = "1.1.5"
+BirthcakeRebaked.VERSION = "1.1.6"
 
 local trinketPath = "gfx/items/trinkets/"
 

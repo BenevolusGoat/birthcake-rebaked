@@ -1034,7 +1034,7 @@ function BirthcakeRebaked:AppendCake(str, lang)
 		ru = true,
 		spa = true,
 		pl = true,
-		uk_ua = true,
+		uk_ua = true
 	}
 	if reverse[lang] then
 		return translations.ONE_LINERS.CAKE[lang] .. " " .. str

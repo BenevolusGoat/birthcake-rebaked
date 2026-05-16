@@ -1,7 +1,7 @@
 local Mod = BirthcakeRebaked
 local emptyShaderName = "Birthcake-EmptyShader"
 
-local VERSION = 1.15 -- (v1.1.5) do not modify
+local VERSION = 1.16 -- (v1.1.6) do not modify
 local game = Game()
 local itemConfig = Isaac.GetItemConfig()
 
@@ -199,6 +199,7 @@ local function InitMod()
 		HudHelper.AddedCallbacks[ModCallbacks.MC_POST_PLAYERHUD_RENDER_HEARTS] = {}
 		HudHelper.AddedCallbacks[ModCallbacks.MC_PRE_PLAYERHUD_RENDER_ACTIVE_ITEM] = {}
 		HudHelper.AddedCallbacks[ModCallbacks.MC_POST_PLAYERHUD_RENDER_ACTIVE_ITEM] = {}
+		HudHelper.AddedCallbacks[ModCallbacks.MC_HUD_RENDER] = {}
 		HudHelper.AddedCallbacks[ModCallbacks.MC_POST_HUD_RENDER] = {}
 		HudHelper.AddedCallbacks[ModCallbacks.MC_POST_MODS_LOADED] = {}
 	else
@@ -206,11 +207,21 @@ local function InitMod()
 		HudHelper.AddedCallbacks[ModCallbacks.MC_GET_SHADER_PARAMS] = {}
 	end
 
+	---@type table<ModCallbacks, function[]>
+	HudHelper.AddedCallbacks = {} -- for any vanilla callback functions added by this library
 	HudHelper.Callbacks = {}
-
 	---@type table<string, HUDCallback[]>
-	HudHelper.Callbacks.RegisteredCallbacks = game:GetFrameCount() == 0 and CACHED_CALLBACKS or {}
-	HudHelper.AddedCallbacks = game:GetFrameCount() == 0 and CACHED_MOD_CALLBACKS or HudHelper.AddedCallbacks
+	HudHelper.Callbacks.RegisteredCallbacks = {}
+	if game:GetFrameCount() == 0 and CACHED_CALLBACKS then
+		HudHelper.Callbacks.RegisteredCallbacks = CACHED_CALLBACKS
+	end
+
+	-- Unregister previous callbacks
+	for callback, funcs in pairs(CACHED_MOD_CALLBACKS or {}) do
+		for i = 1, #funcs do
+			HudHelper:RemoveCallback(callback, funcs[i])
+		end
+	end
 
 	HudHelper.LoadedPatches = false
 
@@ -581,8 +592,6 @@ local function InitFunctions()
 	---Gives the location of the player's HUD as a vector, starting from the top left corner.
 	---@param playerHUDIndex integer
 	---@return Vector
-	---@function
-	---@scope Mod.HudHelper
 	function HudHelper.GetHUDPosition(playerHUDIndex)
 		playerHUDIndex = min(4, playerHUDIndex)
 		local hudOffsetOption = Options.HUDOffset
@@ -743,14 +752,13 @@ local function InitFunctions()
 		return not HudHelper.ShouldHideHUD()
 			and not player:IsCoopGhost()
 			and itemID ~= CollectibleType.COLLECTIBLE_NULL
-			and player:HasCollectible(itemID, true)
-			and itemConfig:GetCollectible(itemID).Type == ItemType.ITEM_ACTIVE
+			and (itemConfig:GetCollectible(itemID).Type == ItemType.ITEM_ACTIVE or itemID == CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES)
 			and player:GetActiveItem(slot) == itemID
-			and (slot <= ActiveSlot.SLOT_SECONDARY --Fine to display if you simply have the item
+			and (REPENTOGON or (slot <= ActiveSlot.SLOT_SECONDARY --Fine to display if you simply have the item
 				or (player:GetCard(0) == 0 --Otherwise, assumed to be in first slot if no cards or pills are there.
 					and player:GetPill(0) == 0
 				)
-			)
+			))
 	end
 
 	---@param slot ActiveSlot
@@ -972,7 +980,6 @@ local function InitFunctions()
 	---@param charge number
 	---@param maxCharge number
 	---@param position Vector
-	---@function
 	function HudHelper.RenderChargeBar(HUDSprite, charge, maxCharge, position)
 		if HudHelper.ShouldHideHUD() or not Options.ChargeBars then
 			return
@@ -1001,7 +1008,11 @@ local function InitFunctions()
 			end
 			local frame = floor(chargePercent * 100)
 			HUDSprite:SetFrame("Charging", frame)
-		elseif chargePercent == 0 and not HUDSprite:IsPlaying("Disappear") and not HUDSprite:IsFinished("Disappear") then
+		elseif chargePercent == 0
+			and not HUDSprite:IsPlaying("Disappear")
+			and not HUDSprite:IsFinished("Disappear")
+			and (HUDSprite:IsPlaying() or HUDSprite:GetAnimation() == "Charging")
+		then
 			HUDSprite:Play("Disappear", true)
 		end
 
@@ -1177,7 +1188,7 @@ local function InitFunctions()
 	local shadowSprite = Sprite()
 	local goldenHUDSprite = Sprite()
 	if REPENTOGON then
-		goldenHUDSprite:SetRenderFlags(AnimRenderFlags.GOLDEN)
+		goldenHUDSprite:SetRenderFlags(AnimRenderFlags.GOLDEN | AnimRenderFlags.IGNORE_GAME_TIME)
 	end
 
 	---For rendering active items or trinkets
@@ -1441,7 +1452,6 @@ local function InitFunctions()
 	---@param hudLayout HUDLayout
 	---@param hud HUDInfo_Active | HUDInfo_ActiveID
 	local function renderActiveHUDs(player, playerHUDIndex, hudLayout, pos, hud, i, isItem)
-		if REPENTOGON then return end
 		for slot = ActiveSlot.SLOT_POCKET, ActiveSlot.SLOT_PRIMARY, -1 do
 			local cornerHUD = min(4, playerHUDIndex)
 			if slot == ActiveSlot.SLOT_POCKET
@@ -1453,6 +1463,7 @@ local function InitFunctions()
 
 			local scale = 1
 			local alpha = 1
+			local isSecondTwin = HudHelper.HUDLayout.P1_OTHER_TWIN or i == 2
 
 			if hudLayout == HudHelper.HUDLayout.P1_MAIN_TWIN
 				or hudLayout == HudHelper.HUDLayout.P1_OTHER_TWIN
@@ -1471,16 +1482,17 @@ local function InitFunctions()
 				end
 				local dropTrigger = not game:IsPaused()
 					and player.ControlsEnabled
+					and player.ControlsCooldown == 0
 					and Input.IsActionPressed(ButtonAction.ACTION_DROP, player.ControllerIndex)
 				if Options.JacobEsauControls and Options.JacobEsauControls == 1 then
 					if hudLayout == HudHelper.HUDLayout.TWIN_COOP then
-						alpha = (i == 1) and 1 or 0.25
+						alpha = isSecondTwin and 0.25 or 1
 					else
-						alpha = (i == 1) and 0.25 or 1
+						alpha = isSecondTwin and 1 or 0.25
 					end
 
 					if dropTrigger then
-						alpha = i == 1 and 0.25 or 1
+						alpha = isSecondTwin and 1 or 0.25
 					end
 				elseif not Options.JacobEsauControls or Options.JacobEsauControls == 0 then
 					alpha = slot < ActiveSlot.SLOT_POCKET and 1 or 0.25
@@ -1497,11 +1509,7 @@ local function InitFunctions()
 				alpha = 0.5
 			end
 			local activePos, itemPos = HudHelper.GetActiveHUDOffset(player, playerHUDIndex, slot, scale, true)
-			local pos = HudHelper.GetHUDPosition(cornerHUD) + activePos
-			if i == 2 then
-				pos = pos + TWIN_COOP_OFFSET
-			end
-
+			pos = HudHelper.GetHUDPosition(cornerHUD) + activePos
 			local itemID = player:GetActiveItem(slot)
 
 			if isItem
@@ -1579,7 +1587,6 @@ local function InitFunctions()
 	---@param pos Vector
 	---@param hud HUDInfo_Health
 	local function renderHeartHUDs(player, playerHUDIndex, hudLayout, pos, hud, mainPlayer)
-		if REPENTOGON then return end
 		local maxColumns = HudHelper.Utils.GetMaxHeartColumns(hudLayout)
 		local alpha = HudHelper.Utils.CheckFadedHealth(player) and 0.3 or 1
 		hud.OnRender(player, playerHUDIndex, hudLayout, pos, maxColumns, alpha, mainPlayer)
@@ -1630,12 +1637,10 @@ local function InitFunctions()
 	local function renderPocketItemHUDs(player, playerHUDIndex, hudLayout, pos, hud, i, isCard, isPill)
 		local scale = 1
 		local alpha = 1
+		local isSecondTwin = hudLayout == HudHelper.HUDLayout.P1_OTHER_TWIN or i == 2
 
 		if hudLayout == HudHelper.HUDLayout.P1 and not condensedCoopHUD then
 			pos = HudHelper.GetHUDPosition(4)
-		end
-		if i == 2 then
-			pos = pos + TWIN_COOP_OFFSET
 		end
 		pos = pos + HudHelper.GetPocketHUDOffset(player)
 
@@ -1648,11 +1653,12 @@ local function InitFunctions()
 			end
 			local dropTrigger = not game:IsPaused()
 				and player.ControlsEnabled
+				and player.ControlsCooldown == 0
 				and Input.IsActionPressed(ButtonAction.ACTION_DROP, player.ControllerIndex)
 			if Options.JacobEsauControls and Options.JacobEsauControls == 1 then
-				alpha = i == 1 and 1 or 0.25
+				alpha = isSecondTwin and 0.25 or 1
 				if dropTrigger then
-					alpha = i == 1 and 0.25 or 1
+					alpha = isSecondTwin and 1 or 0.25
 				end
 			elseif not Options.JacobEsauControls or Options.JacobEsauControls == 0 then
 				alpha = 0.25
@@ -1681,7 +1687,7 @@ local function InitFunctions()
 	---@param hudLayout HUDLayout
 	---@param pos Vector
 	---@param hud HUDInfo_Trinket | HUDInfo_TrinketID
-	local function renderTrinketHUDs(player, playerHUDIndex, hudLayout, pos, hud, i, isItem)
+	local function renderTrinketHUDs(player, playerHUDIndex, hudLayout, pos, hud, isItem)
 		local cornerHUD = min(4, playerHUDIndex)
 		if hudLayout == HudHelper.HUDLayout.P1 or (hudLayout == HudHelper.HUDLayout.P1_MAIN_TWIN and not REPENTANCE_PLUS) then
 			cornerHUD = 3
@@ -1689,9 +1695,6 @@ local function InitFunctions()
 		local scale = 1
 		for slot = 0, 1 do
 			pos = HudHelper.GetHUDPosition(cornerHUD) + HudHelper.GetTrinketHUDOffset(player, slot)
-			if i == 2 then
-				pos = pos + TWIN_COOP_OFFSET
-			end
 			if hudLayout == HudHelper.HUDLayout.COOP
 				or (REPENTANCE_PLUS and hudLayout ~= HudHelper.HUDLayout.P1)
 			then
@@ -1826,10 +1829,19 @@ local function InitFunctions()
 		for playerHUDIndex, hudPlayer in pairs(HudHelper.HUDPlayers) do
 			for i, entityPtr in pairs(hudPlayer) do
 				local player = tryGetPlayerFromPtr(entityPtr)
-				if not player then goto continue end
+				if not player then goto skipPlayer end
 				local hudLayout = HudHelper.Utils.GetHUDLayout(playerHUDIndex)
 
 				for hudType, hudTable in pairs(HudHelper.HUD_ELEMENTS) do
+					if REPENTOGON
+						and (
+							hudType == HudHelper.HUDType.HEALTH
+							or hudType == HudHelper.HUDType.ACTIVE
+							or hudType == HudHelper.HUDType.ACTIVE_ID
+						)
+					then
+						goto skipHUDType
+					end
 					extraYPadding = 0
 					---Separated as these are indexed uniquely by itemIDs instead of a priority order
 					if not isItemIDType[hudType] then
@@ -1868,7 +1880,7 @@ local function InitFunctions()
 								renderPocketItemHUDs(player, playerHUDIndex, hudLayout, pos, hud, i)
 							elseif hudType == HudHelper.HUDType.TRINKET then
 								---@cast hud HUDInfo_Trinket
-								renderTrinketHUDs(player, playerHUDIndex, hudLayout, pos, hud, i, false)
+								renderTrinketHUDs(player, playerHUDIndex, hudLayout, pos, hud, false)
 							elseif hudType == HudHelper.HUDType.EXTRA then
 								pos = pos + HudHelper.GetExtraHUDOffset(playerHUDIndex)
 								---@cast hud HUDInfo_Extra
@@ -1881,7 +1893,7 @@ local function InitFunctions()
 							if not ((not player:IsCoopGhost() or hud.BypassGhostBaby)
 									and ((not hud.PreRenderCallback and not isPreCallback) or (hud.PreRenderCallback and isPreCallback))
 								) then
-								goto continue2
+								goto skipHUD
 							end
 							local pos = HudHelper.GetHUDPosition(playerHUDIndex)
 							if i == 2 then
@@ -1892,19 +1904,20 @@ local function InitFunctions()
 								renderActiveHUDs(player, playerHUDIndex, hudLayout, pos, hud, i, true)
 							elseif hudType == HudHelper.HUDType.TRINKET_ID then
 								---@cast hud HUDInfo_TrinketID
-								renderTrinketHUDs(player, playerHUDIndex, hudLayout, pos, hud, i, true)
+								renderTrinketHUDs(player, playerHUDIndex, hudLayout, pos, hud, true)
 							elseif (hudType == HudHelper.HUDType.CARD_ID or hudType == HudHelper.HUDType.PILL_ID)
 								and (not hud.Condition or hud.Condition(player, playerHUDIndex, hudLayout))
 							then
 								---@cast hud HUDInfo_CardID | HUDInfo_PillID
 								renderPocketItemHUDs(player, playerHUDIndex, hudLayout, pos, hud, i, hudType == HudHelper.HUDType.CARD_ID, hudType == HudHelper.HUDType.PILL_ID)
 							end
-							::continue2::
+							::skipHUD::
 						end
 					end
+					::skipHUDType::
 				end
 
-				::continue::
+				::skipPlayer::
 			end
 		end
 		if #HudHelper.HUD_ELEMENTS[HudHelper.HUDType.HEALTH] ~= 0 and not REPENTOGON then
@@ -1917,13 +1930,6 @@ local function InitFunctions()
 		end
 		if Options.ExtraHUDStyle > 0 then
 			--HudHelper.RenderExtraItemHUDTrinkets(isPreCallback)
-		end
-	end
-
-	-- Unregister previous callbacks
-	for callback, funcs in pairs(HudHelper.AddedCallbacks) do
-		for i = 1, #funcs do
-			HudHelper:RemoveCallback(callback, funcs[i])
 		end
 	end
 
@@ -2086,6 +2092,7 @@ local function InitFunctions()
 
 	-- Register new callbacks
 	if REPENTOGON then
+		AddCallback(ModCallbacks.MC_HUD_RENDER, preRenderHUDs)
 		AddCallback(ModCallbacks.MC_POST_HUD_RENDER, postRenderHUDs)
 		AddCallback(ModCallbacks.MC_PRE_PLAYERHUD_RENDER_ACTIVE_ITEM, preRenderActiveHUDs_REPENTOGON)
 		AddCallback(ModCallbacks.MC_POST_PLAYERHUD_RENDER_ACTIVE_ITEM, postRenderActiveHUDs_REPENTOGON)
@@ -2100,10 +2107,10 @@ local function InitFunctions()
 		end
 		AddCallback(ModCallbacks.MC_GET_SHADER_PARAMS, getShaderParams)
 		AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postModsLoaded)
+		AddCallback(ModCallbacks.MC_POST_RENDER, updateGoldenItemHUD)
+		AddPriorityCallback(ModCallbacks.MC_POST_RENDER, CallbackPriority.LATE, preRenderHUDs)
 	end
 
-	AddPriorityCallback(ModCallbacks.MC_POST_RENDER, CallbackPriority.LATE, preRenderHUDs)
-	AddCallback(ModCallbacks.MC_POST_RENDER, updateGoldenItemHUD)
 	AddCallback(ModCallbacks.MC_USE_ITEM, resetHUDPlayersOnLazBBirthrightFlip, CollectibleType.COLLECTIBLE_FLIP)
 
 	--#endregion
