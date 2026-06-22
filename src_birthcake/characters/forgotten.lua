@@ -138,15 +138,13 @@ Mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, THEFORGOTTEN_CAKE.SoulChargeFire
 ---@param ent Entity
 ---@param source EntityRef
 function THEFORGOTTEN_CAKE:EntityTakeDamage(ent, _, _, source)
-	if source
-		and source.Entity
-		and source.Entity:ToPlayer()
+	local player = source.Entity and source.Entity:ToPlayer()
+	if player
+		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_THEFORGOTTEN_B)
 		and ent:IsActiveEnemy(false)
 		and ent:IsVulnerableEnemy()
 	then
-		--Last hit gets credit for the kill
-		local player = source.Entity:ToPlayer()
-		Mod:GetData(ent).ForgottenBirthcakeCheckDeath = player
+		Mod:GetData(ent).ForgottenBirthcakeCheckDeath = EntityPtr(player)
 	end
 end
 
@@ -155,15 +153,22 @@ Mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, THEFORGOTTEN_CAKE.EntityTakeDam
 THEFORGOTTEN_CAKE.BONE_ORBITAL_CAP = 6
 
 ---@param npc EntityNPC
+local function tryGetForgor(npc)
+	local data = Mod:GetData(npc)
+	---@type EntityPtr?
+	local ptr = data.ForgottenBirthcakeCheckDeath
+	return ptr and ptr.Ref and ptr.Ref:ToPlayer() or nil
+end
+
+---@param npc EntityNPC
 function THEFORGOTTEN_CAKE:OnNPCDeath(npc)
 	if npc:HasEntityFlags(EntityFlag.FLAG_ICE) then return end
-	local data = Mod:GetData(npc)
-	local player = data.ForgottenBirthcakeCheckDeath
-
+	local player = tryGetForgor(npc)
 	if player
 		and Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_THEFORGOTTEN_B)
 	then
 		local theSoul = player:GetOtherTwin()
+		if not theSoul then return end
 		local familiar = Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BONE_SPUR, 0, npc.Position, Vector.Zero, theSoul):ToFamiliar()
 		---@cast familiar EntityFamiliar
 		Mod:GetData(familiar).ForgottenCakeBoneSpur = true
