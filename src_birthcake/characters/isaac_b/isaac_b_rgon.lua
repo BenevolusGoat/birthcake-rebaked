@@ -13,26 +13,6 @@ function ISAAC_CAKE:HasFullInventory(player)
 	end
 	return numPassives >= (player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT) and 12 or 8)
 end
-
----@param player EntityPlayer
-function ISAAC_CAKE:TryRemoveBirthcakeItems(player)
-	local player_run_save = Mod:RunSave(player)
-	local inventory = player_run_save.IsaacBBirthcakeInventory or {}
-	local expectedCap = player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID)
-	local numItems = #inventory
-
-	if expectedCap < numItems then
-		local diff = numItems - expectedCap
-		for _ = 1, diff do
-			local itemID = inventory[numItems]
-			table.remove(inventory, numItems)
-			numItems = numItems - 1
-			Mod.HiddenItemManager:Remove(player, itemID, ISAAC_CAKE.HIDDEN_ITEM_MANAGER_GROUP)
-			player:DropCollectible(itemID, nil, true)
-		end
-	end
-end
-
 ---@param player EntityPlayer
 function ISAAC_CAKE:OnCollectibleAdd(itemID, charge, firstTime, slot, varData, player)
 	if Mod:PlayerTypeHasBirthcake(player, PlayerType.PLAYER_ISAAC_B)

@@ -88,56 +88,86 @@ function ISAAC_CAKE:PrePickupCollision(pickup, collider)
 			player_run_save.IsaacBBirthcakeInventory = inventory
 		end
 		if #inventory < player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID) then
-			inventory[#inventory + 1] = pickup.SubType
-			Mod.HiddenItemManager:Add(player, pickup.SubType, -1, 1, ISAAC_CAKE.HIDDEN_ITEM_MANAGER_GROUP)
-			Mod:PricedPickup(player, pickup)
-			local itemConfig = Mod.ItemConfig:GetCollectible(pickup.SubType)
-			Mod.Game:GetHUD():ShowItemText(player, itemConfig)
+			if pickup:IsShopItem() then
+				Mod:PayPickupPrice(player, pickup)
+			end
+			player:AnimateCollectible(pickup.SubType)
+			local itemCfg = Mod.ItemConfig:GetCollectible(pickup.SubType)
+			Mod.Game:GetHUD():ShowItemText(player, itemCfg, false)
+			pickup:PlayPickupSound()
+			Mod:GetData(player).IsaacBAddItemOnQueueEnd = pickup.SubType
+			Mod:GetData(player).IsaacBAddItemOnQueueTouched = pickup.Touched
+			if REPENTOGON then
+				pickup:TryRemoveCollectible()
+			else
+				local sprite = player:GetSprite()
+				pickup.SubType = 0
+				sprite:ReplaceSpritesheet(1, "")
+				sprite:ReplaceSpritesheet(4, "")
+				sprite:LoadGraphics()
+			end
+			return true
 		end
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, ISAAC_CAKE.PrePickupCollision, PickupVariant.PICKUP_COLLECTIBLE)
+Mod:AddPriorityCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, CallbackPriority.LATE, ISAAC_CAKE.PrePickupCollision, PickupVariant.PICKUP_COLLECTIBLE)
 
 -- Difference in code is stark enough that I'm separating the files for the convenience of my own eyes
-if REPENTOGON then
+--[[ if REPENTOGON then
 	include("src_birthcake.characters.isaac_b.isaac_b_rgon")
-else
+else ]]
 	include("src_birthcake.characters.isaac_b.isaac_b")
+--end
+
+---@param player EntityPlayer
+function ISAAC_CAKE:TryRemoveBirthcakeItems(player)
+	local player_run_save = Mod:RunSave(player)
+	local inventory = player_run_save.IsaacBBirthcakeInventory or {}
+	local expectedCap = player:GetEffects():GetTrinketEffectNum(Mod.Birthcake.ID)
+	local numItems = #inventory
+
+	if expectedCap < numItems then
+		local room = game:GetRoom()
+		local diff = numItems - expectedCap
+		for _ = 1, diff do
+			local itemID = inventory[numItems]
+			table.remove(inventory, numItems)
+			numItems = numItems - 1
+			Mod.HiddenItemManager:Remove(player, itemID, ISAAC_CAKE.HIDDEN_ITEM_MANAGER_GROUP)
+			local collectible = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID,
+				room:FindFreePickupSpawnPosition(player.Position, 40, true, false), Vector.Zero, player):ToPickup()
+			---@cast collectible EntityPickup
+			collectible:Morph(collectible.Type, collectible.Variant, collectible.SubType, true, true, true)
+			collectible.Touched = true
+		end
+	end
 end
 
 ---@param player EntityPlayer
-function ISAAC_CAKE:ManageBirthrightInventoryCap(player)
-	local effects = player:GetEffects()
-	local cakeEffects = effects:GetTrinketEffectNum(Mod.Birthcake.ID)
-	if cakeEffects > 0 then
+function ISAAC_CAKE:AddCollectibleOnQueueEnd(player)
+	local data = Mod:GetData(player)
+	if data.IsaacBAddItemOnQueueEnd and player:IsExtraAnimationFinished() then
 		local player_run_save = Mod:RunSave(player)
-		if player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
-			and not player_run_save.IsaacCakeHasBirthright
-		then
-			player_run_save.IsaacCakeHasBirthright = true
-			local inventory = player_run_save.IsaacBBirthcakeInventory or {}
-			while not ISAAC_CAKE:HasFullInventory(player) and #inventory > 0 do
-				table.remove(inventory, #inventory)
-			end
-		elseif not player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
-			and player_run_save.IsaacCakeHasBirthright
-		then
-			player_run_save.IsaacCakeHasBirthright = false
+		local inventory = player_run_save.IsaacBBirthcakeInventory
+		inventory[#inventory + 1] = data.IsaacBAddItemOnQueueEnd
+		Mod.HiddenItemManager:Add(player, data.IsaacBAddItemOnQueueEnd, -1, 1, ISAAC_CAKE.HIDDEN_ITEM_MANAGER_GROUP)
+		--Trigger "first pickup" effects
+		if not data.IsaacBAddItemOnQueueTouched then
+			player:AddCollectible(data.IsaacBAddItemOnQueueEnd)
+			player:RemoveCollectible(data.IsaacBAddItemOnQueueEnd, true)
+			data.IsaacBAddItemOnQueueTouched = nil
 		end
+		data.IsaacBAddItemOnQueueEnd = nil
 	end
 end
 
-Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, ISAAC_CAKE.ManageBirthrightInventoryCap, PlayerType.PLAYER_ISAAC_B)
+Mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, ISAAC_CAKE.AddCollectibleOnQueueEnd, PlayerType.PLAYER_ISAAC_B)
 
 ---@param player EntityPlayer
 function ISAAC_CAKE:OnPlayerTypeChange(player)
 	local player_run_save = Mod:RunSave(player)
 	if player_run_save.IsaacBBirthcakeInventory then
-		for _, itemID in ipairs(player_run_save.IsaacBBirthcakeInventory) do
-			player:AddCollectible(itemID, 0, false)
-			Mod.HiddenItemManager:Remove(player, itemID, ISAAC_CAKE.HIDDEN_ITEM_MANAGER_GROUP)
-		end
 		player_run_save.IsaacBBirthcakeInventory = nil
 		player_run_save.IsaacBBirthcakeSprites = nil
 		player_run_save.IsaacCakeHasBirthright = nil

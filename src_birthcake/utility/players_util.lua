@@ -159,7 +159,8 @@ function BirthcakeRebaked:CanPlayerBuyShopItem(player, pickup)
 
 		if pickup.Price == 0
 			or pickup.Price == PickupPrice.PRICE_FREE
-			or pickup.Price > 0 and player:GetNumCoins() >= pickup.Price then
+			or pickup.Price > 0 and player:GetNumCoins() >= pickup.Price
+		then
 			return true
 		end
 	end
