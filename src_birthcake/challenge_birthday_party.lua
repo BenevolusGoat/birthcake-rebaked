@@ -1,5 +1,6 @@
 --#region Variables
 
+local floor = math.floor
 local Mod = BirthcakeRebaked
 
 local BIRTHDAY_PARTY = {}
@@ -161,7 +162,7 @@ function BIRTHDAY_PARTY:GrantSavedHealth(player)
 			local splitAmountOtherTwin = {}
 			for heartType, amount in pairs(player_run_save.BirthdayPartySavedHealth) do
 				if amount >= 2 then
-					local dividedAmount = amount * 0.5
+					local dividedAmount = floor(amount / 2)
 					--Allow uneven amounts
 					if heartType == "Red"
 						or heartType == "Soul"
